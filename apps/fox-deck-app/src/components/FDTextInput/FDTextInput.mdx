@@ -1,0 +1,45 @@
+import {Canvas, Meta, Story} from '@storybook/blocks';
+
+import * as TextInputStories from './FDTextInput.stories';
+
+<Meta of={TextInputStories}/>
+
+# TextInput
+
+## Usage
+
+A text input is an interactive element that allows the user to type text in it.
+
+## Design
+
+Text inputs should be designed to be easily identifiable and usable. This includes clear labeling, adequate size, and a
+contrasting design that stands out from the background. It's important that the user knows, when the input is focused
+or disabled.
+
+<Canvas>
+    <Story of={TextInputStories.Primary} />
+    <Story of={TextInputStories.PrimaryNotRounded} />
+    <Story of={TextInputStories.PrimaryDisabled} />
+</Canvas>
+
+Input elements have a state, which shows the user, if his input is valid or not. This will be validated after the user
+touched the input element:
+
+<Canvas>
+    <Story of={TextInputStories.PrimaryDanger} />
+    <Story of={TextInputStories.PrimarySuccess} />
+</Canvas>
+
+### Labeling
+
+The label should be clear and concise. It must clearly describe, what the users input should be.
+
+### Focused
+
+On focus the input fields label will be pushed on top the input field.
+
+## Accessibility
+
+### Keyboard Navigation
+The input should be navigable using the keyboard, by tabbing to reach and enter/space to activate.
+

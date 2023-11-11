@@ -1,0 +1,45 @@
+import {Canvas, Meta, Story} from '@storybook/blocks';
+
+import * as SideNavigation from './FDSideNavigation.stories';
+
+<Meta of={SideNavigation}/>
+
+# SideNavigation
+
+## Usage
+
+A button is an interactive element that allows the user to perform actions. There are two main types of buttons,
+each used for different purposes:
+
+### Primary
+
+The primary button is used for the main action on a page or form. This is usually the action you most expect from the
+user or the most important action available. For example, this could be "Submit", "Save", or "Continue". This button is
+often designed to be more prominent to draw the user’s attention.
+
+<Canvas>
+    <Story of={SideNavigation.Primary} />
+</Canvas>
+
+## Secondary
+
+The secondary button is used for less critical actions. It's visually less emphasized than the primary button and is
+often used for actions like "Cancel" or "Back".
+
+## Design
+
+Buttons should be designed to be easily identifiable and usable. This includes clear labeling, adequate size, and a
+contrasting design that stands out from the background. Buttons should have interactive states such as hover, focus,
+and active that provide visual feedback when interacted with.
+
+### Labeling
+
+The button's label should be clear and concise. It must clearly describe the function that the button performs.
+
+## Behavior
+
+## Accessibility
+
+### Keyboard Navigation
+Buttons should be navigable using the keyboard, by tabbing to reach and enter/space to activate.
+

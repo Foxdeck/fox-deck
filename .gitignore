@@ -1,0 +1,9 @@
+node_modules
+
+# database
+dev.db
+dev.db-journal
+migrations
+
+# storybook
+storybook-static

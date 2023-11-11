@@ -1,0 +1,28 @@
+import {Canvas, Meta, Story} from '@storybook/blocks';
+
+import * as FDQuizCardStories from './FDQuizCard.stories';
+
+<Meta of={FDQuizCardStories}/>
+
+# Cards
+
+## Usage
+
+A text input is an interactive element that allows the user to type text in it.
+
+## Design
+
+Text inputs should be designed to be easily identifiable and usable. This includes clear labeling, adequate size, and a
+contrasting design that stands out from the background. It's important that the user knows, when the input is focused
+or disabled.
+
+## QuizCard
+
+### Usage
+
+This card is used to display Questions.
+
+<Canvas>
+    <Story of={FDQuizCardStories.Primary} />
+    <Story of={FDQuizCardStories.PrimaryWithSolution} />
+</Canvas>

@@ -1,0 +1,35 @@
+import {Canvas, Meta, Story} from '@storybook/blocks';
+
+import * as FDToolbar from './FDToolbar.stories';
+
+<Meta of={FDToolbar}/>
+
+# TextInput
+
+## Usage
+
+A text input is an interactive element that allows the user to type text in it.
+
+## Design
+
+Text inputs should be designed to be easily identifiable and usable. This includes clear labeling, adequate size, and a
+contrasting design that stands out from the background. It's important that the user knows, when the input is focused
+or disabled.
+
+<Canvas>
+    <Story of={FDToolbar.Primary} />
+</Canvas>
+
+### Labeling
+
+The label should be clear and concise. It must clearly describe, what the users input should be.
+
+### Focused
+
+On focus the input fields label will be pushed on top the input field.
+
+## Accessibility
+
+### Keyboard Navigation
+The input should be navigable using the keyboard, by tabbing to reach and enter/space to activate.
+
