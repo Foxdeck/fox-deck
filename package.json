@@ -1,0 +1,20 @@
+{
+  "name": "fox-deck",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:api\" \"npm run dev:app\"",
+    "dev:api": "cd ./apps/fox-deck-api && npm run start:dev",
+    "dev:app": "cd ./apps/fox-deck-app && npm run dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dominique-boerner/fox-deck.git"
+  },
+  "author": "Dominique Börner",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dominique-boerner/fox-deck/issues"
+  },
+  "homepage": "https://github.com/dominique-boerner/fox-deck#readme"
+}
