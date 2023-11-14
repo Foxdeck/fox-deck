@@ -29,10 +29,16 @@ $ git clone https://github.com/dominique-boerner/fox-deck.git
 2. Install dependencies
 
 ```bash
-$ npm run install
+$ npm run install:deps
 ```
 
-3. Running the Application
+3. Create Prisma Client
+
+```bash
+$ cd apps/fox-deck-api && npm run prisma:generate
+```
+
+4. Running the Application
 
 ```bash
 $ npm run dev

@@ -6,7 +6,7 @@
     "dev": "concurrently \"npm run dev:api\" \"npm run dev:app\"",
     "dev:api": "cd ./apps/fox-deck-api && npm run start:dev",
     "dev:app": "cd ./apps/fox-deck-app && npm run dev",
-    "install": "concurrently \"npm run install:api\" \"npm run install:app\"",
+    "install:deps": "concurrently \"npm run install:api\" \"npm run install:app\"",
     "install:api": "cd ./apps/fox-deck-api && npm i",
     "install:app": "cd ./apps/fox-deck-app && npm i"
   },
@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/dominique-boerner/fox-deck/issues"
   },
-  "homepage": "https://github.com/dominique-boerner/fox-deck#readme"
+  "homepage": "https://github.com/dominique-boerner/fox-deck#readme",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
 }
