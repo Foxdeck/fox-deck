@@ -12,10 +12,12 @@ import {
 import { QuestionService } from './question.service';
 import { Question } from '@prisma/client';
 import { QuestionDto } from './question.dto';
+import { ApiTags } from '@nestjs/swagger';
 
 /**
  * Controller which handles CRUD operations for questions.
  */
+@ApiTags('Questions')
 @Controller()
 export class QuestionController {
   constructor(private readonly questionService: QuestionService) {}
