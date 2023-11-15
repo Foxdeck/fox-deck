@@ -1,0 +1,30 @@
+import {Canvas, Meta, Story} from '@storybook/blocks';
+
+import * as DropDownStories from './FDDropDown.stories';
+
+<Meta of={DropDownStories}/>
+
+# DropDown
+
+## Usage
+
+A DropDown is an interactive element that allows the user to select from an expandable list of items.
+
+<Canvas>
+    <Story of={DropDownStories.Default} />
+</Canvas>
+
+## Design
+
+DropDowns should be designed to be easily identifiable and usable. This includes clear labeling, adequate size, and a
+contrasting design that stands out from the background.
+
+### Labeling
+
+The label should be clear and concise. It must clearly describe the items the DropDown contains.
+
+## Accessibility
+
+### Keyboard Navigation
+The DropDown and its items should be navigable using the keyboard, by tabbing to reach and enter/space to activate.
+
