@@ -1,45 +1,36 @@
 import type { Meta, StoryObj } from "@storybook/vue3";
 import FDTextInput from "./FDTextInput.vue";
 
-const meta = {
+export default {
   title: "Inputs",
   component: FDTextInput,
-  args: { label: "E-Mail", isRounded: true, disabled: false },
+  args: { label: "E-Mail", disabled: false },
 } satisfies Meta<typeof FDTextInput>;
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export const Default: StoryObj = {};
 
-export const Primary: Story = {};
-
-export const PrimaryNotRounded: Story = {
-  args: {
-    label: "Password",
-    isRounded: false,
-    value: "Foo",
-  },
-};
-
-export const PrimaryDisabled: Story = {
+export const Disabled: StoryObj = {
   args: {
     label: "Disabled",
     disabled: true,
   },
 };
 
-export const PrimarySuccess: Story = {
+export const Success: StoryObj = {
   args: {
     value: "test@google.de",
     isValid: true,
-    isTouched: true,
+    shouldValidate: true,
+    successMessage: "E-Mail is correct",
   },
 };
 
-export const PrimaryDanger: Story = {
+export const Danger: StoryObj = {
   args: {
     value: "test@google",
     isValid: false,
-    isTouched: true,
+    shouldValidate: true,
+    icon: "mail",
     errorMessage: "Your mail is not valid. Please check your mail.",
   },
 };

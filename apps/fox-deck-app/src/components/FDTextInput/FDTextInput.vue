@@ -1,136 +1,78 @@
 <script setup lang="ts">
-import { ref } from "vue";
-
-const props = defineProps({
+defineProps({
   label: { type: String, required: false },
   value: { type: String, required: true, default: "" },
   disabled: { type: Boolean, required: false, default: false },
   errorMessage: { type: String, required: false, default: "" },
-  shouldValidate: { type: Boolean, required: false, default: true },
+  shouldValidate: { type: Boolean, required: false, default: false },
   icon: {
     type: String,
     required: false,
     default: false,
   },
-  isRounded: {
-    type: Boolean,
-    required: false,
-    default: true,
-  },
-  isValid: { type: Boolean, required: false, default: true },
-  isTouched: { type: Boolean, required: false, default: false },
+  isValid: { type: Boolean, required: false, default: false },
 });
 
-const emit = defineEmits<{
+defineEmits<{
   onInput: string;
 }>();
-
-const isTouched = ref(props.isTouched);
-const isFocused = ref(false);
-
-const onInputUpdate = (value: string) => {
-  isTouched.value = true;
-  emit("onInput", value);
-};
 </script>
 <template>
-  <label class="input-group">
-    <span
-      v-if="label"
-      class="input-label"
+  <div class="flex flex-col">
+    <label
+      class="relative bg-white flex justify-center items-center overflow-hidden rounded-md border border-gray-200 px-3 pt-3"
       :class="{
-        valid: isValid && isTouched && shouldValidate,
-        invalid: !isValid && isTouched,
-        '!-translate-y-2.5': isFocused || value.length > 0,
-        'translate-y-3': value.length === 0,
-        'text-black/60': !isFocused,
-        'text-primary-800': isFocused,
-        'translate-x-3': isRounded,
-        'bg-white': !disabled,
-        'cursor-not-allowed': disabled,
-      }"
-      >{{ label }}
-    </span>
-    <span
-      class="input-wrapper"
-      :class="{
-        valid: isValid && isTouched && shouldValidate,
-        invalid: !isValid && isTouched,
-        focused: isFocused,
-        'rounded-full': isRounded,
-        disabled: disabled,
+        'bg-gray-50 cursor-not-allowed': disabled,
+        '!border-success-normal': shouldValidate && isValid,
+        '!border-danger-normal': shouldValidate && !isValid,
       }"
     >
       <input
-        type="text"
-        class="input"
-        :class="{
-          'pl-4': isRounded,
-          'cursor-not-allowed': disabled,
-        }"
-        :value="value"
+        type="email"
+        placeholder="Email"
+        class="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent text-sm outline-none disabled:cursor-not-allowed"
         :disabled="disabled"
-        @focusin="isFocused = true"
-        @focusout="isFocused = false"
-        @input="onInputUpdate($event.target.value)"
+        :value="value"
+        @input="$emit('onInput', $event.target.value)"
       />
-      <vue-feather v-if="icon" class="mr-2 w-5" :type="icon" />
-      <vue-feather
-        v-if="!isValid && isTouched"
-        class="mr-2"
-        type="alert-triangle"
-      />
-    </span>
+      <span class="flex gap-2">
+        <vue-feather
+          v-if="icon"
+          class="mb-2"
+          size="18"
+          :type="icon"
+          :class="{
+            'text-danger-normal': shouldValidate && !isValid,
+          }"
+        />
+        <vue-feather
+          v-if="shouldValidate && !icon && !isValid"
+          class="mb-2 text-danger-normal"
+          size="18"
+          type="alert-circle"
+        />
+        <vue-feather
+          v-if="shouldValidate && !icon && isValid"
+          class="mb-2 text-success-darker"
+          size="18"
+          type="check"
+        />
+      </span>
+      <span
+        class="absolute flex justify-center items-center gap-1 start-3 top-3 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-3 peer-focus:text-xs"
+        :class="{
+          '!text-gray-500': disabled,
+          '!text-danger-normal': shouldValidate && !isValid,
+        }"
+      >
+        {{ label }}
+      </span>
+    </label>
     <span
-      v-if="!isValid && isTouched"
-      class="h-auto w-56 max-w-full text-danger-normal text-xs mx-1"
-      >{{ errorMessage }}</span
+      v-if="shouldValidate && !isValid"
+      class="ml-2 inline-block text-danger-normal text-xs"
     >
-  </label>
+      {{ errorMessage }}
+    </span>
+  </div>
 </template>
-
-<style scoped lang="scss">
-.input-group {
-  @apply flex flex-col;
-
-  .input-label {
-    @apply absolute text-sm rounded-sm px-2 translate-x-1 transition ease-in-out font-gabarito;
-
-    &.focused {
-      @apply text-primary-800;
-    }
-
-    &.valid {
-      @apply text-success-darker;
-    }
-
-    &.invalid {
-      @apply text-danger-normal;
-    }
-  }
-
-  .input-wrapper {
-    @apply flex items-center border-2 rounded-full bg-white/90;
-
-    &.focused {
-      @apply border-primary-800;
-    }
-
-    &.valid {
-      @apply border-success-darker text-success-darker;
-    }
-
-    &.invalid {
-      @apply border-danger-normal text-danger-normal;
-    }
-
-    &.disabled {
-      @apply bg-gray-100;
-    }
-  }
-
-  .input {
-    @apply outline-none p-2 border-none bg-transparent font-gabarito text-sm;
-  }
-}
-</style>
