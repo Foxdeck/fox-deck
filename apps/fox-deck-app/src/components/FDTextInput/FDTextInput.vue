@@ -2,6 +2,7 @@
 defineProps({
   label: { type: String, required: false },
   value: { type: String, required: true, default: "" },
+  type: { type: String, required: false, default: "text" },
   disabled: { type: Boolean, required: false, default: false },
   errorMessage: { type: String, required: false, default: "" },
   shouldValidate: { type: Boolean, required: false, default: false },
@@ -28,11 +29,11 @@ defineEmits<{
       }"
     >
       <input
-        type="email"
         placeholder="Email"
         class="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent text-sm outline-none disabled:cursor-not-allowed"
         :disabled="disabled"
         :value="value"
+        :type="type"
         @input="$emit('onInput', $event.target.value)"
       />
       <span class="flex gap-2">
