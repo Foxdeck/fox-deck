@@ -1,0 +1,46 @@
+<script setup lang="ts">
+import type { PropType } from "vue";
+
+type FontType = "h1" | "h2" | "h3" | "p" | "pxs";
+const props = defineProps({
+  type: { type: Object as PropType<FontType>, required: false, default: "p" },
+});
+
+function getAriaRole(): string {
+  if (props.type === "h1" || props.type === "h2" || props.type === "h3") {
+    return "heading";
+  }
+
+  return;
+}
+
+function getAriaLevel(): number {
+  const ariaLevels = {
+    h1: 1,
+    h2: 2,
+    h3: 3,
+    h4: 4,
+    h5: 5,
+    h6: 6,
+  };
+
+  return ariaLevels[props.type];
+}
+</script>
+
+<template>
+  <span
+    class="font-poppins"
+    :role="getAriaRole()"
+    :aria-level="getAriaLevel()"
+    :class="{
+      'text-5xl 3xl:text-6xl': type === 'h1',
+      'text-4xl': type === 'h2',
+      'text-3xl': type === 'h3',
+      'text-md 3xl:text-base': type === 'p',
+      'text-xs 3xl:text-sm': type === 'pxs',
+    }"
+  >
+    <slot />
+  </span>
+</template>
