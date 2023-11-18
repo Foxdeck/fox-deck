@@ -19,12 +19,15 @@ defineProps({
 </script>
 <template>
   <button
-    class="flex gap-2 justify-center border-2 border-transparent items-center px-4 py-2 rounded-md text-sm font-gabarito ring-primary-300/50 text-white bg-primary-500 hover:opacity-80 active:bg-grey-900 focus:outline-none border-white focus:ring-2 transition-all"
+    class="flex gap-2 justify-center border-2 border-primary-500 items-center px-4 py-2 rounded-md text-sm font-gabarito ring-primary-300/50 text-white bg-primary-500 hover:opacity-80 active:bg-grey-900 focus:outline-none focus:ring-2 transition-all"
     :class="{
-      '!bg-danger-normal': type === 'primary' && severity === 'danger',
-      '!bg-success-normal': type === 'primary' && severity === 'success',
-      '!bg-warn-normal': type === 'primary' && severity === 'warn',
-      '!bg-transparent': type === 'secondary',
+      '!bg-danger-normal !border-danger-normal':
+        type === 'primary' && severity === 'danger',
+      '!bg-success-normal !border-success-normal':
+        type === 'primary' && severity === 'success',
+      '!bg-warn-normal !border-warn-normal':
+        type === 'primary' && severity === 'warn',
+      '!bg-transparent !border-danger-normal': type === 'secondary',
       '!border-primary-500 !text-primary-500':
         type === 'secondary' && severity === 'primary',
       '!border-danger-normal !text-danger-normal':
