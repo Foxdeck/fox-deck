@@ -25,7 +25,7 @@ export class UserController {
 
   @HttpCode(HttpStatus.OK)
   @Post('login')
-  async getUser(@Body() body: UserDto): Promise<LoginResponse> {
+  async getUser(@Body() body: any): Promise<LoginResponse> {
     try {
       return await this.userService.getUser(body);
     } catch (e) {
