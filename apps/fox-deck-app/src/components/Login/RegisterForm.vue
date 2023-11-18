@@ -13,24 +13,27 @@ defineEmits<{
     e: "onSubmit",
     value: {
       email: string;
+      username: string;
       password: string;
     }
   );
 }>();
 
 const email = ref();
+const username = ref();
 const password = ref();
+const passwordRepeat = ref();
 </script>
 <template>
   <form
     class="flex flex-col col-span-1 gap-4 min-w-[400px] px-10 py-14 3xl:px-16 3xl:py-20 3xl:gap-6"
-    @submit.prevent="$emit('onSubmit', { email, password })"
+    @submit.prevent="$emit('onSubmit', { email, password, username })"
   >
-    <FDTypography type="h1" class="pb-6">Anmelden</FDTypography>
+    <FDTypography type="h1" class="pb-6">Registrieren</FDTypography>
     <FDTypography type="pxs" class="text-sm">
-      Neuer Nutzer?
-      <RouterLink to="register" class="text-primary-500 underline">
-        Account erstellen
+      Schon einen Account?
+      <RouterLink to="login" class="text-primary-500 underline">
+        Jetzt Anmelden
       </RouterLink>
     </FDTypography>
     <FDTextInput
@@ -40,14 +43,25 @@ const password = ref();
       @onInput="email = $event"
     />
     <FDTextInput
-      label="Password"
+      label="Benutzername"
+      :value="username"
+      @onInput="username = $event"
+    />
+    <FDTextInput
+      label="Passwort"
       type="password"
       :value="password"
       @onInput="password = $event"
     />
+    <FDTextInput
+      label="Passwort Wiederholen"
+      type="password"
+      :value="passwordRepeat"
+      @onInput="passwordRepeat = $event"
+    />
     <FDTypography v-if="hasError" type="pxs" class="text-danger-normal w-80">
-      Login fehlgeschlagen! Bitte prüfen Sie Ihre E-Mail und Ihr Passwort.
+      Registrierung fehlgeschlagen!
     </FDTypography>
-    <FDButton class="flex-1" label="Anmelden" />
+    <FDButton class="flex-1" label="Registrieren" />
   </form>
 </template>

@@ -41,10 +41,11 @@ export class UserController {
   @Post('register')
   async createUser(@Body() body: UserDto): Promise<User> {
     try {
-      const { email, password } = body;
+      const { email, password, username } = body;
       return await this.userService.createUser({
         email,
         password,
+        username,
       });
     } catch (e) {
       const errorName = e.constructor.name;

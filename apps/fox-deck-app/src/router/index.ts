@@ -9,6 +9,7 @@ import HomeView from "@/views/HomeView.vue";
 import QuestionsView from "@/views/QuestionsView.vue";
 import LoginView from "@/views/LoginView.vue";
 import { useAuthStore } from "@/stores/auth.store";
+import RegisterView from "@/views/RegisterView.vue";
 
 export const routes: Route[] = [
   {
@@ -47,6 +48,12 @@ export const routes: Route[] = [
     component: LoginView,
     isVisibleInNavigation: false,
   },
+  {
+    path: "/register",
+    name: "register",
+    component: RegisterView,
+    isVisibleInNavigation: false,
+  },
 ];
 
 type Route = RouteRecordRaw & {
@@ -70,14 +77,21 @@ router.beforeEach(
     next: Function
   ) => {
     const authService = useAuthStore();
+    const publicPaths = ["login", "register"];
 
     // prevent navigation for unauthenticated users
-    if (!authService.isAuthenticated() && to.name !== "login") {
+    if (
+      !authService.isAuthenticated() &&
+      !publicPaths.includes(to.name as string)
+    ) {
       next("/login");
     }
 
     // prevent navigation to login page to prevent users from re-login
-    if (authService.isAuthenticated() && to.name === "login") {
+    if (
+      authService.isAuthenticated() &&
+      publicPaths.includes(to.name as string)
+    ) {
       next(from.path);
     }
 

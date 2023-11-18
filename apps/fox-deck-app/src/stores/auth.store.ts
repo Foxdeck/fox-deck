@@ -1,7 +1,6 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
 import axios from "axios";
-import qs from "qs";
 
 /**
  * Store which contains the quiz of the current active questionnaire.
@@ -36,6 +35,35 @@ export const useAuthStore = defineStore("authStore", () => {
   };
 
   /**
+   * Register the user
+   * @param email {string} the email of the user
+   * @param username {string} the username of the user
+   * @param password {string} the password of the user
+   * @return if the user is authenticated
+   */
+  const register = async (
+    email: string,
+    username: string,
+    password: string
+  ): Promise<boolean> => {
+    try {
+      await axios.post(
+        "http://localhost:3000/register",
+        { email, password, username },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      return true;
+    } catch (e) {
+      return false;
+    }
+  };
+
+  /**
    * Returns if the user is currently logged in.
    */
   const isAuthenticated = (): boolean => {
@@ -48,6 +76,7 @@ export const useAuthStore = defineStore("authStore", () => {
   return {
     jwt: jwt,
     login: login,
+    register: register,
     isAuthenticated: isAuthenticated,
   };
 });
