@@ -3,11 +3,13 @@ import {
   InternalServerErrorException,
   Logger,
 } from '@nestjs/common';
-import { PrismaService } from '../../shared/services/prisma.service';
 import { Prisma, User } from '@prisma/client';
+import { JwtService } from '@nestjs/jwt';
+import { PrismaService } from '../../shared/services/prisma.service';
 import { PasswordService } from '../../shared/services/password.service';
-import { UserDto } from './user.dto';
 import { InvalidLoginException } from './invalid-login.exception';
+import { UserDto } from './user.dto';
+import { LoginResponse } from './user.types';
 
 @Injectable()
 export class UserService {
@@ -16,11 +18,12 @@ export class UserService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly passwordService: PasswordService,
+    private readonly jwtService: JwtService,
   ) {}
 
   // TODO: what happens if the user forgot his password / username?
 
-  async getUser(user: UserDto): Promise<User> {
+  async getUser(user: UserDto): Promise<LoginResponse> {
     try {
       // TODO: login via email or username
       const { email, password } = user;
@@ -32,13 +35,17 @@ export class UserService {
       const found = await this.prisma.user.findFirst(userFindArgs);
 
       const areCorrectLoginCredentials =
-        !found ||
-        !(await this.passwordService.compare(password, found.password));
-      if (areCorrectLoginCredentials) {
+        found && (await this.passwordService.compare(password, found.password));
+      if (!areCorrectLoginCredentials) {
         throw new InvalidLoginException();
       }
 
-      return found;
+      return {
+        access_token: await this.jwtService.signAsync({
+          id: found.id,
+          email: found.email,
+        }),
+      };
     } catch (e) {
       if (e instanceof InvalidLoginException) {
         throw e;
