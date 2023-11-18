@@ -1,11 +1,14 @@
 import {
   createRouter,
   createWebHistory,
+  type RouteLocationNormalized,
   type RouteRecordRaw,
 } from "vue-router";
 import QuestionnaireView from "../views/QuestionnaireView.vue";
 import HomeView from "@/views/HomeView.vue";
 import QuestionsView from "@/views/QuestionsView.vue";
+import LoginView from "@/views/LoginView.vue";
+import { useAuthStore } from "@/stores/auth.store";
 
 export const routes: Route[] = [
   {
@@ -38,6 +41,12 @@ export const routes: Route[] = [
     icon: "file",
     label: "Lerneinheiten",
   },
+  {
+    path: "/login",
+    name: "login",
+    component: LoginView,
+    isVisibleInNavigation: false,
+  },
 ];
 
 type Route = RouteRecordRaw & {
@@ -50,5 +59,30 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,
 });
+
+/**
+ * Route guards
+ */
+router.beforeEach(
+  async (
+    to: RouteLocationNormalized,
+    from: RouteLocationNormalized,
+    next: Function
+  ) => {
+    const authService = useAuthStore();
+
+    // prevent navigation for unauthenticated users
+    if (!authService.isAuthenticated() && to.name !== "login") {
+      next("/login");
+    }
+
+    // prevent navigation to login page to prevent users from re-login
+    if (authService.isAuthenticated() && to.name === "login") {
+      next(from.path);
+    }
+
+    return next();
+  }
+);
 
 export default router;

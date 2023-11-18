@@ -1,6 +1,9 @@
 <script setup>
 import FDSideNavigation from "@/components/FDSideNavigation/FDSideNavigation.vue";
 import { ref } from "vue";
+import { useAuthStore } from "@/stores/auth.store";
+
+const authStore = useAuthStore();
 
 const isSettingsHovered = ref(false);
 const nav = ref();
@@ -8,12 +11,13 @@ const nav = ref();
 
 <template>
   <main class="flex w-screen h-screen bg-[#f2f2f2]">
-    <FDSideNavigation ref="nav" />
+    <FDSideNavigation v-if="authStore.isAuthenticated()" ref="nav" />
 
     <div class="overflow-y-scroll w-full">
       <RouterView v-slot="{ Component }">
         <div class="flex flex-col">
           <div
+            v-if="authStore.isAuthenticated()"
             class="flex border-b border-gray-300 justify-between items-center py-4 px-6"
           >
             <span class="font-bold font-gabarito text-4xl">Hallo! 👋</span>
