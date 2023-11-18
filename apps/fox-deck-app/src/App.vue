@@ -20,7 +20,9 @@ const nav = ref();
             v-if="authStore.isAuthenticated()"
             class="flex border-b border-gray-300 justify-between items-center py-4 px-6"
           >
-            <span class="font-bold font-gabarito text-4xl">Hallo! 👋</span>
+            <span class="font-bold font-gabarito text-4xl"
+              >Hallo, {{ authStore.getCurrentUser()?.username }}! 👋</span
+            >
             <RouterLink
               class="bg-white p-3 rounded-md shadow-xl cursor-pointer hover:opacity-70"
               to=""

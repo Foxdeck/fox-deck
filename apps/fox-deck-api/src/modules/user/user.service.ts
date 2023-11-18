@@ -44,6 +44,7 @@ export class UserService {
         access_token: await this.jwtService.signAsync({
           id: found.id,
           email: found.email,
+          username: found.username,
         }),
       };
     } catch (e) {

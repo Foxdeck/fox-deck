@@ -1,12 +1,24 @@
 import { defineStore } from "pinia";
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import axios from "axios";
+// @ts-ignore
+import VueJwtDecode from "vue-jwt-decode";
 
 /**
  * Store which contains the quiz of the current active questionnaire.
  */
 export const useAuthStore = defineStore("authStore", () => {
+  const LS_KEY_JWT = "authKey";
+
   const jwt = ref<string>();
+
+  onMounted(() => {
+    // TODO: this should only happens, if "keep me logged in" was selected
+    const localJwtKey = localStorage.getItem(LS_KEY_JWT);
+    if (localJwtKey) {
+      jwt.value = localJwtKey;
+    }
+  });
 
   /**
    * Login the user
@@ -27,6 +39,11 @@ export const useAuthStore = defineStore("authStore", () => {
       );
 
       jwt.value = await res.data?.access_token;
+
+      // TODO: this should only happens, if "keep me logged in" was selected
+      if (jwt.value) {
+        localStorage.setItem(LS_KEY_JWT, jwt.value);
+      }
 
       return isAuthenticated();
     } catch (e) {
@@ -63,6 +80,12 @@ export const useAuthStore = defineStore("authStore", () => {
     }
   };
 
+  const getCurrentUser = (): any => {
+    if (isAuthenticated()) {
+      return VueJwtDecode.decode(jwt.value);
+    }
+  };
+
   /**
    * Returns if the user is currently logged in.
    */
@@ -78,5 +101,6 @@ export const useAuthStore = defineStore("authStore", () => {
     login: login,
     register: register,
     isAuthenticated: isAuthenticated,
+    getCurrentUser: getCurrentUser,
   };
 });
