@@ -7,9 +7,10 @@ import {
 import QuestionnaireView from "../views/QuestionnaireView.vue";
 import HomeView from "@/views/HomeView.vue";
 import QuestionsView from "@/views/QuestionsView.vue";
-import LoginView from "@/views/LoginView.vue";
+import LoginView from "@/modules/login/LoginView.vue";
 import { useAuthStore } from "@/stores/auth.store";
-import RegisterView from "@/views/RegisterView.vue";
+import RegisterView from "@/modules/login/RegisterView.vue";
+import { loginRoutes } from "@/modules/login/routes";
 
 export const routes: Route[] = [
   {
@@ -42,18 +43,7 @@ export const routes: Route[] = [
     icon: "file",
     label: "Lerneinheiten",
   },
-  {
-    path: "/login",
-    name: "login",
-    component: LoginView,
-    isVisibleInNavigation: false,
-  },
-  {
-    path: "/register",
-    name: "register",
-    component: RegisterView,
-    isVisibleInNavigation: false,
-  },
+  ...loginRoutes,
 ];
 
 type Route = RouteRecordRaw & {

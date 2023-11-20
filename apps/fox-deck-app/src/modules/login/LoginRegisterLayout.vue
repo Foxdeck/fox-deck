@@ -1,30 +1,7 @@
 <script setup lang="ts">
 import Logo from "@/assets/icons/foxdeck-logo.svg";
+import LoginForm from "@/modules/login/components/LoginForm.vue";
 import FDTypography from "@/components/FDTypography/FDTypography.vue";
-import { useAuthStore } from "@/stores/auth.store";
-import { useRouter } from "vue-router";
-import { ref } from "vue";
-import RegisterForm from "@/components/Login/RegisterForm.vue";
-
-const router = useRouter();
-const authService = useAuthStore();
-
-const hasRegisterError = ref();
-
-async function onRegisterSubmit({ email, password, username }) {
-  const isRegisterSuccessful = await authService.register(
-    email,
-    password,
-    username
-  );
-  if (!isRegisterSuccessful) {
-    hasRegisterError.value = true;
-  }
-
-  await router.push({
-    name: "login",
-  });
-}
 </script>
 <template>
   <div class="flex justify-center items-center h-screen w-screen">
@@ -48,17 +25,7 @@ async function onRegisterSubmit({ email, password, username }) {
         </FDTypography>
       </div>
       <div class="bg-white z-50 rounded-sm shadow-xl overflow-hidden">
-        <RegisterForm
-          :has-error="hasRegisterError"
-          @onSubmit="
-            (e) =>
-              onRegisterSubmit({
-                email: e.email,
-                password: e.password,
-                username: e.username,
-              })
-          "
-        />
+        <slot name="form" />
       </div>
     </div>
   </div>

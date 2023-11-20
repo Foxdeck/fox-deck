@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import FDButton from "@/components/FDButton/FDButton.vue";
-import FDTypography from "@/components/FDTypography/FDTypography.vue";
-import FDTextInput from "@/components/FDTextInput/FDTextInput.vue";
+import FDButton from "../../../components/FDButton/FDButton.vue";
+import FDTypography from "../../../components/FDTypography/FDTypography.vue";
+import FDTextInput from "../../../components/FDTextInput/FDTextInput.vue";
 import { ref } from "vue";
 
 defineProps({
