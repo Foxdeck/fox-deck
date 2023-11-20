@@ -3,8 +3,9 @@ import Logo from "@/assets/icons/foxdeck-logo.svg";
 import { routes } from "@/router";
 import anime from "animejs/lib/anime.es.js";
 import { ref, watch } from "vue";
+import { useAuthStore } from "@/stores/auth.store";
 
-const props = defineProps({});
+const authStore = useAuthStore();
 
 const isCollapsed = ref(true);
 const nav = ref<HTMLElement>();
@@ -27,6 +28,7 @@ watch(isCollapsed, () => {
 </script>
 <template>
   <aside
+    v-if="authStore.isAuthenticated()"
     ref="nav"
     class="flex flex-col justify-between bg-gray-950 h-screen py-2"
   >

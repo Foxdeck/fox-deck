@@ -1,69 +1,18 @@
-<script setup>
+<script setup lang="ts">
 import FDSideNavigation from "@/components/FDSideNavigation/FDSideNavigation.vue";
-import { ref } from "vue";
-import { useAuthStore } from "@/stores/auth.store";
-import FDNotification from "@/components/FDNotification/FDNotification.vue";
-import { useNotificationStore } from "@/stores/notification.store";
-
-const authStore = useAuthStore();
-const notificationStore = useNotificationStore();
-
-const isSettingsHovered = ref(false);
-const nav = ref();
+import FDHorizontalMenu from "@/components/FDHorizontalMenu/FDHorizontalMenu.vue";
+import NotificationLayout from "@/components/Layouts/NotificationLayout.vue";
+import RouterLayout from "@/components/Layouts/RouterLayout.vue";
 </script>
 
 <template>
   <main class="flex w-screen h-screen bg-[#f2f2f2]">
-    <FDSideNavigation v-if="authStore.isAuthenticated()" ref="nav" />
+    <FDSideNavigation />
 
     <div class="overflow-y-scroll w-full">
-      <RouterView v-slot="{ Component }">
-        <div class="flex flex-col">
-          <div
-            v-if="authStore.isAuthenticated()"
-            class="flex border-b border-gray-300 justify-between items-center py-4 px-6"
-          >
-            <span class="font-bold font-gabarito text-4xl"
-              >Hallo, {{ authStore.getCurrentUser()?.username }}! 👋</span
-            >
-            <RouterLink
-              class="bg-white p-3 rounded-md shadow-xl cursor-pointer hover:opacity-70"
-              to=""
-              @mouseover="isSettingsHovered = true"
-              @mouseleave="isSettingsHovered = false"
-            >
-              <vue-feather
-                type="settings"
-                :animation="isSettingsHovered ? 'spin' : ''"
-                animation-speed="slow"
-              ></vue-feather>
-            </RouterLink>
-          </div>
-          <Transition name="fade" mode="out-in">
-            <Component :is="Component" />
-          </Transition>
-        </div>
-      </RouterView>
-      <div class="flex flex-col fixed bottom-4 right-4 gap-2">
-        <FDNotification
-          v-for="item of notificationStore.notifications"
-          :title="item.title"
-          :text="item.text"
-          :severity="item.severity"
-        />
-      </div>
+      <FDHorizontalMenu />
+      <RouterLayout />
+      <NotificationLayout />
     </div>
   </main>
 </template>
-
-<style scoped>
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-</style>

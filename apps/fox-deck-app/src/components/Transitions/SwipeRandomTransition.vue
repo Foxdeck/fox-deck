@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import {MathUtil} from "@/util/math.util";
-import anime from 'animejs/lib/anime.es.js';
+import { MathUtil } from "@/util/math.util";
+import anime from "animejs/lib/anime.es.js";
 
 function leaveAnimation(element: HTMLElement, done: any) {
   const randomRotation = MathUtil.random(-10, 10);
@@ -12,7 +12,7 @@ function leaveAnimation(element: HTMLElement, done: any) {
     duration: 300,
     easing: "easeInOutSine",
     complete: done,
-  })
+  });
 }
 
 function enterAnimation(element: HTMLElement, done: any) {
@@ -32,14 +32,16 @@ function enterAnimation(element: HTMLElement, done: any) {
     duration: 1000,
     easing: "easeInOutSine",
     complete: done,
-  })
+  });
 }
 </script>
 <template>
-  <TransitionGroup name="swipe-random"
-                   :css="false"
-                   @enter="enterAnimation"
-                   @leave="leaveAnimation">
-    <slot/>
+  <TransitionGroup
+    name="swipe-random"
+    :css="false"
+    @enter="enterAnimation"
+    @leave="leaveAnimation"
+  >
+    <slot />
   </TransitionGroup>
 </template>

@@ -3,7 +3,7 @@ import { useQuestionnaireStore } from "@/stores/questionnaire.store";
 import RepeatQuestionnaireCard from "@/components/RepeatQuestionnaireCard.vue";
 import { onMounted } from "vue";
 import { useRoute } from "vue-router";
-import SwipeRandomTransition from "@/components/SwipeRandomTransition.vue";
+import SwipeRandomTransition from "@/components/Transitions/SwipeRandomTransition.vue";
 import FDQuizCard from "@/components/FDQuizCard/FDQuizCard.vue";
 import FDButton from "@/components/FDButton/FDButton.vue";
 
