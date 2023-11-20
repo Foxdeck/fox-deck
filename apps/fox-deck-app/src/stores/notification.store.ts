@@ -11,31 +11,10 @@ type Notification = {
 };
 
 /**
- * Store which contains the quiz of the current active questionnaire.
+ * Store the notifications.
  */
 export const useNotificationStore = defineStore("notificationStore", () => {
-  const notifications = ref<Notification[]>([
-    {
-      title: "Foo2",
-      text: "Foo",
-      severity: "danger",
-    },
-    {
-      title: "Foo2",
-      text: "Foo",
-      severity: "primary",
-    },
-    {
-      title: "Foo2",
-      text: "Foo",
-      severity: "success",
-    },
-    {
-      title: "Foo2",
-      text: "Foo",
-      severity: "warn",
-    },
-  ]);
+  const notifications = ref<Notification[]>([]);
 
   const addNotification = (notification: Notification) => {
     notifications.value.push(notification);

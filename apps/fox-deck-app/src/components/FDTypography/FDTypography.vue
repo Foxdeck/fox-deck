@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { PropType } from "vue";
 
-type FontType = "h1" | "h2" | "h3" | "p" | "pxs";
+type FontType = "h1" | "h2" | "h3" | "p" | "pxs" | "psm";
 const props = defineProps({
   type: { type: Object as PropType<FontType>, required: false, default: "p" },
 });
@@ -38,6 +38,7 @@ function getAriaLevel(): number {
       'text-4xl': type === 'h2',
       'text-3xl': type === 'h3',
       'text-md 3xl:text-base': type === 'p',
+      'text-sm 3xl:text-md': type === 'psm',
       'text-xs 3xl:text-sm': type === 'pxs',
     }"
   >

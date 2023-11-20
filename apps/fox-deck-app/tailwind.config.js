@@ -21,8 +21,10 @@ module.exports = {
           950: "#000000",
         },
         danger: {
+          darker: "#991b1b",
           normal: "#E02630",
           lighter: "#FA959B",
+          light: "#ffdbdc",
         },
         warn: {
           normal: "#FF7F00",

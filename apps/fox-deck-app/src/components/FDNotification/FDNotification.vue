@@ -3,7 +3,7 @@ import FDTypography from "@/components/FDTypography/FDTypography.vue";
 import type { PropType } from "vue";
 import type { Severity } from "@/components/severity.types";
 
-const props = defineProps({
+defineProps({
   severity: {
     type: Object as PropType<Severity>,
     required: false,
@@ -22,27 +22,47 @@ const props = defineProps({
 });
 </script>
 <template>
-  <aside
-    class="bg-white border-l-4 flex justify-between p-4 shadow-2xl w-[500px] rounded-md"
+  <div
+    role="alert"
+    class="rounded border-s-4 p-4 max-w-[500px]"
     :class="{
-      'border-primary-500': props.severity === 'primary',
-      'border-warn-normal': props.severity === 'warn',
-      'border-danger-normal': props.severity === 'danger',
-      'border-success-darker': props.severity === 'success',
+      'border-primary-500': severity === 'primary',
+      'border-success-darker bg-success-light': severity === 'success',
+      'border-warn-normal': severity === 'warn',
+      'border-danger-normal bg-danger-light': severity === 'danger',
     }"
   >
-    <div class="flex flex-col">
-      <FDTypography v-if="title" class="font-bold">
+    <div
+      class="flex items-center gap-2"
+      :class="{
+        'text-primary-500': severity === 'primary',
+        'text-success-darker': severity === 'success',
+        'text-warn-darker': severity === 'warn',
+        'text-danger-darker': severity === 'danger',
+      }"
+    >
+      <vue-feather
+        v-if="severity === 'danger' || severity === 'warn'"
+        type="alert-triangle"
+        size="20"
+      />
+      <vue-feather v-if="severity === 'success'" type="check" size="20" />
+      <FDTypography>
         {{ title }}
       </FDTypography>
-      <FDTypography v-if="text">
-        {{ text }}
-      </FDTypography>
     </div>
-    <vue-feather
-      class="inline-flex h-fit p-2 justify-center items-center bg-danger-normal/20 rounded-md text-danger-normal cursor-pointer transition ease-in-out hover:contrast-200"
-      type="x"
-      size="30"
-    />
-  </aside>
+
+    <FDTypography
+      type="psm"
+      class="mt-2"
+      :class="{
+        'text-primary-500': severity === 'primary',
+        'text-success-darker': severity === 'success',
+        'text-warn-darker': severity === 'warn',
+        'text-danger-darker': severity === 'danger',
+      }"
+    >
+      {{ text }}
+    </FDTypography>
+  </div>
 </template>
