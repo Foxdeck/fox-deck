@@ -3,8 +3,10 @@ import FDSideNavigation from "@/components/FDSideNavigation/FDSideNavigation.vue
 import { ref } from "vue";
 import { useAuthStore } from "@/stores/auth.store";
 import FDNotification from "@/components/FDNotification/FDNotification.vue";
+import { useNotificationStore } from "@/stores/notification.store";
 
 const authStore = useAuthStore();
+const notificationStore = useNotificationStore();
 
 const isSettingsHovered = ref(false);
 const nav = ref();
@@ -42,7 +44,14 @@ const nav = ref();
           </Transition>
         </div>
       </RouterView>
-      <FDNotification v-for="item of []" />
+      <div class="flex flex-col fixed bottom-4 right-4 gap-2">
+        <FDNotification
+          v-for="item of notificationStore.notifications"
+          :title="item.title"
+          :text="item.text"
+          :severity="item.severity"
+        />
+      </div>
     </div>
   </main>
 </template>

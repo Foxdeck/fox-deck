@@ -3,7 +3,7 @@ import FDTypography from "@/components/FDTypography/FDTypography.vue";
 import type { PropType } from "vue";
 import type { Severity } from "@/components/severity.types";
 
-defineProps({
+const props = defineProps({
   severity: {
     type: Object as PropType<Severity>,
     required: false,
@@ -23,7 +23,13 @@ defineProps({
 </script>
 <template>
   <aside
-    class="fixed bottom-4 right-4 bg-white border-l-4 border-danger-normal flex p-4 gap-2 m-4 shadow-2xl w-[500px]"
+    class="bg-white border-l-4 flex justify-between p-4 shadow-2xl w-[500px] rounded-md"
+    :class="{
+      'border-primary-500': props.severity === 'primary',
+      'border-warn-normal': props.severity === 'warn',
+      'border-danger-normal': props.severity === 'danger',
+      'border-success-darker': props.severity === 'success',
+    }"
   >
     <div class="flex flex-col">
       <FDTypography v-if="title" class="font-bold">
