@@ -7,13 +7,13 @@ defineProps({
   severity: {
     type: Object as PropType<Severity>,
     required: false,
-    default: "primary",
+    default: "primary" satisfies Severity,
   },
   label: { type: String, required: false },
   type: {
     type: Object as PropType<"primary" | "secondary">,
     required: false,
-    default: "primary",
+    default: "primary" satisfies "primary" | "secondary",
   },
 });
 </script>

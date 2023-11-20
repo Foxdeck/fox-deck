@@ -2,6 +2,7 @@
 import FDSideNavigation from "@/components/FDSideNavigation/FDSideNavigation.vue";
 import { ref } from "vue";
 import { useAuthStore } from "@/stores/auth.store";
+import FDNotification from "@/components/FDNotification/FDNotification.vue";
 
 const authStore = useAuthStore();
 
@@ -41,6 +42,7 @@ const nav = ref();
           </Transition>
         </div>
       </RouterView>
+      <FDNotification v-for="item of []" />
     </div>
   </main>
 </template>
