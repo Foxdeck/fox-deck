@@ -4,53 +4,24 @@ import {
   type RouteLocationNormalized,
   type RouteRecordRaw,
 } from "vue-router";
-import QuestionnaireView from "../views/QuestionnaireView.vue";
-import HomeView from "@/views/HomeView.vue";
-import QuestionsView from "@/views/QuestionsView.vue";
-import LoginView from "@/modules/login/LoginView.vue";
-import { useAuthStore } from "@/stores/auth.store";
-import RegisterView from "@/modules/login/RegisterView.vue";
+import { useAuthStore } from "@/core/stores/auth.store";
 import { loginRoutes } from "@/modules/login/routes";
+import { homeRoutes } from "@/modules/home/routes";
+import { quizRoutes } from "@/modules/quiz/routes";
+import { questionRoutes } from "@/modules/questions/routes";
 
-export const routes: Route[] = [
-  {
-    path: "/",
-    name: "home",
-    component: HomeView,
-    isVisibleInNavigation: true,
-    icon: "home",
-    label: "Home",
-  },
-  {
-    path: "/questionnaire/:id",
-    name: "questionnaire",
-    component: QuestionnaireView,
-    isVisibleInNavigation: false,
-  },
-  {
-    path: "/questions",
-    name: "questions",
-    component: QuestionsView,
-    isVisibleInNavigation: true,
-    icon: "book",
-    label: "Fragen",
-  },
-  {
-    path: "/questionnaires",
-    name: "questionnaires",
-    component: QuestionsView,
-    isVisibleInNavigation: true,
-    icon: "file",
-    label: "Lerneinheiten",
-  },
-  ...loginRoutes,
-];
-
-type Route = RouteRecordRaw & {
+export type Route = RouteRecordRaw & {
   readonly isVisibleInNavigation: boolean;
   readonly label?: string;
   readonly icon?: string;
 };
+
+export const routes: Route[] = [
+  ...loginRoutes,
+  ...homeRoutes,
+  ...quizRoutes,
+  ...questionRoutes,
+];
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

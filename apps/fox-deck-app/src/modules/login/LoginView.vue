@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import LoginForm from "@/components/LoginForm.vue";
-import { useAuthStore } from "@/stores/auth.store";
+import LoginForm from "@/modules/login/components/LoginForm.vue";
+import { useAuthStore } from "@/core/stores/auth.store";
 import LoginRegisterLayout from "@/modules/login/LoginRegisterLayout.vue";
 
 const router = useRouter();

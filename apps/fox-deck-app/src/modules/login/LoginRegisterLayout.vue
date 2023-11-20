@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import Logo from "@/assets/icons/foxdeck-logo.svg";
-import LoginForm from "@/modules/login/components/LoginForm.vue";
-import FDTypography from "@/components/FDTypography/FDTypography.vue";
+import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
 </script>
 <template>
   <div class="flex justify-center items-center h-screen w-screen">

@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import FDSideNavigation from "@/components/FDSideNavigation/FDSideNavigation.vue";
-import FDHorizontalMenu from "@/components/FDHorizontalMenu/FDHorizontalMenu.vue";
-import NotificationLayout from "@/components/Layouts/NotificationLayout.vue";
-import RouterLayout from "@/components/Layouts/RouterLayout.vue";
+import FDSideNavigation from "@/core/components/FDSideNavigation/FDSideNavigation.vue";
+import FDHorizontalMenu from "@/core/components/FDHorizontalMenu/FDHorizontalMenu.vue";
+import NotificationLayout from "@/core/components/Layouts/NotificationLayout.vue";
+import RouterLayout from "@/core/components/Layouts/RouterLayout.vue";
 </script>
 
 <template>
