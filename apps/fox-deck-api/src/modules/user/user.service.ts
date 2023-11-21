@@ -2,14 +2,14 @@ import {
   Injectable,
   InternalServerErrorException,
   Logger,
-} from '@nestjs/common';
-import { Prisma, User } from '@prisma/client';
-import { JwtService } from '@nestjs/jwt';
-import { PrismaService } from '../../shared/services/prisma.service';
-import { PasswordService } from '../../shared/services/password.service';
-import { InvalidLoginException } from './invalid-login.exception';
-import { UserDto } from './user.dto';
-import { LoginResponse } from './user.types';
+} from "@nestjs/common";
+import { Prisma, User } from "@prisma/client";
+import { JwtService } from "@nestjs/jwt";
+import { PrismaService } from "../../shared/services/prisma.service";
+import { PasswordService } from "../../shared/services/password.service";
+import { InvalidLoginException } from "./invalid-login.exception";
+import { UserDto } from "./user.dto";
+import { LoginResponse } from "./user.types";
 
 @Injectable()
 export class UserService {
@@ -51,7 +51,7 @@ export class UserService {
       if (e instanceof InvalidLoginException) {
         throw e;
       }
-      throw new InternalServerErrorException('Error while logging in');
+      throw new InternalServerErrorException("Error while logging in");
     }
   }
 

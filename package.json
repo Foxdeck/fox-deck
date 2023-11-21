@@ -8,7 +8,8 @@
     "dev:app": "cd ./apps/fox-deck-app && npm run dev",
     "install:deps": "concurrently \"npm run install:api\" \"npm run install:app\"",
     "install:api": "cd ./apps/fox-deck-api && npm i",
-    "install:app": "cd ./apps/fox-deck-app && npm i"
+    "install:app": "cd ./apps/fox-deck-app && npm i",
+    "format": "npx prettier . --write"
   },
   "repository": {
     "type": "git",
@@ -21,6 +22,8 @@
   },
   "homepage": "https://github.com/dominique-boerner/fox-deck#readme",
   "devDependencies": {
-    "concurrently": "^8.2.2"
+    "concurrently": "^8.2.2",
+    "prettier": "^3.1.0",
+    "prettier-plugin-tailwindcss": "^0.5.7"
   }
 }

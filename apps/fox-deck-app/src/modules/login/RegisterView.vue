@@ -14,7 +14,7 @@ async function onRegisterSubmit({ email, password, username }) {
   const isRegisterSuccessful = await authService.register(
     email,
     password,
-    username
+    username,
   );
   if (!isRegisterSuccessful) {
     hasRegisterError.value = true;

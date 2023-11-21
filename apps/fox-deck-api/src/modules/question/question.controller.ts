@@ -8,23 +8,23 @@ import {
   Param,
   Post,
   Put,
-} from '@nestjs/common';
-import { QuestionService } from './question.service';
-import { Question } from '@prisma/client';
-import { QuestionDto } from './question.dto';
-import { ApiTags } from '@nestjs/swagger';
+} from "@nestjs/common";
+import { QuestionService } from "./question.service";
+import { Question } from "@prisma/client";
+import { QuestionDto } from "./question.dto";
+import { ApiTags } from "@nestjs/swagger";
 
 /**
  * Controller which handles CRUD operations for questions.
  */
-@ApiTags('Questions')
+@ApiTags("Questions")
 @Controller()
 export class QuestionController {
   constructor(private readonly questionService: QuestionService) {}
 
   @HttpCode(HttpStatus.OK)
-  @Get('question/:id')
-  async getQuestionById(@Param('id') id: string): Promise<Question> {
+  @Get("question/:id")
+  async getQuestionById(@Param("id") id: string): Promise<Question> {
     try {
       return await this.questionService.question({ id: String(id) });
     } catch (e) {
@@ -33,7 +33,7 @@ export class QuestionController {
   }
 
   @HttpCode(HttpStatus.OK)
-  @Get('question')
+  @Get("question")
   async getQuestions(): Promise<Question[]> {
     try {
       return await this.questionService.questions({});
@@ -43,7 +43,7 @@ export class QuestionController {
   }
 
   @HttpCode(HttpStatus.CREATED)
-  @Post('question')
+  @Post("question")
   async createQuestion(@Body() data: QuestionDto): Promise<Question> {
     try {
       return this.questionService.createQuestion(data);
@@ -53,9 +53,9 @@ export class QuestionController {
   }
 
   @HttpCode(HttpStatus.OK)
-  @Put('question/:id')
+  @Put("question/:id")
   async updateQuestion(
-    @Param('id') id: string,
+    @Param("id") id: string,
     @Body() data: QuestionDto,
   ): Promise<Question> {
     try {

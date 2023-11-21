@@ -5,18 +5,18 @@ import {
   HttpStatus,
   Logger,
   Post,
-} from '@nestjs/common';
-import { User } from '@prisma/client';
-import { UserService } from './user.service';
-import { UserDto } from './user.dto';
-import { InvalidLoginException } from './invalid-login.exception';
-import { ApiTags } from '@nestjs/swagger';
-import { LoginResponse } from './user.types';
+} from "@nestjs/common";
+import { User } from "@prisma/client";
+import { UserService } from "./user.service";
+import { UserDto } from "./user.dto";
+import { InvalidLoginException } from "./invalid-login.exception";
+import { ApiTags } from "@nestjs/swagger";
+import { LoginResponse } from "./user.types";
 
 /**
  * Controller which handles CRUD operations for users.
  */
-@ApiTags('Users')
+@ApiTags("Users")
 @Controller()
 export class UserController {
   logger = new Logger(UserController.name);
@@ -24,7 +24,7 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @HttpCode(HttpStatus.OK)
-  @Post('login')
+  @Post("login")
   async getUser(@Body() body: any): Promise<LoginResponse> {
     try {
       return await this.userService.getUser(body);
@@ -38,7 +38,7 @@ export class UserController {
   }
 
   @HttpCode(HttpStatus.OK)
-  @Post('register')
+  @Post("register")
   async createUser(@Body() body: UserDto): Promise<User> {
     try {
       const { email, password, username } = body;

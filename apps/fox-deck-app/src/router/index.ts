@@ -35,7 +35,7 @@ router.beforeEach(
   async (
     to: RouteLocationNormalized,
     from: RouteLocationNormalized,
-    next: Function
+    next: Function,
   ) => {
     const authService = useAuthStore();
     const publicPaths = ["login", "register"];
@@ -57,7 +57,7 @@ router.beforeEach(
     }
 
     return next();
-  }
+  },
 );
 
 export default router;

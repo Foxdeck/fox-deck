@@ -1,13 +1,13 @@
-import type { Config } from 'jest';
+import type { Config } from "jest";
 
 const config: Config = {
   verbose: true,
-  moduleFileExtensions: ['js', 'json', 'ts'],
-  rootDir: '.',
-  testEnvironment: 'node',
-  testRegex: '.e2e-spec.ts$',
+  moduleFileExtensions: ["js", "json", "ts"],
+  rootDir: ".",
+  testEnvironment: "node",
+  testRegex: ".e2e-spec.ts$",
   transform: {
-    '^.+\\.(t|j)s$': 'ts-jest',
+    "^.+\\.(t|j)s$": "ts-jest",
   },
 };
 

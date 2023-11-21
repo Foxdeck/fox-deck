@@ -34,7 +34,7 @@ export const useQuestionnaireStore = defineStore("questionnaireStore", () => {
    */
   const nextQuestion = async (
     competence: QuestionCompetence,
-    question: Question
+    question: Question,
   ): Promise<void> => {
     const updatedQuestion = question;
     updatedQuestion.metrics.timesAnswered++;
@@ -52,7 +52,7 @@ export const useQuestionnaireStore = defineStore("questionnaireStore", () => {
     }
 
     console.debug(
-      "[QuestionnaireStore] (nextQuestion) => update question in database"
+      "[QuestionnaireStore] (nextQuestion) => update question in database",
     );
     await axios(`http://localhost:3000/questions/${question.id}`, {
       method: "PATCH",
@@ -63,7 +63,7 @@ export const useQuestionnaireStore = defineStore("questionnaireStore", () => {
     });
 
     console.debug(
-      "[QuestionnaireStore] (nextQuestion) => remove first question from questions"
+      "[QuestionnaireStore] (nextQuestion) => remove first question from questions",
     );
     questions.value.pop();
   };
@@ -89,7 +89,7 @@ export const useQuestionnaireStore = defineStore("questionnaireStore", () => {
    */
   const setQuestions = (q: Questions): void => {
     console.debug(
-      `[QuestionnaireStore] (updateQuestions) => update questions in state`
+      `[QuestionnaireStore] (updateQuestions) => update questions in state`,
     );
     initialQuestions.value = [...q];
     questions.value = [...q];

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
-import Button from "@/core/components/Button.vue";
 import axios from "axios";
 import type { Questionnaires } from "@/types/questionnaire.types";
 import FDButton from "@/core/components/FDButton/FDButton.vue";
@@ -8,7 +7,7 @@ import FDButton from "@/core/components/FDButton/FDButton.vue";
 let initialItems: Questionnaires = [];
 onMounted(async () => {
   const questionnaireResponse = await axios(
-    "http://localhost:3000/questionnaires"
+    "http://localhost:3000/questionnaires",
   );
   if (questionnaireResponse.status !== 200) {
     // TODO: better error handling!
@@ -34,7 +33,7 @@ function onFocusOut() {
 
 function onInput(searchString: string) {
   items.value = initialItems.filter((item) =>
-    item.title.toLowerCase().includes(searchString.toLowerCase())
+    item.title.toLowerCase().includes(searchString.toLowerCase()),
   );
 }
 

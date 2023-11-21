@@ -14,7 +14,7 @@ defineEmits<{
     value: {
       email: string;
       password: string;
-    }
+    },
   );
 }>();
 

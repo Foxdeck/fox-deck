@@ -1,8 +1,8 @@
-import {Canvas, Meta, Story} from '@storybook/blocks';
+import { Canvas, Meta, Story } from "@storybook/blocks";
 
-import * as TextInputStories from './FDTextInput.stories';
+import * as TextInputStories from "./FDTextInput.stories";
 
-<Meta of={TextInputStories}/>
+<Meta of={TextInputStories} />
 
 # TextInput
 
@@ -17,16 +17,16 @@ contrasting design that stands out from the background. It's important that the 
 or disabled.
 
 <Canvas>
-    <Story of={TextInputStories.Default} />
-    <Story of={TextInputStories.Disabled} />
+  <Story of={TextInputStories.Default} />
+  <Story of={TextInputStories.Disabled} />
 </Canvas>
 
 Input elements have a state, which shows the user, if his input is valid or not. This will be validated after the user
 touched the input element:
 
 <Canvas>
-    <Story of={TextInputStories.Danger} />
-    <Story of={TextInputStories.Success} />
+  <Story of={TextInputStories.Danger} />
+  <Story of={TextInputStories.Success} />
 </Canvas>
 
 ### Labeling
@@ -40,5 +40,5 @@ On focus the input fields label will be pushed on top the input field.
 ## Accessibility
 
 ### Keyboard Navigation
-The input should be navigable using the keyboard, by tabbing to reach and enter/space to activate.
 
+The input should be navigable using the keyboard, by tabbing to reach and enter/space to activate.

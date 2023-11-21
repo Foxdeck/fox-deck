@@ -35,7 +35,7 @@ export const useAuthStore = defineStore("authStore", () => {
           headers: {
             "Content-Type": "application/json",
           },
-        }
+        },
       );
 
       jwt.value = await res.data?.access_token;
@@ -61,7 +61,7 @@ export const useAuthStore = defineStore("authStore", () => {
   const register = async (
     email: string,
     username: string,
-    password: string
+    password: string,
   ): Promise<boolean> => {
     try {
       await axios.post(
@@ -71,7 +71,7 @@ export const useAuthStore = defineStore("authStore", () => {
           headers: {
             "Content-Type": "application/json",
           },
-        }
+        },
       );
 
       return true;

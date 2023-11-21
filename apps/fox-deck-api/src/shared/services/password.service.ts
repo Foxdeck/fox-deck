@@ -1,6 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable } from "@nestjs/common";
 
-const bcrypt = require('bcrypt');
+const bcrypt = require("bcrypt");
 
 /**
  * Services which handles password generation and validation.

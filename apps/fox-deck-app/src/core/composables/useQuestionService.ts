@@ -13,7 +13,7 @@ export function useQuestionService() {
    */
   const fetchQuestionsByIds = async (ids: string[]): Promise<Questions> => {
     console.debug(
-      `[QuestionService] (fetchQuestionsByIds) => fetch questions with ids '${ids}' from backend.`
+      `[QuestionService] (fetchQuestionsByIds) => fetch questions with ids '${ids}' from backend.`,
     );
     const response = await axios(`http://localhost:3000/questions`, {
       params: {
@@ -24,7 +24,7 @@ export function useQuestionService() {
 
     if (response.status !== 200) {
       console.debug(
-        `[QuestionService] (fetchQuestionsByIds) => error while fetching questions: ${response.statusText}`
+        `[QuestionService] (fetchQuestionsByIds) => error while fetching questions: ${response.statusText}`,
       );
       throw new Error("Question not found");
     }
@@ -37,7 +37,7 @@ export function useQuestionService() {
 
     if (response.status !== 200) {
       console.debug(
-        `[QuestionService] (fetchAllQuestions) => error while fetching questions: ${response.statusText}`
+        `[QuestionService] (fetchAllQuestions) => error while fetching questions: ${response.statusText}`,
       );
       throw new Error(response.statusText);
     }
