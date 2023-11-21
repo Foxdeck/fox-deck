@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { PropType } from "vue";
-import type { DropdownItem } from "@/core/components/FDDropDown/FDDropDown.types";
+import type { FDDropdownItem } from "@/core/components/FDDropDown/FDDropDown.types";
 
 defineProps({
-  items: { type: Object as PropType<DropdownItem[]>, default: [] },
-  selectedItem: { type: Object as PropType<DropdownItem>, default: null },
+  items: { type: Object as PropType<FDDropdownItem[]>, default: [] },
+  selectedItem: { type: Object as PropType<FDDropdownItem>, default: null },
   isOpen: { type: Boolean, default: false },
 });
 </script>

@@ -1,16 +1,19 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 import type { Questions } from "@/types/question.types";
-import { useQuestionService } from "@/core/composables/useQuestionService";
 import ContentLayout from "@/core/components/Layouts/ContentLayout.vue";
 import FDGrid from "@/core/components/FDGrid/FDGrid.vue";
 import FDButton from "@/core/components/FDButton/FDButton.vue";
 import FDEditableText from "@/core/components/FDEditableText.vue";
+import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
+import FDRadioGroup from "@/core/components/FDRadioGroup/FDRadioGroup.vue";
+import QuestionService from "@/modules/questions/question.service";
+import { useQuestionsStore } from "@/modules/questions/questions.store";
 
-const questionService = useQuestionService();
+const questionsStore = useQuestionsStore();
 
 onMounted(async () => {
-  items.value = await questionService.fetchAllQuestions();
+  items.value = await QuestionService.fetchQuestions();
 });
 
 const items = ref<Questions>([]);
@@ -19,13 +22,20 @@ const items = ref<Questions>([]);
 <template>
   <ContentLayout>
     <div class="flex flex-col p-10 h-full gap-4">
-      <h1 class="text-7xl font-serif font-bold text-primary-950">Fragen</h1>
-      <span class="text-2xl mt-2 leading-10">
+      <FDTypography type="h1">Fragen</FDTypography>
+      <FDTypography type="p" class="leading-10">
         Hier kannst du deine Fragen erstellen, welche du später zu verschiedenen
-        Lerneinheiten hinzufügen kannst.
-      </span>
+        Lerneinheiten hinzufügen kannst. Du kannst auch spannende Fragen aus der
+        Community entdecken und, wenn sie dir zusagen, ganz einfach zu deinen
+        Inhalten hinzufügen.
+      </FDTypography>
     </div>
     <div class="flex flex-col gap-2 mx-10">
+      <FDRadioGroup
+        name="visibilityOption"
+        :items="QuestionService.visibilityItems"
+        :selected-item-id="questionsStore.filtering.selectedVisibilityId"
+      />
       <FDGrid
         v-for="item of items"
         class="relative shadow-md p-8 bg-white rounded-md w-full"

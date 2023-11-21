@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/vue3";
 import FDDropDown from "@/core/components/FDDropDown/FDDropDown.vue";
-import type { DropdownItem } from "@/core/components/FDDropDown/FDDropDown.types";
+import type { FDDropdownItem } from "@/core/components/FDDropDown/FDDropDown.types";
 
-const items: DropdownItem[] = [
+const items: FDDropdownItem[] = [
   {
     id: "de",
     label: "Deutsch",
@@ -18,7 +18,7 @@ const items: DropdownItem[] = [
 export default {
   title: "DropDown",
   component: FDDropDown,
-  args: { items, selectedItem: items[0], isOpen: false },
+  args: { items, selectedItemId: items[0], isOpen: false },
 } satisfies Meta<typeof FDDropDown>;
 
 export const Default: StoryObj = {};
