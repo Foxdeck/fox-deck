@@ -12,7 +12,7 @@ defineProps({
 });
 </script>
 <template>
-  <FDGrid class="relative shadow-md p-8 bg-white border-b w-full">
+  <FDGrid class="relative shadow-sm p-8 bg-white border-b w-full">
     <div class="flex flex-col col-span-9 gap-4">
       <FDTypography class="font-bold" v-if="!isEditMode">
         »{{ question }}«

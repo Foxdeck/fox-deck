@@ -9,6 +9,7 @@ import { FDRadioGroupItems } from "@/core/components/FDRadioGroup/FDRadioGroup.t
 import FDDropDown from "@/core/components/FDDropDown/FDDropDown.vue";
 import { FDDropdownItem } from "@/core/components/FDDropDown/FDDropDown.types";
 import FDTextInput from "@/core/components/FDTextInput/FDTextInput.vue";
+import ListGroupTransition from "@/core/components/Transitions/ListGroupTransition.vue";
 
 const questionsStore = useQuestionsStore();
 
@@ -45,7 +46,7 @@ const categoryItems: FDDropdownItem[] = [
 
 <template>
   <ContentLayout>
-    <div class="flex flex-col h-full gap-4">
+    <div class="flex flex-col h-full gap-8">
       <FDTypography type="h1">Fragen</FDTypography>
       <FDTypography type="p" class="leading-10">
         Hier kannst du eigene Fragen erstellen, welche du später zu
@@ -55,7 +56,12 @@ const categoryItems: FDDropdownItem[] = [
       </FDTypography>
     </div>
 
-    <FDTextInput label="Suchen" value="" icon="search" />
+    <FDTextInput
+      label="Suchen"
+      value=""
+      icon="search"
+      @onInput="questionsStore.searchQuestion($event)"
+    />
     <div class="flex flex-row gap-6">
       <div class="flex flex-col gap-2 bg-white h-fit p-4 rounded-md shadow-sm">
         <div class="flex gap-2">
@@ -74,13 +80,35 @@ const categoryItems: FDDropdownItem[] = [
         <FDDropDown :items="categoryItems" :selected-item="categoryItems[0]" />
       </div>
       <div class="flex flex-col w-full">
-        <QuestionCard
-          v-for="item in questionsStore.questions"
-          :question="item.question"
-          :solution="item.solution"
-          :is-public="item.isPublic"
-          author="LearningFox"
-        />
+        <div v-if="questionsStore.hasQuestions()">
+          <ListGroupTransition>
+            <QuestionCard
+              v-for="item in questionsStore.questions"
+              :question="item.question"
+              :solution="item.solution"
+              :is-public="item.isPublic"
+              author="LearningFox"
+            />
+          </ListGroupTransition>
+        </div>
+        <div
+          v-else
+          class="flex flex-col gap-2 justify-center items-center h-full"
+        >
+          <FDTypography class="font-bold !text-8xl">?</FDTypography>
+          <FDTypography class="font-bold">Keine Fragen gefunden</FDTypography>
+          <FDTypography type="psm" class="max-w-lg text-center leading-7">
+            Zu deinen Suchkriterien konnte keine Frage gefunden werden. Versuche
+            doch, eine eigene Frage zu erstellen und teile Sie mit der
+            Community!
+          </FDTypography>
+          <FDButton
+            class="mt-2"
+            type="secondary"
+            icon="chevron-right"
+            label="Frage erstellen"
+          />
+        </div>
       </div>
     </div>
   </ContentLayout>

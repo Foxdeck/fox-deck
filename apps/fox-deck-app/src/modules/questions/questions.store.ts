@@ -16,8 +16,25 @@ export const useQuestionsStore = defineStore("questionsStore", () => {
     selectedVisibilityId: "private",
   });
 
-  const addQuestion = async () => {
-    questions.value = [...questions.value];
+  /**
+   * Search for questions via back-end call.
+   * @param search {string} the searchstring, for search to work it must not be empty.
+   */
+  const searchQuestion = async (search: string): Promise<void> => {
+    try {
+      if (search.trim().length === 0) {
+        await fetchQuestions();
+        return;
+      }
+      const response = await api.get(`search/question/${search}`);
+      questions.value = response.data;
+    } catch (e) {
+      notificationStore.addNotification({
+        title: "Fehler beim Suchen der Fragen",
+        text: "Bitte aktualisieren Sie die Seite oder versuchen Sie es später noch einmal.",
+        severity: "danger",
+      });
+    }
   };
 
   /**
@@ -36,6 +53,10 @@ export const useQuestionsStore = defineStore("questionsStore", () => {
     }
   };
 
+  const hasQuestions = () => {
+    return questions.value.length > 0;
+  };
+
   /**
    * Public API
    */
@@ -43,6 +64,7 @@ export const useQuestionsStore = defineStore("questionsStore", () => {
     filtering: filtering,
     questions: questions,
     fetchQuestions: fetchQuestions,
-    addQuestion: addQuestion,
+    searchQuestion: searchQuestion,
+    hasQuestions: hasQuestions,
   };
 });
