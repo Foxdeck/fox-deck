@@ -31,8 +31,8 @@ module.exports = {
           darker: "#572B00",
         },
         success: {
-          normal: "#7DC742",
-          darker: "#468226",
+          normal: "#0a8d56",
+          darker: "#165239",
         },
       },
       fontFamily: {

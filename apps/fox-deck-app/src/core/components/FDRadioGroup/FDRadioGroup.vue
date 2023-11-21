@@ -16,7 +16,7 @@ defineProps({
 });
 </script>
 <template>
-  <fieldset class="grid grid-cols-2 gap-4">
+  <fieldset class="flex flex-col gap-2">
     <div v-for="item of items">
       <input
         type="radio"

@@ -40,6 +40,6 @@ defineProps({
     }"
   >
     <vue-feather v-if="icon" :type="icon" size="18" />
-    <FDTypography type="psm">{{ label }}</FDTypography>
+    <FDTypography v-if="label" type="psm">{{ label }}</FDTypography>
   </button>
 </template>

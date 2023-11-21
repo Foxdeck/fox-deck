@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { PropType } from "vue";
 
-type FontType = "title" | "h1" | "h2" | "h3" | "p" | "pxs" | "psm";
+export type FontType = "title" | "h1" | "h2" | "h3" | "p" | "pxs" | "psm";
 const props = defineProps({
   type: { type: Object as PropType<FontType>, required: false, default: "p" },
 });
