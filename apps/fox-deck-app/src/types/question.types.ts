@@ -3,25 +3,14 @@
  */
 export type Question = {
   id: string;
+  authorId: string;
   question: string;
   solution: string;
-  metrics: QuestionMetrics;
-};
-
-/**
- * How good the question can be answered
- */
-type QuestionCompetence = {
+  isPublic: boolean;
   notGoodAt: number;
   average: number;
   goodAt: number;
-};
-
-/**
- * Metrics of the question.
- */
-export type QuestionMetrics = QuestionCompetence & {
-  timesAnswered: number;
+  lastAnswered: any;
 };
 
 /**

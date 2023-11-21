@@ -3,12 +3,12 @@ import { onMounted, ref } from "vue";
 import type { Questions } from "@/types/question.types";
 import ContentLayout from "@/core/components/Layouts/ContentLayout.vue";
 import FDGrid from "@/core/components/FDGrid/FDGrid.vue";
-import FDButton from "@/core/components/FDButton/FDButton.vue";
 import FDEditableText from "@/core/components/FDEditableText.vue";
 import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
 import FDRadioGroup from "@/core/components/FDRadioGroup/FDRadioGroup.vue";
 import QuestionService from "@/modules/questions/question.service";
 import { useQuestionsStore } from "@/modules/questions/questions.store";
+import FDSwitch from "@/core/components/FDSwitch/FDSwitch.vue";
 
 const questionsStore = useQuestionsStore();
 
@@ -65,16 +65,12 @@ const items = ref<Questions>([]);
           </div>
         </div>
         <div class="col-span-3">
-          <div class="absolute top-0 right-0 flex flex-col gap-2">
-            Public <input type="radio" />
-            <FDButton
-              type="secondary"
-              icon="trash"
-              class="rounded-none border-none"
-              severity="danger"
-            />
+          <div class="absolute top-0 right-0 flex flex-col gap-2 p-4">
+            <FDSwitch :checked="item.isPublic" />
           </div>
-          <span class="text-xs text-right block italic">@JohnDoe</span>
+          <span class="text-xs text-right block italic">
+            {{ item.authorId }}
+          </span>
         </div>
       </FDGrid>
     </div>
