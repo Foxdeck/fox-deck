@@ -9,6 +9,7 @@ import FDRadioGroup from "@/core/components/FDRadioGroup/FDRadioGroup.vue";
 import QuestionService from "@/modules/questions/question.service";
 import { useQuestionsStore } from "@/modules/questions/questions.store";
 import FDSwitch from "@/core/components/FDSwitch/FDSwitch.vue";
+import FDButton from "@/core/components/FDButton/FDButton.vue";
 
 const questionsStore = useQuestionsStore();
 
@@ -36,6 +37,7 @@ const items = ref<Questions>([]);
         :items="QuestionService.visibilityItems"
         :selected-item-id="questionsStore.filtering.selectedVisibilityId"
       />
+      <FDButton label="Frage Hinzufügen" icon="plus" class="w-fit" />
       <FDGrid
         v-for="item of items"
         class="relative shadow-md p-8 bg-white rounded-md w-full"

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { Severity } from "@/core/components/severity.types";
 import type { PropType } from "vue";
+import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
 
 defineProps({
   icon: { type: String, required: false },
@@ -19,7 +20,7 @@ defineProps({
 </script>
 <template>
   <button
-    class="flex gap-2 justify-center border-2 border-primary-500 items-center px-4 py-2 rounded-md text-sm font-gabarito ring-primary-300/50 text-white bg-primary-500 hover:opacity-80 active:bg-grey-900 focus:outline-none focus:ring-2 transition-all"
+    class="flex gap-2 justify-center border-2 border-primary-500 items-center px-5 py-4 rounded-md font-gabarito ring-primary-300/50 text-white bg-primary-500 hover:opacity-80 active:bg-grey-900 focus:outline-none focus:ring-2 transition-all"
     :class="{
       '!bg-danger-normal !border-danger-normal':
         type === 'primary' && severity === 'danger',
@@ -38,7 +39,7 @@ defineProps({
         type === 'secondary' && severity === 'warn',
     }"
   >
-    <vue-feather v-if="icon" :type="icon" size="16" />
-    <span>{{ label }}</span>
+    <vue-feather v-if="icon" :type="icon" size="18" />
+    <FDTypography type="psm">{{ label }}</FDTypography>
   </button>
 </template>
