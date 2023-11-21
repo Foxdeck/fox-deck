@@ -42,6 +42,22 @@ export class QuestionController {
     }
   }
 
+  @HttpCode(HttpStatus.OK)
+  @Get("search/question/:search")
+  async getQuestionsByText(
+    @Param("search") search: string,
+  ): Promise<Question[]> {
+    try {
+      return await this.questionService.questions({
+        where: {
+          question: { contains: search },
+        },
+      });
+    } catch (e) {
+      throw new InternalServerErrorException(e);
+    }
+  }
+
   @HttpCode(HttpStatus.CREATED)
   @Post("question")
   async createQuestion(@Body() data: QuestionDto): Promise<Question> {
