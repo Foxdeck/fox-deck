@@ -2,27 +2,23 @@
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import RegisterForm from "@/modules/login/components/RegisterForm.vue";
-import { useAuthStore } from "@/core/stores/auth.store";
 import LoginRegisterLayout from "@/modules/login/LoginRegisterLayout.vue";
+import { api } from "@/core/services";
 
 const router = useRouter();
-const authService = useAuthStore();
 
 const hasRegisterError = ref();
 
 async function onRegisterSubmit({ email, password, username }) {
-  const isRegisterSuccessful = await authService.register(
-    email,
-    password,
-    username,
-  );
-  if (!isRegisterSuccessful) {
+  try {
+    await api.register.userControllerCreateUser({ email, password, username });
+    await router.push({
+      name: "login",
+    });
+  } catch (e) {
     hasRegisterError.value = true;
+    return;
   }
-
-  await router.push({
-    name: "login",
-  });
 }
 </script>
 <template>

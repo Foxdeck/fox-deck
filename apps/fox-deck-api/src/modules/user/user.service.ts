@@ -8,8 +8,7 @@ import { JwtService } from "@nestjs/jwt";
 import { PrismaService } from "../../shared/services/prisma.service";
 import { PasswordService } from "../../shared/services/password.service";
 import { InvalidLoginException } from "./invalid-login.exception";
-import { UserDto } from "./user.dto";
-import { LoginResponse } from "./user.types";
+import { LoginRequestDto, LoginResponseDto } from "./user.dto";
 
 @Injectable()
 export class UserService {
@@ -23,7 +22,7 @@ export class UserService {
 
   // TODO: what happens if the user forgot his password / username?
 
-  async getUser(user: UserDto): Promise<LoginResponse> {
+  async getUser(user: LoginRequestDto): Promise<LoginResponseDto> {
     try {
       // TODO: login via email or username
       const { email, password } = user;
@@ -40,13 +39,13 @@ export class UserService {
         throw new InvalidLoginException();
       }
 
-      return {
-        access_token: await this.jwtService.signAsync({
-          id: found.id,
-          email: found.email,
-          username: found.username,
-        }),
-      };
+      const loginResponse = new LoginResponseDto();
+      loginResponse.accessToken = await this.jwtService.signAsync({
+        id: found.id,
+        email: found.email,
+        username: found.username,
+      });
+      return loginResponse;
     } catch (e) {
       if (e instanceof InvalidLoginException) {
         throw e;

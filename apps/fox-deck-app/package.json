@@ -10,7 +10,8 @@
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "generate:api": "npx swagger-typescript-api -p ./../fox-deck-api/swagger-spec.json -o ./src/core/services/ -n api.ts"
   },
   "dependencies": {
     "@vueuse/core": "^10.6.1",

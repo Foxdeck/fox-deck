@@ -1,12 +1,11 @@
 import { defineStore } from "pinia";
 import { useStorage } from "@vueuse/core";
 
-type Theme = "light" | "dark";
-
 /**
  * Store for saving theme information of the user.
  */
 export const useThemeStore = defineStore("themeStore", () => {
+  type Theme = "light" | "dark";
   const selectedTheme = useStorage<Theme>("theme", "light");
 
   /**

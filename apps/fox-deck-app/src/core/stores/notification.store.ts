@@ -1,7 +1,5 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
-// @ts-ignore
-import VueJwtDecode from "vue-jwt-decode";
 import type { Severity } from "@/core/components/severity.types";
 
 type Notification = {
@@ -11,11 +9,16 @@ type Notification = {
 };
 
 /**
- * Store the notifications.
+ * Store the notifications. These notifications are shown to the user on a specific spot, to show
+ * information, failures or success messages.
  */
 export const useNotificationStore = defineStore("notificationStore", () => {
   const notifications = ref<Notification[]>([]);
 
+  /**
+   * Adds a notification which is shown to the user.
+   * @param notification {Notification} the notification to add.
+   */
   const addNotification = (notification: Notification) => {
     notifications.value.push(notification);
   };

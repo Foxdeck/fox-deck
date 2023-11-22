@@ -8,10 +8,18 @@ import {
 } from "@nestjs/common";
 import { User } from "@prisma/client";
 import { UserService } from "./user.service";
-import { UserDto } from "./user.dto";
+import {
+  LoginRequestDto,
+  CreateUserRequestDto,
+  LoginResponseDto,
+} from "./user.dto";
 import { InvalidLoginException } from "./invalid-login.exception";
-import { ApiTags } from "@nestjs/swagger";
-import { LoginResponse } from "./user.types";
+import {
+  ApiExtraModels,
+  ApiOkResponse,
+  ApiTags,
+  getSchemaPath,
+} from "@nestjs/swagger";
 
 /**
  * Controller which handles CRUD operations for users.
@@ -23,9 +31,16 @@ export class UserController {
 
   constructor(private readonly userService: UserService) {}
 
+  @ApiOkResponse({
+    description: "A JWT Token containing basic user information.",
+    schema: {
+      $ref: getSchemaPath(LoginResponseDto),
+    },
+  })
+  @ApiExtraModels(LoginResponseDto)
   @HttpCode(HttpStatus.OK)
   @Post("login")
-  async getUser(@Body() body: any): Promise<LoginResponse> {
+  async getUser(@Body() body: LoginRequestDto): Promise<LoginResponseDto> {
     try {
       return await this.userService.getUser(body);
     } catch (e) {
@@ -39,7 +54,7 @@ export class UserController {
 
   @HttpCode(HttpStatus.OK)
   @Post("register")
-  async createUser(@Body() body: UserDto): Promise<User> {
+  async createUser(@Body() body: CreateUserRequestDto): Promise<User> {
     try {
       const { email, password, username } = body;
       return await this.userService.createUser({
