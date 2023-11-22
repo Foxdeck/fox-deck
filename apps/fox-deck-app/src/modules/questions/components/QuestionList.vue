@@ -10,7 +10,7 @@ const questionsStore = useQuestionsStore();
 const currentPage = ref(1);
 </script>
 <template>
-  <div class="flex flex-col gap-4">
+  <div class="flex flex-col gap-4 w-full">
     <div class="flex flex-col w-full">
       <ListGroupTransition>
         <QuestionCard
