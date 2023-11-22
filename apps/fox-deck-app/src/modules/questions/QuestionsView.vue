@@ -62,44 +62,42 @@ const searchQuestion = async (search: string): Promise<void> => {
       <QuestionFilter />
       <QuestionList />
     </div>
-  </ContentLayout>
-
-  <!-- Modal toggle -->
-  <dialog
-    open
-    aria-hidden="true"
-    class="hidden flex justify-center items-center bg-black/80 overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-screen"
-  >
-    <div class="relative p-4 w-full max-w-md max-h-full">
-      <div class="relative bg-white rounded-md shadow">
-        <div
-          class="flex items-center justify-between p-4 md:p-5 border-b rounded-t"
-        >
-          <FDTypography>Frage erstellen</FDTypography>
+    <dialog
+      open
+      aria-hidden="true"
+      class="hidden flex justify-center items-center bg-black/80 overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-screen"
+    >
+      <div class="relative p-4 w-full max-w-md max-h-full">
+        <div class="relative bg-white rounded-md shadow">
+          <div
+            class="flex items-center justify-between p-4 md:p-5 border-b rounded-t"
+          >
+            <FDTypography>Frage erstellen</FDTypography>
+          </div>
+          <form class="p-4 md:p-5" @submit.prevent>
+            <div class="grid gap-4 mb-4 grid-cols-2">
+              <div class="col-span-2">
+                <FDTextInput label="Frage" value="" />
+              </div>
+              <div class="col-span-2">
+                <FDTextInput label="Lösung" value="" />
+              </div>
+              <div class="col-span-2">
+                <FDDropDown :items="[]" />
+              </div>
+            </div>
+            <div class="flex justify-between">
+              <FDButton
+                severity="danger"
+                type="secondary"
+                icon="x"
+                label="Abbrechen"
+              />
+              <FDButton icon="save" label="Speichern" />
+            </div>
+          </form>
         </div>
-        <form class="p-4 md:p-5" @submit.prevent>
-          <div class="grid gap-4 mb-4 grid-cols-2">
-            <div class="col-span-2">
-              <FDTextInput label="Frage" value="" />
-            </div>
-            <div class="col-span-2">
-              <FDTextInput label="Lösung" value="" />
-            </div>
-            <div class="col-span-2">
-              <FDDropDown :items="[]" />
-            </div>
-          </div>
-          <div class="flex justify-between">
-            <FDButton
-              severity="danger"
-              type="secondary"
-              icon="x"
-              label="Abbrechen"
-            />
-            <FDButton icon="save" label="Speichern" />
-          </div>
-        </form>
       </div>
-    </div>
-  </dialog>
+    </dialog>
+  </ContentLayout>
 </template>

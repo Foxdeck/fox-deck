@@ -8,9 +8,9 @@ import type { PropType } from "vue";
 
 defineProps({
   name: { type: String, default: "" },
-  items: { type: Object as PropType<FDRadioGroupItems>, default: [] },
+  items: { type: Array as PropType<FDRadioGroupItems>, default: [] },
   selectedItemId: {
-    type: Object as PropType<FDRadioGroupItemId>,
+    type: String as PropType<FDRadioGroupItemId>,
     default: "",
   },
 });

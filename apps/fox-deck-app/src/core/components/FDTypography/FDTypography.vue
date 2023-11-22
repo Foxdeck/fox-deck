@@ -3,7 +3,7 @@ import type { PropType } from "vue";
 
 export type FontType = "title" | "h1" | "h2" | "h3" | "p" | "pxs" | "psm";
 const props = defineProps({
-  type: { type: Object as PropType<FontType>, required: false, default: "p" },
+  type: { type: String as PropType<FontType>, required: false, default: "p" },
 });
 
 function getAriaRole(): string {

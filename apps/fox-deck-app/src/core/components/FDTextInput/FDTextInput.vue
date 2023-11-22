@@ -9,7 +9,7 @@ defineProps({
   icon: {
     type: String,
     required: false,
-    default: false,
+    default: "",
   },
   isValid: { type: Boolean, required: false, default: false },
 });

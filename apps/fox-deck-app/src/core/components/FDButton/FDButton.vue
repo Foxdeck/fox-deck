@@ -6,13 +6,13 @@ import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
 defineProps({
   icon: { type: String, required: false },
   severity: {
-    type: Object as PropType<Severity>,
+    type: String as PropType<Severity>,
     required: false,
     default: "primary" satisfies Severity,
   },
   label: { type: String, required: false },
   type: {
-    type: Object as PropType<"primary" | "secondary">,
+    type: String as PropType<"primary" | "secondary">,
     required: false,
     default: "primary" satisfies "primary" | "secondary",
   },
