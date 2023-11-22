@@ -9,6 +9,19 @@
  * ---------------------------------------------------------------
  */
 
+export interface QuestionsResponseDto {
+  question: string;
+  solution: string;
+  isPublic: boolean;
+  authorId: string;
+  average: number;
+  goodAt: number;
+  id: string;
+  /** @format date-time */
+  lastAnswered: string;
+  notGoodAt: number;
+}
+
 export interface QuestionDto {
   question: string;
   solution: string;
@@ -257,9 +270,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request GET:/question/{id}
      */
     questionControllerGetQuestionById: (id: string, params: RequestParams = {}) =>
-      this.request<void, any>({
+      this.request<QuestionsResponseDto, any>({
         path: `/question/${id}`,
         method: "GET",
+        format: "json",
         ...params,
       }),
 
@@ -287,9 +301,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request GET:/question
      */
     questionControllerGetQuestions: (params: RequestParams = {}) =>
-      this.request<void, any>({
+      this.request<QuestionsResponseDto[], any>({
         path: `/question`,
         method: "GET",
+        format: "json",
         ...params,
       }),
 
@@ -318,9 +333,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request GET:/search/question/{search}
      */
     questionControllerGetQuestionsByText: (search: string, params: RequestParams = {}) =>
-      this.request<void, any>({
+      this.request<QuestionsResponseDto[], any>({
         path: `/search/question/${search}`,
         method: "GET",
+        format: "json",
         ...params,
       }),
   };

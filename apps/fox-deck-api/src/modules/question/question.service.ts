@@ -1,6 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { Prisma, Question } from "@prisma/client";
 import { PrismaService } from "../../shared/services/prisma.service";
+import { QuestionsResponseDto } from "./question.dto";
 
 @Injectable()
 export class QuestionService {
@@ -8,7 +9,7 @@ export class QuestionService {
 
   async question(
     questionWhereUniqueInput: Prisma.QuestionWhereUniqueInput,
-  ): Promise<Question | null> {
+  ): Promise<QuestionsResponseDto | null> {
     return this.prisma.question.findUnique({
       where: questionWhereUniqueInput,
     });
@@ -20,7 +21,7 @@ export class QuestionService {
     cursor?: Prisma.QuestionWhereUniqueInput;
     where?: Prisma.QuestionWhereInput;
     orderBy?: Prisma.QuestionOrderByWithRelationInput;
-  }): Promise<Question[]> {
+  }): Promise<QuestionsResponseDto[]> {
     const { skip, take, cursor, where, orderBy } = params;
     return this.prisma.question.findMany({
       skip,

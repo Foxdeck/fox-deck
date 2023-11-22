@@ -3,14 +3,38 @@ import ContentLayout from "@/core/components/Layouts/ContentLayout.vue";
 import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
 import FDTextInput from "@/core/components/FDTextInput/FDTextInput.vue";
 import QuestionFilter from "@/modules/questions/components/QuestionFilter.vue";
-import QuestionSearchEmpty from "@/modules/questions/components/QuestionSearchEmpty.vue";
 import { useQuestionsStore } from "@/modules/questions/questions.store";
 import QuestionList from "@/modules/questions/components/QuestionList.vue";
 import FDDropDown from "@/core/components/FDDropDown/FDDropDown.vue";
 import FDButton from "@/core/components/FDButton/FDButton.vue";
+import { api } from "@/core/services";
+import { useNotificationStore } from "@/core/stores/notification.store";
 
+const notificationStore = useNotificationStore();
 const questionsStore = useQuestionsStore();
-await questionsStore.fetchQuestions();
+
+/**
+ * Search for questions via back-end call.
+ * @param search {string} the searchstring, for search to work it must not be empty.
+ */
+const searchQuestion = async (search: string): Promise<void> => {
+  try {
+    if (search.trim().length === 0) {
+      const response = await api.question.questionControllerGetQuestions();
+      questionsStore.updateQuestions(response.data);
+      return;
+    }
+    const response =
+      await api.search.questionControllerGetQuestionsByText(search);
+    questionsStore.updateQuestions(response.data);
+  } catch (e) {
+    notificationStore.addNotification({
+      title: "Fehler beim Suchen der Fragen",
+      text: "Bitte aktualisieren Sie die Seite oder versuchen Sie es später noch einmal.",
+      severity: "danger",
+    });
+  }
+};
 </script>
 
 <template>
@@ -29,15 +53,14 @@ await questionsStore.fetchQuestions();
       label="Suchen"
       value=""
       icon="search"
-      @onInput="questionsStore.searchQuestion($event)"
+      @onInput="searchQuestion"
     />
     <FDTypography type="pxs" class="italic text-right">
       3 Fragen gefunden
     </FDTypography>
     <div class="flex flex-row gap-6">
       <QuestionFilter />
-      <QuestionList v-if="questionsStore.hasQuestions()" />
-      <QuestionSearchEmpty v-else />
+      <QuestionList />
     </div>
   </ContentLayout>
 

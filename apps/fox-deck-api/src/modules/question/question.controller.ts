@@ -11,8 +11,8 @@ import {
 } from "@nestjs/common";
 import { QuestionService } from "./question.service";
 import { Question } from "@prisma/client";
-import { QuestionDto } from "./question.dto";
-import { ApiTags } from "@nestjs/swagger";
+import { CreateQuestionRequestDto, QuestionsResponseDto } from "./question.dto";
+import { ApiExtraModels, ApiOkResponse, ApiTags } from "@nestjs/swagger";
 
 /**
  * Controller which handles CRUD operations for questions.
@@ -22,9 +22,16 @@ import { ApiTags } from "@nestjs/swagger";
 export class QuestionController {
   constructor(private readonly questionService: QuestionService) {}
 
+  @ApiOkResponse({
+    description: "Returns a question via its id.",
+    type: QuestionsResponseDto,
+  })
+  @ApiExtraModels(QuestionsResponseDto)
   @HttpCode(HttpStatus.OK)
   @Get("question/:id")
-  async getQuestionById(@Param("id") id: string): Promise<Question> {
+  async getQuestionById(
+    @Param("id") id: string,
+  ): Promise<QuestionsResponseDto> {
     try {
       return await this.questionService.question({ id: String(id) });
     } catch (e) {
@@ -32,9 +39,15 @@ export class QuestionController {
     }
   }
 
+  @ApiOkResponse({
+    description: "Returns a list of questions.",
+    type: QuestionsResponseDto,
+    isArray: true,
+  })
+  @ApiExtraModels(QuestionsResponseDto)
   @HttpCode(HttpStatus.OK)
   @Get("question")
-  async getQuestions(): Promise<Question[]> {
+  async getQuestions(): Promise<QuestionsResponseDto[]> {
     try {
       return await this.questionService.questions({});
     } catch (e) {
@@ -42,11 +55,17 @@ export class QuestionController {
     }
   }
 
+  @ApiOkResponse({
+    description: "Returns a question by its question text.",
+    type: QuestionsResponseDto,
+    isArray: true,
+  })
+  @ApiExtraModels(QuestionsResponseDto)
   @HttpCode(HttpStatus.OK)
   @Get("search/question/:search")
   async getQuestionsByText(
     @Param("search") search: string,
-  ): Promise<Question[]> {
+  ): Promise<QuestionsResponseDto[]> {
     try {
       return await this.questionService.questions({
         where: {
@@ -60,7 +79,9 @@ export class QuestionController {
 
   @HttpCode(HttpStatus.CREATED)
   @Post("question")
-  async createQuestion(@Body() data: QuestionDto): Promise<Question> {
+  async createQuestion(
+    @Body() data: CreateQuestionRequestDto,
+  ): Promise<Question> {
     try {
       return this.questionService.createQuestion(data);
     } catch (e) {
@@ -72,7 +93,7 @@ export class QuestionController {
   @Put("question/:id")
   async updateQuestion(
     @Param("id") id: string,
-    @Body() data: QuestionDto,
+    @Body() data: CreateQuestionRequestDto,
   ): Promise<Question> {
     try {
       return await this.questionService.updateQuestion({

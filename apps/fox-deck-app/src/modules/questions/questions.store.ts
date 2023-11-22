@@ -1,59 +1,29 @@
 import { defineStore } from "pinia";
-import { ref } from "vue";
-import type { Questions } from "@/types/question.types";
-import { useApi } from "@/core/composables/useApi";
-import { useNotificationStore } from "@/core/stores/notification.store";
+import { reactive, ref } from "vue";
+import type { QuestionsResponseDto } from "@/core/services/api";
 
 /**
  * Stores the state for the question view.
  */
 export const useQuestionsStore = defineStore("questionsStore", () => {
-  const api = useApi();
-  const notificationStore = useNotificationStore();
-
-  const questions = ref<Questions>([]);
-  const filtering = ref({
+  const questions = ref<QuestionsResponseDto[]>([]);
+  const filtering = reactive({
     selectedVisibilityId: "private",
   });
 
   /**
-   * Search for questions via back-end call.
-   * @param search {string} the searchstring, for search to work it must not be empty.
+   * Update the questions of the question store.
+   * @param newQuestions {QuestionsResponseDto[]} the new questions.
    */
-  const searchQuestion = async (search: string): Promise<void> => {
-    try {
-      if (search.trim().length === 0) {
-        await fetchQuestions();
-        return;
-      }
-      const response = await api.get(`search/question/${search}`);
-      questions.value = response.data;
-    } catch (e) {
-      notificationStore.addNotification({
-        title: "Fehler beim Suchen der Fragen",
-        text: "Bitte aktualisieren Sie die Seite oder versuchen Sie es später noch einmal.",
-        severity: "danger",
-      });
-    }
+  const updateQuestions = (newQuestions: QuestionsResponseDto[]): void => {
+    questions.value = newQuestions;
   };
 
   /**
-   * Fetch questions and update the state.
+   * Returns if the question store contains questions.
+   * This is useful while searching for questions to get some sort of empty state.
    */
-  const fetchQuestions = async () => {
-    try {
-      const response = await api.get("question");
-      questions.value = response.data;
-    } catch (e) {
-      notificationStore.addNotification({
-        title: "Fehler beim Laden der Fragen",
-        text: "Bitte aktualisieren Sie die Seite oder versuchen Sie es später noch einmal.",
-        severity: "danger",
-      });
-    }
-  };
-
-  const hasQuestions = () => {
+  const hasQuestions = (): boolean => {
     return questions.value.length > 0;
   };
 
@@ -63,8 +33,7 @@ export const useQuestionsStore = defineStore("questionsStore", () => {
   return {
     filtering: filtering,
     questions: questions,
-    fetchQuestions: fetchQuestions,
-    searchQuestion: searchQuestion,
+    updateQuestions: updateQuestions,
     hasQuestions: hasQuestions,
   };
 });
