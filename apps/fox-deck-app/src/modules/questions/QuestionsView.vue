@@ -6,6 +6,8 @@ import QuestionFilter from "@/modules/questions/components/QuestionFilter.vue";
 import QuestionSearchEmpty from "@/modules/questions/components/QuestionSearchEmpty.vue";
 import { useQuestionsStore } from "@/modules/questions/questions.store";
 import QuestionList from "@/modules/questions/components/QuestionList.vue";
+import FDDropDown from "@/core/components/FDDropDown/FDDropDown.vue";
+import FDButton from "@/core/components/FDButton/FDButton.vue";
 
 const questionsStore = useQuestionsStore();
 await questionsStore.fetchQuestions();
@@ -38,4 +40,52 @@ await questionsStore.fetchQuestions();
       <QuestionSearchEmpty v-else />
     </div>
   </ContentLayout>
+
+  <!-- Modal toggle -->
+  <button
+    data-modal-target="crud-modal"
+    data-modal-toggle="crud-modal"
+    class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+    type="button"
+  >
+    Toggle modal
+  </button>
+
+  <dialog
+    open
+    aria-hidden="true"
+    class="hidden flex justify-center items-center bg-black/80 overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-screen"
+  >
+    <div class="relative p-4 w-full max-w-md max-h-full">
+      <div class="relative bg-white rounded-md shadow">
+        <div
+          class="flex items-center justify-between p-4 md:p-5 border-b rounded-t"
+        >
+          <FDTypography>Frage erstellen</FDTypography>
+        </div>
+        <form class="p-4 md:p-5" @submit.prevent>
+          <div class="grid gap-4 mb-4 grid-cols-2">
+            <div class="col-span-2">
+              <FDTextInput label="Frage" value="" />
+            </div>
+            <div class="col-span-2">
+              <FDTextInput label="Lösung" value="" />
+            </div>
+            <div class="col-span-2">
+              <FDDropDown :items="[]" />
+            </div>
+          </div>
+          <div class="flex justify-between">
+            <FDButton
+              severity="danger"
+              type="secondary"
+              icon="x"
+              label="Abbrechen"
+            />
+            <FDButton icon="save" label="Speichern" />
+          </div>
+        </form>
+      </div>
+    </div>
+  </dialog>
 </template>
