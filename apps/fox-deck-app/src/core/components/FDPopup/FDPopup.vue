@@ -14,7 +14,7 @@ defineProps({
     <FadeOutInTransition>
       <div
         v-if="isOpen"
-        class="absolute flex flex-col top-full mt-1 right-0 bg-white h-fit shadow-md rounded-md border"
+        class="absolute flex flex-col top-full mt-1 right-0 bg-white h-fit shadow-md rounded-md border dark:bg-primary-900 dark:border-black dark:text-white"
       >
         <div class="flex gap-2 border-b p-2">
           <vue-feather v-if="icon" :type="icon" size="14" />

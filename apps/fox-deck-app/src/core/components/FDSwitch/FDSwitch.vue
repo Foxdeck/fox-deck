@@ -9,12 +9,16 @@ defineProps({
     default: "medium" satisfies FDComponentSize,
   },
 });
+
+defineEmits<{
+  (e: "onToggle", value: boolean);
+}>();
 </script>
 <template>
   <label
     class="relative h-8 w-14 cursor-pointer [-webkit-tap-highlight-color:_transparent]"
     :class="{
-      'h-[22px] w-10': size === 'small',
+      'h-[22px] w-9': size === 'small',
       'h-10 w-16': size === 'large',
     }"
   >
@@ -22,12 +26,13 @@ defineProps({
       type="checkbox"
       class="peer sr-only [&:checked_+_span_svg[data-checked-icon]]:block [&:checked_+_span_svg[data-unchecked-icon]]:hidden"
       :checked="checked"
+      @click="$emit('onToggle', $event.target.checked)"
     />
 
     <span
       class="absolute inset-y-0 start-0 z-10 m-1 inline-flex h-6 aspect-square items-center justify-center rounded-full bg-white text-gray-400 transition-all peer-checked:start-6 peer-checked:text-success-darker"
       :class="{
-        'h-[18px] m-[2px] peer-checked:start-[18px]': size === 'small',
+        'h-[18px] m-[2px] peer-checked:start-[14px]': size === 'small',
         'h-8 m-1 peer-checked:start-6': size === 'large',
       }"
     >

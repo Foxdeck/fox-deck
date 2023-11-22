@@ -13,6 +13,7 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
+    "@vueuse/core": "^10.6.1",
     "animejs": "^3.2.1",
     "axios": "^1.6.0",
     "feather-icons": "^4.29.1",

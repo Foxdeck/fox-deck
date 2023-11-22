@@ -3,16 +3,26 @@ import FDSideNavigation from "@/core/components/FDSideNavigation/FDSideNavigatio
 import FDHorizontalMenu from "@/core/components/FDHorizontalMenu/FDHorizontalMenu.vue";
 import NotificationLayout from "@/core/components/Layouts/NotificationLayout.vue";
 import RouterLayout from "@/core/components/Layouts/RouterLayout.vue";
+import { useThemeStore } from "@/core/stores/theme.store";
+
+const themeStore = useThemeStore();
 </script>
 
 <template>
-  <main class="flex w-screen h-screen bg-[#f2f2f2]">
-    <FDSideNavigation />
+  <div
+    :class="{
+      dark: themeStore.selectedTheme === 'dark',
+      light: themeStore.selectedTheme === 'light',
+    }"
+  >
+    <main class="flex w-screen h-screen bg-[#f2f2f2] dark:bg-gray-900">
+      <FDSideNavigation />
 
-    <div class="overflow-y-scroll w-full">
-      <FDHorizontalMenu />
-      <RouterLayout />
-      <NotificationLayout />
-    </div>
-  </main>
+      <div class="overflow-y-scroll w-full">
+        <FDHorizontalMenu />
+        <RouterLayout />
+        <NotificationLayout />
+      </div>
+    </main>
+  </div>
 </template>

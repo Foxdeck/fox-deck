@@ -36,7 +36,9 @@ const categoryItems: FDDropdownItem[] = [
 ];
 </script>
 <template>
-  <div class="flex flex-col gap-2 bg-white h-fit p-4 rounded-md shadow-sm">
+  <div
+    class="flex flex-col gap-2 bg-white h-fit p-4 rounded-md shadow-sm dark:bg-gray-800 dark:text-white"
+  >
     <div class="flex gap-2">
       <vue-feather size="14" type="filter" />
       <FDTypography type="psm" class="font-bold">Filter</FDTypography>

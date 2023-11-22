@@ -21,7 +21,7 @@ defineEmits<{
 <template>
   <div class="flex flex-col">
     <label
-      class="relative bg-white flex justify-center items-center overflow-hidden rounded-md border border-gray-200 px-3 pt-3"
+      class="relative bg-white flex justify-center items-center overflow-hidden rounded-md border border-gray-200 px-3 pt-3 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
       :class="{
         'bg-gray-50 cursor-not-allowed': disabled,
         '!border-success-normal': shouldValidate && isValid,
@@ -60,7 +60,7 @@ defineEmits<{
         />
       </span>
       <span
-        class="absolute flex justify-center items-center gap-1 start-3 top-3 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-3 peer-focus:text-xs"
+        class="absolute flex justify-center items-center gap-1 start-3 top-3 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-3 peer-focus:text-xs dark:text-white"
         :class="{
           '!text-gray-500': disabled,
           '!text-danger-normal': shouldValidate && !isValid,

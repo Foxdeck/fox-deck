@@ -30,7 +30,7 @@ function getAriaLevel(): number {
 
 <template>
   <span
-    class="font-poppins"
+    class="font-poppins dark:text-white"
     :role="getAriaRole()"
     :aria-level="getAriaLevel()"
     :class="{
