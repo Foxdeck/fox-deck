@@ -31,6 +31,7 @@ defineEmits<{
       <input
         placeholder="Email"
         class="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent text-sm outline-none disabled:cursor-not-allowed"
+        data-testid="input"
         :disabled="disabled"
         :value="value"
         :type="type"
@@ -72,6 +73,7 @@ defineEmits<{
     <span
       v-if="shouldValidate && !isValid"
       class="ml-2 inline-block text-danger-normal text-xs"
+      data-testid="errorMessage"
     >
       {{ errorMessage }}
     </span>

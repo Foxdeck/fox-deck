@@ -5,6 +5,8 @@
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check \"build-only {@}\" --",
+    "e2e:ci": "npx playwright test",
+    "e2e:ui": "npx playwright test --ui",
     "preview": "vite preview",
     "test:unit": "vitest",
     "build-only": "vite build",
@@ -29,6 +31,7 @@
     "vue-router": "^4.2.5"
   },
   "devDependencies": {
+    "@playwright/test": "^1.40.0",
     "@storybook/addon-essentials": "^7.5.3",
     "@storybook/addon-interactions": "^7.5.3",
     "@storybook/addon-links": "^7.5.3",

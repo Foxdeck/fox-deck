@@ -16,11 +16,13 @@ defineProps({
     required: false,
     default: "primary" satisfies "primary" | "secondary",
   },
+  testId: { type: String },
 });
 </script>
 <template>
   <button
     class="flex gap-2 justify-center border-2 border-primary-500 items-center px-5 py-4 rounded-md font-gabarito ring-primary-300/50 text-white bg-primary-500 hover:opacity-80 active:bg-grey-900 focus:outline-none focus:ring-2 transition-all"
+    :data-testid="testId"
     :class="{
       '!bg-danger-normal !border-danger-normal':
         type === 'primary' && severity === 'danger',

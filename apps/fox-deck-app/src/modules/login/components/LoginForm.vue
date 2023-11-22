@@ -36,18 +36,25 @@ const password = ref();
     <FDTextInput
       label="E-Mail"
       type="email"
+      data-testid="emailInput"
       :value="email"
       @onInput="email = $event"
     />
     <FDTextInput
       label="Password"
       type="password"
+      data-testid="passwordInput"
       :value="password"
       @onInput="password = $event"
     />
-    <FDTypography v-if="hasError" type="pxs" class="text-danger-normal w-80">
+    <FDTypography
+      data-testid="loginErrorText"
+      v-if="hasError"
+      type="pxs"
+      class="text-danger-normal w-80"
+    >
       Login fehlgeschlagen! Bitte prüfen Sie Ihre E-Mail und Ihr Passwort.
     </FDTypography>
-    <FDButton class="flex-1" label="Anmelden" />
+    <FDButton class="flex-1" label="Anmelden" data-testid="loginButton" />
   </form>
 </template>
