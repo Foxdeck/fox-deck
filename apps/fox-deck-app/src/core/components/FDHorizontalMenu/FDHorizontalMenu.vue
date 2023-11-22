@@ -18,7 +18,7 @@ const isSettingsOpen = ref(false);
     class="flex border-b border-gray-300 justify-between items-center py-4 px-6 dark:bg-gray-950 dark:border-gray-800"
   >
     <span class="font-bold font-gabarito text-4xl dark:text-white"
-      >Hallo, {{ authStore.getCurrentUser()?.username }}! 👋</span
+      >Hallo, {{ authStore.readJWT()?.username }}! 👋</span
     >
     <FDPopup :is-open="isSettingsOpen" title="Einstellungen">
       <template #container>

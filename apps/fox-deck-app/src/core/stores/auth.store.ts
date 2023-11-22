@@ -12,7 +12,7 @@ export const useAuthStore = defineStore("authStore", () => {
   /**
    * Parse the JWT Token to get basic information from the user.
    */
-  const getCurrentUser = (): any => {
+  const readJWT = (): any => {
     if (isAuthenticated()) {
       return VueJwtDecode.decode(jwt.value);
     }
@@ -40,6 +40,6 @@ export const useAuthStore = defineStore("authStore", () => {
     jwt: jwt,
     setJwt: login,
     isAuthenticated: isAuthenticated,
-    getCurrentUser: getCurrentUser,
+    readJWT: readJWT,
   };
 });
