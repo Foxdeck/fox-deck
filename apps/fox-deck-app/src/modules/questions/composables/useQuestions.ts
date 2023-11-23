@@ -1,7 +1,8 @@
 import { api } from "@/core/services";
 import { useQuestionsStore } from "@/modules/questions/stores/questions.store";
 import { useNotificationStore } from "@/core/stores/notification.store";
-import type { QuestionDto } from "@/core/services/api";
+import { CreateQuestionException } from "@/modules/questions/exceptions/CreateQuestionException";
+import type { CreateQuestionRequestDto } from "@/core/services/api";
 
 /**
  * Composable which abstracts the CRUD operations for questions to the backend.
@@ -12,28 +13,26 @@ export function useQuestions() {
 
   /**
    * Create a new question.
-   * @param question {QuestionDto} the question to create.
+   * @param question {CreateQuestionRequestDto} the question to create.
    */
-  async function createQuestion(question: QuestionDto): Promise<void> {
+  async function createQuestion(
+    question: CreateQuestionRequestDto,
+  ): Promise<void> {
     try {
       await api.question.questionControllerCreateQuestion(question);
     } catch (e) {
-      addNotification({
-        title: "Fehler beim Erstellen der Frage",
-        text: "Bitte aktualisieren Sie die Seite oder versuchen Sie es später noch einmal.",
-        severity: "danger",
-      });
+      throw new CreateQuestionException();
     }
   }
 
   /**
    * Update an already existing question by its id.
    * @param questionId {string} the question to update.
-   * @param question {QuestionDto} the updated question.
+   * @param question {CreateQuestionRequestDto} the updated question.
    */
   async function updateQuestion(
     questionId: string,
-    question: QuestionDto,
+    question: CreateQuestionRequestDto,
   ): Promise<void> {
     try {
       await api.question.questionControllerUpdateQuestion(questionId, question);

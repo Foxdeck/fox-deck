@@ -22,9 +22,10 @@ export interface QuestionsResponseDto {
   notGoodAt: number;
 }
 
-export interface QuestionDto {
+export interface CreateQuestionRequestDto {
   question: string;
   solution: string;
+  authorId: string;
   isPublic: boolean;
 }
 
@@ -284,7 +285,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @name QuestionControllerUpdateQuestion
      * @request PUT:/question/{id}
      */
-    questionControllerUpdateQuestion: (id: string, data: QuestionDto, params: RequestParams = {}) =>
+    questionControllerUpdateQuestion: (id: string, data: CreateQuestionRequestDto, params: RequestParams = {}) =>
       this.request<void, any>({
         path: `/question/${id}`,
         method: "PUT",
@@ -315,7 +316,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @name QuestionControllerCreateQuestion
      * @request POST:/question
      */
-    questionControllerCreateQuestion: (data: QuestionDto, params: RequestParams = {}) =>
+    questionControllerCreateQuestion: (data: CreateQuestionRequestDto, params: RequestParams = {}) =>
       this.request<void, any>({
         path: `/question`,
         method: "POST",
