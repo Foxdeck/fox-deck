@@ -11,14 +11,22 @@ import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
     >
       <div class="col-span-8">
         <div class="flex flex-col gap-4">
-          <FDTypography type="title"> Mit dem Lernen beginnen! </FDTypography>
-          <FDTypography type="p" class="leading-10">
+          <FDTypography type="title">
+            Mit dem Lernen beginnen!
+          </FDTypography>
+          <FDTypography
+            type="p"
+            class="leading-10"
+          >
             Entwickle eigene Lernmodule mit gezielten Fragen, die dein Wissen
             effektiv erweitern. Erstelle dafür Fragen, welche dir dabei helfen
             Sachverhalte zu merken und ordne diese anschließend verschiedenen
             Lerneinheiten hinzu.
           </FDTypography>
-          <RouterLink class="w-fit" to="/questions">
+          <RouterLink
+            class="w-fit"
+            to="/questions"
+          >
             <FDButton
               class="mt-5"
               icon="chevron-right"

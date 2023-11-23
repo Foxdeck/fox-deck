@@ -18,10 +18,14 @@ const currentPage = ref(1);
 </script>
 <template>
   <div class="flex flex-col gap-4 w-full">
-    <div v-if="questionsStore.hasQuestions()" class="flex flex-col w-full">
+    <div
+      v-if="questionsStore.hasQuestions()"
+      class="flex flex-col w-full"
+    >
       <ListGroupTransition>
         <QuestionCard
           v-for="item in questionsStore.questions"
+          :key="item.id"
           :question="item.question"
           :solution="item.solution"
           :is-public="item.isPublic"
@@ -34,7 +38,7 @@ const currentPage = ref(1);
       :max-page="20"
       :display-page-amount="8"
       :current-page="currentPage"
-      @onPaginate="currentPage = $event"
+      @on-paginate="currentPage = $event"
     />
   </div>
 </template>

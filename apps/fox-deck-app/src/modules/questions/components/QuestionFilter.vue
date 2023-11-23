@@ -40,8 +40,16 @@ const categoryItems: FDDropdownItem[] = [
     class="flex flex-col gap-2 bg-white h-fit p-4 rounded-md shadow-sm dark:bg-gray-800 dark:text-white"
   >
     <div class="flex gap-2">
-      <vue-feather size="14" type="filter" />
-      <FDTypography type="psm" class="font-bold">Filter</FDTypography>
+      <vue-feather
+        size="14"
+        type="filter"
+      />
+      <FDTypography
+        type="psm"
+        class="font-bold"
+      >
+        Filter
+      </FDTypography>
     </div>
     <FDTypography type="pxs">
       Finde genau die Fragen, die du suchst.
@@ -51,7 +59,15 @@ const categoryItems: FDDropdownItem[] = [
       :items="visibilityItems"
       :selected-item-id="questionsStore.filtering.selectedVisibilityId"
     />
-    <FDTypography type="pxs" class="font-bold">Kategorie</FDTypography>
-    <FDDropDown :items="categoryItems" :selected-item="categoryItems[0]" />
+    <FDTypography
+      type="pxs"
+      class="font-bold"
+    >
+      Kategorie
+    </FDTypography>
+    <FDDropDown
+      :items="categoryItems"
+      :selected-item="categoryItems[0]"
+    />
   </div>
 </template>

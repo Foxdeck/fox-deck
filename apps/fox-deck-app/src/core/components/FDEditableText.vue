@@ -7,7 +7,10 @@ import FDTypography, {
 
 defineProps({
   value: { type: String, required: true, default: "" },
-  fontType: { type: Object as PropType<FontType>, default: "p" },
+  fontType: {
+    type: String as PropType<FontType>,
+    default: "p" satisfies FontType,
+  },
 });
 
 const isEditMode = ref(false);
@@ -23,6 +26,11 @@ const isEditMode = ref(false);
     >
       {{ value }}
     </FDTypography>
-    <FDTextInput v-else label="Titel" :value="value" icon="save" />
+    <FDTextInput
+      v-else
+      label="Titel"
+      :value="value"
+      icon="save"
+    />
   </div>
 </template>

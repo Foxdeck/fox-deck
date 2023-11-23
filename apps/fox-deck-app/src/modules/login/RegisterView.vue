@@ -26,7 +26,7 @@ async function onRegisterSubmit({ email, password, username }) {
     <template #form>
       <RegisterForm
         :has-error="hasRegisterError"
-        @onSubmit="
+        @on-submit="
           (e) =>
             onRegisterSubmit({
               email: e.email,

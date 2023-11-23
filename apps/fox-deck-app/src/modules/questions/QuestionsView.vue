@@ -13,8 +13,13 @@ const { searchQuestions } = useQuestions();
 <template>
   <ContentLayout>
     <div class="flex flex-col h-full gap-8">
-      <FDTypography type="h1">Fragen</FDTypography>
-      <FDTypography type="p" class="leading-10">
+      <FDTypography type="h1">
+        Fragen
+      </FDTypography>
+      <FDTypography
+        type="p"
+        class="leading-10"
+      >
         Hier kannst du eigene Fragen erstellen, welche du später zu
         verschiedenen Lerneinheiten hinzufügen kannst. Du kannst auch spannende
         Fragen aus der Community entdecken und, wenn sie dir zusagen, ganz
@@ -26,15 +31,21 @@ const { searchQuestions } = useQuestions();
       label="Suchen"
       value=""
       icon="search"
-      @onInput="searchQuestions"
+      @on-input="searchQuestions"
     />
-    <FDTypography type="pxs" class="italic text-right">
+    <FDTypography
+      type="pxs"
+      class="italic text-right"
+    >
       3 Fragen gefunden
     </FDTypography>
     <div class="flex flex-row gap-6">
       <div class="flex flex-col gap-2">
         <RouterLink to="/question/create">
-          <FDButton icon="plus" label="Frage erstellen" />
+          <FDButton
+            icon="plus"
+            label="Frage erstellen"
+          />
         </RouterLink>
         <QuestionFilter />
       </div>

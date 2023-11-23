@@ -9,11 +9,14 @@ import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
       alt=""
       class="filter contrast-150 fixed top-0 left-0 right-0 bottom-0 w-screen h-screen object-cover"
       src="https://images.pexels.com/photos/3780104/pexels-photo-3780104.png?auto=compress&cs=tinysrgb&w=1600"
-    />
+    >
     <div class="flex flex-wrap items-center h-full w-full max-w-[1440px]">
       <div class="flex flex-col items-center gap-4 z-50 mx-auto">
         <Logo class="w-16" />
-        <FDTypography class="text-white text-base font-bold" type="p">
+        <FDTypography
+          class="text-white text-base font-bold"
+          type="p"
+        >
           FoxDeck
         </FDTypography>
         <FDTypography

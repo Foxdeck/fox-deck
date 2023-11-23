@@ -27,7 +27,7 @@ defineEmits<{
       class="peer sr-only [&:checked_+_span_svg[data-checked-icon]]:block [&:checked_+_span_svg[data-unchecked-icon]]:hidden"
       :checked="checked"
       @click="$emit('onToggle', $event.target.checked)"
-    />
+    >
 
     <span
       class="absolute inset-y-0 start-0 z-10 m-1 inline-flex h-6 aspect-square items-center justify-center rounded-full bg-white text-gray-400 transition-all peer-checked:start-6 peer-checked:text-success-darker"
@@ -36,12 +36,20 @@ defineEmits<{
         'h-8 m-1 peer-checked:start-6': size === 'large',
       }"
     >
-      <vue-feather v-if="checked" type="check" size="14" />
-      <vue-feather v-else type="x" size="14" />
+      <vue-feather
+        v-if="checked"
+        type="check"
+        size="14"
+      />
+      <vue-feather
+        v-else
+        type="x"
+        size="14"
+      />
     </span>
 
     <span
       class="absolute inset-0 rounded-full bg-gray-300 transition peer-checked:bg-success-normal"
-    ></span>
+    />
   </label>
 </template>

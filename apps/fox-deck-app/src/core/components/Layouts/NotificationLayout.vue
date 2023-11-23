@@ -8,6 +8,7 @@ const notificationStore = useNotificationStore();
   <div class="flex flex-col fixed bottom-4 right-4 gap-2">
     <FDNotification
       v-for="item of notificationStore.notifications"
+      :key="item.title"
       :title="item.title"
       :text="item.text"
       :severity="item.severity"

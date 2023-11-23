@@ -1,14 +1,11 @@
 <script setup lang="ts">
 import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
-import type {
-  FDRadioGroupItemId,
-  FDRadioGroupItems,
-} from "@/core/components/FDRadioGroup/FDRadioGroup.types";
-import type { PropType } from "vue";
+import type {FDRadioGroupItemId, FDRadioGroupItems,} from "@/core/components/FDRadioGroup/FDRadioGroup.types";
+import type {PropType} from "vue";
 
 defineProps({
   name: { type: String, default: "" },
-  items: { type: Array as PropType<FDRadioGroupItems>, default: [] },
+  items: { type: Array as PropType<FDRadioGroupItems>, default: () => [] },
   selectedItemId: {
     type: String as PropType<FDRadioGroupItemId>,
     default: "",
@@ -17,22 +14,29 @@ defineProps({
 </script>
 <template>
   <fieldset class="flex flex-col gap-2">
-    <div v-for="item of items">
+    <div
+      v-for="item of items"
+      :key="item.id"
+    >
       <input
-        type="radio"
-        class="peer hidden [&:checked_+_label_svg]:block"
+        :id="item.id"
+        :key="item.id"
         :name="name"
         :value="item.value"
-        :id="item.id"
         :checked="selectedItemId === item.id"
-      />
+        type="radio"
+        class="peer hidden [&:checked_+_label_svg]:block"
+      >
 
       <label
         :for="item.id"
         class="flex flex-col gap-1 cursor-pointer rounded-lg border border-gray-300 bg-white p-4 text-sm font-medium shadow-sm hover:border-gray-200 peer-checked:border-primary-500 peer-checked:ring-1 peer-checked:ring-blue-500 dark:bg-gray-700 dark:border-gray-600"
       >
         <span class="flex items-center justify-between">
-          <FDTypography type="psm" class="text-gray-700">
+          <FDTypography
+            type="psm"
+            class="text-gray-700"
+          >
             {{ item.label }}
           </FDTypography>
           <vue-feather
@@ -42,7 +46,10 @@ defineProps({
           />
         </span>
 
-        <FDTypography type="pxs" class="text-gray-500">
+        <FDTypography
+          type="pxs"
+          class="text-gray-500"
+        >
           {{ item.text }}
         </FDTypography>
       </label>

@@ -44,23 +44,31 @@ async function onFormSubmit() {
       @submit.prevent
     >
       <div class="flex flex-col gap-2">
-        <FDTypography type="h1">Frage erstellen</FDTypography>
+        <FDTypography type="h1">
+          Frage erstellen
+        </FDTypography>
         <FDTypography type="p">
           Erstelle deine eigene Frage und teile Sie mit der Community!
         </FDTypography>
       </div>
       <div class="flex flex-col gap-2">
-        <FDTypography type="psm" class="font-bold">
+        <FDTypography
+          type="psm"
+          class="font-bold"
+        >
           Was ist deine Frage?
         </FDTypography>
         <FDTextInput
           label="Frage"
           :value="formModel.question"
-          @onInput="formModel.question = $event"
+          @on-input="formModel.question = $event"
         />
       </div>
       <div class="flex flex-col gap-2">
-        <FDTypography type="psm" class="font-bold">
+        <FDTypography
+          type="psm"
+          class="font-bold"
+        >
           Wie lautet die Antwort auf deine Frage?
         </FDTypography>
         <textarea
@@ -68,20 +76,26 @@ async function onFormSubmit() {
           placeholder="Antwort"
           :value="formModel.solution"
           @input="formModel.solution = $event.target.value"
-        ></textarea>
+        />
       </div>
       <div class="flex flex-col gap-2">
-        <FDTypography type="psm" class="font-bold">
+        <FDTypography
+          type="psm"
+          class="font-bold"
+        >
           Ist deine Frage öffentlich?
         </FDTypography>
-        <FDTypography type="psm" class="leading-6">
+        <FDTypography
+          type="psm"
+          class="leading-6"
+        >
           Wenn du deine mit der Community teilen möchtest, dann können andere
           Benutzer*innen diese für Ihre eigenen Lerneinheiten benutzen.
         </FDTypography>
         <FDSwitch
           size="medium"
           :checked="formModel.isPublic"
-          @onToggle="formModel.isPublic = $event"
+          @on-toggle="formModel.isPublic = $event"
         />
       </div>
       <FDButton

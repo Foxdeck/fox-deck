@@ -27,7 +27,11 @@ function enterAnimation(element: HTMLElement, done: any) {
 }
 </script>
 <template>
-  <TransitionGroup :css="false" @enter="enterAnimation" @leave="leaveAnimation">
+  <TransitionGroup
+    :css="false"
+    @enter="enterAnimation"
+    @leave="leaveAnimation"
+  >
     <slot />
   </TransitionGroup>
 </template>

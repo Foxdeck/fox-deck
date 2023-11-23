@@ -16,7 +16,10 @@ defineProps({
     class="relative shadow-sm p-8 bg-white border-b w-full dark:bg-gray-800 dark:text-white dark:border-gray-600"
   >
     <div class="flex flex-col col-span-9 gap-4">
-      <FDTypography class="font-bold" v-if="!isEditMode">
+      <FDTypography
+        v-if="!isEditMode"
+        class="font-bold"
+      >
         »{{ question }}«
       </FDTypography>
 
@@ -43,7 +46,9 @@ defineProps({
         type="secondary"
         icon="more-vertical"
       />
-      <FDTypography type="pxs"> @{{ author }} </FDTypography>
+      <FDTypography type="pxs">
+        @{{ author }}
+      </FDTypography>
     </div>
   </FDGrid>
 </template>

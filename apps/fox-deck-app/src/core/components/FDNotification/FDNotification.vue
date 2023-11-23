@@ -46,7 +46,11 @@ defineProps({
         type="alert-triangle"
         size="20"
       />
-      <vue-feather v-if="severity === 'success'" type="check" size="20" />
+      <vue-feather
+        v-if="severity === 'success'"
+        type="check"
+        size="20"
+      />
       <FDTypography>
         {{ title }}
       </FDTypography>

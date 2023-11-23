@@ -30,7 +30,7 @@ async function onLoginSubmit({ email, password }) {
     <template #form>
       <LoginForm
         :has-error="hasLoginError"
-        @onSubmit="
+        @on-submit="
           (e) =>
             onLoginSubmit({
               email: e.email,

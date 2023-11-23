@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { MathUtil } from "@/core/util/math.util";
+import {MathUtil} from "@/core/util/math.util";
 import FDPaginatorItem from "@/core/components/FDPaginator/FDPaginatorItem.vue";
 
 const props = defineProps({
@@ -43,14 +43,14 @@ function onPaginate(page: number) {
 
 function onPaginateNext() {
   if (props.currentPage < props.maxPage) {
-    const nextPage = (props.currentPage += 1);
+    const nextPage = props.currentPage + 1;
     emit("onPaginate", nextPage);
   }
 }
 
 function onPaginatePrev() {
   if (props.currentPage > minPage) {
-    const prevPage = (props.currentPage -= 1);
+    const prevPage = props.currentPage - 1;
     emit("onPaginate", prevPage);
   }
 }
@@ -59,11 +59,15 @@ function onPaginatePrev() {
 <template>
   <ol class="flex justify-center gap-1 text-sm">
     <FDPaginatorItem @click="onPaginatePrev()">
-      <vue-feather type="chevron-left" size="14" />
+      <vue-feather
+        type="chevron-left"
+        size="14"
+      />
     </FDPaginatorItem>
 
     <FDPaginatorItem
       v-for="index in generatePaginatorNumbers()"
+      :key="index"
       :is-selected="currentPage === index"
       @click="onPaginate(index)"
     >
@@ -71,7 +75,10 @@ function onPaginatePrev() {
     </FDPaginatorItem>
 
     <FDPaginatorItem @click="onPaginateNext()">
-      <vue-feather type="chevron-right" size="14" />
+      <vue-feather
+        type="chevron-right"
+        size="14"
+      />
     </FDPaginatorItem>
   </ol>
 </template>

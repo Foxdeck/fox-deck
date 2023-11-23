@@ -1,22 +1,22 @@
 <script setup lang="ts">
-import type { Severity } from "@/core/components/severity.types";
-import type { PropType } from "vue";
+import type {Severity} from "@/core/components/severity.types";
+import type {PropType} from "vue";
 import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
 
 defineProps({
-  icon: { type: String, required: false },
+  icon: {type: String, required: false, default: ""},
   severity: {
     type: String as PropType<Severity>,
     required: false,
     default: "primary" satisfies Severity,
   },
-  label: { type: String, required: false },
+  label: {type: String, required: false, default: ""},
   type: {
     type: String as PropType<"primary" | "secondary">,
     required: false,
     default: "primary" satisfies "primary" | "secondary",
   },
-  testId: { type: String },
+  testId: {type: String, default: ""},
 });
 </script>
 <template>
@@ -41,7 +41,16 @@ defineProps({
         type === 'secondary' && severity === 'warn',
     }"
   >
-    <vue-feather v-if="icon" :type="icon" size="18" />
-    <FDTypography v-if="label" type="psm">{{ label }}</FDTypography>
+    <vue-feather
+      v-if="icon"
+      :type="icon"
+      size="18"
+    />
+    <FDTypography
+      v-if="label"
+      type="psm"
+    >
+      {{ label }}
+    </FDTypography>
   </button>
 </template>

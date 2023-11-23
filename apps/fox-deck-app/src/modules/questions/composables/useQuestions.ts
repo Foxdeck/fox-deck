@@ -2,7 +2,7 @@ import { api } from "@/core/services";
 import { useQuestionsStore } from "@/modules/questions/stores/questions.store";
 import { useNotificationStore } from "@/core/stores/notification.store";
 import { CreateQuestionException } from "@/modules/questions/exceptions/CreateQuestionException";
-import type { CreateQuestionRequestDto } from "@/core/services/api";
+import { type CreateQuestionRequestDto } from "@/core/services/api";
 
 /**
  * Composable which abstracts the CRUD operations for questions to the backend.

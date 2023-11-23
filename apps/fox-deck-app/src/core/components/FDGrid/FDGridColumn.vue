@@ -13,7 +13,10 @@ function getColSpan() {
 </script>
 
 <template>
-  <div class="flex flex-col" :class="getColSpan()">
+  <div
+    class="flex flex-col"
+    :class="getColSpan()"
+  >
     <slot />
   </div>
 </template>

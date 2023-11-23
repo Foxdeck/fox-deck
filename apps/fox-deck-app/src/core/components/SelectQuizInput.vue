@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 import axios from "axios";
-import type { Questionnaires } from "@/types/questionnaire.types";
+import { type Questionnaires } from "@/types/questionnaire.types";
 import FDButton from "@/core/components/FDButton/FDButton.vue";
 
 let initialItems: Questionnaires = [];
@@ -45,21 +45,25 @@ function getAddButtonLabel() {
 <template>
   <div class="border flex p-2 items-center relative bg-white w-fit">
     <input
+      v-model="inputValue"
       class="outline-0 font-sans"
       type="text"
       placeholder="Quiz auswählen"
-      v-model="inputValue"
       @focusin="onFocusIn"
       @focusout="onFocusOut"
       @input="onInput($event.target.value)"
+    >
+    <vue-feather
+      class="w-5"
+      type="search"
     />
-    <vue-feather class="w-5" type="search"></vue-feather>
     <div
       v-if="isDropdownVisible"
       class="z-50 flex flex-col bg-white shadow-lg absolute top-10 left-0 right-0"
     >
       <span
         v-for="item of items"
+        :key="item.id"
         class="mx-2 my-1 rounded-md px-2 py-1 cursor-pointer hover:bg-gray-100"
       >
         {{ item.title }}
@@ -69,11 +73,12 @@ function getAddButtonLabel() {
         class="flex flex-row mx-4 my-1 opacity-80 items-center"
       >
         <span class="mr-4">
-          <vue-feather class="flex w-7" type="alert-circle"></vue-feather>
+          <vue-feather
+            class="flex w-7"
+            type="alert-circle"
+          />
         </span>
-        <span class="text-sm"
-          >Es wurde kein Quiz mit dem Namen '{{ inputValue }}' gefunden.</span
-        >
+        <span class="text-sm">Es wurde kein Quiz mit dem Namen '{{ inputValue }}' gefunden.</span>
       </div>
       <FDButton
         v-if="items.length === 0"
@@ -81,7 +86,7 @@ function getAddButtonLabel() {
         icon="plus"
         class="m-2"
         :label="getAddButtonLabel()"
-      ></FDButton>
+      />
     </div>
   </div>
 </template>

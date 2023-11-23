@@ -29,10 +29,21 @@ const passwordRepeat = ref();
     class="flex flex-col col-span-1 gap-4 min-w-[400px] px-10 py-14 3xl:px-16 3xl:py-20 3xl:gap-6"
     @submit.prevent="$emit('onSubmit', { email, password, username })"
   >
-    <FDTypography type="h1" class="pb-6">Registrieren</FDTypography>
-    <FDTypography type="pxs" class="text-sm">
+    <FDTypography
+      type="h1"
+      class="pb-6"
+    >
+      Registrieren
+    </FDTypography>
+    <FDTypography
+      type="pxs"
+      class="text-sm"
+    >
       Schon einen Account?
-      <RouterLink to="login" class="text-primary-500 underline">
+      <RouterLink
+        to="login"
+        class="text-primary-500 underline"
+      >
         Jetzt Anmelden
       </RouterLink>
     </FDTypography>
@@ -40,28 +51,35 @@ const passwordRepeat = ref();
       label="E-Mail"
       type="email"
       :value="email"
-      @onInput="email = $event"
+      @on-input="email = $event"
     />
     <FDTextInput
       label="Benutzername"
       :value="username"
-      @onInput="username = $event"
+      @on-input="username = $event"
     />
     <FDTextInput
       label="Passwort"
       type="password"
       :value="password"
-      @onInput="password = $event"
+      @on-input="password = $event"
     />
     <FDTextInput
       label="Passwort Wiederholen"
       type="password"
       :value="passwordRepeat"
-      @onInput="passwordRepeat = $event"
+      @on-input="passwordRepeat = $event"
     />
-    <FDTypography v-if="hasError" type="pxs" class="text-danger-normal w-80">
+    <FDTypography
+      v-if="hasError"
+      type="pxs"
+      class="text-danger-normal w-80"
+    >
       Registrierung fehlgeschlagen!
     </FDTypography>
-    <FDButton class="flex-1" label="Registrieren" />
+    <FDButton
+      class="flex-1"
+      label="Registrieren"
+    />
   </form>
 </template>

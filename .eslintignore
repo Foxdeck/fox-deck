@@ -1,0 +1,20 @@
+# directories to ignore
+dist
+build
+coverage
+test-report
+playwright-report
+prisma
+
+# file types to ignore
+*.md
+*.adoc
+*.config.js
+*.json
+*.ts
+*.svg
+*.html
+*.ico
+*.scss
+*.css
+*.mdx

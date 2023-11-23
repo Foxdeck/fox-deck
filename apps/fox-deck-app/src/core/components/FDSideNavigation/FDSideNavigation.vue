@@ -36,16 +36,22 @@ watch(isCollapsed, () => {
     <nav>
       <RouterLink
         v-for="route in routes.filter((r) => r.isVisibleInNavigation)"
+        :key="route.path"
         class="flex flex-row justify-start items-center p-3 transition text-white gap-2 m-3 rounded-md opacity-70"
         :class="{
           '!justify-center': isCollapsed,
         }"
         active-class="bg-white !text-black !opacity-100"
-        :key="route.path"
         :to="route.path"
       >
-        <vue-feather v-if="route.icon" :type="route.icon"></vue-feather>
-        <span v-if="!isCollapsed" class="w-[160px]">{{ route.label }}</span>
+        <vue-feather
+          v-if="route.icon"
+          :type="route.icon"
+        />
+        <span
+          v-if="!isCollapsed"
+          class="w-[160px]"
+        >{{ route.label }}</span>
       </RouterLink>
     </nav>
     <nav class="flex flex-col items-center">
@@ -59,7 +65,7 @@ watch(isCollapsed, () => {
           :class="{
             'rotate-180': !isCollapsed,
           }"
-        ></vue-feather>
+        />
       </span>
     </nav>
   </aside>

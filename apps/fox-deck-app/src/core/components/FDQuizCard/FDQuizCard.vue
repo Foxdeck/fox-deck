@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { QuestionCompetence } from "@/enum";
+import {QuestionCompetence} from "@/enum";
 import FDButton from "@/core/components/FDButton/FDButton.vue";
 
-const props = defineProps({
+defineProps({
   question: { type: String, required: true },
   solution: { type: String, required: true },
   isSolutionVisible: { type: Boolean, required: false, default: false },
@@ -23,12 +23,14 @@ function onNextQuestionClick(competence: QuestionCompetence) {
     <FDButton
       class="self-end"
       icon="eye"
-      @click="isSolutionVisible = !isSolutionVisible"
-    ></FDButton>
+    />
     <p class="text-3xl text-center sm:text-3xl xl:text-4xl">
       {{ question }}
     </p>
-    <p v-if="isSolutionVisible" class="text-center mt-4 leading-relaxed">
+    <p
+      v-if="isSolutionVisible"
+      class="text-center mt-4 leading-relaxed"
+    >
       {{ solution }}
     </p>
     <div class="flex bottom-4 gap-2">
@@ -36,17 +38,17 @@ function onNextQuestionClick(competence: QuestionCompetence) {
         icon="frown"
         severity="danger"
         @click="onNextQuestionClick(QuestionCompetence.NOT_GOOD_AT)"
-      ></FDButton>
+      />
       <FDButton
         icon="meh"
         severity="warn"
         @click="onNextQuestionClick(QuestionCompetence.AVERAGE)"
-      ></FDButton>
+      />
       <FDButton
         icon="smile"
         severity="success"
         @click="onNextQuestionClick(QuestionCompetence.GOOD_AT)"
-      ></FDButton>
+      />
     </div>
   </section>
 </template>

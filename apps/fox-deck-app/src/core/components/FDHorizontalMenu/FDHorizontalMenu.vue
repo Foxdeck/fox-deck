@@ -17,10 +17,11 @@ const isSettingsOpen = ref(false);
     v-if="authStore.isAuthenticated()"
     class="flex border-b border-gray-300 justify-between items-center py-4 px-6 dark:bg-gray-950 dark:border-gray-800"
   >
-    <span class="font-bold font-gabarito text-4xl dark:text-white"
-      >Hallo, {{ authStore.readJWT()?.username }}! 👋</span
+    <span class="font-bold font-gabarito text-4xl dark:text-white">Hallo, {{ authStore.readJWT()?.username }}! 👋</span>
+    <FDPopup
+      :is-open="isSettingsOpen"
+      title="Einstellungen"
     >
-    <FDPopup :is-open="isSettingsOpen" title="Einstellungen">
       <template #container>
         <vue-feather
           class="bg-white p-3 rounded-md shadow-xl cursor-pointer dark:bg-primary-400 dark:text-white hover:opacity-70"
@@ -30,11 +31,16 @@ const isSettingsOpen = ref(false);
       </template>
       <template #popupContent>
         <div class="flex items-center gap-2">
-          <FDTypography class="w-24" type="psm">Helles Design</FDTypography>
+          <FDTypography
+            class="w-24"
+            type="psm"
+          >
+            Helles Design
+          </FDTypography>
           <FDSwitch
             size="small"
             :checked="themeStore.isThemeLight()"
-            @onToggle="themeStore.switchTheme()"
+            @on-toggle="themeStore.switchTheme()"
           />
         </div>
         <RouterLink to="/">
