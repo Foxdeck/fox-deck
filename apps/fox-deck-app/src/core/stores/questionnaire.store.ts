@@ -8,7 +8,6 @@ import type {
 import axios from "axios";
 import { QuestionCompetence } from "@/enum";
 import { useQuestionService } from "@/core/composables/useQuestionService";
-import QuestionService from "@/modules/questions/question.service";
 
 /**
  * Store which contains the quiz of the current active questionnaire.
@@ -74,7 +73,7 @@ export const useQuestionnaireStore = defineStore("questionnaireStore", () => {
   const updateQuestions = async (id: string): Promise<void> => {
     setQuestions([]);
 
-    const questionnaire = await QuestionService.festQuestionById(id);
+    const questionnaire = { questions: [] };
     const questionIds = questionnaire.questions;
 
     const questions = await questionService.fetchQuestionsByIds(questionIds);
