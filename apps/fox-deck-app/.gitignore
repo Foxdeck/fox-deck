@@ -35,3 +35,7 @@ coverage
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+
+# Test Reports
+test-report
+coverage

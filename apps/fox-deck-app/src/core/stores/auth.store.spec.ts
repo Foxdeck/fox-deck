@@ -47,4 +47,17 @@ describe("Auth Store", () => {
       });
     });
   });
+
+  describe("login", () => {
+    it("should set the JWT Token", () => {
+      const authStore = useAuthStore();
+      const token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+        .eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ
+        .SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c`;
+
+      authStore.setJwt(token);
+
+      expect(authStore.jwt).toEqual(token);
+    });
+  });
 });
