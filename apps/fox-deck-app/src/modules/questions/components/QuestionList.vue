@@ -3,7 +3,7 @@ import { onMounted, ref } from "vue";
 import ListGroupTransition from "@/core/components/Transitions/ListGroupTransition.vue";
 import FDPaginator from "@/core/components/FDPaginator/FDPaginator.vue";
 import QuestionCard from "@/modules/questions/components/QuestionCard.vue";
-import { useQuestionsStore } from "@/modules/questions/questions.store";
+import { useQuestionsStore } from "@/modules/questions/stores/questions.store";
 import QuestionSearchListEmpty from "@/modules/questions/components/QuestionSearchListEmpty.vue";
 import { useQuestions } from "@/modules/questions/composables/useQuestions";
 

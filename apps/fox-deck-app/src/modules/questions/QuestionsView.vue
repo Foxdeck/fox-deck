@@ -2,39 +2,13 @@
 import ContentLayout from "@/core/components/Layouts/ContentLayout.vue";
 import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
 import FDTextInput from "@/core/components/FDTextInput/FDTextInput.vue";
-import QuestionFilter from "@/modules/questions/components/QuestionFilter.vue";
-import { useQuestionsStore } from "@/modules/questions/questions.store";
-import QuestionList from "@/modules/questions/components/QuestionList.vue";
 import FDDropDown from "@/core/components/FDDropDown/FDDropDown.vue";
 import FDButton from "@/core/components/FDButton/FDButton.vue";
-import { api } from "@/core/services";
-import { useNotificationStore } from "@/core/stores/notification.store";
+import QuestionFilter from "@/modules/questions/components/QuestionFilter.vue";
+import QuestionList from "@/modules/questions/components/QuestionList.vue";
+import { useQuestions } from "@/modules/questions/composables/useQuestions";
 
-const notificationStore = useNotificationStore();
-const questionsStore = useQuestionsStore();
-
-/**
- * Search for questions via back-end call.
- * @param search {string} the searchstring, for search to work it must not be empty.
- */
-const searchQuestion = async (search: string): Promise<void> => {
-  try {
-    if (search.trim().length === 0) {
-      const response = await api.question.questionControllerGetQuestions();
-      questionsStore.updateQuestions(response.data);
-      return;
-    }
-    const response =
-      await api.search.questionControllerGetQuestionsByText(search);
-    questionsStore.updateQuestions(response.data);
-  } catch (e) {
-    notificationStore.addNotification({
-      title: "Fehler beim Suchen der Fragen",
-      text: "Bitte aktualisieren Sie die Seite oder versuchen Sie es später noch einmal.",
-      severity: "danger",
-    });
-  }
-};
+const { searchQuestions } = useQuestions();
 </script>
 
 <template>
@@ -53,7 +27,7 @@ const searchQuestion = async (search: string): Promise<void> => {
       label="Suchen"
       value=""
       icon="search"
-      @onInput="searchQuestion"
+      @onInput="searchQuestions"
     />
     <FDTypography type="pxs" class="italic text-right">
       3 Fragen gefunden

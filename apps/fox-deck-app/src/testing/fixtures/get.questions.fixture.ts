@@ -33,3 +33,15 @@ export const questionsMock = [
     lastAnswered: null,
   },
 ];
+
+export const questionMock = {
+  id: "c674f44d-959f-4d34-9494-f917d2caea2d",
+  authorId: "",
+  question: "Was ist der Hauptbestandteil der Sonne?",
+  solution: "Wasserstoff",
+  isPublic: true,
+  notGoodAt: 0,
+  average: 0,
+  goodAt: 0,
+  lastAnswered: null,
+};

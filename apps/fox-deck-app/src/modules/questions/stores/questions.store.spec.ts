@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import { createPinia, setActivePinia } from "pinia";
-import { useQuestionsStore } from "@/modules/questions/questions.store";
+import { useQuestionsStore } from "@/modules/questions/stores/questions.store";
 import { questionsMock } from "@/testing/fixtures/get.questions.fixture";
 
 describe("Questions Store", () => {

@@ -4,7 +4,7 @@ import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
 import FDRadioGroup from "@/core/components/FDRadioGroup/FDRadioGroup.vue";
 import { FDRadioGroupItems } from "@/core/components/FDRadioGroup/FDRadioGroup.types";
 import { FDDropdownItem } from "@/core/components/FDDropDown/FDDropDown.types";
-import { useQuestionsStore } from "@/modules/questions/questions.store";
+import { useQuestionsStore } from "@/modules/questions/stores/questions.store";
 
 const questionsStore = useQuestionsStore();
 const visibilityItems: FDRadioGroupItems = [
