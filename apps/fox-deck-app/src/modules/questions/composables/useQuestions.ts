@@ -1,15 +1,55 @@
 import { api } from "@/core/services";
 import { useQuestionsStore } from "@/modules/questions/stores/questions.store";
 import { useNotificationStore } from "@/core/stores/notification.store";
+import type { QuestionDto } from "@/core/services/api";
 
+/**
+ * Composable which abstracts the CRUD operations for questions to the backend.
+ */
 export function useQuestions() {
   const { addNotification } = useNotificationStore();
   const { updateQuestions } = useQuestionsStore();
 
   /**
+   * Create a new question.
+   * @param question {QuestionDto} the question to create.
+   */
+  async function createQuestion(question: QuestionDto): Promise<void> {
+    try {
+      await api.question.questionControllerCreateQuestion(question);
+    } catch (e) {
+      addNotification({
+        title: "Fehler beim Erstellen der Frage",
+        text: "Bitte aktualisieren Sie die Seite oder versuchen Sie es später noch einmal.",
+        severity: "danger",
+      });
+    }
+  }
+
+  /**
+   * Update an already existing question by its id.
+   * @param questionId {string} the question to update.
+   * @param question {QuestionDto} the updated question.
+   */
+  async function updateQuestion(
+    questionId: string,
+    question: QuestionDto,
+  ): Promise<void> {
+    try {
+      await api.question.questionControllerUpdateQuestion(questionId, question);
+    } catch (e) {
+      addNotification({
+        title: "Fehler beim Aktualisieren der Frage",
+        text: "Bitte aktualisieren Sie die Seite oder versuchen Sie es später noch einmal.",
+        severity: "danger",
+      });
+    }
+  }
+
+  /**
    * Fetch questions and update the state.
    */
-  async function fetchQuestions() {
+  async function fetchQuestions(): Promise<void> {
     try {
       const response = await api.question.questionControllerGetQuestions();
       updateQuestions(response.data);
@@ -46,6 +86,8 @@ export function useQuestions() {
   }
 
   return {
+    createQuestion: createQuestion,
+    updateQuestion: updateQuestion,
     fetchQuestions: fetchQuestions,
     searchQuestions: searchQuestions,
   };
