@@ -16,7 +16,7 @@ export const MathUtil = {
    * MathUtil.range(5, 1) // [1,2,3,4,5]
    * MathUtil.range(5, 3) // [3,4,5,6,7]
    */
-  range: (size: number, startAt: number = 0): number[] => {
+  range: (size: number, startAt: number): number[] => {
     return [...Array(size).keys()].map((i) => i + startAt);
   },
 };
