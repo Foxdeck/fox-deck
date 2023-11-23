@@ -55,7 +55,7 @@ async function onFormSubmit() {
         </FDTypography>
         <FDTextInput
           label="Frage"
-          value=""
+          :value="formModel.question"
           @onInput="formModel.question = $event"
         />
       </div>
@@ -66,6 +66,7 @@ async function onFormSubmit() {
         <textarea
           class="border rounded-sm h-32 p-2 outline-none"
           placeholder="Antwort"
+          :value="formModel.solution"
           @input="formModel.solution = $event.target.value"
         ></textarea>
       </div>
@@ -77,7 +78,11 @@ async function onFormSubmit() {
           Wenn du deine mit der Community teilen möchtest, dann können andere
           Benutzer*innen diese für Ihre eigenen Lerneinheiten benutzen.
         </FDTypography>
-        <FDSwitch size="medium" @onToggle="formModel.isPublic = $event" />
+        <FDSwitch
+          size="medium"
+          :checked="formModel.isPublic"
+          @onToggle="formModel.isPublic = $event"
+        />
       </div>
       <FDButton
         class="w-fit"
