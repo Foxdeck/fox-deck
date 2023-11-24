@@ -1,13 +1,14 @@
 == Architecture and Technologies
 
-This section should give you an understanding of the general architecture of fox-deck.
+This section should give you a basic understanding of the general architecture of fox-deck.
+For more detailed information you should look into the more specific sections.
 
 === Overview
 
 Fox-Deck is a web application that utilizes modern web technologies to deliver an efficient and user-friendly experience.
 The application consists of a front-end developed in Vue.js and a back-end based on NestJS.
 
-==== Front-End
+=== Front-End
 
 The front-end of Fox-Deck is where the application's user experience comes to life, crafted using *https://vuejs.org/[Vue.js]*, a progressive JavaScript framework known for its adaptability and component-based architecture.
 This choice reflects a commitment to creating an intuitive and dynamic user interface, allowing users to interact seamlessly with the application's features.
@@ -16,7 +17,7 @@ To complement Vue.js, we've embraced *https://tailwindcss.com/[TailwindCSS]* for
 TailwindCSS's utility-first approach grants us the flexibility to design a bespoke user interface without the overhead of excessive custom CSS.
 This results in a clean, modern, and responsive design that enhances the overall user experience, making navigation and interaction with Fox-Deck both pleasant and efficient.
 
-==== Back-End
+=== Back-End
 
 On the other side, the back-end of Fox-Deck is powered by *https://nestjs.com/[NestJS]*, a robust and versatile framework for building efficient, reliable, and scalable server-side applications.
 NestJS provides a solid foundation for our application, ensuring stable performance and ease of maintenance.
@@ -26,5 +27,127 @@ Prisma's focus on type safety, ease of use, and powerful querying capabilities m
 It streamlines database operations, making them more intuitive and reducing the likelihood of errors.
 
 Furthermore, our RESTful API, a key component of our back-end architecture, is meticulously documented using *https://swagger.io/[Swagger]*.
-This documentation is not only a valuable resource for developers but also serves as the backbone for our TypeScript API generation.
+This documentation is not only a valuable resource, it's also the "single source of truth" for developers and serves as the backbone for our TypeScript API generation.
 With *https://github.com/acacode/swagger-typescript-api["swagger-typescript-api"]*, we automatically create a TypeScript interface for our API, ensuring a smooth and type-safe integration between our front-end and back-end.
+
+This tool chain corresponds to the basic procedure for implementing new features:
+
+==== Plan feature
+
+** What needs to be done?
+** Which database structures are required?
+** What needs to be done in the back-end?
+** What needs to be done in the front-end?
+
+==== Define database schema with Prisma and migrate schema
+
+===== 1. Define your database schema
+
+Start by defining your data models in the Prisma schema file (schema.prisma).
+This file is typically located in the prisma folder at the root of your project.
+Here, you define each model that represents a table in your database.
+For example:
+
+[source,prisma]
+----
+model User {
+  id         String     @id @default(uuid())
+  username   String     @default("")
+  firstname  String?
+  secondname String?
+  email      String
+  password   String
+  Question   Question[]
+}
+
+model Question {
+  id           String    @id @default(uuid())
+  author       User      @relation(fields: [authorId], references: [id])
+  authorId     String    @default("")
+  question     String
+  solution     String
+  isPublic     Boolean
+  notGoodAt    Int?      @default(0)
+  average      Int?      @default(0)
+  goodAt       Int?      @default(0)
+  lastAnswered DateTime?
+}
+----
+
+Each model in the schema represents a table, and the fields represent the columns in the table.
+
+===== 2. Migrate your database
+
+After defining your models, use Prisma Migrate to update your database schema.
+Prisma Migrate reads your Prisma schema file and generates SQL migration files to update your database schema to match the Prisma schema.
+
+Run the following command to create a new migration from the fox-deck-api directory:
+
+[source,bash]
+----
+// [fox-deck-api]
+$ npx prisma migrate dev
+OR
+$ npm run prisma:migrate
+----
+
+This command creates a new SQL migration file in the prisma/migrations folder and applies the migration to your database.
+
+===== 3. Generate new Prisma Client
+
+After migrating your database, generate the Prisma Client by running:
+
+[source,bash]
+----
+// [fox-deck-api]
+$ npx prisma generate
+OR
+$ npm run prisma:generate
+----
+
+Prisma Client is an auto-generated query builder that lets you read and write data in your database using plain JavaScript or TypeScript.
+
+==== Implement back-end logic, pay attention to REST documentation (Swagger)
+
+When developing controllers in NestJS, it's crucial to ensure that Swagger-NestJS annotations are effectively utilized to define the API documentation.
+These annotations play a vital role in describing the API endpoints, their expected input and output, and the HTTP status codes, thereby making the API more understandable and easier to use for developers.
+Also, like already mentioned, we generate the API via the Swagger documentation file, the documentation itself should be correctly described like in this example:
+
+[source,typescript]
+----
+  @ApiOkResponse({
+    description: "Returns a list of questions.",
+    type: QuestionsResponseDto,
+    isArray: true,
+  })
+  @ApiExtraModels(QuestionsResponseDto)
+  @HttpCode(HttpStatus.OK)
+  @Get("question")
+  async getQuestions(): Promise<QuestionsResponseDto[]> {
+    try {
+      return await this.questionService.questions({});
+    } catch (e) {
+      throw new InternalServerErrorException(e);
+    }
+  }
+----
+
+==== Generate a TypeScript API in the front-end from the REST documentation
+
+swagger-typescript-api is a tool that generates TypeScript interfaces and API services from a Swagger (OpenAPI) specification. This utility helps in creating type-safe API interactions in TypeScript-based projects, aligning closely with the API's actual structure and responses.
+
+To generate the swagger-typescript-api in our project, you need to run this command inside the fox-deck-app directory:
+
+[source,bash]
+----
+// [fox-deck-app]
+$ npm run generate:api
+----
+
+This will create or update the already existing api client for the front-end.
+
+==== Implement UI logic in the front-end
+
+After everything is finished you can normally work in Vue to implement your new UI or feature.
+
+
