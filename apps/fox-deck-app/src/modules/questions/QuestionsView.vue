@@ -1,10 +1,11 @@
 <script setup lang="ts">
+import {Form} from "vee-validate";
 import ContentLayout from "@/core/components/Layouts/ContentLayout.vue";
 import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
 import FDTextInput from "@/core/components/FDTextInput/FDTextInput.vue";
 import QuestionFilter from "@/modules/questions/components/QuestionFilter.vue";
 import QuestionList from "@/modules/questions/components/QuestionList.vue";
-import { useQuestions } from "@/modules/questions/composables/useQuestions";
+import {useQuestions} from "@/modules/questions/composables/useQuestions";
 import FDButton from "@/core/components/FDButton/FDButton.vue";
 
 const { searchQuestions } = useQuestions();
@@ -27,12 +28,15 @@ const { searchQuestions } = useQuestions();
       </FDTypography>
     </div>
 
-    <FDTextInput
-      label="Suchen"
-      value=""
-      icon="search"
-      @on-input="searchQuestions"
-    />
+    <Form
+      @input="searchQuestions($event.target.value)"
+    >
+      <FDTextInput
+        name="search"
+        label="Suchen"
+        icon="search"
+      />
+    </Form>
     <FDTypography
       type="pxs"
       class="italic text-right"

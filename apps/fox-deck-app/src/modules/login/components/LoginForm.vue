@@ -1,14 +1,20 @@
 <script setup lang="ts">
+import {Form} from "vee-validate";
 import FDButton from "@/core/components/FDButton/FDButton.vue";
 import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
 import FDTextInput from "@/core/components/FDTextInput/FDTextInput.vue";
-import { ref } from "vue";
+import * as Yup from "yup";
+
+type FormModel = {
+  email: string;
+  password: string;
+}
 
 defineProps({
   hasError: { type: Boolean },
 });
 
-defineEmits<{
+const emit = defineEmits<{
   (
     e: "onSubmit",
     value: {
@@ -18,13 +24,21 @@ defineEmits<{
   );
 }>();
 
-const email = ref();
-const password = ref();
+const schema = Yup.object().shape({
+  email: Yup.string().required("Bitte gib deine E-Mail ein"),
+  password: Yup.string().required("Bitte gib dein Passwort ein"),
+});
+
+function onFormSubmit(formModel: FormModel) {
+  emit("onSubmit", formModel);
+}
+
 </script>
 <template>
-  <form
+  <Form
     class="flex flex-col col-span-1 gap-4 min-w-[400px] px-10 py-14 3xl:px-16 3xl:py-20 3xl:gap-6"
-    @submit.prevent="$emit('onSubmit', { email, password })"
+    :validation-schema="schema"
+    @submit="onFormSubmit"
   >
     <FDTypography
       type="h1"
@@ -46,17 +60,15 @@ const password = ref();
     </FDTypography>
     <FDTextInput
       label="E-Mail"
+      name="email"
       type="email"
       data-testid="emailInput"
-      :value="email"
-      @on-input="email = $event"
     />
     <FDTextInput
       label="Password"
+      name="password"
       type="password"
       data-testid="passwordInput"
-      :value="password"
-      @on-input="password = $event"
     />
     <FDTypography
       v-if="hasError"
@@ -71,5 +83,5 @@ const password = ref();
       label="Anmelden"
       data-testid="loginButton"
     />
-  </form>
+  </Form>
 </template>

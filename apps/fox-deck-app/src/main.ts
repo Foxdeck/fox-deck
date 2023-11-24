@@ -1,9 +1,8 @@
 import "./assets/main.css";
-
-import { createApp } from "vue";
-import { createPinia } from "pinia";
+import {createApp} from "vue";
+import {createPinia} from "pinia";
 import VueFeather from "vue-feather";
-import { InlineSvgPlugin } from "vue-inline-svg";
+import {InlineSvgPlugin} from "vue-inline-svg";
 
 import App from "./App.vue";
 import router from "./router";

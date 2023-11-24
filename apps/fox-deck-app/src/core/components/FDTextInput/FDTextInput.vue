@@ -1,22 +1,28 @@
 <script setup lang="ts">
-defineProps({
-  label: { type: String, required: false, default: "" },
-  value: { type: String, required: true, default: "" },
-  type: { type: String, required: false, default: "text" },
-  disabled: { type: Boolean, required: false, default: false },
-  errorMessage: { type: String, required: false, default: "" },
-  shouldValidate: { type: Boolean, required: false, default: false },
-  icon: {
-    type: String,
-    required: false,
-    default: "",
-  },
-  isValid: { type: Boolean, required: false, default: false },
+import {toRef} from "vue";
+import {useField} from "vee-validate";
+import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
+
+const props = defineProps({
+  name: {type: String, required: true, default: ""},
+  value: {type: String, required: false, default: ""},
+  label: {type: String, required: false, default: ""},
+  type: {type: String, required: false, default: "text"},
+  disabled: {type: Boolean, required: false, default: false},
+  shouldValidate: {type: Boolean, required: false, default: false},
+  icon: {type: String, required: false, default: ""},
+  isValid: {type: Boolean, required: false, default: false},
 });
 
-defineEmits<{
-  onInput: string;
-}>();
+const name = toRef(props, "name");
+const {
+  value: inputValue,
+  errorMessage,
+  handleBlur,
+  handleChange,
+} = useField(name, undefined, {
+  initialValue: props.value,
+});
 </script>
 <template>
   <div class="flex flex-col">
@@ -33,9 +39,10 @@ defineEmits<{
         class="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent text-sm outline-none disabled:cursor-not-allowed"
         data-testid="input"
         :disabled="disabled"
-        :value="value"
+        :value="inputValue"
         :type="type"
-        @input="$emit('onInput', $event.target.value)"
+        @input="handleChange"
+        @blur="handleBlur"
       >
       <span class="flex gap-2">
         <vue-feather
@@ -70,12 +77,13 @@ defineEmits<{
         {{ label }}
       </span>
     </label>
-    <span
-      v-if="shouldValidate && !isValid"
-      class="ml-2 inline-block text-danger-normal text-xs"
+    <FDTypography
+      v-if="errorMessage"
+      type="pxs"
+      class="inline-block text-danger-normal"
       data-testid="errorMessage"
     >
       {{ errorMessage }}
-    </span>
+    </FDTypography>
   </div>
 </template>

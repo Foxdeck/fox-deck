@@ -2,7 +2,6 @@
 import FDButton from "@/core/components/FDButton/FDButton.vue";
 import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
 import FDTextInput from "@/core/components/FDTextInput/FDTextInput.vue";
-import { ref } from "vue";
 
 defineProps({
   hasError: { type: Boolean },
@@ -19,10 +18,6 @@ defineEmits<{
   );
 }>();
 
-const email = ref();
-const username = ref();
-const password = ref();
-const passwordRepeat = ref();
 </script>
 <template>
   <form
@@ -48,27 +43,23 @@ const passwordRepeat = ref();
       </RouterLink>
     </FDTypography>
     <FDTextInput
+        name="email"
       label="E-Mail"
       type="email"
-      :value="email"
-      @on-input="email = $event"
     />
     <FDTextInput
+        name="username"
       label="Benutzername"
-      :value="username"
-      @on-input="username = $event"
     />
     <FDTextInput
+        name="password"
       label="Passwort"
       type="password"
-      :value="password"
-      @on-input="password = $event"
     />
     <FDTextInput
+        name="passwordRepeat"
       label="Passwort Wiederholen"
       type="password"
-      :value="passwordRepeat"
-      @on-input="passwordRepeat = $event"
     />
     <FDTypography
       v-if="hasError"
