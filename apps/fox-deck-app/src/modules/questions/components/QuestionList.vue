@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import {onMounted, ref} from "vue";
 import ListGroupTransition from "@/core/components/Transitions/ListGroupTransition.vue";
 import FDPaginator from "@/core/components/FDPaginator/FDPaginator.vue";
 import QuestionCard from "@/modules/questions/components/QuestionCard.vue";
-import { useQuestionsStore } from "@/modules/questions/stores/questions.store";
+import {useQuestionsStore} from "@/modules/questions/stores/questions.store";
 import QuestionSearchListEmpty from "@/modules/questions/components/QuestionSearchListEmpty.vue";
-import { useQuestions } from "@/modules/questions/composables/useQuestions";
+import {useQuestions} from "@/modules/questions/composables/useQuestions";
 
 const questionsStore = useQuestionsStore();
 const { fetchQuestions } = useQuestions();
@@ -35,8 +35,7 @@ const currentPage = ref(1);
     </div>
     <QuestionSearchListEmpty v-else />
     <FDPaginator
-      :max-page="20"
-      :display-page-amount="8"
+      :pages="8"
       :current-page="currentPage"
       @on-paginate="currentPage = $event"
     />

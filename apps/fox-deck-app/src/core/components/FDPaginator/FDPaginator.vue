@@ -3,36 +3,38 @@ import {MathUtil} from "@/core/util/math.util";
 import FDPaginatorItem from "@/core/components/FDPaginator/FDPaginatorItem.vue";
 
 const props = defineProps({
-  currentPage: { type: Number, default: 1 },
-  maxPage: { type: Number, default: 1 },
-  displayPageAmount: { type: Number, default: 5 },
+  currentPage: {type: Number, default: 1},
+  pages: {type: Number, default: 1},
 });
 
 const emit = defineEmits<{
   (e: "onPaginate", value: number);
 }>();
 
+const displayPageAmount = props.pages < 5 ? props.pages : 5;
 const minPage = 1;
 
 function generatePaginatorNumbers(): number[] {
-  if (props.currentPage < props.displayPageAmount) {
-    return MathUtil.range(props.displayPageAmount!, minPage);
+  // TODO: refactor this to make it more logical, this is currently hard to read.
+  const isFirstPages = props.currentPage < displayPageAmount;
+  const isLastPages = props.currentPage >= props.pages - displayPageAmount + displayPageAmount - 1;
+  const isBetweenFirstAndLastPages = !isFirstPages && !isLastPages;
+
+  if (isFirstPages) {
+    return MathUtil.range(displayPageAmount!, minPage);
   }
 
-  if (
-    props.currentPage >= props.displayPageAmount &&
-    props.currentPage <= props.maxPage - props.displayPageAmount / 2
-  ) {
+  if (isBetweenFirstAndLastPages) {
     return MathUtil.range(
-      props.displayPageAmount!,
-      props.currentPage - props.displayPageAmount / 2 - 2,
+        displayPageAmount!,
+        props.currentPage - 2,
     );
   }
 
-  if (props.currentPage >= props.maxPage - props.displayPageAmount) {
+  if (isLastPages) {
     return MathUtil.range(
-      props.displayPageAmount!,
-      props.maxPage - props.displayPageAmount + 1,
+        displayPageAmount!,
+        props.pages - displayPageAmount + 1,
     );
   }
 }
@@ -42,7 +44,7 @@ function onPaginate(page: number) {
 }
 
 function onPaginateNext() {
-  if (props.currentPage < props.maxPage) {
+  if (props.currentPage < props.pages) {
     const nextPage = props.currentPage + 1;
     emit("onPaginate", nextPage);
   }
@@ -58,7 +60,10 @@ function onPaginatePrev() {
 
 <template>
   <ol class="flex justify-center gap-1 text-sm">
-    <FDPaginatorItem @click="onPaginatePrev()">
+    <FDPaginatorItem
+      data-testid="paginator-prev"
+      @click="onPaginatePrev()"
+    >
       <vue-feather
         type="chevron-left"
         size="14"
@@ -69,12 +74,16 @@ function onPaginatePrev() {
       v-for="index in generatePaginatorNumbers()"
       :key="index"
       :is-selected="currentPage === index"
+      data-testid="paginator-item"
       @click="onPaginate(index)"
     >
       {{ index }}
     </FDPaginatorItem>
 
-    <FDPaginatorItem @click="onPaginateNext()">
+    <FDPaginatorItem
+      data-testid="paginator-next"
+      @click="onPaginateNext()"
+    >
       <vue-feather
         type="chevron-right"
         size="14"
