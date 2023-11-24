@@ -36,8 +36,11 @@ defineProps({
       v-if="isOpen"
       class="absolute z-50 mt-2 w-fit min-w-[140px] divide-y divide-gray-100 rounded-md border border-gray-100 bg-white shadow-lg dark:bg-gray-700 dark:border-gray-600"
       role="menu"
+      data-testid="dropdown-item-list"
     >
-      <div class="p-2">
+      <div
+        class="p-2"
+      >
         <span
           v-for="item of items"
           :key="item.id"
@@ -46,6 +49,7 @@ defineProps({
             '!bg-primary-200/30': item === selectedItem,
           }"
           role="menuitem"
+          data-testid="dropdown-item"
         >
           <vue-feather
             type="check"

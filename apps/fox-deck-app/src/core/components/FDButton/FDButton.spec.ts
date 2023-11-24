@@ -11,7 +11,7 @@ describe('FDButton', () => {
     );
 
     expect(wrapper.text()).toEqual("Click me!")
-    expect(wrapper.findComponent("[data-testid=button-icon]").exists()).not.toBeTruthy();
+    expect(wrapper.find("[data-testid=button-icon]").exists()).not.toBeTruthy();
   })
 
   it('should render correctly with icon', () => {
@@ -22,6 +22,6 @@ describe('FDButton', () => {
     );
 
     expect(wrapper.text()).toEqual("Click me!")
-    expect(wrapper.findComponent("[data-testid=button-icon]").isVisible()).toBeTruthy();
+    expect(wrapper.find("[data-testid=button-icon]").isVisible()).toBeTruthy();
   })
 })

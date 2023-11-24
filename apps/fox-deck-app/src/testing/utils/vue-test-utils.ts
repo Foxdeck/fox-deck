@@ -7,7 +7,7 @@ import type {Component} from "vue";
  * @param component the component to test
  * @param props the props of the component
  */
-export function render(component: Component, props: any) {
+export function render(component: Component, props: any = {}) {
   return mount(component, {
     components: {
       'vue-feather': VueFeather
