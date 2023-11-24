@@ -1,14 +1,12 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
-import { createPinia, setActivePinia } from "pinia";
+import {beforeEach, describe, expect, it, vi} from "vitest";
+import {createPinia, setActivePinia} from "pinia";
 import createFetchMock from "vitest-fetch-mock";
-import { useQuestions } from "@/modules/questions/composables/useQuestions";
-import { useQuestionsStore } from "@/modules/questions/stores/questions.store";
-import { useNotificationStore } from "@/core/stores/notification.store";
-import {
-  questionMock,
-  questionsMock,
-} from "@/testing/fixtures/get.questions.fixture";
-import { api } from "@/core/services";
+import {useQuestions} from "@/modules/questions/composables/useQuestions";
+import {useQuestionsStore} from "@/modules/questions/stores/questions.store";
+import {useNotificationStore} from "@/core/stores/notification.store";
+import {questionMock, questionsMock,} from "@/testing/fixtures/get.questions.fixture";
+import {api} from "@/core/services";
+import {CreateQuestionException} from "@/modules/questions/exceptions/CreateQuestionException";
 
 const fetchMocker = createFetchMock(vi);
 fetchMocker.enableMocks();
@@ -27,6 +25,7 @@ describe("useQuestions", () => {
         question: "What is 3+3?",
         solution: "6",
         isPublic: false,
+        authorId: "57d31599-ebf6-49fb-9a81-aea49af1400d"
       };
 
       await createQuestion(question);
@@ -34,22 +33,21 @@ describe("useQuestions", () => {
       expect(spy).toHaveBeenCalledWith(question);
     });
 
-    it("should show a notification, if response has an error", async () => {
+    it("should throw a CreateQuestionException, if response has an error", async () => {
       fetchMocker.mockReject({
         name: "FetchError",
         message: "Error while creating question.",
       });
-      const notificationStore = useNotificationStore();
       const { createQuestion } = useQuestions();
       const question = {
         question: "What is 3+3?",
         solution: "6",
         isPublic: false,
+        authorId: "57d31599-ebf6-49fb-9a81-aea49af1400d"
       };
 
-      await createQuestion(question);
+      await expect(() => createQuestion(question)).rejects.toThrowError(CreateQuestionException);
 
-      expect(notificationStore.notifications.length).toEqual(1);
     });
   });
 
@@ -62,6 +60,7 @@ describe("useQuestions", () => {
         question: "What is 3+3?",
         solution: "6",
         isPublic: false,
+        authorId: "57d31599-ebf6-49fb-9a81-aea49af1400d"
       };
 
       await updateQuestion(questionId, question);
@@ -81,6 +80,7 @@ describe("useQuestions", () => {
         question: "What is 3+3?",
         solution: "6",
         isPublic: false,
+        authorId: "57d31599-ebf6-49fb-9a81-aea49af1400d"
       };
 
       await updateQuestion(questionId, question);
