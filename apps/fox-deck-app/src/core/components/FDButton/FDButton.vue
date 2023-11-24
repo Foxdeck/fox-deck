@@ -43,6 +43,7 @@ defineProps({
   >
     <vue-feather
       v-if="icon"
+      data-testid="button-icon"
       :type="icon"
       size="18"
     />
