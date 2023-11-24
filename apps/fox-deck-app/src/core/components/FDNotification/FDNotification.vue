@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
-import type { PropType } from "vue";
-import type { Severity } from "@/core/components/severity.types";
+import type {PropType} from "vue";
+import type {Severity} from "@/core/components/severity.types";
 
 defineProps({
   severity: {
@@ -43,6 +43,7 @@ defineProps({
     >
       <vue-feather
         v-if="severity === 'danger' || severity === 'warn'"
+        data-testid="notification-error-icon"
         type="alert-triangle"
         size="20"
       />
@@ -51,7 +52,7 @@ defineProps({
         type="check"
         size="20"
       />
-      <FDTypography>
+      <FDTypography data-testid="notification-title">
         {{ title }}
       </FDTypography>
     </div>
@@ -59,6 +60,7 @@ defineProps({
     <FDTypography
       type="psm"
       class="mt-2"
+      data-testid="notification-text"
       :class="{
         'text-primary-500': severity === 'primary',
         'text-success-darker': severity === 'success',
