@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
-import type {FDRadioGroupItemId, FDRadioGroupItems,} from "@/core/components/FDRadioGroup/FDRadioGroup.types";
+import type {FDRadioGroupItemId, FDRadioGroupItems} from "@/core/components/FDRadioGroup/FDRadioGroup.types";
 import type {PropType} from "vue";
 
 defineProps({
@@ -17,6 +17,7 @@ defineProps({
     <div
       v-for="item of items"
       :key="item.id"
+      data-testid="radio-group-item"
     >
       <input
         :id="item.id"
@@ -26,6 +27,7 @@ defineProps({
         :checked="selectedItemId === item.id"
         type="radio"
         class="peer hidden [&:checked_+_label_svg]:block"
+        data-testid="radio-group-item-input"
       >
 
       <label
@@ -36,12 +38,14 @@ defineProps({
           <FDTypography
             type="psm"
             class="text-gray-700"
+            data-testid="radio-group-item-label"
           >
             {{ item.label }}
           </FDTypography>
           <vue-feather
             v-if="selectedItemId === item.id"
             class="hidden h-5 w-5 text-primary-500"
+            data-testid="radio-group-item-icon"
             type="check"
           />
         </span>
@@ -49,6 +53,7 @@ defineProps({
         <FDTypography
           type="pxs"
           class="text-gray-500"
+          data-testid="radio-group-item-text"
         >
           {{ item.text }}
         </FDTypography>
