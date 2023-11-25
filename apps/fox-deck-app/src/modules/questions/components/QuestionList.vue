@@ -2,9 +2,9 @@
 import {onMounted, ref} from "vue";
 import ListGroupTransition from "@/core/components/Transitions/ListGroupTransition.vue";
 import FDPaginator from "@/core/components/FDPaginator/FDPaginator.vue";
-import QuestionCard from "@/modules/questions/components/QuestionCard.vue";
+import QuestionListItem from "@/modules/questions/components/QuestionListItem.vue";
 import {useQuestionsStore} from "@/modules/questions/stores/questions.store";
-import QuestionSearchListEmpty from "@/modules/questions/components/QuestionSearchListEmpty.vue";
+import QuestionListEmpty from "@/modules/questions/components/QuestionListEmpty.vue";
 import {useQuestions} from "@/modules/questions/composables/useQuestions";
 import {useNotificationStore} from "@/core/stores/notification.store";
 import {useI18n} from "vue-i18n";
@@ -35,17 +35,14 @@ const currentPage = ref(1);
       class="flex flex-col w-full"
     >
       <ListGroupTransition>
-        <QuestionCard
-          v-for="item in questionsStore.questions"
-          :key="item.id"
-          :question="item.question"
-          :solution="item.solution"
-          :is-public="item.isPublic"
-          author="LearningFox"
+        <QuestionListItem
+          v-for="question in questionsStore.questions"
+          :key="question.id"
+          :question="question"
         />
       </ListGroupTransition>
     </div>
-    <QuestionSearchListEmpty v-else />
+    <QuestionListEmpty v-else />
     <FDPaginator
       :pages="8"
       :current-page="currentPage"

@@ -4,6 +4,7 @@ import {useNotificationStore} from "@/core/stores/notification.store";
 import {CreateQuestionException} from "@/modules/questions/exceptions/CreateQuestionException";
 import {type CreateQuestionRequestDto} from "@/core/services/api";
 import {FetchQuestionException} from "@/modules/questions/exceptions/FetchQuestionException";
+import {SearchQuestionException} from "@/modules/questions/exceptions/SearchQuestionException";
 
 /**
  * Composable which abstracts the CRUD operations for questions to the backend.
@@ -72,7 +73,7 @@ export function useQuestions() {
       const response = await api.search.questionControllerGetQuestionsByText(search);
       updateQuestions(response.data);
     } catch (e) {
-      throw e;
+      throw new SearchQuestionException();
     }
   }
 

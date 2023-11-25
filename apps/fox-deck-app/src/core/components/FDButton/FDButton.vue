@@ -12,7 +12,7 @@ defineProps({
   },
   label: {type: String, required: false, default: ""},
   type: {
-    type: String as PropType<"primary" | "secondary">,
+    type: String as PropType<"primary" | "secondary" | "text">,
     required: false,
     default: "primary" satisfies "primary" | "secondary",
   },
@@ -39,6 +39,14 @@ defineProps({
         type === 'secondary' && severity === 'success',
       '!border-warn-normal !text-warn-normal':
         type === 'secondary' && severity === 'warn',
+      '!bg-transparent !border-transparent !text-primary-500':
+        type === 'text' && severity === 'primary',
+      '!bg-transparent !border-transparent !text-warn-normal':
+        type === 'text' && severity === 'warn',
+      '!bg-transparent !border-transparent !text-danger-normal':
+        type === 'text' && severity === 'danger',
+      '!bg-transparent !border-transparent !text-success-normal':
+        type === 'text' && severity === 'success',
     }"
   >
     <vue-feather
