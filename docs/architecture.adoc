@@ -1,25 +1,25 @@
 == Architecture and Technologies
 
-This section should give you a basic understanding of the general architecture of fox-deck.
+This section should give you a basic understanding of the general architecture of Foxdeck.
 For more detailed information you should look into the more specific sections.
 
 === Overview
 
-Fox-Deck is a web application that utilizes modern web technologies to deliver an efficient and user-friendly experience.
+Foxdeck is a web application that utilizes modern web technologies to deliver an efficient and user-friendly experience.
 The application consists of a front-end developed in Vue.js and a back-end based on NestJS.
 
 === Front-End
 
-The front-end of Fox-Deck is where the application's user experience comes to life, crafted using *https://vuejs.org/[Vue.js]*, a progressive JavaScript framework known for its adaptability and component-based architecture.
+The front-end of Foxdeck is where the application's user experience comes to life, crafted using *https://vuejs.org/[Vue.js]*, a progressive JavaScript framework known for its adaptability and component-based architecture.
 This choice reflects a commitment to creating an intuitive and dynamic user interface, allowing users to interact seamlessly with the application's features.
 
 To complement Vue.js, we've embraced *https://tailwindcss.com/[TailwindCSS]* for styling.
 TailwindCSS's utility-first approach grants us the flexibility to design a bespoke user interface without the overhead of excessive custom CSS.
-This results in a clean, modern, and responsive design that enhances the overall user experience, making navigation and interaction with Fox-Deck both pleasant and efficient.
+This results in a clean, modern, and responsive design that enhances the overall user experience, making navigation and interaction with Foxdeck both pleasant and efficient.
 
 === Back-End
 
-On the other side, the back-end of Fox-Deck is powered by *https://nestjs.com/[NestJS]*, a robust and versatile framework for building efficient, reliable, and scalable server-side applications.
+On the other side, the back-end of Foxdeck is powered by *https://nestjs.com/[NestJS]*, a robust and versatile framework for building efficient, reliable, and scalable server-side applications.
 NestJS provides a solid foundation for our application, ensuring stable performance and ease of maintenance.
 
 For database interactions, we've integrated *https://www.prisma.io/[Prisma]* as our ORM.

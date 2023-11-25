@@ -3,8 +3,6 @@
 
 IMPORTANT: Please note that this documentation is currently in progress and may not yet be complete. We are actively working to update and expand its contents to ensure it provides the most accurate and comprehensive information.
 
-IMPORTANT: The project itself is currently only translated into german. An english translation will follow later this year.
-
 == About this Document
 
 This document provides a comprehensive guide to the software's architecture, highlighting key components and their interactions to facilitate efficient development and collaboration.
@@ -15,7 +13,7 @@ It is designed to help developers build an understanding of the code and its phi
 One of the most difficult things is to find your way around the code of other developers.
 In order to gain a deep understanding of the software, it is important to understand and comprehend the thoughts of the developers.
 
-Fox-Deck was initially planned as a small application in which simple questions can be created for learning purposes.
+Foxdeck was initially planned as a small application in which simple questions can be created for learning purposes.
 In the course of development, however, it has become clear that the software has greater potential to be offered to a wider audience.
 For this purpose, the initially very flat hierarchy and a JSON file as a "database" was turned into a deeper hierarchy with two software parts: the interface "fox-deck-app" and the back-end "fox-deck-api".
 These two parts are located in the folder hierarchy in the "apps" folder.
