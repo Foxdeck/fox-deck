@@ -3,6 +3,9 @@ import FDButton from "@/core/components/FDButton/FDButton.vue";
 import ContentLayout from "@/core/components/Layouts/ContentLayout.vue";
 import Image from "@/assets/images/book.svg";
 import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
+import {useI18n} from "vue-i18n";
+
+const { t } = useI18n();
 </script>
 <template>
   <ContentLayout>
@@ -12,16 +15,13 @@ import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
       <div class="col-span-8">
         <div class="flex flex-col gap-4">
           <FDTypography type="title">
-            Mit dem Lernen beginnen!
+            {{ t("home.title") }}
           </FDTypography>
           <FDTypography
             type="p"
             class="leading-10"
           >
-            Entwickle eigene Lernmodule mit gezielten Fragen, die dein Wissen
-            effektiv erweitern. Erstelle dafür Fragen, welche dir dabei helfen
-            Sachverhalte zu merken und ordne diese anschließend verschiedenen
-            Lerneinheiten hinzu.
+            {{ t("home.text") }}
           </FDTypography>
           <RouterLink
             class="w-fit"
@@ -30,7 +30,7 @@ import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
             <FDButton
               class="mt-5"
               icon="chevron-right"
-              label="Jetzt Fragen erstellen"
+              :label="t('home.create_questions_now')"
             />
           </RouterLink>
         </div>

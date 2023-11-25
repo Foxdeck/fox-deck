@@ -6,6 +6,7 @@ import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
 const props = defineProps({
   name: {type: String, required: true, default: ""},
   value: {type: String, required: false, default: ""},
+  placeholder: {type: String, required: false, default: ""}
 });
 
 const name = toRef(props, "name");
@@ -14,7 +15,7 @@ const {
   errorMessage,
   handleBlur,
   handleChange,
-} = useField(name, undefined, {
+} = useField(name as string, undefined, {
   initialValue: props.value,
 });
 </script>
@@ -22,7 +23,7 @@ const {
   <div class="flex flex-col">
     <textarea
       class="border rounded-sm h-32 p-2 outline-none"
-      placeholder="Antwort"
+      :placeholder="placeholder"
       :value="inputValue"
       @input="handleChange"
       @blur="handleBlur"

@@ -4,6 +4,7 @@ import FDButton from "@/core/components/FDButton/FDButton.vue";
 import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
 import FDTextInput from "@/core/components/FDTextInput/FDTextInput.vue";
 import * as Yup from "yup";
+import {useI18n} from "vue-i18n";
 
 type FormModel = {
   email: string;
@@ -24,9 +25,11 @@ const emit = defineEmits<{
   );
 }>();
 
+const { t } = useI18n();
+
 const schema = Yup.object().shape({
-  email: Yup.string().required("Bitte gib deine E-Mail ein"),
-  password: Yup.string().required("Bitte gib dein Passwort ein"),
+  email: Yup.string().required(t("login.validation.email_required")),
+  password: Yup.string().required(t("login.validation.password_required")),
 });
 
 function onFormSubmit(formModel: FormModel) {
@@ -44,30 +47,30 @@ function onFormSubmit(formModel: FormModel) {
       type="h1"
       class="pb-6"
     >
-      Anmelden
+      {{ t("login.title") }}
     </FDTypography>
     <FDTypography
       type="pxs"
       class="text-sm"
     >
-      Neuer Nutzer?
+      {{ t("login.new_user") }}
       <RouterLink
         to="register"
         class="text-primary-500 underline"
       >
-        Account erstellen
+        {{ t("login.create_account") }}
       </RouterLink>
     </FDTypography>
     <FDTextInput
-      label="E-Mail"
       name="email"
       type="email"
+      :label="t('login.email')"
       data-testid="emailInput"
     />
     <FDTextInput
-      label="Password"
       name="password"
       type="password"
+      :label="t('login.password')"
       data-testid="passwordInput"
     />
     <FDTypography
@@ -76,11 +79,11 @@ function onFormSubmit(formModel: FormModel) {
       type="pxs"
       class="text-danger-normal w-80"
     >
-      Login fehlgeschlagen! Bitte prüfen Sie Ihre E-Mail und Ihr Passwort.
+      {{ t("login.validation.login_error") }}
     </FDTypography>
     <FDButton
       class="flex-1"
-      label="Anmelden"
+      :label="t('login.login')"
       data-testid="loginButton"
     />
   </Form>

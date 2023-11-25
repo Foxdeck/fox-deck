@@ -2,6 +2,7 @@
 import FDButton from "@/core/components/FDButton/FDButton.vue";
 import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
 import FDTextInput from "@/core/components/FDTextInput/FDTextInput.vue";
+import {useI18n} from "vue-i18n";
 
 defineProps({
   hasError: { type: Boolean },
@@ -18,6 +19,8 @@ defineEmits<{
   );
 }>();
 
+const { t } = useI18n();
+
 </script>
 <template>
   <form
@@ -28,49 +31,49 @@ defineEmits<{
       type="h1"
       class="pb-6"
     >
-      Registrieren
+      {{ t("register.title") }}
     </FDTypography>
     <FDTypography
       type="pxs"
       class="text-sm"
     >
-      Schon einen Account?
+      {{ t("register.already_an_account") }}
       <RouterLink
         to="login"
         class="text-primary-500 underline"
       >
-        Jetzt Anmelden
+        {{ t("register.login_now") }}
       </RouterLink>
     </FDTypography>
     <FDTextInput
-        name="email"
-      label="E-Mail"
+      name="email"
       type="email"
+      :label="t('register.email')"
     />
     <FDTextInput
-        name="username"
-      label="Benutzername"
+      name="username"
+      :label="t('register.username')"
     />
     <FDTextInput
-        name="password"
-      label="Passwort"
+      name="password"
       type="password"
+      :label="t('register.password')"
     />
     <FDTextInput
-        name="passwordRepeat"
-      label="Passwort Wiederholen"
+      name="passwordRepeat"
       type="password"
+      :label="t('register.password_repeat')"
     />
     <FDTypography
       v-if="hasError"
       type="pxs"
       class="text-danger-normal w-80"
     >
-      Registrierung fehlgeschlagen!
+      {{ t("register.validation.register_error") }}
     </FDTypography>
     <FDButton
       class="flex-1"
-      label="Registrieren"
+      :label="t('register.register')"
     />
   </form>
 </template>

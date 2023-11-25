@@ -6,12 +6,24 @@ import QuestionCard from "@/modules/questions/components/QuestionCard.vue";
 import {useQuestionsStore} from "@/modules/questions/stores/questions.store";
 import QuestionSearchListEmpty from "@/modules/questions/components/QuestionSearchListEmpty.vue";
 import {useQuestions} from "@/modules/questions/composables/useQuestions";
+import {useNotificationStore} from "@/core/stores/notification.store";
+import {useI18n} from "vue-i18n";
 
+const { addNotification } = useNotificationStore();
 const questionsStore = useQuestionsStore();
 const { fetchQuestions } = useQuestions();
+const { t } = useI18n();
 
 onMounted(async () => {
-  await fetchQuestions();
+  try {
+    await fetchQuestions();
+  } catch (e) {
+    addNotification({
+      title: t(e.name),
+      text: t(e.message),
+      severity: "danger",
+    });
+  }
 });
 
 const currentPage = ref(1);

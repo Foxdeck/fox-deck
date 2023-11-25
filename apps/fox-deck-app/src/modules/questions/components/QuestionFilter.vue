@@ -2,22 +2,25 @@
 import FDDropDown from "@/core/components/FDDropDown/FDDropDown.vue";
 import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
 import FDRadioGroup from "@/core/components/FDRadioGroup/FDRadioGroup.vue";
-import { FDRadioGroupItems } from "@/core/components/FDRadioGroup/FDRadioGroup.types";
-import { FDDropdownItem } from "@/core/components/FDDropDown/FDDropDown.types";
-import { useQuestionsStore } from "@/modules/questions/stores/questions.store";
+import {FDRadioGroupItems} from "@/core/components/FDRadioGroup/FDRadioGroup.types";
+import {FDDropdownItem} from "@/core/components/FDDropDown/FDDropDown.types";
+import {useQuestionsStore} from "@/modules/questions/stores/questions.store";
+import {useI18n} from "vue-i18n";
 
 const questionsStore = useQuestionsStore();
+const { t } = useI18n();
+
 const visibilityItems: FDRadioGroupItems = [
   {
     id: "private",
-    label: "Eigene Fragen",
-    text: "Zeigt nur eigene Fragen an.",
+    label: t("questions.question_filter.visibility_items.private_label"),
+    text: t("questions.question_filter.visibility_items.private_text"),
     value: "private",
   },
   {
     id: "public",
-    label: "Öffentliche Fragen",
-    text: "Zeigt Fragen aus der Community an.",
+    label: t("questions.question_filter.visibility_items.public_label"),
+    text: t("questions.question_filter.visibility_items.public_text"),
     value: "public",
   },
 ];
@@ -25,12 +28,12 @@ const visibilityItems: FDRadioGroupItems = [
 const categoryItems: FDDropdownItem[] = [
   {
     id: "all",
-    label: "Alle",
+    label: t("questions.question_filter.category_items.all"),
     value: "all",
   },
   {
     id: "wiso",
-    label: "WiSo",
+    label: t("questions.question_filter..category_items.wiso"),
     value: "wiso",
   },
 ];
@@ -48,11 +51,11 @@ const categoryItems: FDDropdownItem[] = [
         type="psm"
         class="font-bold"
       >
-        Filter
+        {{ t("questions.question_filter.title") }}
       </FDTypography>
     </div>
     <FDTypography type="pxs">
-      Finde genau die Fragen, die du suchst.
+      {{ t("questions.question_filter.text") }}
     </FDTypography>
     <FDRadioGroup
       name="visibilityOption"
@@ -63,7 +66,7 @@ const categoryItems: FDDropdownItem[] = [
       type="pxs"
       class="font-bold"
     >
-      Kategorie
+      {{ t("questions.question_filter.category") }}
     </FDTypography>
     <FDDropDown
       :items="categoryItems"

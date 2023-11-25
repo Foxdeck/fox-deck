@@ -13,21 +13,27 @@ import {useNotificationStore} from "@/core/stores/notification.store";
 import {useQuestions} from "@/modules/questions/composables/useQuestions";
 import FDTextArea from "@/core/components/FDTextArea/FDTextArea.vue";
 import type {CreateQuestionRequestDto} from "@/core/services/api";
+import {useI18n} from "vue-i18n";
+
+type FormModel = {
+  question: string;
+  solution: string;
+}
 
 const { push } = useRouter();
 const { addNotification } = useNotificationStore();
 const { createQuestion } = useQuestions();
 const { readJWT } = useAuthStore();
+const { t } = useI18n();
 
 const schema = Yup.object().shape({
-  question: Yup.string().required("Bitte gib Sie eine Frage ein."),
-  solution: Yup.string().required("Bitte gib eine Antwort auf deine Frage ein."),
+  question: Yup.string().required(t("questions.creation.validation.question_required")),
+  solution: Yup.string().required(t("questions.creation.validation.answer_required")),
 });
 
-const hasFormError = ref(false);
 const isPublic = ref(false);
 
-async function onFormSubmit(formModel: any) {
+async function onFormSubmit(formModel: FormModel) {
   try {
     const question: CreateQuestionRequestDto = {
       ...formModel,
@@ -38,8 +44,8 @@ async function onFormSubmit(formModel: any) {
     await push("/questions");
   } catch (e) {
     addNotification({
-      title: e.name,
-      text: e.message,
+      title: t(e.name),
+      text: t(e.message),
       severity: "danger",
     });
   }
@@ -52,14 +58,16 @@ async function onFormSubmit(formModel: any) {
       class="flex flex-col bg-white p-8 gap-6 rounded-md max-w-[600px] mx-auto"
       :validation-schema="schema"
       @submit="onFormSubmit"
-      @invalid-submit="hasFormError = true"
     >
-      <div class="flex flex-col gap-2">
+      <div class="flex flex-col gap-3">
         <FDTypography type="h1">
-          Frage erstellen
+          {{ t("questions.creation.title") }}
         </FDTypography>
-        <FDTypography type="p">
-          Erstelle deine eigene Frage und teile Sie mit der Community!
+        <FDTypography
+          type="p"
+          class="leading-8"
+        >
+          {{ t("questions.creation.text") }}
         </FDTypography>
       </div>
       <div class="flex flex-col gap-2">
@@ -67,11 +75,11 @@ async function onFormSubmit(formModel: any) {
           type="psm"
           class="font-bold"
         >
-          Was ist deine Frage?
+          {{ t("questions.creation.what_is_your_question") }}
         </FDTypography>
         <FDTextInput
           name="question"
-          label="Frage"
+          :label="t('questions.creation.question')"
         />
       </div>
       <div class="flex flex-col gap-2">
@@ -79,10 +87,11 @@ async function onFormSubmit(formModel: any) {
           type="psm"
           class="font-bold"
         >
-          Wie lautet die Antwort auf deine Frage?
+          {{ t("questions.creation.what_is_the_answer") }}
         </FDTypography>
         <FDTextArea
           name="solution"
+          :placeholder="t('questions.creation.answer')"
         />
       </div>
       <div class="flex flex-col gap-2">
@@ -90,32 +99,23 @@ async function onFormSubmit(formModel: any) {
           type="psm"
           class="font-bold"
         >
-          Ist deine Frage öffentlich?
+          {{ t("questions.creation.is_question_public") }}
         </FDTypography>
         <FDTypography
           type="psm"
           class="leading-6"
         >
-          Wenn du deine mit der Community teilen möchtest, dann können andere
-          Benutzer*innen diese für Ihre eigenen Lerneinheiten benutzen.
+          {{ t("questions.creation.is_question_public_explanation") }}
         </FDTypography>
         <FDSwitch
           size="medium"
           @on-toggle="isPublic = $event"
         />
       </div>
-      <FDTypography
-        v-if="hasFormError"
-        type="psm"
-        class="ml-2 inline-block text-danger-normal"
-        data-testid="errorMessage"
-      >
-        Beim Speichern der Frage ist ein Fehler aufgetreten. Bitte prüfe die Eingaben.
-      </FDTypography>
       <FDButton
         class="w-fit"
         icon="save"
-        label="Frage erstellen"
+        :label="t('questions.creation.create_question')"
       />
     </Form>
   </ContentLayout>

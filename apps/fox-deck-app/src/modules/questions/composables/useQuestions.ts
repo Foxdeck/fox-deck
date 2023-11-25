@@ -3,6 +3,7 @@ import {useQuestionsStore} from "@/modules/questions/stores/questions.store";
 import {useNotificationStore} from "@/core/stores/notification.store";
 import {CreateQuestionException} from "@/modules/questions/exceptions/CreateQuestionException";
 import {type CreateQuestionRequestDto} from "@/core/services/api";
+import {FetchQuestionException} from "@/modules/questions/exceptions/FetchQuestionException";
 
 /**
  * Composable which abstracts the CRUD operations for questions to the backend.
@@ -53,11 +54,7 @@ export function useQuestions() {
       const response = await api.question.questionControllerGetQuestions();
       updateQuestions(response.data);
     } catch (e) {
-      addNotification({
-        title: "Fehler beim Laden der Fragen",
-        text: "Bitte aktualisieren Sie die Seite oder versuchen Sie es später noch einmal.",
-        severity: "danger",
-      });
+      throw new FetchQuestionException();
     }
   }
 
@@ -72,15 +69,10 @@ export function useQuestions() {
         updateQuestions(response.data);
         return;
       }
-      const response =
-        await api.search.questionControllerGetQuestionsByText(search);
+      const response = await api.search.questionControllerGetQuestionsByText(search);
       updateQuestions(response.data);
     } catch (e) {
-      addNotification({
-        title: "Fehler beim Suchen der Fragen",
-        text: "Bitte aktualisieren Sie die Seite oder versuchen Sie es später noch einmal.",
-        severity: "danger",
-      });
+      throw e;
     }
   }
 

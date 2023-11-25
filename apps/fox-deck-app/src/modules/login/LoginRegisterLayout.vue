@@ -1,6 +1,9 @@
 <script setup lang="ts">
+import {useI18n} from "vue-i18n";
 import Logo from "@/assets/icons/foxdeck-logo.svg";
 import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
+
+const { t } = useI18n();
 </script>
 <template>
   <div class="flex justify-center items-center h-screen w-screen">
@@ -17,13 +20,13 @@ import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
           class="text-white text-base font-bold"
           type="p"
         >
-          FoxDeck
+          {{ t("common.foxdeck") }}
         </FDTypography>
         <FDTypography
           class="text-white text-xs italic w-56 text-center leading-relaxed"
           type="p"
         >
-          »Gestalte, teile und erlebe interaktives lernen«
+          {{ t("common.intro_text") }}
         </FDTypography>
       </div>
       <div class="bg-white z-50 rounded-sm shadow-xl overflow-hidden">
