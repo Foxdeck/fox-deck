@@ -28,8 +28,8 @@ To identify ESLint errors in the codebase, you can use the following command:
 
 [source, bash]
 ----
-[root directory]
-npm run lint
+// [root directory]
+$ npm run lint
 ----
 
 This command runs ESLint on all files in the apps directory and its subdirectories. It scans the JavaScript files for any code that doesn't comply with the defined ESLint rules. The output will list any issues found, along with their locations and descriptions. This is particularly useful for quickly identifying areas of the code that need attention.
@@ -40,8 +40,8 @@ For convenience, we also have a command that not only identifies ESLint errors b
 
 [source, bash]
 ----
-[root directory]
-npm run lint:fix
+// [root directory]
+$ npm run lint:fix
 ----
 
 When you run this command, ESLint will go through the code and automatically fix any issues that can be resolved without human intervention. This could include formatting issues, unused variables, and other simple errors. It's a great time-saver, helping to maintain code quality without bogging down the development process.
