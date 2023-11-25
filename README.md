@@ -6,44 +6,13 @@ Welcome to Fox Deck, a dynamic and interactive web application designed for crea
 project leverages the power of Vue.js and Tailwind CSS for the frontend, and NestJS for the backend, offering a robust
 and scalable solution for questionnaire management.
 
-> This project is currently WIP and not finished yet.
+> Please note that this project is currently in progress and may not yet be complete.
 
-## Features
+## 💫 Features
 
-- **Interactive Questionnaires**: Create and participate in engaging questionnaires.
-- **Vue.js Frontend**: A modern and reactive user interface.
-- **NestJS Backend**: Robust backend architecture for handling data and requests.
-- **Tailwind CSS**: A utility-first CSS framework for rapid UI development.
+Our web learning platform revolutionizes the traditional approach to online education by emphasizing the creation of your own personalized questions. This approach is rooted in the philosophy that learning is most effective when it's tailored to the individual's style and needs. The platform is designed to make learning more engaging, efficient, and deeply personalized.
 
-## Getting Started
+## 🖥️ Contribution
 
-### Prerequisites
+To participate in the development of Foxdeck, you can take a look at the [developer documentation](http://developer.foxdeck.de).
 
-- Node.js
-- npm or yarn
-
-### Installation
-
-1. Clone the repository:
-
-```bash
-$ git clone https://github.com/dominique-boerner/fox-deck.git
-```
-
-2. Install dependencies
-
-```bash
-$ npm run install:deps
-```
-
-3. Create Prisma Client
-
-```bash
-$ cd apps/fox-deck-api && npm run prisma:generate
-```
-
-4. Running the Application
-
-```bash
-$ npm run dev
-```
