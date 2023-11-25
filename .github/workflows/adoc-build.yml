@@ -1,4 +1,4 @@
-name: build adocs
+name: Generate developer documentation
 
 on:
   workflow_dispatch:
@@ -8,7 +8,7 @@ on:
 jobs:
   adoc_build:
     runs-on: ubuntu-latest
-    name: asciidoctor -D docs --backend=html5 -o index.html -a toc2 docs/base.adoc
+    name: Generate and deploy developer documentation
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -25,7 +25,7 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           server: ${{ secrets.FTP_SERVER }}
           port: ${{ secrets.FTP_PORT }}
+          password: ${{ secrets.FTP_PASSWORD }}
           local_path: './docs/index.html'
           remote_path: '/developer'
           sftp_only: true
-          password: ${{ secrets.FTP_PASSWORD }}
