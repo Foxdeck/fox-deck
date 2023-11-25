@@ -19,7 +19,6 @@ const { t } = useI18n();
           </FDTypography>
           <FDTypography
             type="p"
-            class="leading-10"
           >
             {{ t("home.text") }}
           </FDTypography>

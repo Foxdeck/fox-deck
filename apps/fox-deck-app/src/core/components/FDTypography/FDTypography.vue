@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { PropType } from "vue";
+import type {PropType} from "vue";
 
 export type FontType = "title" | "h1" | "h2" | "h3" | "p" | "pxs" | "psm";
 const props = defineProps({
@@ -30,7 +30,7 @@ function getAriaLevel(): number {
 
 <template>
   <span
-    class="font-poppins dark:text-white"
+    class="font-poppins leading-8 dark:text-white"
     :role="getAriaRole()"
     :aria-level="getAriaLevel()"
     :class="{
