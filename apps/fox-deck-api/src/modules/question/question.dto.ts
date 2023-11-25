@@ -1,6 +1,12 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString, IsBoolean, IsNumber } from "class-validator";
+import { IsBoolean, IsNumber, IsString } from "class-validator";
 import { Question } from "@prisma/client";
+
+class QuestionResponseAuthorDto {
+  @ApiProperty()
+  @IsString()
+  username: string;
+}
 
 export class QuestionsResponseDto implements Question {
   @ApiProperty()
@@ -18,6 +24,9 @@ export class QuestionsResponseDto implements Question {
   @ApiProperty()
   @IsString()
   authorId: string;
+
+  @ApiProperty({ type: QuestionResponseAuthorDto })
+  author: QuestionResponseAuthorDto;
 
   @ApiProperty()
   @IsNumber()

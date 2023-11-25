@@ -14,15 +14,25 @@ const props = defineProps({
   isValid: {type: Boolean, required: false, default: false},
 });
 
+const emit = defineEmits<{
+  onInput: string;
+}>();
+
 const name = toRef(props, "name");
 const {
   value: inputValue,
   errorMessage,
   handleBlur,
   handleChange,
-} = useField(name, undefined, {
+} = useField(name as string, undefined, {
   initialValue: props.value,
 });
+
+function onInput(e: InputEvent) {
+  handleChange(e);
+  emit("onInput", (e.target as HTMLInputElement).value);
+
+}
 </script>
 <template>
   <div class="flex flex-col">
@@ -41,7 +51,7 @@ const {
         :disabled="disabled"
         :value="inputValue"
         :type="type"
-        @input="handleChange"
+        @input="onInput"
         @blur="handleBlur"
       >
       <span class="flex gap-2">

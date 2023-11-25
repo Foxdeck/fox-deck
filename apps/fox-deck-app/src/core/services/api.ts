@@ -9,11 +9,16 @@
  * ---------------------------------------------------------------
  */
 
+export interface QuestionResponseAuthorDto {
+  username: string;
+}
+
 export interface QuestionsResponseDto {
   question: string;
   solution: string;
   isPublic: boolean;
   authorId: string;
+  author: QuestionResponseAuthorDto;
   average: number;
   goodAt: number;
   id: string;

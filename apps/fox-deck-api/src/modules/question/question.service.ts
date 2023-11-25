@@ -12,6 +12,13 @@ export class QuestionService {
   ): Promise<QuestionsResponseDto | null> {
     return this.prisma.question.findUnique({
       where: questionWhereUniqueInput,
+      include: {
+        author: {
+          select: {
+            username: true,
+          },
+        },
+      },
     });
   }
 
@@ -28,6 +35,13 @@ export class QuestionService {
       take,
       cursor,
       where,
+      include: {
+        author: {
+          select: {
+            username: true,
+          },
+        },
+      },
       orderBy,
     });
   }

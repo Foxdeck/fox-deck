@@ -27,9 +27,9 @@ defineProps({
       <QuestionListItemActionMenu />
       <FDTypography
         type="pxs"
-        class="text-right"
+        class="text-right italic"
       >
-        @{{ question.authorId }}
+        @{{ question.author.username }}
       </FDTypography>
     </div>
   </FDGrid>

@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import {ref} from "vue";
+import {useI18n} from "vue-i18n";
 import FDButton from "@/core/components/FDButton/FDButton.vue";
 import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
 import FDTextInput from "@/core/components/FDTextInput/FDTextInput.vue";
-import {useI18n} from "vue-i18n";
 
 defineProps({
   hasError: { type: Boolean },
@@ -21,6 +22,10 @@ defineEmits<{
 
 const { t } = useI18n();
 
+const email = ref("");
+const username = ref("");
+const password = ref("");
+const passwordRepeat = ref("");
 </script>
 <template>
   <form
@@ -48,21 +53,29 @@ const { t } = useI18n();
     <FDTextInput
       name="email"
       type="email"
+      :value="email"
       :label="t('register.email')"
+      @on-input="email = $event"
     />
     <FDTextInput
       name="username"
       :label="t('register.username')"
+      :value="username"
+      @on-input="username = $event"
     />
     <FDTextInput
       name="password"
       type="password"
       :label="t('register.password')"
+      :value="password"
+      @on-input="password = $event"
     />
     <FDTextInput
       name="passwordRepeat"
       type="password"
       :label="t('register.password_repeat')"
+      :value="passwordRepeat"
+      @on-input="passwordRepeat = $event"
     />
     <FDTypography
       v-if="hasError"
