@@ -9,6 +9,7 @@ const isMenuOpen = ref(false);
   <FDPopup :is-open="isMenuOpen">
     <template #container>
       <FDButton
+        class="dark:!text-white"
         type="text"
         icon="more-vertical"
         @click="isMenuOpen = !isMenuOpen"
