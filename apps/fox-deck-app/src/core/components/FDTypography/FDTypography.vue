@@ -34,11 +34,11 @@ function getAriaLevel(): number {
     :role="getAriaRole()"
     :aria-level="getAriaLevel()"
     :class="{
-      'text-7xl leading-normal 3xl:text-8xl': type === 'title',
+      'text-4xl md:text-7xl 3xl:text-8xl': type === 'title',
       'text-5xl 3xl:text-6xl': type === 'h1',
       'text-4xl': type === 'h2',
       'text-3xl': type === 'h3',
-      'text-lg !leading-8 3xl:text-xl': type === 'p',
+      'text-lg !leading-9 3xl:text-xl': type === 'p',
       'text-sm 3xl:text-md': type === 'psm',
       'text-xs 3xl:text-sm': type === 'pxs',
     }"
