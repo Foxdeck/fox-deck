@@ -1,53 +1,70 @@
 <script setup lang="ts">
 import type {Severity} from "@/core/components/severity.types";
-import type {PropType} from "vue";
+import {type PropType, ref} from "vue";
 import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
 
-defineProps({
+type Variant = "primary" | "secondary" | "text";
+
+const props = defineProps({
   icon: {type: String, required: false, default: ""},
   severity: {
     type: String as PropType<Severity>,
     required: false,
-    default: "primary" satisfies Severity,
+    default: "primary",
   },
   label: {type: String, required: false, default: ""},
-  type: {
-    type: String as PropType<"primary" | "secondary" | "text">,
+  variant: {
+    type: String as PropType<Variant>,
     required: false,
-    default: "primary" satisfies "primary" | "secondary",
+    default: "primary",
   },
   testId: {type: String, default: ""},
 });
+
+const buttonRef = ref<HTMLButtonElement>();
+
+function getSeverityClass(): string {
+  const severityClasses: Record<Severity, string> = {
+    primary: "bg-primary-500 border-primary-500 text-primary-white",
+    danger: "bg-danger-normal border-danger-normal text-white",
+    success: "bg-success-normal border-success-normal text-white",
+    warn: "bg-warn-normal border-warn-normal text-white"
+  };
+  return severityClasses[props.severity];
+}
+
+function getVariantClass() {
+  const variantClasses: Record<Partial<Variant>, string> = {
+    secondary: "!bg-transparent",
+    text: "!bg-transparent !border-transparent !justify-start"
+  };
+
+  return variantClasses[props.variant];
+}
+
+function getTextColorClassBasedOnBorder(): string {
+  if (props.variant === "secondary" || props.variant === "text") {
+    const textClass: Record<Severity, string> = {
+      primary: "!text-primary-500",
+      danger: "!text-danger-normal",
+      warn: "!text-warn-normal",
+      success: "!text-success-normal",
+    };
+    return textClass[props.severity];
+  }
+  return "";
+}
 </script>
 <template>
   <button
-    class="flex gap-2 justify-center border-2 border-primary-500 items-center px-5 py-4 rounded-md font-gabarito ring-primary-300/50 text-white bg-primary-500 hover:opacity-80 active:bg-grey-900 focus:outline-none focus:ring-2 transition-all"
+    ref="buttonRef"
+    class="flex gap-3 justify-center border-2 items-center px-5 py-4 rounded-md font-gabarito ring-primary-300/50 text-white hover:opacity-80 active:bg-grey-900 focus:outline-none focus:ring-2 transition-all"
     :data-testid="testId"
-    :class="{
-      '!bg-danger-normal !border-danger-normal':
-        type === 'primary' && severity === 'danger',
-      '!bg-success-normal !border-success-normal':
-        type === 'primary' && severity === 'success',
-      '!bg-warn-normal !border-warn-normal':
-        type === 'primary' && severity === 'warn',
-      '!bg-transparent !border-danger-normal': type === 'secondary',
-      '!border-primary-500 !text-primary-500':
-        type === 'secondary' && severity === 'primary',
-      '!border-danger-normal !text-danger-normal':
-        type === 'secondary' && severity === 'danger',
-      '!border-success-normal !text-success-normal':
-        type === 'secondary' && severity === 'success',
-      '!border-warn-normal !text-warn-normal':
-        type === 'secondary' && severity === 'warn',
-      '!bg-transparent !border-transparent !text-primary-500':
-        type === 'text' && severity === 'primary',
-      '!bg-transparent !border-transparent !text-warn-normal':
-        type === 'text' && severity === 'warn',
-      '!bg-transparent !border-transparent !text-danger-normal':
-        type === 'text' && severity === 'danger',
-      '!bg-transparent !border-transparent !text-success-normal':
-        type === 'text' && severity === 'success',
-    }"
+    :class="[
+      getSeverityClass(),
+      getVariantClass(),
+      getTextColorClassBasedOnBorder()
+    ]"
   >
     <vue-feather
       v-if="icon"

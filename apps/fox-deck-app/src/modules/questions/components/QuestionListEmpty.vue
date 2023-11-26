@@ -19,7 +19,7 @@ import FDButton from "@/core/components/FDButton/FDButton.vue";
     </FDTypography>
     <FDButton
       class="mt-2"
-      type="secondary"
+      variant="secondary"
       icon="chevron-right"
       label="Frage erstellen"
     />

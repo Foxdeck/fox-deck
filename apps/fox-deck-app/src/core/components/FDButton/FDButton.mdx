@@ -1,4 +1,4 @@
-import { Canvas, Meta, Story } from "@storybook/blocks";
+import {Canvas, Meta, Story} from "@storybook/blocks";
 
 import * as ButtonStories from "./FDButton.stories";
 
@@ -34,6 +34,17 @@ often used for actions like "Cancel" or "Back".
   <Story of={ButtonStories.SecondarySuccess} />
   <Story of={ButtonStories.SecondaryWarn} />
   <Story of={ButtonStories.SecondaryDanger} />
+</Canvas>
+
+## Text
+
+The secondary button is used for elements, which can be clickable but should be shown as a text. Use this only if the user can identify the element as button.
+
+<Canvas>
+    <Story of={ButtonStories.Text} />
+    <Story of={ButtonStories.TextSuccess} />
+    <Story of={ButtonStories.TextDanger} />
+    <Story of={ButtonStories.TextWarn} />
 </Canvas>
 
 ## Design

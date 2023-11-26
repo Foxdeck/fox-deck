@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/vue3";
+import type {Meta, StoryObj} from "@storybook/vue3";
 import FDButton from "./FDButton.vue";
 
 export default {
@@ -13,6 +13,7 @@ export default {
   args: { label: "Button", isRounded: true },
 } satisfies Meta<typeof FDButton>;
 
+// primary buttons
 export const Primary: StoryObj = {
   args: {
     icon: "home",
@@ -40,16 +41,17 @@ export const PrimaryWarn: StoryObj = {
   },
 };
 
+// secondary buttons
 export const Secondary: StoryObj = {
   args: {
-    type: "secondary",
+    variant: "secondary",
     icon: "home",
   },
 };
 
 export const SecondarySuccess: StoryObj = {
   args: {
-    type: "secondary",
+    variant: "secondary",
     severity: "success",
     icon: "plus",
   },
@@ -57,7 +59,7 @@ export const SecondarySuccess: StoryObj = {
 
 export const SecondaryDanger: StoryObj = {
   args: {
-    type: "secondary",
+    variant: "secondary",
     severity: "danger",
     icon: "trash",
   },
@@ -65,7 +67,39 @@ export const SecondaryDanger: StoryObj = {
 
 export const SecondaryWarn: StoryObj = {
   args: {
-    type: "secondary",
+    variant: "secondary",
+    severity: "warn",
+    icon: "info",
+  },
+};
+
+// text buttons
+export const Text: StoryObj = {
+  args: {
+    variant: "text",
+    icon: "home",
+  },
+};
+
+export const TextSuccess: StoryObj = {
+  args: {
+    variant: "text",
+    severity: "success",
+    icon: "plus",
+  },
+};
+
+export const TextDanger: StoryObj = {
+  args: {
+    variant: "text",
+    severity: "danger",
+    icon: "trash",
+  },
+};
+
+export const TextWarn: StoryObj = {
+  args: {
+    variant: "text",
     severity: "warn",
     icon: "info",
   },

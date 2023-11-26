@@ -10,7 +10,7 @@ const isMenuOpen = ref(false);
     <template #container>
       <FDButton
         class="dark:!text-white"
-        type="text"
+        variant="text"
         icon="more-vertical"
         @click="isMenuOpen = !isMenuOpen"
       />
@@ -18,12 +18,12 @@ const isMenuOpen = ref(false);
     <template #popupContent>
       <div class="flex flex-col">
         <FDButton
-          type="text"
+          variant="text"
           icon="edit"
           label="Bearbeiten"
         />
         <FDButton
-          type="text"
+          variant="text"
           severity="danger"
           icon="trash"
           label="Löschen"
