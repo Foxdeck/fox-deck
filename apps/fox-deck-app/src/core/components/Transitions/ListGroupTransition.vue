@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import anime from "animejs/lib/anime.es.js";
 
-const duration = 1000;
+const duration = 500;
 const easing = "easeInOutSine";
 
 function leaveAnimation(element: HTMLElement, done: any) {
