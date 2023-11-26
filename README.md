@@ -1,6 +1,9 @@
 # Fox-Deck
 
+
 <img src="./.github/assets/foxdeck-logo.svg" alt="Logo" width="200" />
+
+[![Test & Deploy](https://github.com/Foxdeck/fox-deck/actions/workflows/test-and-deploy.yml/badge.svg)](https://github.com/Foxdeck/fox-deck/actions/workflows/test-and-deploy.yml)
 
 Welcome to Fox Deck, a dynamic and interactive web application designed for creating and managing questionnaires. This
 project leverages the power of Vue.js and Tailwind CSS for the frontend, and NestJS for the backend, offering a robust
