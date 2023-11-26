@@ -12,7 +12,7 @@ jobs:
     defaults:
       run:
         working-directory: ./apps/fox-deck-app
-    name: Test Foxdeck App
+    name: Test - Front-End
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js
