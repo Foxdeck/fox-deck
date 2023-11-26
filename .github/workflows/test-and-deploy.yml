@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - master
+
 jobs:
   # testing the fox-deck vue frontend
   test:
