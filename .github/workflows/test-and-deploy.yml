@@ -7,8 +7,8 @@ on:
       - master
 
 jobs:
-  # testing the fox-deck vue frontend
-  test:
+  # testing the fox-deck frontend
+  test_app:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -22,6 +22,22 @@ jobs:
           node-version: '18.x'
       - run: npm ci
       - run: npm run test:unit
+
+  # testing the fox-deck api
+  test_api:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./apps/fox-deck-api
+    name: Test - API
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
+      - run: npm ci
+      - run: npm run test
 
   # build and deploy the documentation
   adoc_build:
