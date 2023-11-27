@@ -20,8 +20,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18.x'
-      - name: Rename environment file
-        run: mv .env.example .env
       - run: npm ci
       - run: npm run test:unit
 
@@ -38,6 +36,8 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18.x'
+      - name: Rename environment file
+        run: mv .env.example .env
       - run: npm ci
       - run: npm run test
 
