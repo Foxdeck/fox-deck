@@ -22,7 +22,7 @@ const {
 <template>
   <div class="flex flex-col">
     <textarea
-      class="border rounded-sm h-32 p-2 outline-none"
+      class="h-32 rounded-sm border p-2 outline-none"
       :placeholder="placeholder"
       :value="inputValue"
       @input="handleChange"

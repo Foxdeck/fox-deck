@@ -32,7 +32,7 @@ defineProps({
 
       <label
         :for="item.id"
-        class="flex flex-col gap-1 cursor-pointer rounded-lg border border-gray-300 bg-white p-4 text-sm font-medium shadow-sm hover:border-gray-200 peer-checked:border-primary-500 peer-checked:ring-1 peer-checked:ring-blue-500 dark:bg-gray-700 dark:border-gray-600"
+        class="flex cursor-pointer flex-col gap-1 rounded-lg border border-gray-300 bg-white p-4 text-sm font-medium shadow-sm peer-checked:ring-1 peer-checked:ring-blue-500 peer-checked:border-primary-500 hover:border-gray-200 dark:border-gray-600 dark:bg-gray-700"
       >
         <span class="flex items-center justify-between">
           <FDTypography

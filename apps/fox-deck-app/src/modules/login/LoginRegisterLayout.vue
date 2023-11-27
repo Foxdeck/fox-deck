@@ -6,30 +6,30 @@ import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
 const { t } = useI18n();
 </script>
 <template>
-  <div class="flex justify-center items-center h-screen w-screen">
-    <div class="fixed left-0 top-0 w-screen h-screen bg-primary-900/30 z-50" />
+  <div class="flex h-screen w-screen items-center justify-center">
+    <div class="fixed top-0 left-0 z-50 h-screen w-screen bg-primary-900/30" />
     <img
       alt=""
-      class="filter contrast-150 fixed top-0 left-0 right-0 bottom-0 w-screen h-screen object-cover"
+      class="fixed top-0 right-0 bottom-0 left-0 h-screen w-screen object-cover contrast-150 filter"
       src="https://images.pexels.com/photos/3780104/pexels-photo-3780104.png?auto=compress&cs=tinysrgb&w=1600"
     >
-    <div class="flex flex-wrap items-center h-full w-full max-w-[1440px]">
-      <div class="flex flex-col items-center gap-4 z-50 mx-auto">
+    <div class="flex h-full w-full flex-wrap items-center max-w-[1440px]">
+      <div class="z-50 mx-auto flex flex-col items-center gap-4">
         <Logo class="w-16" />
         <FDTypography
-          class="text-white text-base font-bold"
+          class="text-base font-bold text-white"
           type="p"
         >
           {{ t("common.foxdeck") }}
         </FDTypography>
         <FDTypography
-          class="text-white text-xs italic w-56 text-center leading-relaxed"
+          class="w-56 text-center text-xs italic leading-relaxed text-white"
           type="p"
         >
           {{ t("common.intro_text") }}
         </FDTypography>
       </div>
-      <div class="bg-white z-50 rounded-sm shadow-xl overflow-hidden">
+      <div class="z-50 overflow-hidden rounded-sm bg-white shadow-xl">
         <slot name="form" />
       </div>
     </div>

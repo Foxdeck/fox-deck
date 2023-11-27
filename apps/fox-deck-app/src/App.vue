@@ -18,7 +18,7 @@ const themeStore = useThemeStore();
     <main class="flex w-screen h-screen bg-[#f2f2f2] dark:bg-gray-900">
       <FDSideNavigation />
 
-      <div class="overflow-y-scroll w-full">
+      <div class="w-full overflow-y-scroll">
         <FDHorizontalMenu />
         <RouterLayout />
         <NotificationLayout />

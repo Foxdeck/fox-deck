@@ -30,7 +30,7 @@ defineEmits<{
     >
 
     <span
-      class="absolute inset-y-0 start-0 z-10 m-1 inline-flex h-6 aspect-square items-center justify-center rounded-full bg-white text-gray-400 transition-all peer-checked:start-6 peer-checked:text-success-darker"
+      class="absolute inset-y-0 z-10 m-1 inline-flex aspect-square h-6 items-center justify-center rounded-full bg-white text-gray-400 transition-all start-0 peer-checked:start-6 peer-checked:text-success-darker"
       :class="{
         'h-[18px] m-[2px] peer-checked:start-[14px]': size === 'small',
         'h-8 m-1 peer-checked:start-6': size === 'large',

@@ -40,7 +40,7 @@ const categoryItems: FDDropdownItem[] = [
 </script>
 <template>
   <div
-    class="flex flex-col gap-2 bg-white h-fit p-4 rounded-md shadow-sm dark:bg-gray-800 dark:text-white"
+    class="flex h-fit flex-col gap-2 rounded-md bg-white p-4 shadow-sm dark:bg-gray-800 dark:text-white"
   >
     <div class="flex gap-2">
       <vue-feather

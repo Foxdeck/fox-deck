@@ -21,7 +21,7 @@ const isEditMode = ref(false);
     <FDTypography
       v-if="!isEditMode"
       :type="fontType"
-      class="flex p-1 text-3xl font-gabarito px-2 w-fit rounded-md bg-gray-100 hover:bg-gray-200"
+      class="flex w-fit rounded-md bg-gray-100 p-1 px-2 text-3xl font-gabarito hover:bg-gray-200"
       @click="isEditMode = true"
     >
       {{ value }}

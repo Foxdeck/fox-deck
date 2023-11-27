@@ -30,14 +30,14 @@ watch(isCollapsed, () => {
   <aside
     v-if="authStore.isAuthenticated()"
     ref="nav"
-    class="flex flex-col justify-between bg-gray-950 h-screen py-2"
+    class="flex h-screen flex-col justify-between py-2 bg-gray-950"
   >
     <Logo class="w-14 self-center p-2" />
     <nav>
       <RouterLink
         v-for="route in routes.filter((r) => r.isVisibleInNavigation)"
         :key="route.path"
-        class="flex flex-row justify-start items-center p-3 transition text-white gap-2 m-3 rounded-md opacity-70"
+        class="m-3 flex flex-row items-center justify-start gap-2 rounded-md p-3 text-white opacity-70 transition"
         :class="{
           '!justify-center': isCollapsed,
         }"
@@ -56,12 +56,12 @@ watch(isCollapsed, () => {
     </nav>
     <nav class="flex flex-col items-center">
       <span
-        class="p-4 text-white cursor-pointer hover:opacity-70"
+        class="cursor-pointer p-4 text-white hover:opacity-70"
         @click="isCollapsed = !isCollapsed"
       >
         <vue-feather
           type="chevrons-right"
-          class="transition ease-in-out duration-500"
+          class="transition duration-500 ease-in-out"
           :class="{
             'rotate-180': !isCollapsed,
           }"

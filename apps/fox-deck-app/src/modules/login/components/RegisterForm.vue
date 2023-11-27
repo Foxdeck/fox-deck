@@ -29,7 +29,7 @@ const passwordRepeat = ref("");
 </script>
 <template>
   <form
-    class="flex flex-col col-span-1 gap-4 min-w-[400px] px-10 py-14 3xl:px-16 3xl:py-20 3xl:gap-6"
+    class="col-span-1 flex flex-col gap-4 px-10 py-14 min-w-[400px] 3xl:gap-6 3xl:px-16 3xl:py-20"
     @submit.prevent="$emit('onSubmit', { email, password, username })"
   >
     <FDTypography
@@ -45,7 +45,7 @@ const passwordRepeat = ref("");
       {{ t("register.already_an_account") }}
       <RouterLink
         to="login"
-        class="text-primary-500 underline"
+        class="underline text-primary-500"
       >
         {{ t("register.login_now") }}
       </RouterLink>
@@ -80,7 +80,7 @@ const passwordRepeat = ref("");
     <FDTypography
       v-if="hasError"
       type="pxs"
-      class="text-danger-normal w-80"
+      class="w-80 text-danger-normal"
     >
       {{ t("register.validation.register_error") }}
     </FDTypography>

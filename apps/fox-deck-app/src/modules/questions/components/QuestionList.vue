@@ -29,10 +29,10 @@ onMounted(async () => {
 const currentPage = ref(1);
 </script>
 <template>
-  <div class="flex flex-col gap-4 w-full">
+  <div class="flex w-full flex-col gap-4">
     <div
       v-if="questionsStore.hasQuestions()"
-      class="flex flex-col w-full"
+      class="flex w-full flex-col"
     >
       <ListGroupTransition>
         <QuestionListItem

@@ -39,7 +39,7 @@ function onFormSubmit(formModel: FormModel) {
 </script>
 <template>
   <Form
-    class="flex flex-col col-span-1 gap-4 min-w-[400px] px-10 py-14 3xl:px-16 3xl:py-20 3xl:gap-6"
+    class="col-span-1 flex flex-col gap-4 px-10 py-14 min-w-[400px] 3xl:gap-6 3xl:px-16 3xl:py-20"
     :validation-schema="schema"
     @submit="onFormSubmit"
   >
@@ -56,7 +56,7 @@ function onFormSubmit(formModel: FormModel) {
       {{ t("login.new_user") }}
       <RouterLink
         to="register"
-        class="text-primary-500 underline"
+        class="underline text-primary-500"
       >
         {{ t("login.create_account") }}
       </RouterLink>
@@ -77,7 +77,7 @@ function onFormSubmit(formModel: FormModel) {
       v-if="hasError"
       data-testid="loginErrorText"
       type="pxs"
-      class="text-danger-normal w-80"
+      class="w-80 text-danger-normal"
     >
       {{ t("login.validation.login_error") }}
     </FDTypography>

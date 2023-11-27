@@ -24,7 +24,7 @@ defineProps({
 <template>
   <div
     role="alert"
-    class="rounded border-s-4 p-4 max-w-[500px]"
+    class="rounded p-4 border-s-4 max-w-[500px]"
     :class="{
       'border-primary-500': severity === 'primary',
       'border-success-darker bg-success-light': severity === 'success',

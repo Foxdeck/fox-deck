@@ -1,5 +1,5 @@
 <template>
-  <div class="grid grid-cols-12 gap-8 justify-center items-center self-center">
+  <div class="grid grid-cols-12 items-center justify-center gap-8 self-center">
     <slot />
   </div>
 </template>

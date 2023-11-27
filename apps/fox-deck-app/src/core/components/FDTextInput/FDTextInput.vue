@@ -37,7 +37,7 @@ function onInput(e: InputEvent) {
 <template>
   <div class="flex flex-col">
     <label
-      class="relative bg-white flex justify-center items-center overflow-hidden rounded-md border border-gray-200 px-3 pt-3 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+      class="relative flex items-center justify-center overflow-hidden rounded-md border border-gray-200 bg-white px-3 pt-3 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
       :class="{
         'bg-gray-50 cursor-not-allowed': disabled,
         '!border-success-normal': shouldValidate && isValid,
@@ -46,7 +46,7 @@ function onInput(e: InputEvent) {
     >
       <input
         placeholder="Email"
-        class="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent text-sm outline-none disabled:cursor-not-allowed"
+        class="h-8 w-full border-none bg-transparent p-0 text-sm outline-none peer placeholder-transparent disabled:cursor-not-allowed"
         data-testid="input"
         :disabled="disabled"
         :value="inputValue"
@@ -78,7 +78,7 @@ function onInput(e: InputEvent) {
         />
       </span>
       <span
-        class="absolute flex justify-center items-center gap-1 start-3 top-3 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-3 peer-focus:text-xs dark:text-white"
+        class="absolute top-3 peer-focus:top-3 peer-placeholder-shown:top-1/2 flex -translate-y-1/2 items-center justify-center gap-1 text-xs peer-focus:text-xs peer-placeholder-shown:text-sm text-gray-700 transition-all start-3 dark:text-white"
         :class="{
           '!text-gray-500': disabled,
           '!text-danger-normal': shouldValidate && !isValid,

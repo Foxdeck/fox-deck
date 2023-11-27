@@ -16,27 +16,27 @@ defineEmits<{
 </script>
 <template>
   <QuestionCardBase>
-    <span class="text-4xl mb-12">Fertig!</span>
-    <div class="flex justify-evenly w-full font-sans mb-12">
+    <span class="mb-12 text-4xl">Fertig!</span>
+    <div class="mb-12 flex w-full justify-evenly font-sans">
       <div
         v-if="!areAiQuestions"
-        class="flex flex-col text-center justify-center items-center text-red-500 mx-2"
+        class="mx-2 flex flex-col items-center justify-center text-center text-red-500"
       >
-        <span class="text-4xl mb-2">{{ notGoodAt }}</span>
+        <span class="mb-2 text-4xl">{{ notGoodAt }}</span>
         <span>Brauch ich noch Übung</span>
       </div>
       <div
         v-if="!areAiQuestions"
-        class="flex flex-col text-center justify-center items-center text-orange-500 mx-2"
+        class="mx-2 flex flex-col items-center justify-center text-center text-orange-500"
       >
-        <span class="text-4xl mb-2">{{ average }}</span>
+        <span class="mb-2 text-4xl">{{ average }}</span>
         <span>Geht so</span>
       </div>
       <div
         v-if="!areAiQuestions"
-        class="flex flex-col text-center justify-center items-center text-green-600 mx-2"
+        class="mx-2 flex flex-col items-center justify-center text-center text-green-600"
       >
-        <span class="text-4xl mb-2">{{ goodAt }}</span>
+        <span class="mb-2 text-4xl">{{ goodAt }}</span>
         <span>Kann ich gut</span>
       </div>
     </div>

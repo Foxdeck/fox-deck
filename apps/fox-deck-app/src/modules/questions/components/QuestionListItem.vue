@@ -13,9 +13,9 @@ defineProps({
 <template>
   <FDGrid
     v-if="question"
-    class="relative shadow-sm p-8 bg-white border-b w-full dark:bg-gray-800 dark:text-white dark:border-gray-600"
+    class="relative w-full border-b bg-white p-8 shadow-sm dark:border-gray-600 dark:bg-gray-800 dark:text-white"
   >
-    <div class="flex flex-col col-span-9 gap-4">
+    <div class="col-span-9 flex flex-col gap-4">
       <FDTypography class="font-bold">
         »{{ question.question }}«
       </FDTypography>
@@ -23,7 +23,7 @@ defineProps({
         {{ question.solution }}
       </FDTypography>
     </div>
-    <div class="flex flex-col col-span-3 justify-between items-end h-full gap-12">
+    <div class="col-span-3 flex h-full flex-col items-end justify-between gap-12">
       <QuestionListItemActionMenu />
       <FDTypography
         type="pxs"

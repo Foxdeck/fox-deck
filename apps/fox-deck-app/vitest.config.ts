@@ -1,5 +1,5 @@
 import { fileURLToPath } from "node:url";
-import { mergeConfig, defineConfig, configDefaults } from "vitest/config";
+import { configDefaults, defineConfig, mergeConfig } from "vitest/config";
 import viteConfig from "./vite.config";
 
 const customExcludes = ["**/api.ts"];
@@ -21,5 +21,5 @@ export default mergeConfig(
       reporters: ["html"],
       outputFile: "./test-report/test-output.html",
     },
-  }),
+  })
 );

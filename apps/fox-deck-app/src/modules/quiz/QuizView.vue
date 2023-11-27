@@ -3,7 +3,7 @@
 <template>
   <h1>Quiz</h1>
 <!--  <div-->
-<!--    class="flex justify-center items-center overflow-x-hidden bg-primary-100 w-screen h-screen"-->
+<!--    class="flex h-screen w-screen items-center justify-center overflow-x-hidden bg-primary-100"-->
 <!--  >-->
 <!--    <RepeatQuestionnaireCard-->
 <!--      v-if="-->
@@ -29,7 +29,7 @@
 <!--    </SwipeRandomTransition>-->
 <!--    <RouterLink to="/">-->
 <!--      <FDButton-->
-<!--        class="absolute bottom-6 right-6 p-4"-->
+<!--        class="absolute right-6 bottom-6 p-4"-->
 <!--        icon="arrow-left"-->
 <!--        label="Zurück zur Übersicht"-->
 <!--      />-->

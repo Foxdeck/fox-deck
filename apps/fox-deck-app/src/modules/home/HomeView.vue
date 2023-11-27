@@ -10,7 +10,7 @@ const { t } = useI18n();
 <template>
   <ContentLayout>
     <div
-      class="grid grid-cols-12 justify-center items-center self-center gap-y-12 md:gap-12"
+      class="grid grid-cols-12 items-center justify-center gap-y-12 self-center md:gap-12"
     >
       <div class="col-span-12 md:col-span-8">
         <div class="flex flex-col gap-4">

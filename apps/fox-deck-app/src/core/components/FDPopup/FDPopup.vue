@@ -14,7 +14,7 @@ defineProps({
     <FadeOutInTransition>
       <div
         v-if="isOpen"
-        class="absolute flex flex-col top-full mt-1 right-0 bg-white h-fit shadow-md rounded-md border dark:bg-primary-900 dark:border-black dark:text-white z-50"
+        class="absolute top-full right-0 z-50 mt-1 flex h-fit flex-col rounded-md border bg-white shadow-md dark:bg-primary-900 dark:border-black dark:text-white"
       >
         <div
           v-if="title || icon"
@@ -33,7 +33,7 @@ defineProps({
             {{ title }}
           </FDTypography>
         </div>
-        <div class="flex flex-col p-2 gap-1">
+        <div class="flex flex-col gap-1 p-2">
           <slot name="popupContent" />
         </div>
       </div>

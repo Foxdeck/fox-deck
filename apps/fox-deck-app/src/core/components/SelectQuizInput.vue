@@ -43,10 +43,10 @@ function getAddButtonLabel() {
 </script>
 
 <template>
-  <div class="border flex p-2 items-center relative bg-white w-fit">
+  <div class="relative flex w-fit items-center border bg-white p-2">
     <input
       v-model="inputValue"
-      class="outline-0 font-sans"
+      class="font-sans outline-0"
       type="text"
       placeholder="Quiz auswählen"
       @focusin="onFocusIn"
@@ -59,18 +59,18 @@ function getAddButtonLabel() {
     />
     <div
       v-if="isDropdownVisible"
-      class="z-50 flex flex-col bg-white shadow-lg absolute top-10 left-0 right-0"
+      class="absolute top-10 right-0 left-0 z-50 flex flex-col bg-white shadow-lg"
     >
       <span
         v-for="item of items"
         :key="item.id"
-        class="mx-2 my-1 rounded-md px-2 py-1 cursor-pointer hover:bg-gray-100"
+        class="mx-2 my-1 cursor-pointer rounded-md px-2 py-1 hover:bg-gray-100"
       >
         {{ item.title }}
       </span>
       <div
         v-if="items.length === 0"
-        class="flex flex-row mx-4 my-1 opacity-80 items-center"
+        class="mx-4 my-1 flex flex-row items-center opacity-80"
       >
         <span class="mr-4">
           <vue-feather

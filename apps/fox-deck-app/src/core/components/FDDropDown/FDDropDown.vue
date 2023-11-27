@@ -12,11 +12,11 @@ defineProps({
 <template>
   <div class="relative">
     <div
-      class="inline-flex items-center overflow-hidden rounded-md border bg-white dark:bg-gray-700 dark:border-gray-600"
+      class="inline-flex items-center overflow-hidden rounded-md border bg-white dark:border-gray-600 dark:bg-gray-700"
     >
       <span
         v-if="selectedItem?.label"
-        class="border-e px-4 py-2 text-sm/none cursor-default dark:border-gray-600"
+        class="cursor-default px-4 py-2 border-e text-sm/none dark:border-gray-600"
       >
         {{ selectedItem?.label }}
       </span>
@@ -34,7 +34,7 @@ defineProps({
 
     <div
       v-if="isOpen"
-      class="absolute z-50 mt-2 w-fit min-w-[140px] divide-y divide-gray-100 rounded-md border border-gray-100 bg-white shadow-lg dark:bg-gray-700 dark:border-gray-600"
+      class="absolute z-50 mt-2 w-fit rounded-md border border-gray-100 bg-white shadow-lg min-w-[140px] divide-y divide-gray-100 dark:border-gray-600 dark:bg-gray-700"
       role="menu"
       data-testid="dropdown-item-list"
     >
@@ -44,7 +44,7 @@ defineProps({
         <span
           v-for="item of items"
           :key="item.id"
-          class="gap-2 flex items-center px-4 py-2 rounded-md text-sm cursor-pointer hover:bg-gray-50"
+          class="flex cursor-pointer items-center gap-2 rounded-md px-4 py-2 text-sm hover:bg-gray-50"
           :class="{
             '!bg-primary-200/30': item === selectedItem,
           }"

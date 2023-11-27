@@ -18,22 +18,22 @@ function onNextQuestionClick(competence: QuestionCompetence) {
 </script>
 <template>
   <section
-    class="flex flex-col justify-between items-center font-serif aspect-square shadow-xl rounded-sm bg-white p-4 select-none w-[400px]"
+    class="flex aspect-square select-none flex-col items-center justify-between rounded-sm bg-white p-4 font-serif shadow-xl w-[400px]"
   >
     <FDButton
       class="self-end"
       icon="eye"
     />
-    <p class="text-3xl text-center sm:text-3xl xl:text-4xl">
+    <p class="text-center text-3xl sm:text-3xl xl:text-4xl">
       {{ question }}
     </p>
     <p
       v-if="isSolutionVisible"
-      class="text-center mt-4 leading-relaxed"
+      class="mt-4 text-center leading-relaxed"
     >
       {{ solution }}
     </p>
-    <div class="flex bottom-4 gap-2">
+    <div class="bottom-4 flex gap-2">
       <FDButton
         icon="frown"
         severity="danger"

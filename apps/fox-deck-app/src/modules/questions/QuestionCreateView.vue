@@ -55,7 +55,7 @@ async function onFormSubmit(formModel: FormModel) {
 <template>
   <ContentLayout>
     <Form
-      class="flex flex-col bg-white p-8 gap-6 rounded-md max-w-[600px] mx-auto"
+      class="mx-auto flex flex-col gap-6 rounded-md bg-white p-8 max-w-[600px]"
       :validation-schema="schema"
       @submit="onFormSubmit"
     >

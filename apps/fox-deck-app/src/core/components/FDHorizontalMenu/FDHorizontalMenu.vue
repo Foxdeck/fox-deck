@@ -17,16 +17,16 @@ const isSettingsOpen = ref(false);
 <template>
   <div
     v-if="authStore.isAuthenticated()"
-    class="flex border-b border-gray-300 justify-between items-center py-4 px-6 dark:bg-gray-950 dark:border-gray-800"
+    class="flex items-center justify-between border-b border-gray-300 px-6 py-4 dark:bg-gray-950 dark:border-gray-800"
   >
-    <span class="font-bold font-gabarito text-4xl dark:text-white">{{ t("common.hello") }}, {{ authStore.readJWT()?.username }}! 👋</span>
+    <span class="text-4xl font-bold font-gabarito dark:text-white">{{ t("common.hello") }}, {{ authStore.readJWT()?.username }}! 👋</span>
     <FDPopup
       :is-open="isSettingsOpen"
       :title="t('common.settings')"
     >
       <template #container>
         <vue-feather
-          class="bg-white p-3 rounded-md shadow-xl cursor-pointer dark:bg-primary-400 dark:text-white hover:opacity-70"
+          class="cursor-pointer rounded-md bg-white p-3 shadow-xl hover:opacity-70 dark:bg-primary-400 dark:text-white"
           type="settings"
           @click="isSettingsOpen = !isSettingsOpen"
         />

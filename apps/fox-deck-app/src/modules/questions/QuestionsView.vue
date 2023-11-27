@@ -31,7 +31,7 @@ async function onSearchInput(search: string) {
 
 <template>
   <ContentLayout>
-    <div class="flex flex-col h-full gap-8">
+    <div class="flex h-full flex-col gap-8">
       <FDTypography type="h1">
         {{ t("questions.title") }}
       </FDTypography>
@@ -54,7 +54,7 @@ async function onSearchInput(search: string) {
     </Form>
     <FDTypography
       type="pxs"
-      class="italic text-right"
+      class="text-right italic"
     >
       {{ t("questions.question_amount", { amount: questionsStore.questions.length}) }}
     </FDTypography>

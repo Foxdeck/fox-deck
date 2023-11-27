@@ -1,6 +1,6 @@
-import {mount} from "@vue/test-utils";
+import { mount } from "@vue/test-utils";
 import VueFeather from "vue-feather";
-import type {Component} from "vue";
+import type { Component } from "vue";
 
 /**
  * Wrapper around @vue/test-utils mount function to globally register component.
@@ -10,8 +10,8 @@ import type {Component} from "vue";
 export function render(component: Component, props: any = {}) {
   return mount(component, {
     components: {
-      'vue-feather': VueFeather
+      "vue-feather": VueFeather,
     },
-    props
-  })
+    props,
+  });
 }
