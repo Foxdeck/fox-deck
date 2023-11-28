@@ -38,6 +38,7 @@ export class QuestionController {
     type: QuestionsResponseDto,
   })
   @ApiExtraModels(QuestionsResponseDto)
+  @Security(SecurityType.NO_SECURE)
   @HttpCode(HttpStatus.OK)
   @Get("question/:id")
   async getQuestionById(
@@ -56,6 +57,7 @@ export class QuestionController {
     isArray: true,
   })
   @ApiExtraModels(QuestionsResponseDto)
+  @Security(SecurityType.NO_SECURE)
   @HttpCode(HttpStatus.OK)
   @Get("question")
   async getQuestions(): Promise<QuestionsResponseDto[]> {
@@ -72,6 +74,7 @@ export class QuestionController {
     isArray: true,
   })
   @ApiExtraModels(QuestionsResponseDto)
+  @Security(SecurityType.NO_SECURE)
   @HttpCode(HttpStatus.OK)
   @Get("search/question/:search")
   async getQuestionsByText(
@@ -89,8 +92,8 @@ export class QuestionController {
   }
 
   @ApiBearerAuth("access-token")
-  @HttpCode(HttpStatus.CREATED)
   @Security(SecurityType.JWT_VALID)
+  @HttpCode(HttpStatus.CREATED)
   @Post("question")
   async createQuestion(
     @Body() data: CreateQuestionRequestDto,
@@ -107,6 +110,8 @@ export class QuestionController {
     }
   }
 
+  @ApiBearerAuth("access-token")
+  @Security(SecurityType.JWT_VALID)
   @HttpCode(HttpStatus.OK)
   @Put("question/:id")
   async updateQuestion(

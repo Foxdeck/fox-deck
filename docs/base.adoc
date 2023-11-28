@@ -2,4 +2,6 @@ include::intro.adoc[]
 
 include::architecture.adoc[]
 
+include::api.adoc[]
+
 include::code_guidelines.adoc[]
