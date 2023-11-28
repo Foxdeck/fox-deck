@@ -286,6 +286,22 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * No description
      *
      * @tags Questions
+     * @name QuestionControllerDeleteQuestion
+     * @request DELETE:/question/{id}
+     * @secure
+     */
+    questionControllerDeleteQuestion: (id: string, params: RequestParams = {}) =>
+      this.request<void, any>({
+        path: `/question/${id}`,
+        method: "DELETE",
+        secure: true,
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Questions
      * @name QuestionControllerUpdateQuestion
      * @request PUT:/question/{id}
      * @secure

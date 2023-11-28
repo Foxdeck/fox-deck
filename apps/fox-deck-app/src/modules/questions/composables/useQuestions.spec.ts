@@ -8,14 +8,10 @@ import {questionMock,} from "@/testing/fixtures/get.questions.fixture";
 import {CreateQuestionException} from "@/modules/questions/exceptions/CreateQuestionException";
 import {FetchQuestionException} from "@/modules/questions/exceptions/FetchQuestionException";
 import {SearchQuestionException} from "@/modules/questions/exceptions/SearchQuestionException";
+import {DeleteQuestionException} from "@/modules/questions/exceptions/DeleteQuestionException";
 
 const fetchMocker = createFetchMock(vi);
 fetchMocker.enableMocks();
-
-const jwt = `
-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
-.eyJpZCI6ImRiMWI2OTllLTA2NDYtNGM1ZC05MjMyLTQwM2RiY2YyN2FjZiIsImVtYWlsIjoiZG9taW5pcXVlYnI0NkBnbWFpbC5jb20iLCJ1c2VybmFtZSI6IkxlYXJuaW5nRm94IiwiaWF0IjoxNzAxMTc2OTY2LCJleHAiOjE3MzI3MzQ1NjZ9
-.ihE5aneeyLyWAG8uzKOFDBqc_SQGBQyjw7BeLOCZLCs`;
 
 describe("useQuestions", () => {
   beforeEach(() => {
@@ -37,7 +33,7 @@ describe("useQuestions", () => {
         authorId: "57d31599-ebf6-49fb-9a81-aea49af1400d",
       };
 
-      await expect(() => createQuestion(question, jwt)).rejects.toThrowError(
+      await expect(() => createQuestion(question)).rejects.toThrowError(
         CreateQuestionException
       );
     });
@@ -76,6 +72,20 @@ describe("useQuestions", () => {
 
       await expect(() => fetchQuestions()).rejects.toThrowError(
         FetchQuestionException
+      );
+    });
+  });
+
+  describe("deleteQuestion", () => {
+    it("should throw a DeleteQuestionException, if response has an error", async () => {
+      fetchMocker.mockReject({
+        name: "DeleteError",
+        message: "Error while deleting question.",
+      });
+      const { deleteQuestion } = useQuestions();
+
+      await expect(() => deleteQuestion("c674f44d-959f-4d34-9494-f917d2caea2d")).rejects.toThrowError(
+        DeleteQuestionException
       );
     });
   });

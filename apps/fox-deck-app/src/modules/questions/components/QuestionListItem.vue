@@ -4,10 +4,17 @@ import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
 import {PropType} from "vue";
 import type {QuestionsResponseDto} from "@/core/services/api";
 import QuestionListItemActionMenu from "@/modules/questions/components/QuestionListItemActionMenu.vue";
+import {useAuthStore} from "@/core/stores/auth.store";
 
-defineProps({
-  question: { type: Object as PropType<QuestionsResponseDto>, default: undefined},
+const props = defineProps({
+  question: { type: Object as PropType<QuestionsResponseDto>, required: true},
 });
+
+const { readJWT } = useAuthStore();
+
+function isAuthor(): boolean {
+  return props.question?.authorId == readJWT().id;
+}
 
 </script>
 <template>
@@ -23,11 +30,19 @@ defineProps({
         {{ question.solution }}
       </FDTypography>
     </div>
-    <div class="col-span-3 flex h-full flex-col items-end justify-between gap-12">
-      <QuestionListItemActionMenu />
+    <div
+      class="col-span-3 flex h-full flex-col items-end justify-between gap-12"
+      :class="{
+        '!justify-end': !isAuthor()
+      }"
+    >
+      <QuestionListItemActionMenu
+        v-if="isAuthor()"
+        :question-id="question.id"
+      />
       <FDTypography
         type="pxs"
-        class="text-right italic"
+        class="italic"
       >
         @{{ question.author.username }}
       </FDTypography>

@@ -5,23 +5,22 @@ import {CreateQuestionException} from "@/modules/questions/exceptions/CreateQues
 import {type CreateQuestionRequestDto} from "@/core/services/api";
 import {FetchQuestionException} from "@/modules/questions/exceptions/FetchQuestionException";
 import {SearchQuestionException} from "@/modules/questions/exceptions/SearchQuestionException";
+import {useAuthStore} from "@/core/stores/auth.store";
+import {DeleteQuestionException} from "@/modules/questions/exceptions/DeleteQuestionException";
 
 /**
  * Composable which abstracts the CRUD operations for questions to the backend.
  */
 export function useQuestions() {
+  const { jwt } = useAuthStore();
   const { addNotification } = useNotificationStore();
   const { updateQuestions } = useQuestionsStore();
 
   /**
    * Create a new question.
    * @param question {CreateQuestionRequestDto} the question to create.
-   * @param jwt {string} jwt of the current user.
    */
-  async function createQuestion(
-    question: CreateQuestionRequestDto,
-    jwt: string
-  ): Promise<void> {
+  async function createQuestion(question: CreateQuestionRequestDto): Promise<void> {
     try {
       await api.question.questionControllerCreateQuestion(question, {
         headers: {
@@ -66,6 +65,22 @@ export function useQuestions() {
   }
 
   /**
+   * delete question.
+   */
+  async function deleteQuestion(questionId: string): Promise<void> {
+    try {
+      await api.question.questionControllerDeleteQuestion(questionId, {
+        headers: {
+          Authorization: `Bearer ${jwt}`,
+        },
+      });
+      await fetchQuestions();
+    } catch (e) {
+      throw new DeleteQuestionException();
+    }
+  }
+
+  /**
    * Search for questions via back-end call.
    * @param search {string} the searchstring, for search to work it must not be empty.
    */
@@ -86,6 +101,7 @@ export function useQuestions() {
   }
 
   return {
+    deleteQuestion: deleteQuestion,
     createQuestion: createQuestion,
     updateQuestion: updateQuestion,
     fetchQuestions: fetchQuestions,

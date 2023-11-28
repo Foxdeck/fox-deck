@@ -1,19 +1,19 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { useRouter } from "vue-router";
+import {ref} from "vue";
+import {useRouter} from "vue-router";
 import * as Yup from "yup";
-import { Form } from "vee-validate";
+import {Form} from "vee-validate";
+import {useI18n} from "vue-i18n";
 import ContentLayout from "@/core/components/Layouts/ContentLayout.vue";
 import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
 import FDTextInput from "@/core/components/FDTextInput/FDTextInput.vue";
 import FDSwitch from "@/core/components/FDSwitch/FDSwitch.vue";
 import FDButton from "@/core/components/FDButton/FDButton.vue";
-import { useAuthStore } from "@/core/stores/auth.store";
-import { useNotificationStore } from "@/core/stores/notification.store";
-import { useQuestions } from "@/modules/questions/composables/useQuestions";
 import FDTextArea from "@/core/components/FDTextArea/FDTextArea.vue";
-import type { CreateQuestionRequestDto } from "@/core/services/api";
-import { useI18n } from "vue-i18n";
+import {useAuthStore} from "@/core/stores/auth.store";
+import {useNotificationStore} from "@/core/stores/notification.store";
+import {useQuestions} from "@/modules/questions/composables/useQuestions";
+import type {CreateQuestionRequestDto} from "@/core/services/api";
 
 type FormModel = {
   question: string;
@@ -22,7 +22,6 @@ type FormModel = {
 
 const { push } = useRouter();
 const { addNotification } = useNotificationStore();
-const { jwt } = useAuthStore();
 const { createQuestion } = useQuestions();
 const { readJWT } = useAuthStore();
 const { t } = useI18n();
@@ -45,7 +44,7 @@ async function onFormSubmit(formModel: FormModel) {
       isPublic: isPublic.value,
       authorId: readJWT().id,
     };
-    await createQuestion(question, jwt);
+    await createQuestion(question);
     await push("/questions");
   } catch (e) {
     addNotification({

@@ -2,6 +2,13 @@
 import {ref} from "vue";
 import FDButton from "@/core/components/FDButton/FDButton.vue";
 import FDPopup from "@/core/components/FDPopup/FDPopup.vue";
+import {useQuestions} from "@/modules/questions/composables/useQuestions";
+
+defineProps({
+  questionId: { type: String, required: true }
+});
+
+const { deleteQuestion } = useQuestions();
 
 const isMenuOpen = ref(false);
 </script>
@@ -27,6 +34,7 @@ const isMenuOpen = ref(false);
           severity="danger"
           icon="trash"
           label="Löschen"
+          @click="deleteQuestion(questionId)"
         />
       </div>
     </template>

@@ -82,4 +82,6 @@ export const en = {
   CREATE_QUESTION_EXCEPTION_MESSAGE: "Please refresh the page or try again later.",
   SEARCH_QUESTION_EXCEPTION: "Error while searching for your question",
   SEARCH_QUESTION_EXCEPTION_MESSAGE: "Please refresh the page or try again later.",
+  DELETE_QUESTION_EXCEPTION: "Error while deleting your question",
+  DELETE_QUESTION_EXCEPTION_MESSAGE: "Please refresh the page or try again later."
 }

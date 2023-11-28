@@ -1,7 +1,7 @@
 export const de = {
   common: {
     hello: "Hallo",
-    light_theme: "Helles Thema",
+    light_theme: "Helles Design",
     settings: "Einstellungen",
     more_settings: "weitere Einstellungen",
     foxdeck: "Foxdeck",
@@ -75,11 +75,13 @@ export const de = {
       }
     }
   },
-  // Ausnahmen
+  // Exceptions
   FETCH_QUESTION_EXCEPTION: "Fehler beim Abrufen der Fragen",
   FETCH_QUESTION_EXCEPTION_MESSAGE: "Bitte aktualisiere die Seite oder versuche es später noch einmal.",
   CREATE_QUESTION_EXCEPTION: "Fehler beim Erstellen deiner Frage",
   CREATE_QUESTION_EXCEPTION_MESSAGE: "Bitte aktualisiere die Seite oder versuche es später noch einmal.",
   SEARCH_QUESTION_EXCEPTION: "Fehler bei der Suche nach deiner Frage",
   SEARCH_QUESTION_EXCEPTION_MESSAGE: "Bitte aktualisiere die Seite oder versuche es später noch einmal.",
+  DELETE_QUESTION_EXCEPTION: "Fehler beim Löschen der Frage",
+  DELETE_QUESTION_EXCEPTION_MESSAGE: "Bitte aktualisiere die Seite oder versuche es später noch einmal."
 }
