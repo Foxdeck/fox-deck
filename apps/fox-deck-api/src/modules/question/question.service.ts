@@ -46,7 +46,9 @@ export class QuestionService {
     });
   }
 
-  async createQuestion(data: Prisma.QuestionCreateInput): Promise<Question> {
+  async createQuestion(
+    data: Prisma.QuestionUncheckedCreateInput,
+  ): Promise<Question> {
     return this.prisma.question.create({
       data,
     });

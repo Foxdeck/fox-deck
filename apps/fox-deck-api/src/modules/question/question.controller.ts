@@ -8,11 +8,22 @@ import {
   Param,
   Post,
   Put,
+  Req,
 } from "@nestjs/common";
-import { QuestionService } from "./question.service";
 import { Question } from "@prisma/client";
+import { QuestionService } from "./question.service";
 import { CreateQuestionRequestDto, QuestionsResponseDto } from "./question.dto";
-import { ApiExtraModels, ApiOkResponse, ApiTags } from "@nestjs/swagger";
+import {
+  ApiBearerAuth,
+  ApiExtraModels,
+  ApiOkResponse,
+  ApiTags,
+} from "@nestjs/swagger";
+import {
+  Security,
+  SecurityType,
+} from "../../shared/decorators/security.decorator";
+import { AuthenticatedRequest } from "../../shared/interfaces/authenticated-request.interface";
 
 /**
  * Controller which handles CRUD operations for questions.
@@ -27,6 +38,7 @@ export class QuestionController {
     type: QuestionsResponseDto,
   })
   @ApiExtraModels(QuestionsResponseDto)
+  @Security(SecurityType.NO_SECURE)
   @HttpCode(HttpStatus.OK)
   @Get("question/:id")
   async getQuestionById(
@@ -45,6 +57,7 @@ export class QuestionController {
     isArray: true,
   })
   @ApiExtraModels(QuestionsResponseDto)
+  @Security(SecurityType.NO_SECURE)
   @HttpCode(HttpStatus.OK)
   @Get("question")
   async getQuestions(): Promise<QuestionsResponseDto[]> {
@@ -61,6 +74,7 @@ export class QuestionController {
     isArray: true,
   })
   @ApiExtraModels(QuestionsResponseDto)
+  @Security(SecurityType.NO_SECURE)
   @HttpCode(HttpStatus.OK)
   @Get("search/question/:search")
   async getQuestionsByText(
@@ -77,28 +91,39 @@ export class QuestionController {
     }
   }
 
+  @ApiBearerAuth("access-token")
+  @Security(SecurityType.JWT_VALID)
   @HttpCode(HttpStatus.CREATED)
   @Post("question")
   async createQuestion(
     @Body() data: CreateQuestionRequestDto,
+    @Req() request: AuthenticatedRequest,
   ): Promise<Question> {
     try {
-      return this.questionService.createQuestion(data);
+      const user = request.user;
+      return this.questionService.createQuestion({
+        ...data,
+        authorId: user.id,
+      });
     } catch (e) {
       throw new InternalServerErrorException(e);
     }
   }
 
+  @ApiBearerAuth("access-token")
+  @Security(SecurityType.JWT_VALID)
   @HttpCode(HttpStatus.OK)
   @Put("question/:id")
   async updateQuestion(
     @Param("id") id: string,
     @Body() data: CreateQuestionRequestDto,
+    @Req() request: AuthenticatedRequest,
   ): Promise<Question> {
     try {
+      const user = request.user;
       return await this.questionService.updateQuestion({
         where: {
-          id: String(id),
+          id: user.id,
         },
         data,
       });

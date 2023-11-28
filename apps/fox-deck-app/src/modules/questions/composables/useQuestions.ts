@@ -16,12 +16,18 @@ export function useQuestions() {
   /**
    * Create a new question.
    * @param question {CreateQuestionRequestDto} the question to create.
+   * @param jwt {string} jwt of the current user.
    */
   async function createQuestion(
     question: CreateQuestionRequestDto,
+    jwt: string
   ): Promise<void> {
     try {
-      await api.question.questionControllerCreateQuestion(question);
+      await api.question.questionControllerCreateQuestion(question, {
+        headers: {
+          Authorization: `Bearer ${jwt}`,
+        },
+      });
     } catch (e) {
       throw new CreateQuestionException();
     }
@@ -34,7 +40,7 @@ export function useQuestions() {
    */
   async function updateQuestion(
     questionId: string,
-    question: CreateQuestionRequestDto,
+    question: CreateQuestionRequestDto
   ): Promise<void> {
     try {
       await api.question.questionControllerUpdateQuestion(questionId, question);
@@ -70,7 +76,9 @@ export function useQuestions() {
         updateQuestions(response.data);
         return;
       }
-      const response = await api.search.questionControllerGetQuestionsByText(search);
+      const response = await api.search.questionControllerGetQuestionsByText(
+        search
+      );
       updateQuestions(response.data);
     } catch (e) {
       throw new SearchQuestionException();

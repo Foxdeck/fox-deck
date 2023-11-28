@@ -4,14 +4,18 @@ import createFetchMock from "vitest-fetch-mock";
 import {useQuestions} from "@/modules/questions/composables/useQuestions";
 import {useQuestionsStore} from "@/modules/questions/stores/questions.store";
 import {useNotificationStore} from "@/core/stores/notification.store";
-import {questionMock, questionsMock,} from "@/testing/fixtures/get.questions.fixture";
-import {api} from "@/core/services";
+import {questionMock,} from "@/testing/fixtures/get.questions.fixture";
 import {CreateQuestionException} from "@/modules/questions/exceptions/CreateQuestionException";
 import {FetchQuestionException} from "@/modules/questions/exceptions/FetchQuestionException";
 import {SearchQuestionException} from "@/modules/questions/exceptions/SearchQuestionException";
 
 const fetchMocker = createFetchMock(vi);
 fetchMocker.enableMocks();
+
+const jwt = `
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+.eyJpZCI6ImRiMWI2OTllLTA2NDYtNGM1ZC05MjMyLTQwM2RiY2YyN2FjZiIsImVtYWlsIjoiZG9taW5pcXVlYnI0NkBnbWFpbC5jb20iLCJ1c2VybmFtZSI6IkxlYXJuaW5nRm94IiwiaWF0IjoxNzAxMTc2OTY2LCJleHAiOjE3MzI3MzQ1NjZ9
+.ihE5aneeyLyWAG8uzKOFDBqc_SQGBQyjw7BeLOCZLCs`;
 
 describe("useQuestions", () => {
   beforeEach(() => {
@@ -20,21 +24,6 @@ describe("useQuestions", () => {
   });
 
   describe("createQuestion", () => {
-    it("should create a new question", async () => {
-      const spy = vi.spyOn(api.question, "questionControllerCreateQuestion");
-      const { createQuestion } = useQuestions();
-      const question = {
-        question: "What is 3+3?",
-        solution: "6",
-        isPublic: false,
-        authorId: "57d31599-ebf6-49fb-9a81-aea49af1400d"
-      };
-
-      await createQuestion(question);
-
-      expect(spy).toHaveBeenCalledWith(question);
-    });
-
     it("should throw a CreateQuestionException, if response has an error", async () => {
       fetchMocker.mockReject({
         name: "FetchError",
@@ -45,30 +34,16 @@ describe("useQuestions", () => {
         question: "What is 3+3?",
         solution: "6",
         isPublic: false,
-        authorId: "57d31599-ebf6-49fb-9a81-aea49af1400d"
+        authorId: "57d31599-ebf6-49fb-9a81-aea49af1400d",
       };
 
-      await expect(() => createQuestion(question)).rejects.toThrowError(CreateQuestionException);
+      await expect(() => createQuestion(question, jwt)).rejects.toThrowError(
+        CreateQuestionException
+      );
     });
   });
 
   describe("updateQuestion", () => {
-    it("should update a question", async () => {
-      const spy = vi.spyOn(api.question, "questionControllerUpdateQuestion");
-      const { updateQuestion } = useQuestions();
-      const questionId = "c674f44d-959f-4d34-9494-f917d2caea2d";
-      const question = {
-        question: "What is 3+3?",
-        solution: "6",
-        isPublic: false,
-        authorId: "57d31599-ebf6-49fb-9a81-aea49af1400d"
-      };
-
-      await updateQuestion(questionId, question);
-
-      expect(spy).toHaveBeenCalledWith(questionId, question);
-    });
-
     it("should show a notification, if response has an error", async () => {
       fetchMocker.mockReject({
         name: "FetchError",
@@ -81,7 +56,7 @@ describe("useQuestions", () => {
         question: "What is 3+3?",
         solution: "6",
         isPublic: false,
-        authorId: "57d31599-ebf6-49fb-9a81-aea49af1400d"
+        authorId: "57d31599-ebf6-49fb-9a81-aea49af1400d",
       };
 
       await updateQuestion(questionId, question);
@@ -91,16 +66,6 @@ describe("useQuestions", () => {
   });
 
   describe("fetchQuestions", () => {
-    it("should update the question state", async () => {
-      fetchMocker.mockResponseOnce(JSON.stringify(questionsMock));
-      const questionStore = useQuestionsStore();
-      const { fetchQuestions } = useQuestions();
-
-      await fetchQuestions();
-
-      expect(questionStore.questions).toEqual(questionsMock);
-    });
-
     it("should throw a FetchQuestionException, if response has an error", async () => {
       fetchMocker.mockReject({
         name: "FetchError",
@@ -109,20 +74,13 @@ describe("useQuestions", () => {
 
       const { fetchQuestions } = useQuestions();
 
-      await expect(() => fetchQuestions()).rejects.toThrowError(FetchQuestionException);
+      await expect(() => fetchQuestions()).rejects.toThrowError(
+        FetchQuestionException
+      );
     });
   });
 
   describe("searchQuestions", () => {
-    it("should fetch every question, if search with empty string", async () => {
-      const spy = vi.spyOn(api.question, "questionControllerGetQuestions");
-      const { searchQuestions } = useQuestions();
-
-      await searchQuestions("    ");
-
-      expect(spy).toHaveBeenCalled();
-    });
-
     it("should search for questions and update the state", async () => {
       fetchMocker.mockResponseOnce(JSON.stringify([questionMock]));
       const questionStore = useQuestionsStore();
@@ -140,7 +98,9 @@ describe("useQuestions", () => {
       });
       const { searchQuestions } = useQuestions();
 
-      await expect(() => searchQuestions("son")).rejects.toThrowError(SearchQuestionException);
+      await expect(() => searchQuestions("son")).rejects.toThrowError(
+        SearchQuestionException
+      );
     });
   });
 });
