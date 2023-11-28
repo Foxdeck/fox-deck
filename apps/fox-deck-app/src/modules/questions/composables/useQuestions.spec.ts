@@ -1,17 +1,25 @@
-import {beforeEach, describe, expect, it, vi} from "vitest";
-import {createPinia, setActivePinia} from "pinia";
+import { beforeEach, describe, expect, it, vi } from "vitest";
+import { createPinia, setActivePinia } from "pinia";
 import createFetchMock from "vitest-fetch-mock";
-import {useQuestions} from "@/modules/questions/composables/useQuestions";
-import {useQuestionsStore} from "@/modules/questions/stores/questions.store";
-import {useNotificationStore} from "@/core/stores/notification.store";
-import {questionMock, questionsMock,} from "@/testing/fixtures/get.questions.fixture";
-import {api} from "@/core/services";
-import {CreateQuestionException} from "@/modules/questions/exceptions/CreateQuestionException";
-import {FetchQuestionException} from "@/modules/questions/exceptions/FetchQuestionException";
-import {SearchQuestionException} from "@/modules/questions/exceptions/SearchQuestionException";
+import { useQuestions } from "@/modules/questions/composables/useQuestions";
+import { useQuestionsStore } from "@/modules/questions/stores/questions.store";
+import { useNotificationStore } from "@/core/stores/notification.store";
+import {
+  questionMock,
+  questionsMock,
+} from "@/testing/fixtures/get.questions.fixture";
+import { api } from "@/core/services";
+import { CreateQuestionException } from "@/modules/questions/exceptions/CreateQuestionException";
+import { FetchQuestionException } from "@/modules/questions/exceptions/FetchQuestionException";
+import { SearchQuestionException } from "@/modules/questions/exceptions/SearchQuestionException";
 
 const fetchMocker = createFetchMock(vi);
 fetchMocker.enableMocks();
+
+const jwt = `
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
+eyJpZCI6ImRiMWI2OTllLTA2NDYtNGM1ZC05MjMyLTQwM2RiY2YyN2FjZiIsImVtYWlsIjoiam9obi1kb2VAZW1haWwuY29tIiwidXNlcm5hbWUiOiJKb2huRG9lIn0.
+Kly6WkorgZz5NviGbGIk7POhPr8AjHhfNB2uEXtormg`;
 
 describe("useQuestions", () => {
   beforeEach(() => {
@@ -27,12 +35,15 @@ describe("useQuestions", () => {
         question: "What is 3+3?",
         solution: "6",
         isPublic: false,
-        authorId: "57d31599-ebf6-49fb-9a81-aea49af1400d"
       };
 
-      await createQuestion(question);
+      await createQuestion(question, jwt);
 
-      expect(spy).toHaveBeenCalledWith(question);
+      expect(spy).toHaveBeenCalledWith(question, {
+        headers: {
+          Authorization: `Bearer ${jwt}`,
+        },
+      });
     });
 
     it("should throw a CreateQuestionException, if response has an error", async () => {
@@ -45,10 +56,12 @@ describe("useQuestions", () => {
         question: "What is 3+3?",
         solution: "6",
         isPublic: false,
-        authorId: "57d31599-ebf6-49fb-9a81-aea49af1400d"
+        authorId: "57d31599-ebf6-49fb-9a81-aea49af1400d",
       };
 
-      await expect(() => createQuestion(question)).rejects.toThrowError(CreateQuestionException);
+      await expect(() => createQuestion(question, jwt)).rejects.toThrowError(
+        CreateQuestionException
+      );
     });
   });
 
@@ -61,7 +74,7 @@ describe("useQuestions", () => {
         question: "What is 3+3?",
         solution: "6",
         isPublic: false,
-        authorId: "57d31599-ebf6-49fb-9a81-aea49af1400d"
+        authorId: "57d31599-ebf6-49fb-9a81-aea49af1400d",
       };
 
       await updateQuestion(questionId, question);
@@ -81,7 +94,7 @@ describe("useQuestions", () => {
         question: "What is 3+3?",
         solution: "6",
         isPublic: false,
-        authorId: "57d31599-ebf6-49fb-9a81-aea49af1400d"
+        authorId: "57d31599-ebf6-49fb-9a81-aea49af1400d",
       };
 
       await updateQuestion(questionId, question);
@@ -109,7 +122,9 @@ describe("useQuestions", () => {
 
       const { fetchQuestions } = useQuestions();
 
-      await expect(() => fetchQuestions()).rejects.toThrowError(FetchQuestionException);
+      await expect(() => fetchQuestions()).rejects.toThrowError(
+        FetchQuestionException
+      );
     });
   });
 
@@ -140,7 +155,9 @@ describe("useQuestions", () => {
       });
       const { searchQuestions } = useQuestions();
 
-      await expect(() => searchQuestions("son")).rejects.toThrowError(SearchQuestionException);
+      await expect(() => searchQuestions("son")).rejects.toThrowError(
+        SearchQuestionException
+      );
     });
   });
 });
