@@ -7,7 +7,7 @@ export enum SecurityType {
     "NO_SECURE" = "NO_SECURE",
 
     /**
-     * Validation of the JWT, which must be a valid JWT representing our schema.
+     * Validation of the JWT, which must be a valid JWT.
      */
     "JWT_VALID" = "JWT_VALID"
 }
