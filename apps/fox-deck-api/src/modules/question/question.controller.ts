@@ -8,11 +8,22 @@ import {
   Param,
   Post,
   Put,
+  Req,
 } from "@nestjs/common";
-import { QuestionService } from "./question.service";
 import { Question } from "@prisma/client";
+import { QuestionService } from "./question.service";
 import { CreateQuestionRequestDto, QuestionsResponseDto } from "./question.dto";
-import { ApiExtraModels, ApiOkResponse, ApiTags } from "@nestjs/swagger";
+import {
+  ApiBearerAuth,
+  ApiExtraModels,
+  ApiOkResponse,
+  ApiTags,
+} from "@nestjs/swagger";
+import {
+  Security,
+  SecurityType,
+} from "../../shared/decorators/security.decorator";
+import { AuthenticatedRequest } from "../../shared/interfaces/authenticated-request.interface";
 
 /**
  * Controller which handles CRUD operations for questions.
@@ -77,13 +88,20 @@ export class QuestionController {
     }
   }
 
+  @ApiBearerAuth("access-token")
   @HttpCode(HttpStatus.CREATED)
+  @Security(SecurityType.JWT_VALID)
   @Post("question")
   async createQuestion(
     @Body() data: CreateQuestionRequestDto,
+    @Req() request: AuthenticatedRequest,
   ): Promise<Question> {
     try {
-      return this.questionService.createQuestion(data);
+      const user = request.user;
+      return this.questionService.createQuestion({
+        ...data,
+        authorId: user.id,
+      });
     } catch (e) {
       throw new InternalServerErrorException(e);
     }
@@ -94,11 +112,13 @@ export class QuestionController {
   async updateQuestion(
     @Param("id") id: string,
     @Body() data: CreateQuestionRequestDto,
+    @Req() request: AuthenticatedRequest,
   ): Promise<Question> {
     try {
+      const user = request.user;
       return await this.questionService.updateQuestion({
         where: {
-          id: String(id),
+          id: user.id,
         },
         data,
       });

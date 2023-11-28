@@ -57,10 +57,6 @@ export class CreateQuestionRequestDto {
   solution: string;
 
   @ApiProperty()
-  @IsString()
-  authorId: string;
-
-  @ApiProperty()
   @IsBoolean()
   isPublic: boolean;
 }
