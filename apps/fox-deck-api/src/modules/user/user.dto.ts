@@ -1,11 +1,12 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { IsString } from "class-validator";
-import { Expose } from "class-transformer";
+import {ApiProperty} from "@nestjs/swagger";
+import {IsEmail, IsString} from "class-validator";
+import {Expose} from "class-transformer";
 
 export class LoginRequestDto {
   @ApiProperty()
-  @IsString()
+  @IsEmail()
   email: string;
+
   @ApiProperty()
   @IsString()
   password: string;
@@ -13,7 +14,7 @@ export class LoginRequestDto {
 
 export class CreateUserRequestDto {
   @ApiProperty()
-  @IsString()
+  @IsEmail()
   email: string;
 
   @ApiProperty()
