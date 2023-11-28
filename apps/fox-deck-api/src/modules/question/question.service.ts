@@ -1,7 +1,7 @@
-import { Injectable } from "@nestjs/common";
-import { Prisma, Question } from "@prisma/client";
-import { PrismaService } from "../../shared/services/prisma.service";
-import { QuestionsResponseDto } from "./question.dto";
+import {Injectable} from "@nestjs/common";
+import {Prisma, Question} from "@prisma/client";
+import {PrismaService} from "../../shared/services/prisma.service";
+import {QuestionsResponseDto} from "./question.dto";
 
 @Injectable()
 export class QuestionService {
@@ -68,8 +68,12 @@ export class QuestionService {
   async deleteQuestion(
     where: Prisma.QuestionWhereUniqueInput,
   ): Promise<Question> {
-    return this.prisma.question.delete({
-      where,
-    });
+    try {
+      return this.prisma.question.delete({
+        where,
+      });
+    } catch (e) {
+      throw e;
+    }
   }
 }
