@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpCode,
   HttpStatus,
@@ -10,20 +11,12 @@ import {
   Put,
   Req,
 } from "@nestjs/common";
-import { Question } from "@prisma/client";
-import { QuestionService } from "./question.service";
-import { CreateQuestionRequestDto, QuestionsResponseDto } from "./question.dto";
-import {
-  ApiBearerAuth,
-  ApiExtraModels,
-  ApiOkResponse,
-  ApiTags,
-} from "@nestjs/swagger";
-import {
-  Security,
-  SecurityType,
-} from "../../shared/decorators/security.decorator";
-import { AuthenticatedRequest } from "../../shared/interfaces/authenticated-request.interface";
+import {Question} from "@prisma/client";
+import {QuestionService} from "./question.service";
+import {CreateQuestionRequestDto, QuestionsResponseDto} from "./question.dto";
+import {ApiBearerAuth, ApiExtraModels, ApiOkResponse, ApiTags,} from "@nestjs/swagger";
+import {Security, SecurityType,} from "../../shared/decorators/security.decorator";
+import {AuthenticatedRequest} from "../../shared/interfaces/authenticated-request.interface";
 
 /**
  * Controller which handles CRUD operations for questions.
@@ -91,6 +84,24 @@ export class QuestionController {
     }
   }
 
+  @ApiBearerAuth("access-token")
+  @Security(SecurityType.JWT_VALID)
+  @ApiOkResponse({
+    description: "Deletes a question and returns no content.",
+  })
+  @HttpCode(HttpStatus.OK)
+  @Delete("question/:id")
+  async deleteQuestion(
+      @Param("id") id: string,
+      @Req() request: AuthenticatedRequest,
+  ): Promise<void> {
+    try {
+      const user = request.user;
+      await this.questionService.deleteQuestion({ id: String(id),authorId: user.id });
+    } catch (e) {
+      throw new InternalServerErrorException(e)
+    }
+  }
   @ApiBearerAuth("access-token")
   @Security(SecurityType.JWT_VALID)
   @HttpCode(HttpStatus.CREATED)
