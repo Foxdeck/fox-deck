@@ -31,10 +31,10 @@ If the JWT is valid, it is parsed and the "User" property is added to the reques
 @Post("question")
 async createQuestion(
 @Body() data: CreateQuestionRequestDto,
-@Req() request: AuthenticatedRequest,
+@Req() request: AuthenticatedRequest, // 1. get request object
 ): Promise<Question> {
 try {
-  const user = request.user;
+  const user = request.user; // 2. get user from request
   return this.questionService.createQuestion({
     ...data,
     authorId: user.id,
@@ -64,7 +64,7 @@ export class ExampleController {
   @Get()
   @ApiBearerAuth("access-token")
   getData() {
-    // Hier wird ein Bearer-Token im Authorization-Header erwartet.
+    // ...
   }
 }
 ----
