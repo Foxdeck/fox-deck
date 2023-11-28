@@ -1,15 +1,11 @@
-import {
-  Injectable,
-  InternalServerErrorException,
-  Logger,
-} from "@nestjs/common";
-import { Prisma, User } from "@prisma/client";
-import { JwtService } from "@nestjs/jwt";
-import { PrismaService } from "../../shared/services/prisma.service";
-import { PasswordService } from "../../shared/services/password.service";
-import { InvalidLoginException } from "./invalid-login.exception";
-import { LoginRequestDto, LoginResponseDto } from "./user.dto";
-import { JwtBody } from "../../shared/interfaces/jwt-body.interface";
+import {Injectable, InternalServerErrorException, Logger,} from "@nestjs/common";
+import {Prisma, User} from "@prisma/client";
+import {JwtService} from "@nestjs/jwt";
+import {PrismaService} from "../../shared/services/prisma.service";
+import {PasswordService} from "../../shared/services/password.service";
+import {InvalidLoginException} from "./invalid-login.exception";
+import {LoginRequestDto, LoginResponseDto} from "./user.dto";
+import {JwtBody} from "../../shared/interfaces/jwt-body.interface";
 
 @Injectable()
 export class UserService {
@@ -46,7 +42,7 @@ export class UserService {
         email: found.email,
         username: found.username,
       };
-      loginResponse.accessToken = await this.jwtService.signAsync(jwtBody);
+      loginResponse.accessToken = this.jwtService.sign(jwtBody);
       return loginResponse;
     } catch (e) {
       if (e instanceof InvalidLoginException) {

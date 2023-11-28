@@ -1,13 +1,7 @@
-import { JwtService } from "@nestjs/jwt";
-import {
-  CallHandler,
-  ExecutionContext,
-  ForbiddenException,
-  Injectable,
-  NestInterceptor,
-} from "@nestjs/common";
-import { catchError, Observable, throwError } from "rxjs";
-import { SecurityType } from "../decorators/security.decorator";
+import {JwtService} from "@nestjs/jwt";
+import {CallHandler, ExecutionContext, ForbiddenException, Injectable, Logger, NestInterceptor,} from "@nestjs/common";
+import {catchError, Observable, throwError} from "rxjs";
+import {SecurityType} from "../decorators/security.decorator";
 
 /**
  * Interceptor which handles the security of REST-Endpoints.
@@ -58,6 +52,8 @@ export class SecurityInterceptor implements NestInterceptor {
 
         request.user = this.jwtService.decode(jwt);
       } catch (e) {
+        const l = new Logger();
+        l.error(e);
         throw new ForbiddenException();
       }
     }
