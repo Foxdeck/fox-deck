@@ -53,7 +53,7 @@ export class QuestionController {
 
   /**
    * Returns a list of questions from the database. These list can be searched or filtered.
-   * @param query {GetQuestionsDto} the query the request can have.
+   * @param query {QuestionsResponseDto} the query the request can have.
    */
   @ApiOkResponse({
     description: "Returns a list of questions.",
