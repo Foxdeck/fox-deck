@@ -1,5 +1,5 @@
 import {ApiProperty} from "@nestjs/swagger";
-import {IsBoolean, IsNumber, IsOptional, IsString} from "class-validator";
+import {IsArray, IsBoolean, IsNumber, IsOptional, IsString} from "class-validator";
 import {Question} from "@prisma/client";
 
 class QuestionResponseAuthorDto {
@@ -78,4 +78,18 @@ export class GetQuestionsRequestDto {
   @IsOptional()
   @IsString()
   public search?: string;
+
+  /**
+   * Filter for questions based on their visibility status.
+   * Can be 'public', 'private', or both.
+   */
+  @ApiProperty({
+    required: false,
+    isArray: true,
+    example: ['public', 'private']
+  })
+  @IsOptional()
+  @IsArray()
+  @IsString({ each: true })
+  public visibility?: string[];
 }
