@@ -1,6 +1,6 @@
-import { createPinia, setActivePinia } from "pinia";
-import { beforeEach, describe, expect, it } from "vitest";
-import { useAuthStore } from "@/core/stores/auth.store";
+import {createPinia, setActivePinia} from "pinia";
+import {beforeEach, describe, expect, it} from "vitest";
+import {useAuthStore} from "@/core/stores/auth.store";
 
 describe("Auth Store", () => {
   beforeEach(() => {
@@ -45,6 +45,20 @@ describe("Auth Store", () => {
         name: "John Doe",
         iat: 1516239022,
       });
+    });
+  });
+
+  describe("logout", () => {
+    it("should reset the JWT Token", async () => {
+      const authStore = useAuthStore();
+      const token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+        .eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ
+        .SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c`;
+      authStore.jwt = token;
+
+      await authStore.logout();
+
+      expect(authStore.jwt).toEqual("");
     });
   });
 
