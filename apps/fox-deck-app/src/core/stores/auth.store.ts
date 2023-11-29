@@ -1,5 +1,5 @@
-import { useStorage } from "@vueuse/core";
-import { defineStore } from "pinia";
+import {useStorage} from "@vueuse/core";
+import {defineStore} from "pinia";
 // @ts-ignore
 import VueJwtDecode from "vue-jwt-decode";
 
@@ -27,6 +27,13 @@ export const useAuthStore = defineStore("authStore", () => {
   };
 
   /**
+   * Logs the user out and resets the jwt token.
+   */
+  const logout = async () => {
+    jwt.value = "";
+  };
+
+  /**
    * Returns if the user is currently logged in.
    */
   const isAuthenticated = (): boolean => {
@@ -39,6 +46,7 @@ export const useAuthStore = defineStore("authStore", () => {
   return {
     jwt: jwt,
     setJwt: login,
+    logout: logout,
     isAuthenticated: isAuthenticated,
     readJWT: readJWT,
   };

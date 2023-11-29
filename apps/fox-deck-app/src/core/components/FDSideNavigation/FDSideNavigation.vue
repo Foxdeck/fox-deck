@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import Logo from "@/assets/icons/foxdeck-logo.svg";
-import { routes } from "@/router";
+import {routes} from "@/router";
 import anime from "animejs/lib/anime.es.js";
-import { ref, watch } from "vue";
-import { useAuthStore } from "@/core/stores/auth.store";
+import {ref, watch} from "vue";
+import {useAuthStore} from "@/core/stores/auth.store";
+import {useRouter} from "vue-router";
+import {LoginRouteNames} from "@/modules/login/routes";
 
+const { push } = useRouter();
 const authStore = useAuthStore();
 
 const isCollapsed = ref(true);
@@ -25,6 +28,11 @@ watch(isCollapsed, () => {
     easing: "easeInOutSine",
   });
 });
+
+async function onLogoutClick() {
+  await authStore.logout();
+  await push({ name: LoginRouteNames.LOGIN });
+}
 </script>
 <template>
   <aside
@@ -61,6 +69,18 @@ watch(isCollapsed, () => {
       >
         <vue-feather
           type="chevrons-right"
+          class="transition duration-500 ease-in-out"
+          :class="{
+            'rotate-180': !isCollapsed,
+          }"
+        />
+      </span>
+      <span
+        class="cursor-pointer p-4 text-white hover:opacity-70"
+        @click="onLogoutClick()"
+      >
+        <vue-feather
+          type="log-out"
           class="transition duration-500 ease-in-out"
           :class="{
             'rotate-180': !isCollapsed,
