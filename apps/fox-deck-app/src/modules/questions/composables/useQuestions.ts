@@ -91,9 +91,9 @@ export function useQuestions() {
         updateQuestions(response.data);
         return;
       }
-      const response = await api.search.questionControllerGetQuestionsByText(
+      const response = await api.question.questionControllerGetQuestions({
         search
-      );
+      });
       updateQuestions(response.data);
     } catch (e) {
       throw new SearchQuestionException();

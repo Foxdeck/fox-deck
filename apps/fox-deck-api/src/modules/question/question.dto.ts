@@ -1,6 +1,6 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { IsBoolean, IsNumber, IsString } from "class-validator";
-import { Question } from "@prisma/client";
+import {ApiProperty} from "@nestjs/swagger";
+import {IsBoolean, IsNumber, IsOptional, IsString} from "class-validator";
+import {Question} from "@prisma/client";
 
 class QuestionResponseAuthorDto {
   @ApiProperty()
@@ -59,4 +59,23 @@ export class CreateQuestionRequestDto {
   @ApiProperty()
   @IsBoolean()
   isPublic: boolean;
+}
+
+/**
+ * Request which is used for retrieving multiple questions from the database.
+ *
+ * @example
+ * GET /question?search=sun
+ */
+export class GetQuestionsRequestDto {
+
+  /**
+   * The string which should be searched for in the question.
+   */
+  @ApiProperty({
+    required: false
+  })
+  @IsOptional()
+  @IsString()
+  public search?: string;
 }

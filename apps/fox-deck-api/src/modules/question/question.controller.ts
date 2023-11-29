@@ -9,11 +9,13 @@ import {
   Param,
   Post,
   Put,
+  Query,
   Req,
+  ValidationPipe,
 } from "@nestjs/common";
 import {Question} from "@prisma/client";
 import {QuestionService} from "./question.service";
-import {CreateQuestionRequestDto, QuestionsResponseDto} from "./question.dto";
+import {CreateQuestionRequestDto, GetQuestionsRequestDto, QuestionsResponseDto} from "./question.dto";
 import {ApiBearerAuth, ApiExtraModels, ApiOkResponse, ApiTags,} from "@nestjs/swagger";
 import {Security, SecurityType,} from "../../shared/decorators/security.decorator";
 import {AuthenticatedRequest} from "../../shared/interfaces/authenticated-request.interface";
@@ -24,8 +26,13 @@ import {AuthenticatedRequest} from "../../shared/interfaces/authenticated-reques
 @ApiTags("Questions")
 @Controller()
 export class QuestionController {
+
   constructor(private readonly questionService: QuestionService) {}
 
+  /**
+   * Returns a single question from the database.
+   * @param id {string} the id of the question to get.
+   */
   @ApiOkResponse({
     description: "Returns a question via its id.",
     type: QuestionsResponseDto,
@@ -44,6 +51,10 @@ export class QuestionController {
     }
   }
 
+  /**
+   * Returns a list of questions from the database. These list can be searched or filtered.
+   * @param query {GetQuestionsDto} the query the request can have.
+   */
   @ApiOkResponse({
     description: "Returns a list of questions.",
     type: QuestionsResponseDto,
@@ -53,37 +64,30 @@ export class QuestionController {
   @Security(SecurityType.NO_SECURE)
   @HttpCode(HttpStatus.OK)
   @Get("question")
-  async getQuestions(): Promise<QuestionsResponseDto[]> {
-    try {
-      return await this.questionService.questions({});
-    } catch (e) {
-      throw new InternalServerErrorException(e);
-    }
-  }
-
-  @ApiOkResponse({
-    description: "Returns a question by its question text.",
-    type: QuestionsResponseDto,
-    isArray: true,
-  })
-  @ApiExtraModels(QuestionsResponseDto)
-  @Security(SecurityType.NO_SECURE)
-  @HttpCode(HttpStatus.OK)
-  @Get("search/question/:search")
-  async getQuestionsByText(
-    @Param("search") search: string,
+  async getQuestions(
+    @Query(new ValidationPipe({
+      transform: true,
+      transformOptions: {enableImplicitConversion: true},
+      forbidNonWhitelisted: true
+    })) query: GetQuestionsRequestDto
   ): Promise<QuestionsResponseDto[]> {
     try {
       return await this.questionService.questions({
         where: {
-          question: { contains: search },
-        },
+          question: { contains: query.search },
+        }
       });
     } catch (e) {
       throw new InternalServerErrorException(e);
     }
   }
 
+  /**
+   * Deletes a question.
+   * Users can only delete their own questions, so a decoded JWT is passed within the request.
+   * @param id {string} the id of the question
+   * @param request {Request} the request, used because a user can only delete its own question.
+   */
   @ApiBearerAuth("access-token")
   @Security(SecurityType.JWT_VALID)
   @ApiOkResponse({
@@ -102,6 +106,13 @@ export class QuestionController {
       throw new InternalServerErrorException(e)
     }
   }
+
+  /**
+   * Creates a new question.
+   * Users can only create their own questions, so a decoded JWT is passed within the request.
+   * @param data {CreateQuestionRequestDto} the dto which contains the question data.
+   * @param request {Request} the request, used because a user can only create its own question.
+   */
   @ApiBearerAuth("access-token")
   @Security(SecurityType.JWT_VALID)
   @HttpCode(HttpStatus.CREATED)
@@ -121,6 +132,13 @@ export class QuestionController {
     }
   }
 
+  /**
+   * Updates a specific question.
+   * Users can only update their own questions, so a decoded JWT is passed within the request.
+   * @param id {string} the question id of the question to update
+   * @param data {CreateQuestionRequestDto} he dto which contains the updated question data.
+   * @param request {Request} the request, used because a user can only update its own question.
+   */
   @ApiBearerAuth("access-token")
   @Security(SecurityType.JWT_VALID)
   @HttpCode(HttpStatus.OK)

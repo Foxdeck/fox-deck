@@ -323,10 +323,16 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @name QuestionControllerGetQuestions
      * @request GET:/question
      */
-    questionControllerGetQuestions: (params: RequestParams = {}) =>
+    questionControllerGetQuestions: (
+      query?: {
+        search?: string;
+      },
+      params: RequestParams = {},
+    ) =>
       this.request<QuestionsResponseDto[], any>({
         path: `/question`,
         method: "GET",
+        query: query,
         format: "json",
         ...params,
       }),
@@ -346,22 +352,6 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         body: data,
         secure: true,
         type: ContentType.Json,
-        ...params,
-      }),
-  };
-  search = {
-    /**
-     * No description
-     *
-     * @tags Questions
-     * @name QuestionControllerGetQuestionsByText
-     * @request GET:/search/question/{search}
-     */
-    questionControllerGetQuestionsByText: (search: string, params: RequestParams = {}) =>
-      this.request<QuestionsResponseDto[], any>({
-        path: `/search/question/${search}`,
-        method: "GET",
-        format: "json",
         ...params,
       }),
   };
