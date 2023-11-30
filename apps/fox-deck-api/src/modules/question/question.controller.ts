@@ -72,10 +72,15 @@ export class QuestionController {
     })) query: GetQuestionsRequestDto
   ): Promise<QuestionsResponseDto[]> {
     try {
+      const take = 10;
+      const page = query.page && query.page > 0 ? query.page : 1;
+      const skip = (page - 1) * take;
       return await this.questionService.questions({
         where: {
           question: { contains: query.search },
-        }
+        },
+        skip,
+        take
       });
     } catch (e) {
       throw new InternalServerErrorException(e);
