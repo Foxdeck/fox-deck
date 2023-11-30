@@ -1,16 +1,16 @@
-import type { Route } from "@/router";
+import type {FoxdeckRoute} from "@/router/foxdeck-route.type";
 
-export enum LoginRouteNames {
+export enum HomeRouteNames {
   HOME = "home",
 }
 
-export const homeRoutes: Route[] = [
+export const homeRoutes: FoxdeckRoute[] = [
   {
     path: "/",
-    name: LoginRouteNames.HOME,
+    name: HomeRouteNames.HOME,
     component: () => import("./HomeView.vue"),
     isVisibleInNavigation: true,
     icon: "home",
-    label: "home",
+    label: "Home",
   },
 ];

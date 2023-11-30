@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { useRouter } from "vue-router";
+import {ref} from "vue";
 import LoginForm from "@/modules/login/components/LoginForm.vue";
-import { useAuthStore } from "@/core/stores/auth.store";
+import {useAuthStore} from "@/core/stores/auth.store";
 import LoginRegisterLayout from "@/modules/login/LoginRegisterLayout.vue";
-import { api } from "@/core/services";
+import {api} from "@/core/services";
+import {useFoxdeckRouter} from "@/core/composables/useFoxdeckRouter";
+import {HomeRouteNames} from "@/modules/home/routes";
 
-const router = useRouter();
+const { push } = useFoxdeckRouter();
 const authService = useAuthStore();
 
 const hasLoginError = ref();
@@ -16,8 +17,8 @@ async function onLoginSubmit({ email, password }) {
     const response = await api.login.userControllerGetUser({ email, password });
     const user = await response.data;
     authService.setJwt(user.accessToken);
-    await router.push({
-      name: "home",
+    await push({
+      name: HomeRouteNames.HOME,
     });
   } catch (e) {
     hasLoginError.value = true;
@@ -34,7 +35,7 @@ async function onLoginSubmit({ email, password }) {
           (e) =>
             onLoginSubmit({
               email: e.email,
-              password: e.password,
+              password: e.password
             })
         "
       />

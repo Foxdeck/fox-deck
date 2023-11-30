@@ -1,11 +1,11 @@
-import type { Route } from "@/router";
+import type {FoxdeckRoute} from "@/router/foxdeck-route.type";
 
 export enum LoginRouteNames {
   LOGIN = "login",
   REGISTER = "register",
 }
 
-export const loginRoutes: Route[] = [
+export const loginRoutes: FoxdeckRoute[] = [
   {
     path: "/login",
     name: LoginRouteNames.LOGIN,

@@ -1,11 +1,11 @@
-import type { Route } from "@/router";
+import type {FoxdeckRoute} from "@/router/foxdeck-route.type";
 
 export enum QuestionRouteNames {
   QUESTIONS = "questions",
   CREATE_QUESTION = "create-question",
 }
 
-export const questionRoutes: Route[] = [
+export const questionRoutes: FoxdeckRoute[] = [
   {
     path: "/questions",
     name: QuestionRouteNames.QUESTIONS,

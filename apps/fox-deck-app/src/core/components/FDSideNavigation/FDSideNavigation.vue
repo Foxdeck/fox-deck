@@ -4,10 +4,10 @@ import {routes} from "@/router";
 import anime from "animejs/lib/anime.es.js";
 import {ref, watch} from "vue";
 import {useAuthStore} from "@/core/stores/auth.store";
-import {useRouter} from "vue-router";
 import {LoginRouteNames} from "@/modules/login/routes";
+import {useFoxdeckRouter} from "@/core/composables/useFoxdeckRouter";
 
-const { push } = useRouter();
+const { push } = useFoxdeckRouter();
 const authStore = useAuthStore();
 
 const isCollapsed = ref(true);

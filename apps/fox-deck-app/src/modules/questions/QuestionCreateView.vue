@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import {ref} from "vue";
-import {useRouter} from "vue-router";
 import * as Yup from "yup";
 import {Form} from "vee-validate";
 import {useI18n} from "vue-i18n";
@@ -14,13 +13,15 @@ import {useAuthStore} from "@/core/stores/auth.store";
 import {useNotificationStore} from "@/core/stores/notification.store";
 import {useQuestions} from "@/modules/questions/composables/useQuestions";
 import type {CreateQuestionRequestDto} from "@/core/services/api";
+import {useFoxdeckRouter} from "@/core/composables/useFoxdeckRouter";
+import {QuestionRouteNames} from "@/modules/questions/routes";
 
 type FormModel = {
   question: string;
   solution: string;
 };
 
-const { push } = useRouter();
+const { push } = useFoxdeckRouter();
 const { addNotification } = useNotificationStore();
 const { createQuestion } = useQuestions();
 const { readJWT } = useAuthStore();
@@ -45,7 +46,9 @@ async function onFormSubmit(formModel: FormModel) {
       authorId: readJWT().id,
     };
     await createQuestion(question);
-    await push("/questions");
+    await push({
+      name: QuestionRouteNames.QUESTIONS
+    });
   } catch (e) {
     addNotification({
       title: t(e.name),
