@@ -1,5 +1,5 @@
 import {ApiProperty} from "@nestjs/swagger";
-import {IsArray, IsBoolean, IsNumber, IsOptional, IsString} from "class-validator";
+import {IsArray, IsBoolean, IsNumber, IsOptional, IsString, Min} from "class-validator";
 import {Question} from "@prisma/client";
 
 class QuestionResponseAuthorDto {
@@ -78,6 +78,17 @@ export class GetQuestionsRequestDto {
   @IsOptional()
   @IsString()
   public search?: string;
+
+  /**
+   * The page number for pagination.
+   */
+  @ApiProperty({
+    required: false
+  })
+  @IsOptional()
+  @Min(1)
+  @IsNumber()
+  public page?: number;
 
   /**
    * Filter for questions based on their visibility status.
