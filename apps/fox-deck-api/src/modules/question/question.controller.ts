@@ -80,21 +80,21 @@ export class QuestionController {
       };
 
 
-      if (query.visibility.includes("public") && query.visibility.includes("public")) {
-
-        // wenn query.visibility === ["public"], dann mach das:
-      } else if (query.visibility.includes("public")) {
-        whereCondition = {
-          ...whereCondition,
-          isPublic: true
-        };
-        // wenn query.visibility === ["private"], dann mach das:
-      } else if (query.visibility.includes("private")) {
-        whereCondition = {
-          ...whereCondition,
-          isPublic: false
-        };
+      if (query.visibility) {
+        if (query.visibility.includes("public") && !query.visibility.includes("private")) {
+          whereCondition = {
+            ...whereCondition,
+            isPublic: true
+          };
+        } else if (!query.visibility.includes("public") && query.visibility.includes("private")) {
+          whereCondition = {
+            ...whereCondition,
+            isPublic: false
+          };
+        }
       }
+
+
 
       return await this.questionService.questions({
         where: whereCondition,
