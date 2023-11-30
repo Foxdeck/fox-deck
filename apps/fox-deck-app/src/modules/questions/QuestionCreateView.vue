@@ -116,6 +116,7 @@ async function onFormSubmit(formModel: FormModel) {
         </FDTypography>
         <FDSwitch
           size="medium"
+          :checked="isPublic"
           @on-toggle="isPublic = $event"
         />
       </div>

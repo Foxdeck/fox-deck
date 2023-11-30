@@ -1,11 +1,15 @@
 <script setup lang="ts">
-import type { PropType } from "vue";
-import type { FDComponentSize } from "@/core/types/component.types";
+import type {PropType} from "vue";
+import type {FDComponentSize} from "@/core/types/component.types";
 
 defineProps({
-  checked: { type: Boolean, default: false },
+  checked: {
+    type: Boolean,
+    required: true,
+    default: false
+  },
   size: {
-    type: Object as PropType<FDComponentSize>,
+    type: String as PropType<FDComponentSize>,
     default: "medium" satisfies FDComponentSize,
   },
 });
