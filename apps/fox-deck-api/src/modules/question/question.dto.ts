@@ -1,6 +1,8 @@
 import {ApiProperty} from "@nestjs/swagger";
-import {IsBoolean, IsNumber, IsOptional, IsString} from "class-validator";
+import {IsArray, IsBoolean, IsNumber, IsOptional, IsString, Min} from "class-validator";
 import {Question} from "@prisma/client";
+import {type GetQuestionsVisibility} from "./question.dto.types";
+import {Transform, Type} from "class-transformer";
 
 class QuestionResponseAuthorDto {
   @ApiProperty()
@@ -66,6 +68,8 @@ export class CreateQuestionRequestDto {
  *
  * @example
  * GET /question?search=sun
+ * GET /question?search=sun&page=4
+ * GET /question?search=sun&page=4&visibility=private&visibility=public
  */
 export class GetQuestionsRequestDto {
 
@@ -78,4 +82,31 @@ export class GetQuestionsRequestDto {
   @IsOptional()
   @IsString()
   public search?: string;
+
+  /**
+   * The page number for pagination.
+   */
+  @ApiProperty({
+    required: false
+  })
+  @IsNumber()
+  @Type(() => Number)
+  @IsOptional()
+  @Min(1)
+  public page?: number = 1;
+
+  /**
+   * Filter for questions based on their visibility status.
+   * Can be 'public', 'private', or both.
+   */
+  @ApiProperty({
+    required: false,
+    isArray: true,
+    example: ['public', 'private']
+  })
+  @IsOptional()
+  @IsArray()
+  // @IsIn(["public", "private"], { each: true })
+  @Transform(({ value }) => (Array.isArray(value) ? value : Array(value)))
+  public visibility?: GetQuestionsVisibility[] = ["public", "private"];
 }

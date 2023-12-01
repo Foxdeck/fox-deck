@@ -72,15 +72,39 @@ export class QuestionController {
     })) query: GetQuestionsRequestDto
   ): Promise<QuestionsResponseDto[]> {
     try {
-      return await this.questionService.questions({
-        where: {
-          question: { contains: query.search },
+      const take = 10;
+      const skip = (query.page - 1) * take;
+
+      let whereCondition: any = {
+        question: { contains: query.search }
+      };
+
+
+      if (query.visibility) {
+        if (query.visibility.includes("public") && !query.visibility.includes("private")) {
+          whereCondition = {
+            ...whereCondition,
+            isPublic: true
+          };
+        } else if (!query.visibility.includes("public") && query.visibility.includes("private")) {
+          whereCondition = {
+            ...whereCondition,
+            isPublic: false
+          };
         }
+      }
+
+
+
+      return await this.questionService.questions({
+        where: whereCondition,
+        skip,
+        take
       });
     } catch (e) {
       throw new InternalServerErrorException(e);
     }
-  }
+      }
 
   /**
    * Deletes a question.
