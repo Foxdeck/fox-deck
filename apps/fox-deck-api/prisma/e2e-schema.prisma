@@ -1,0 +1,35 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["multiSchema"]
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL_TEST")
+}
+
+model User {
+  id         String     @id @default(uuid())
+  username   String     @default("")
+  firstname  String?
+  secondname String?
+  email      String
+  password   String
+  Question   Question[]
+}
+
+model Question {
+  id           String    @id @default(uuid())
+  author       User      @relation(fields: [authorId], references: [id])
+  authorId     String    @default("")
+  question     String
+  solution     String
+  isPublic     Boolean
+  notGoodAt    Int?      @default(0)
+  average      Int?      @default(0)
+  goodAt       Int?      @default(0)
+  lastAnswered DateTime?
+}
