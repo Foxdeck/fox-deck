@@ -13,6 +13,6 @@ export const ArrayUtil = {
    * ArrayUtil.containsExact(myArray, "public"); // returns true, because only "Hello" is inside the array
    */
   containsExact: <T> (arr: T[], item: T): boolean => {
-    return arr.every((element) => element === item)
+    return arr !== undefined && arr.every((element) => element === item)
   }
 }

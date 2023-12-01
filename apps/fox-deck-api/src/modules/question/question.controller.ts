@@ -19,6 +19,7 @@ import {CreateQuestionRequestDto, GetQuestionsRequestDto, QuestionsResponseDto} 
 import {ApiBearerAuth, ApiExtraModels, ApiOkResponse, ApiTags,} from "@nestjs/swagger";
 import {Security, SecurityType,} from "../../shared/decorators/security.decorator";
 import {AuthenticatedRequest} from "../../shared/interfaces/authenticated-request.interface";
+import {ArrayUtil} from "../../shared/utils/array.util";
 
 /**
  * Controller which handles CRUD operations for questions.
@@ -79,22 +80,17 @@ export class QuestionController {
         question: { contains: query.search }
       };
 
-
-      if (query.visibility) {
-        if (query.visibility.includes("public") && !query.visibility.includes("private")) {
-          whereCondition = {
-            ...whereCondition,
-            isPublic: true
-          };
-        } else if (!query.visibility.includes("public") && query.visibility.includes("private")) {
-          whereCondition = {
-            ...whereCondition,
-            isPublic: false
-          };
-        }
+      if (ArrayUtil.containsExact(query.visibility, "public")) {
+        whereCondition = {
+          ...whereCondition,
+          isPublic: true
+        };
+      } else if (ArrayUtil.containsExact(query.visibility,"private")) {
+        whereCondition = {
+          ...whereCondition,
+          isPublic: false
+        };
       }
-
-
 
       return await this.questionService.questions({
         where: whereCondition,

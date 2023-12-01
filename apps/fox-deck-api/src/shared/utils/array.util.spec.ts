@@ -21,4 +21,11 @@ describe("ArrayUtil", () => {
     const result = ArrayUtil.containsExact(myArray, "hello");
     expect(result).toBeFalsy();
   })
+
+  it("should return false if array is undefined", () => {
+    const myArray = undefined;
+
+    const result = ArrayUtil.containsExact(myArray, "hello");
+    expect(result).toBeFalsy();
+  })
 })
