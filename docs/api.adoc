@@ -183,3 +183,46 @@ To generate a JWT, you can use the official website https://jwt.io/:
 image::assets/api/generate-jwt.png[]
 
 IMPORTANT: Look into jwt-body.interface.ts to see the current payload the JWT contains.
+
+=== E2E Testing
+
+To run the E2E tests (*.e2e-spec.ts), you must first create the test database. To do this, execute the following command in the main directory of fox-deck-api:
+
+[source,bash]
+----
+$ npm run prisma:e2e-migrate
+----
+
+If the last command was successful, there is a test.db in the "Prisma" directory.
+
+==== Using the db in test
+
+To use the database in E2E, it is initialized before each test. The current database is deleted and rewritten.
+
+The "setupDatabase()" function was implemented for this purpose. This function returns the current PrismaClient. This can in turn be used to gain direct access to the database.
+
+[source,typescript]
+----
+// 1. import setupDatabase from setup-test-db in prisma-directory
+import {setupDatabase} from "../../../prisma/setup-test-db";
+
+describe('QuestionController', () => {
+  let app: INestApplication;
+  let prisma: PrismaClient; // 2. create variable "prisma"
+
+  beforeEach(async () => {
+
+    const moduleFixture: TestingModule = await Test.createTestingModule({
+      imports: [QuestionModule]
+    }).compile();
+
+    prisma = await setupDatabase(); // 3. assign "prisma"-variable to setupDatabase()
+    app = moduleFixture.createNestApplication();
+    await app.init();
+  });
+
+  // put your tests here...
+}
+----
+
+Examples for orientation can be found in the question.controller.e2e-spec.ts.
