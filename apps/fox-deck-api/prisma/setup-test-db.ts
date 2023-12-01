@@ -1,19 +1,17 @@
-import {v4 as uuidv4} from 'uuid';
-import * as process from "process";
 import {PrismaService} from "../src/shared/services/prisma.service";
+import {v4 as uuidv4} from 'uuid';
 
 const prisma = new PrismaService();
 let userId1 = "";
 let userId2 = "";
 
-function getRandomBoolean() {
-  return Math.random() < 0.5;
+function isEven(num: number): boolean {
+  return num % 2 === 0;
 }
 
 function getRandomUserId(): string {
   return Math.random() < 0.5 ? userId1 : userId2;
 }
-
 
 export async function setupDatabase() {
   async function createUsers() {
@@ -42,16 +40,16 @@ export async function setupDatabase() {
 
   async function createQuestions() {
     for (let i = 0; i < 50; i++) {
+      const questionNumber = i + 1;
       const question = {
-        question: `Question ${i + 1}`,
+        question: `Question ${questionNumber}`,
         average: 0,
         authorId: getRandomUserId(),
         goodAt: 0,
-        isPublic: getRandomBoolean(),
+        isPublic: isEven(i),
         id: uuidv4(),
-        lastAnswered: new Date(Date.now() - Math.floor(Math.random() * 10000000000)),
         notGoodAt: 0,
-        solution: `Solution for question ${i + 1}`,
+        solution: `Solution for question ${questionNumber}`,
       };
       await prisma.question.create({
         data: question
@@ -59,17 +57,10 @@ export async function setupDatabase() {
     }
   }
 
+  await prisma.$executeRawUnsafe("DELETE FROM main.Question;")
+  await prisma.$executeRawUnsafe("DELETE FROM main.User;")
   await createUsers();
   await createQuestions();
-}
 
-if (process.env.NODE_ENV === 'test') {
-  setupDatabase()
-    .catch((e) => {
-      throw e;
-    })
-    .finally(async () => {
-      await prisma.$disconnect();
-    });
+  return prisma;
 }
-

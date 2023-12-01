@@ -3,9 +3,22 @@ import {HttpStatus, INestApplication} from "@nestjs/common";
 import * as request from "supertest";
 import {QuestionModule} from "./question.module";
 import {setupDatabase} from "../../../prisma/setup-test-db";
+import {PrismaClient} from "@prisma/client";
+
+// these parameters are passed at every request to the database.
+const defaultQueryArgs = {
+  take: 10, include: {
+    author: {
+      select: {
+        username: true,
+      },
+    },
+  }
+};
 
 describe('QuestionController', () => {
   let app: INestApplication;
+  let prisma: PrismaClient;
 
   beforeEach(async () => {
 
@@ -13,50 +26,86 @@ describe('QuestionController', () => {
       imports: [QuestionModule]
     }).compile();
 
-    await setupDatabase();
+    prisma = await setupDatabase();
     app = moduleFixture.createNestApplication();
     await app.init();
   });
 
-  describe("GET /question",() => {
+  describe("GET /question", () => {
     it('should return a list of 10 questions', async () => {
-      const req = await request(app.getHttpServer())
+      const expected = await prisma.question.findMany(defaultQueryArgs);
+
+      await request(app.getHttpServer())
         .get("/question")
         .expect(HttpStatus.OK)
+        .expect(expected);
+    });
 
-      expect(req.body.length).toEqual(10);
+    it('should return the 3rd page of questions', async () => {
+      const expected = await prisma.question.findMany({...defaultQueryArgs, skip: 20});
+      await request(app.getHttpServer())
+        .get("/question")
+        .query({
+          page: 3
+        })
+        .expect(HttpStatus.OK)
+        .expect(expected);
+    });
+
+    it('should return an empty list if page is to high', async () => {
+      await request(app.getHttpServer())
+        .get("/question")
+        .query({
+          page: 100
+        })
+        .expect(HttpStatus.OK)
+        .expect([]);
     });
 
     it('should return a list of public questions', async () => {
-      const req = await request(app.getHttpServer())
+      const expected = await prisma.question.findMany({ ...defaultQueryArgs, where: { isPublic: true } });
+      await request(app.getHttpServer())
         .get("/question")
         .query({
           visibility: ["public"]
         })
         .expect(HttpStatus.OK)
-
-      const body: any[] = req.body;
-
-      body.forEach((question) => {
-        expect(question.isPublic).toBeTruthy();
-      })
-      expect(req.body.length).toEqual(10);
+        .expect(expected);
     });
 
     it('should return a list of private questions', async () => {
-      const req = await request(app.getHttpServer())
+      const expected = await prisma.question.findMany({ ...defaultQueryArgs, where: { isPublic: false } });
+      await request(app.getHttpServer())
         .get("/question")
         .query({
           visibility: ["private"]
         })
         .expect(HttpStatus.OK)
+        .expect(expected);
+    });
 
-      const body: any[] = req.body;
+    it('should find exact one question', async () => {
+      const expected = await prisma.question.findMany({ ...defaultQueryArgs, where: { question: "Question 20" } });
+      await request(app.getHttpServer())
+        .get("/question")
+        .query({
+          search: "Question 20"
+        })
+        .expect(HttpStatus.OK)
+        .expect(expected);
+    });
 
-      body.forEach((question) => {
-        expect(!question.isPublic).toBeTruthy();
-      })
-      expect(req.body.length).toEqual(10);
+    it('should find all private questions starting with "Question 2"', async () => {
+      const expected = await prisma.question.findMany({ ...defaultQueryArgs,
+        where: { question: { contains: "Question 2" }, isPublic: false } });
+      await request(app.getHttpServer())
+        .get("/question")
+        .query({
+          search: "Question 2",
+          visibility: ["private"]
+        })
+        .expect(HttpStatus.OK)
+        .expect(expected);
     });
   })
 });

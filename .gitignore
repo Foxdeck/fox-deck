@@ -1,11 +1,7 @@
+# Node
 node_modules
 
-# database
-dev.db
-dev.db-journal
-migrations
-
-# storybook
+# Storybook
 storybook-static
 
 # IDE

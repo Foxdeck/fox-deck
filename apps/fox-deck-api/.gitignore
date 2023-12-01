@@ -36,3 +36,8 @@ lerna-debug.log*
 
 # Environment file
 .env
+
+# Databases
+*.db
+*.db-journal
+migrations
