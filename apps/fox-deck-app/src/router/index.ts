@@ -2,9 +2,9 @@ import {createRouter, createWebHistory, type RouteLocationNormalized,} from "vue
 import {useAuthStore} from "@/core/stores/auth.store";
 import {LoginRouteNames, loginRoutes} from "@/modules/login/routes";
 import {HomeRouteNames, homeRoutes} from "@/modules/home/routes";
-import {quizRoutes} from "@/modules/quiz/routes";
 import {QuestionRouteNames, questionRoutes} from "@/modules/questions/routes";
 import type {FoxdeckRoute} from "@/router/foxdeck-route.type";
+import {questionnaireRoutes} from "@/modules/questionnaires/routes";
 
 export type RouteNames = LoginRouteNames
   | HomeRouteNames
@@ -13,8 +13,8 @@ export type RouteNames = LoginRouteNames
 export const routes: FoxdeckRoute[] = [
   ...loginRoutes,
   ...homeRoutes,
-  ...quizRoutes,
   ...questionRoutes,
+  ...questionnaireRoutes,
 ];
 
 const router = createRouter({
