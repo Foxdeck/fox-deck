@@ -6,6 +6,7 @@ import {FDRadioGroupItems} from "@/core/components/FDRadioGroup/FDRadioGroup.typ
 import {FDDropdownItem} from "@/core/components/FDDropDown/FDDropDown.types";
 import {useQuestionsStore} from "@/modules/questions/stores/questions.store";
 import {useI18n} from "vue-i18n";
+import FDCard from "@/core/components/FDCard/FDCard.vue";
 
 const questionsStore = useQuestionsStore();
 const { t } = useI18n();
@@ -39,38 +40,40 @@ const categoryItems: FDDropdownItem[] = [
 ];
 </script>
 <template>
-  <div
-    class="flex h-fit flex-col gap-2 rounded-md bg-white p-4 shadow-sm dark:bg-gray-800 dark:text-white"
+  <FDCard
+    class="flex h-fit flex-col gap-2 rounded-md bg-white p-4 shadow-sm"
   >
-    <div class="flex gap-2">
-      <vue-feather
-        size="14"
-        type="filter"
+    <template #body>
+      <div class="flex gap-2">
+        <vue-feather
+          size="14"
+          type="filter"
+        />
+        <FDTypography
+          type="psm"
+          class="font-bold"
+        >
+          {{ t("questions.question_filter.title") }}
+        </FDTypography>
+      </div>
+      <FDTypography type="pxs">
+        {{ t("questions.question_filter.text") }}
+      </FDTypography>
+      <FDRadioGroup
+        name="visibilityOption"
+        :items="visibilityItems"
+        :selected-item-id="questionsStore.filtering.selectedVisibilityId"
       />
       <FDTypography
-        type="psm"
+        type="pxs"
         class="font-bold"
       >
-        {{ t("questions.question_filter.title") }}
+        {{ t("questions.question_filter.category") }}
       </FDTypography>
-    </div>
-    <FDTypography type="pxs">
-      {{ t("questions.question_filter.text") }}
-    </FDTypography>
-    <FDRadioGroup
-      name="visibilityOption"
-      :items="visibilityItems"
-      :selected-item-id="questionsStore.filtering.selectedVisibilityId"
-    />
-    <FDTypography
-      type="pxs"
-      class="font-bold"
-    >
-      {{ t("questions.question_filter.category") }}
-    </FDTypography>
-    <FDDropDown
-      :items="categoryItems"
-      :selected-item="categoryItems[0]"
-    />
-  </div>
+      <FDDropDown
+        :items="categoryItems"
+        :selected-item="categoryItems[0]"
+      />
+    </template>
+  </FDCard>
 </template>

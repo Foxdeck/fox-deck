@@ -26,7 +26,7 @@ defineProps({
 });
 </script>
 <template>
-  <div class="bg-white shadow-sm rounded-md">
+  <div class="bg-white shadow-sm rounded-md dark:bg-gray-800 dark:text-white">
     <slot name="header" />
     <FDCardHeader
       :title="title"

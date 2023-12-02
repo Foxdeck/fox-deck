@@ -15,6 +15,7 @@ import {useQuestions} from "@/modules/questions/composables/useQuestions";
 import type {CreateQuestionRequestDto} from "@/core/services/api";
 import {useFoxdeckRouter} from "@/core/composables/useFoxdeckRouter";
 import {QuestionRouteNames} from "@/modules/questions/routes";
+import FDCard from "@/core/components/FDCard/FDCard.vue";
 
 type FormModel = {
   question: string;
@@ -61,70 +62,75 @@ async function onFormSubmit(formModel: FormModel) {
 
 <template>
   <ContentLayout>
-    <Form
+    <FDCard
       class="mx-auto flex flex-col gap-6 rounded-md bg-white p-8 max-w-[600px]"
-      :validation-schema="schema"
-      @submit="onFormSubmit"
     >
-      <div class="flex flex-col gap-3">
-        <FDTypography type="h1">
-          {{ t("questions.creation.title") }}
-        </FDTypography>
-        <FDTypography
-          type="p"
-          class="leading-8"
+      <template #body>
+        <Form
+          :validation-schema="schema"
+          @submit="onFormSubmit"
         >
-          {{ t("questions.creation.text") }}
-        </FDTypography>
-      </div>
-      <div class="flex flex-col gap-2">
-        <FDTypography
-          type="psm"
-          class="font-bold"
-        >
-          {{ t("questions.creation.what_is_your_question") }}
-        </FDTypography>
-        <FDTextInput
-          name="question"
-          :label="t('questions.creation.question')"
-        />
-      </div>
-      <div class="flex flex-col gap-2">
-        <FDTypography
-          type="psm"
-          class="font-bold"
-        >
-          {{ t("questions.creation.what_is_the_answer") }}
-        </FDTypography>
-        <FDTextArea
-          name="solution"
-          :placeholder="t('questions.creation.answer')"
-        />
-      </div>
-      <div class="flex flex-col gap-2">
-        <FDTypography
-          type="psm"
-          class="font-bold"
-        >
-          {{ t("questions.creation.is_question_public") }}
-        </FDTypography>
-        <FDTypography
-          type="psm"
-          class="leading-6"
-        >
-          {{ t("questions.creation.is_question_public_explanation") }}
-        </FDTypography>
-        <FDSwitch
-          size="medium"
-          :checked="isPublic"
-          @on-toggle="isPublic = $event"
-        />
-      </div>
-      <FDButton
-        class="w-fit"
-        icon="save"
-        :label="t('questions.creation.create_question')"
-      />
-    </Form>
+          <div class="flex flex-col gap-3">
+            <FDTypography type="h1">
+              {{ t("questions.creation.title") }}
+            </FDTypography>
+            <FDTypography
+              type="p"
+              class="leading-8"
+            >
+              {{ t("questions.creation.text") }}
+            </FDTypography>
+          </div>
+          <div class="flex flex-col gap-2">
+            <FDTypography
+              type="psm"
+              class="font-bold"
+            >
+              {{ t("questions.creation.what_is_your_question") }}
+            </FDTypography>
+            <FDTextInput
+              name="question"
+              :label="t('questions.creation.question')"
+            />
+          </div>
+          <div class="flex flex-col gap-2">
+            <FDTypography
+              type="psm"
+              class="font-bold"
+            >
+              {{ t("questions.creation.what_is_the_answer") }}
+            </FDTypography>
+            <FDTextArea
+              name="solution"
+              :placeholder="t('questions.creation.answer')"
+            />
+          </div>
+          <div class="flex flex-col gap-2">
+            <FDTypography
+              type="psm"
+              class="font-bold"
+            >
+              {{ t("questions.creation.is_question_public") }}
+            </FDTypography>
+            <FDTypography
+              type="psm"
+              class="leading-6"
+            >
+              {{ t("questions.creation.is_question_public_explanation") }}
+            </FDTypography>
+            <FDSwitch
+              size="medium"
+              :checked="isPublic"
+              @on-toggle="isPublic = $event"
+            />
+          </div>
+          <FDButton
+            class="w-fit"
+            icon="save"
+            :label="t('questions.creation.create_question')"
+          />
+        </Form>
+      </template>
+    </FDCard>
   </ContentLayout>
 </template>
