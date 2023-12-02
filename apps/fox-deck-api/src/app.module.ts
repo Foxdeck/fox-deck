@@ -1,9 +1,10 @@
-import { Module } from "@nestjs/common";
-import { ConfigModule } from "@nestjs/config";
+import {Module} from "@nestjs/common";
+import {ConfigModule} from "@nestjs/config";
 import {APP_INTERCEPTOR} from "@nestjs/core";
-import { QuestionModule } from "./modules/question/question.module";
-import { UserModule } from "./modules/user/user.module";
+import {QuestionModule} from "./modules/question/question.module";
+import {UserModule} from "./modules/user/user.module";
 import {SecurityInterceptor} from "./shared/interceptors/security.interceptor";
+import {QuestionnaireModule} from "./modules/questionnaire/questionnaire.module";
 
 @Module({
   providers: [
@@ -12,6 +13,6 @@ import {SecurityInterceptor} from "./shared/interceptors/security.interceptor";
       useClass: SecurityInterceptor,
     },
   ],
-  imports: [ConfigModule.forRoot(), QuestionModule, UserModule],
+  imports: [ConfigModule.forRoot(), QuestionModule, UserModule, QuestionnaireModule],
 })
 export class AppModule {}
