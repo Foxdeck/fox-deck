@@ -1,5 +1,5 @@
-import {PrismaService} from "../src/shared/services/prisma.service";
-import {v4 as uuidv4} from 'uuid';
+import { v4 as uuidv4 } from "uuid";
+import { PrismaService } from "../shared/services/prisma.service";
 
 const prisma = new PrismaService();
 let userId1 = "";
@@ -22,7 +22,7 @@ export async function setupDatabase() {
         username: "John Doe",
         firstname: "John",
         secondname: "Doe",
-      }
+      },
     });
     userId1 = user1.id;
 
@@ -33,7 +33,7 @@ export async function setupDatabase() {
         username: "Max Muster",
         firstname: "Max",
         secondname: "Muster",
-      }
+      },
     });
     userId2 = user2.id;
   }
@@ -52,13 +52,13 @@ export async function setupDatabase() {
         solution: `Solution for question ${questionNumber}`,
       };
       await prisma.question.create({
-        data: question
+        data: question,
       });
     }
   }
 
-  await prisma.$executeRawUnsafe("DELETE FROM main.Question;")
-  await prisma.$executeRawUnsafe("DELETE FROM main.User;")
+  await prisma.$executeRawUnsafe("DELETE FROM main.Question;");
+  await prisma.$executeRawUnsafe("DELETE FROM main.User;");
   await createUsers();
   await createQuestions();
 

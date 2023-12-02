@@ -11,24 +11,43 @@ datasource db {
 }
 
 model User {
-  id         String     @id @default(uuid())
-  username   String     @default("")
-  firstname  String?
-  secondname String?
-  email      String
-  password   String
-  Question   Question[]
+  id            String          @id @default(uuid())
+  username      String          @default("")
+  firstname     String?
+  secondname    String?
+  email         String
+  password      String
+  Question      Question[]
+  Questionnaire Questionnaire[]
+}
+
+model Questionnaire {
+  id                 String               @id @default(uuid())
+  title              String               @default("")
+  author             User                 @relation(fields: [authorId], references: [id])
+  authorId           String               @default("")
+  QuestionAssignment QuestionAssignment[]
 }
 
 model Question {
-  id           String    @id @default(uuid())
-  author       User      @relation(fields: [authorId], references: [id])
-  authorId     String    @default("")
-  question     String
-  solution     String
-  isPublic     Boolean
-  notGoodAt    Int?      @default(0)
-  average      Int?      @default(0)
-  goodAt       Int?      @default(0)
-  lastAnswered DateTime?
+  id                 String               @id @default(uuid())
+  author             User                 @relation(fields: [authorId], references: [id])
+  authorId           String               @default("")
+  question           String
+  solution           String
+  isPublic           Boolean
+  notGoodAt          Int?                 @default(0)
+  average            Int?                 @default(0)
+  goodAt             Int?                 @default(0)
+  lastAnswered       DateTime?
+  QuestionAssignment QuestionAssignment[]
+}
+
+model QuestionAssignment {
+  question        Question      @relation(fields: [questionId], references: [id])
+  questionId      String
+  questionnaire   Questionnaire @relation(fields: [questionnaireId], references: [id])
+  questionnaireId String
+
+  @@id([questionId, questionnaireId])
 }
