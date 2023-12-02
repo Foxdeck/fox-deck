@@ -3,7 +3,7 @@ import {useI18n} from "vue-i18n";
 import Logo from "@/assets/icons/foxdeck-logo.svg";
 import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
 
-const { t } = useI18n();
+const {t} = useI18n();
 </script>
 <template>
   <div class="flex h-screen w-screen items-center justify-center">
@@ -30,7 +30,9 @@ const { t } = useI18n();
         </FDTypography>
       </div>
       <div class="z-50 overflow-hidden rounded-sm bg-white shadow-xl">
-        <slot name="form" />
+        <div class="col-span-1 flex flex-col gap-4 px-10 py-14 min-w-[400px] 3xl:gap-6 3xl:px-16 3xl:py-20">
+          <slot name="form" />
+        </div>
       </div>
     </div>
   </div>
