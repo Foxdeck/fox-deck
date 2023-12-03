@@ -2,20 +2,17 @@
 import ContentLayout from "@/core/components/Layouts/ContentLayout.vue";
 import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
 import {useI18n} from "vue-i18n";
+import FDHero from "@/core/components/FDHero/FDHero.vue";
 
 const {t} = useI18n();
 </script>
 
 <template>
   <ContentLayout>
-    <FDTypography
-      type="h1"
-    >
-      {{ t("questionnaires.title") }}
-    </FDTypography>
-    <FDTypography>
-      {{ t("questionnaires.text") }}
-    </FDTypography>
+    <FDHero
+      :title="t('questionnaires.title')"
+      :subtitle="t('questionnaires.text')"
+    />
     <div class="bg-white shadow-md">
       <div class="flex p-4 b-2 border-b-2 justify-between">
         <FDTypography class="font-bold">
