@@ -8,6 +8,7 @@ import QuestionListEmpty from "@/modules/questions/components/QuestionListEmpty.
 import {useQuestions} from "@/modules/questions/composables/useQuestions";
 import {useNotificationStore} from "@/core/stores/notification.store";
 import {useI18n} from "vue-i18n";
+import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
 
 const { addNotification } = useNotificationStore();
 const questionsStore = useQuestionsStore();
@@ -18,9 +19,10 @@ onMounted(async () => {
   try {
     await fetchQuestions();
   } catch (e) {
+    const error = e as Error;
     addNotification({
-      title: t(e.name),
-      text: t(e.message),
+      title: t(error.name),
+      text: t(error.message),
       severity: "danger",
     });
   }
@@ -30,6 +32,12 @@ const currentPage = ref(1);
 </script>
 <template>
   <div class="flex w-full flex-col gap-4">
+    <FDTypography
+      type="pxs"
+      class="text-right italic"
+    >
+      {{ t("questions.question_amount", { amount: questionsStore.questions.length}) }}
+    </FDTypography>
     <div
       v-if="questionsStore.hasQuestions()"
       class="flex w-full flex-col"
