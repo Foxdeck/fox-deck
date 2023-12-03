@@ -34,7 +34,7 @@ function getSeverityClass(): string {
 }
 
 function getVariantClass() {
-  const variantClasses: Record<Partial<Variant>, string> = {
+  const variantClasses: Partial<Record<Variant, string>> = {
     secondary: "!bg-transparent",
     text: "!bg-transparent !border-transparent !justify-start"
   };
@@ -58,7 +58,7 @@ function getTextColorClassBasedOnBorder(): string {
 <template>
   <button
     ref="buttonRef"
-    class="shadow-md flex items-center justify-center gap-3 rounded-md border-2 px-5 py-4 text-white transition-all font-gabarito ring-primary-300/50 hover:opacity-80 focus:outline-none focus:ring-2 active:bg-grey-900"
+    class="flex items-center justify-center gap-3 rounded-md border-2 px-5 py-4 text-white transition-all font-gabarito ring-primary-300/50 hover:opacity-80 focus:outline-none focus:ring-2 active:bg-grey-900"
     :data-testid="testId"
     :class="[
       getSeverityClass(),
