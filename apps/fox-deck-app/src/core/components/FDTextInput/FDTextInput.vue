@@ -67,8 +67,9 @@ function onInput(e: Event) {
         @blur="handleBlur"
       >
       <span
-        class="absolute !left-9 top-3 peer-focus:top-3 peer-placeholder-shown:top-1/2 flex -translate-y-1/2 items-center justify-center gap-1 text-xs peer-focus:text-xs peer-placeholder-shown:text-sm text-gray-700 transition-all start-3 dark:text-white"
+        class="absolute  top-3 peer-focus:top-3 peer-placeholder-shown:top-1/2 flex -translate-y-1/2 items-center justify-center gap-1 text-xs peer-focus:text-xs peer-placeholder-shown:text-sm text-gray-700 transition-all start-3 dark:text-white"
         :class="{
+          '!left-9': icon,
           '!text-gray-500': disabled,
         }"
       >
