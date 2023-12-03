@@ -11,9 +11,8 @@ describe('FDDropDown', () => {
     expect(dropdownItemList.exists()).toBeFalsy();
   })
 
-  it('should be open and contain two items', () => {
+  it('should be open and contain two items', async () => {
     const wrapper = render(FDDropDown, {
-        isOpen: true,
         items: [
           {
             id: "1",
@@ -28,6 +27,9 @@ describe('FDDropDown', () => {
         ],
       }
     );
+
+    const dropdownOpenButton = wrapper.find("[data-testid=dropdown-open-button]");
+    await dropdownOpenButton.trigger("click");
 
     const dropdownItemList = wrapper.find("[data-testid=dropdown-item-list]");
     const itemCount = dropdownItemList.findAll("[data-testid=dropdown-item]").length;

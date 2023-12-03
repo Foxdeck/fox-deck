@@ -30,6 +30,7 @@ const isOpen = ref(false);
 
       <button
         class="h-full p-2 text-gray-600 hover:bg-gray-50 hover:text-gray-700 dark:text-white"
+        data-testid="dropdown-open-button"
         @click="isOpen = !isOpen"
       >
         <span class="sr-only">Menu</span>
