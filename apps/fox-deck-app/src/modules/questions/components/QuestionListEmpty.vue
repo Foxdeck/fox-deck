@@ -1,14 +1,20 @@
 <script setup lang="ts">
 import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
-import FDButton from "@/core/components/FDButton/FDButton.vue";
+import {Vue3Lottie} from "vue3-lottie";
+import FoxMediatingJSON from "@/assets/animations/fox-mediating.json";
 </script>
 <template>
   <div class="mx-auto flex h-full flex-col items-center justify-center gap-2">
-    <FDTypography class="font-bold !text-8xl">
+    <FDTypography class="font-bold !text-6xl">
       ?
     </FDTypography>
-    <FDTypography class="font-bold">
-      Keine Fragen gefunden
+    <Vue3Lottie
+      :animation-data="FoxMediatingJSON"
+      :height="300"
+      :width="300"
+    />
+    <FDTypography class="font-bold !text-2xl">
+      Ganz schön leer hier
     </FDTypography>
     <FDTypography
       type="psm"
@@ -17,11 +23,5 @@ import FDButton from "@/core/components/FDButton/FDButton.vue";
       Zu deinen Suchkriterien konnte keine Frage gefunden werden. Versuche doch,
       eine eigene Frage zu erstellen und teile Sie mit der Community!
     </FDTypography>
-    <FDButton
-      class="mt-2"
-      variant="secondary"
-      icon="chevron-right"
-      label="Frage erstellen"
-    />
   </div>
 </template>
