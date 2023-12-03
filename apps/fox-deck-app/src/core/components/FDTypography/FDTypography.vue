@@ -1,27 +1,24 @@
 <script setup lang="ts">
-import type {PropType} from "vue";
+import type {AriaLevel, AriaRole, FDFontType} from "./FDTypography.types";
 
-export type FontType = "title" | "h1" | "h2" | "h3" | "p" | "pxs" | "psm";
-const props = defineProps({
-  type: { type: String as PropType<FontType>, required: false, default: "p" },
-});
-
-function getAriaRole(): string {
-  if (props.type === "h1" || props.type === "h2" || props.type === "h3") {
-    return "heading";
-  }
-
-  return;
+export type FDTypographyProps = {
+  readonly type?: FDFontType;
 }
 
-function getAriaLevel(): number {
-  const ariaLevels = {
+const props = withDefaults(defineProps<FDTypographyProps>(), {
+  type: "p"
+});
+
+
+function getAriaRole(): AriaRole | undefined {
+  return props.type?.startsWith("h") ? "heading" : undefined;
+}
+
+function getAriaLevel(): AriaLevel | undefined {
+  const ariaLevels: Partial<Record<FDFontType, AriaLevel>> = {
     h1: 1,
     h2: 2,
     h3: 3,
-    h4: 4,
-    h5: 5,
-    h6: 6,
   };
 
   return ariaLevels[props.type];
