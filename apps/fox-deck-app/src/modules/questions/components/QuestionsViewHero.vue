@@ -7,11 +7,11 @@ const {t} = useI18n();
 <template>
   <div class="flex flex-col justify-center gap-8">
     <FDTypography
-      type="h1"
-      class="font-bold text-primary-800 relative mx-auto z-10"
+      type="title"
+      class="text-primary-800 relative mx-auto z-10"
     >
       {{ t("questions.title") }}
-      <div class="bg-yellow-300 absolute -left-3 -bottom-1 w-full -z-10 h-6 rounded-md" />
+      <div class="bg-yellow-300 absolute -left-3 bottom-2 w-full -z-10 h-6 rounded-lg" />
     </FDTypography>
     <FDTypography
       type="psm"

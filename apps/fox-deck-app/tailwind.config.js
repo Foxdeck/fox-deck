@@ -39,6 +39,7 @@ module.exports = {
       fontFamily: {
         poppins: "Poppins, sans serif",
         gabarito: "Gabarito, sans serif",
+        indie: "Indie Flower, cursive",
       },
       screens: {
         "3xl": "1920px",

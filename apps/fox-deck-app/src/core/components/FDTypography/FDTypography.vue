@@ -34,7 +34,7 @@ function getAriaLevel(): number {
     :role="getAriaRole()"
     :aria-level="getAriaLevel()"
     :class="{
-      'text-4xl md:text-7xl 3xl:text-8xl': type === 'title',
+      'text-4xl font-indie font-bold tracking-wider md:text-7xl 3xl:text-8xl': type === 'title',
       'text-5xl 3xl:text-6xl': type === 'h1',
       'text-4xl': type === 'h2',
       'text-3xl': type === 'h3',
