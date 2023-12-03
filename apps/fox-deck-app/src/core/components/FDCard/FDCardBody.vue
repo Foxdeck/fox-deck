@@ -12,7 +12,6 @@ defineProps({
 <template>
   <div
     v-if="text"
-    class="p-4"
   >
     <FDTypography>
       {{ text }}

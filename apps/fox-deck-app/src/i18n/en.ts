@@ -40,7 +40,7 @@ export const en = {
   },
   questions: {
     title: "Questions",
-    text: "Here you can create your own questions, which you can later add to different learning units. You can also discover exciting questions from the community and, if they appeal to you, you can simply add them to your content.",
+    text: "Find exciting questions from the community or create your own.",
     question_amount: "{amount} questions found",
     question_search_placeholder: "Search",
     question_create: "create question",
@@ -56,7 +56,6 @@ export const en = {
       category: "Category",
       category_items: {
         all: "All",
-        wiso: "WiSo"
       }
     },
     creation: {

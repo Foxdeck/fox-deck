@@ -40,7 +40,7 @@ export const de = {
   },
   questions: {
     title: "Fragen",
-    text: "Hier kannst du deine eigenen Fragen erstellen, die du später verschiedenen Lerneinheiten hinzufügen kannst. Du kannst auch spannende Fragen aus der Community entdecken und, wenn sie dir gefallen, einfach deinem Inhalt hinzufügen.",
+    text: "Finde spannende Fragen aus der Community oder erstelle deine eigenen Fragen.",
     question_amount: "{amount} Fragen gefunden",
     question_search_placeholder: "Suchen",
     question_create: "Frage erstellen",
@@ -55,8 +55,7 @@ export const de = {
       },
       category: "Kategorie",
       category_items: {
-        all: "Alle",
-        wiso: "WiSo"
+        all: "Alle"
       }
     },
     creation: {

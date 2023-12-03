@@ -1,12 +1,19 @@
 <script setup lang="ts">
-import {PropType} from "vue";
+import {ref} from "vue";
 import type {FDDropdownItem} from "@/core/components/FDDropDown/FDDropDown.types";
 
-defineProps({
-  items: { type: Array as PropType<FDDropdownItem[]>, default: () => [] },
-  selectedItem: { type: Object as PropType<FDDropdownItem>, default: null },
-  isOpen: { type: Boolean, default: false },
+export type FDDropdownProps = {
+  readonly items?: FDDropdownItem[];
+  readonly selectedItem?: FDDropdownItem;
+}
+
+withDefaults(defineProps<FDDropdownProps>(), {
+  items: () => [],
+  selectedItem: undefined,
 });
+
+const isOpen = ref(false);
+
 </script>
 
 <template>
@@ -23,6 +30,7 @@ defineProps({
 
       <button
         class="h-full p-2 text-gray-600 hover:bg-gray-50 hover:text-gray-700 dark:text-white"
+        @click="isOpen = !isOpen"
       >
         <span class="sr-only">Menu</span>
         <vue-feather
@@ -31,7 +39,6 @@ defineProps({
         />
       </button>
     </div>
-
     <div
       v-if="isOpen"
       class="absolute z-50 mt-2 w-fit rounded-md border border-gray-100 bg-white shadow-lg min-w-[140px] divide-y divide-gray-100 dark:border-gray-600 dark:bg-gray-700"

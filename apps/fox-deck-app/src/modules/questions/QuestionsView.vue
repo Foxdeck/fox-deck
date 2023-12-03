@@ -1,57 +1,36 @@
 <script setup lang="ts">
-import {Form} from "vee-validate";
 import ContentLayout from "@/core/components/Layouts/ContentLayout.vue";
 import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
-import FDTextInput from "@/core/components/FDTextInput/FDTextInput.vue";
-import QuestionFilter from "@/modules/questions/components/QuestionFilter.vue";
 import QuestionList from "@/modules/questions/components/QuestionList.vue";
-import {useQuestions} from "@/modules/questions/composables/useQuestions";
-import FDButton from "@/core/components/FDButton/FDButton.vue";
-import {useNotificationStore} from "@/core/stores/notification.store";
 import {useI18n} from "vue-i18n";
 import {useQuestionsStore} from "@/modules/questions/stores/questions.store";
+import QuestionToolbar from "@/modules/questions/components/QuestionToolbar.vue";
 
 const questionsStore = useQuestionsStore();
-const {searchQuestions} = useQuestions();
-const {addNotification} = useNotificationStore();
 const {t} = useI18n();
 
-async function onSearchInput(search: string) {
-  try {
-    await searchQuestions(search);
-  } catch (e) {
-    addNotification({
-      title: t(e.name),
-      text: t(e.message),
-      severity: "danger",
-    });
-  }
-}
+
 </script>
 
 <template>
   <ContentLayout>
     <div class="flex h-full flex-col gap-8">
-      <FDTypography type="h1">
+      <FDTypography
+        type="h1"
+        class="font-bold text-primary-800 relative mx-auto z-10"
+      >
         {{ t("questions.title") }}
+        <div class="bg-yellow-300 absolute -left-3 -bottom-1 w-full -z-10 h-6 rounded-md" />
       </FDTypography>
       <FDTypography
-        type="p"
-        class="leading-10"
+        type="psm"
+        class="leading-8 text-center max-w-[600px] mx-auto text-primary-800"
       >
         {{ t("questions.text") }}
       </FDTypography>
     </div>
 
-    <Form
-      @input="onSearchInput($event.target.value)"
-    >
-      <FDTextInput
-        name="search"
-        icon="search"
-        :label="t('questions.question_search_placeholder')"
-      />
-    </Form>
+    <QuestionToolbar />
     <FDTypography
       type="pxs"
       class="text-right italic"
@@ -59,15 +38,6 @@ async function onSearchInput(search: string) {
       {{ t("questions.question_amount", { amount: questionsStore.questions.length}) }}
     </FDTypography>
     <div class="flex flex-row gap-6">
-      <div class="flex flex-col gap-2">
-        <RouterLink to="/question/create">
-          <FDButton
-            icon="plus"
-            :label="t('questions.question_create')"
-          />
-        </RouterLink>
-        <QuestionFilter />
-      </div>
       <QuestionList />
     </div>
   </ContentLayout>

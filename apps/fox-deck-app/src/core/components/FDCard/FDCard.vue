@@ -33,7 +33,9 @@ defineProps({
       :subtitle="subtitle"
       :header-icon="headerIcon"
     />
-    <slot name="body" />
-    <FDCardBody :text="text" />
+    <div class="p-4">
+      <slot name="body" />
+      <FDCardBody :text="text" />
+    </div>
   </div>
 </template>
