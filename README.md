@@ -18,7 +18,9 @@ and scalable solution for questionnaire management.
 Foxdeck emphasizes the creation of personalized questions. This approach is rooted in the philosophy that learning is most effective when it's tailored to the individual's style and needs. We are tying to make learning more engaging, efficient, and deeply personalized.
 
 * **Create own questions:** Create your own questions to achieve your own goals and learn at your own pace.
-* **Share your questions:** Learning together is the most fun! That's why you can also share your questions with others or find questions from the community.
+
+### Share your questions with the community!
+<img src="./.github/assets/feature_question.gif" alt="Logo" />
 
 ## 🖥️ Contribution
 
