@@ -37,8 +37,10 @@ async function onSearch(search: string) {
 }
 </script>
 <template>
-  <div class="flex items-center justify-center gap-2">
-    <RouterLink to="/question/create">
+  <div class="flex items-center justify-between">
+    <RouterLink
+      to="/question/create"
+    >
       <FDButton
         icon="plus"
         :label="t('questions.question_create')"
@@ -56,13 +58,13 @@ async function onSearch(search: string) {
       @on-input="onSearch"
     />
     <FDPopup
-      class="h-14 aspect-square"
       :is-open="isFilterOpen"
     >
       <template #container>
-        <vue-feather
-          class="cursor-pointer rounded-md bg-white p-3 shadow-xl hover:opacity-70 dark:bg-primary-400 dark:text-white"
-          type="filter"
+        <FDButton
+          class="!bg-white !text-primary-950"
+          variant="text"
+          icon="filter"
           @click="isFilterOpen = !isFilterOpen"
         />
       </template>
