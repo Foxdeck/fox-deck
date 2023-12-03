@@ -24,6 +24,7 @@ export interface QuestionsResponseDto {
   id: string;
   /** @format date-time */
   lastAnswered: string;
+  category: string;
   notGoodAt: number;
 }
 
@@ -46,6 +47,13 @@ export interface CreateUserRequestDto {
   email: string;
   username: string;
   password: string;
+}
+
+export interface QuestionnaireResponseDto {
+  id: string;
+  authorId: string;
+  title: string;
+  questions: string[];
 }
 
 export type QueryParamsType = Record<string | number, any>;
@@ -326,6 +334,9 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     questionControllerGetQuestions: (
       query?: {
         search?: string;
+        page?: number;
+        /** @example ["public","private"] */
+        visibility?: string[];
       },
       params: RequestParams = {},
     ) =>
@@ -387,6 +398,22 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         method: "POST",
         body: data,
         type: ContentType.Json,
+        ...params,
+      }),
+  };
+  questionnaire = {
+    /**
+     * No description
+     *
+     * @tags Questionnaire
+     * @name QuestionnaireControllerGetQuestionnaireById
+     * @request GET:/questionnaire/{id}
+     */
+    questionnaireControllerGetQuestionnaireById: (id: string, params: RequestParams = {}) =>
+      this.request<QuestionnaireResponseDto, any>({
+        path: `/questionnaire/${id}`,
+        method: "GET",
+        format: "json",
         ...params,
       }),
   };

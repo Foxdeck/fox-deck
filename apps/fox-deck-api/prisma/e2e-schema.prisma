@@ -41,6 +41,7 @@ model Question {
   average            Int?                 @default(0)
   goodAt             Int?                 @default(0)
   lastAnswered       DateTime?
+  category           String               @default("")
   QuestionAssignment QuestionAssignment[]
 }
 

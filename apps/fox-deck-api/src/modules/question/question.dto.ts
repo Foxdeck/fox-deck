@@ -46,6 +46,10 @@ export class QuestionsResponseDto implements Question {
   lastAnswered: Date | null;
 
   @ApiProperty()
+  @IsString()
+  category: string;
+
+  @ApiProperty()
   notGoodAt: number | null;
 }
 

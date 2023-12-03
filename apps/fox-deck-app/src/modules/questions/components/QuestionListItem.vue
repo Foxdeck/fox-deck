@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import FDGrid from "@/core/components/FDGrid/FDGrid.vue";
 import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
-import {PropType} from "vue";
+import {type PropType} from "vue";
 import type {QuestionsResponseDto} from "@/core/services/api";
 import QuestionListItemActionMenu from "@/modules/questions/components/QuestionListItemActionMenu.vue";
 import {useAuthStore} from "@/core/stores/auth.store";
@@ -23,6 +23,12 @@ function isAuthor(): boolean {
     class="relative w-full border-b bg-white p-8 shadow-sm dark:border-gray-600 dark:bg-gray-800 dark:text-white"
   >
     <div class="col-span-9 flex flex-col gap-4">
+      <FDTypography
+        type="pxs"
+        class="font-bold uppercase opacity-80"
+      >
+        {{ question.category }}
+      </FDTypography>
       <FDTypography class="font-bold">
         »{{ question.question }}«
       </FDTypography>
