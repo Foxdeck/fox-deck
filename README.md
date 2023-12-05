@@ -1,7 +1,7 @@
 # Fox-Deck
 
 
-<img src="./.github/assets/foxdeck-logo.svg" alt="Logo" width="200" />
+<img src="./.github/assets/foxdeck-logo.png" alt="Logo" />
 
 [![Test & Deploy](https://github.com/Foxdeck/fox-deck/actions/workflows/test-and-deploy.yml/badge.svg)](https://github.com/Foxdeck/fox-deck/actions/workflows/test-and-deploy.yml)
 
