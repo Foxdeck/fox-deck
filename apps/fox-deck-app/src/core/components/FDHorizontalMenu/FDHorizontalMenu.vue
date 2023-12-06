@@ -1,17 +1,14 @@
 <script setup lang="ts">
-import {ref} from "vue";
 import {useAuthStore} from "@/core/stores/auth.store";
-import FDPopup from "@/core/components/FDPopup/FDPopup.vue";
 import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
 import FDSwitch from "@/core/components/FDSwitch/FDSwitch.vue";
 import {useThemeStore} from "@/core/stores/theme.store";
 import {useI18n} from "vue-i18n";
+import FDMenu from "@/core/components/FDMenu/FDMenu.vue";
 
 const authStore = useAuthStore();
 const themeStore = useThemeStore();
 const { t } = useI18n();
-
-const isSettingsOpen = ref(false);
 </script>
 
 <template>
@@ -20,18 +17,8 @@ const isSettingsOpen = ref(false);
     class="flex items-center justify-between border-b border-gray-300 px-6 py-4 dark:bg-gray-950 dark:border-gray-800"
   >
     <span class="text-4xl font-bold font-gabarito dark:text-white">{{ t("common.hello") }}, {{ authStore.readJWT()?.username }}! 👋</span>
-    <FDPopup
-      :is-open="isSettingsOpen"
-      :title="t('common.settings')"
-    >
-      <template #container>
-        <vue-feather
-          class="cursor-pointer rounded-md bg-white p-3 shadow-xl hover:opacity-70 dark:bg-primary-400 dark:text-white"
-          type="settings"
-          @click="isSettingsOpen = !isSettingsOpen"
-        />
-      </template>
-      <template #popupContent>
+    <FDMenu menu-icon="settings">
+      <template #menu>
         <div class="flex items-center gap-2">
           <FDTypography
             class="w-24"
@@ -54,6 +41,6 @@ const isSettingsOpen = ref(false);
           </FDTypography>
         </RouterLink>
       </template>
-    </FDPopup>
+    </FDMenu>
   </div>
 </template>

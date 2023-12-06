@@ -3,7 +3,7 @@ import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
 import {type PropType} from "vue";
 import type {QuestionsResponseDto} from "@/core/services/api";
 import {useAuthStore} from "@/core/stores/auth.store";
-import FDActionMenu, {type FDActionMenuItem} from "@/core/components/FDActionMenu/FDActionMenu.vue";
+import FDActionMenu, {type FDActionMenuItem} from "@/core/components/FDMenu/FDMenu.vue";
 import {useI18n} from "vue-i18n";
 import {useQuestions} from "@/modules/questions/composables/useQuestions";
 

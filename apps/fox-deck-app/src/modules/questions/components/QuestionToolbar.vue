@@ -1,19 +1,16 @@
 <script setup lang="ts">
-import {ref} from "vue";
 import QuestionFilter from "@/modules/questions/components/QuestionFilter.vue";
-import FDPopup from "@/core/components/FDPopup/FDPopup.vue";
 import FDButton from "@/core/components/FDButton/FDButton.vue";
 import FDTextInput from "@/core/components/FDTextInput/FDTextInput.vue";
 import {useI18n} from "vue-i18n";
 import {useQuestions} from "@/modules/questions/composables/useQuestions";
 import {useNotificationStore} from "@/core/stores/notification.store";
 import type {FDDropdownItem} from "@/core/components/FDDropDown/FDDropDown.types";
+import FDMenu from "@/core/components/FDMenu/FDMenu.vue";
 
 const {searchQuestions} = useQuestions();
 const {addNotification} = useNotificationStore();
 const {t} = useI18n();
-
-const isFilterOpen = ref(false);
 
 const categories: FDDropdownItem[] = [
   {
@@ -57,20 +54,10 @@ async function onSearch(search: string) {
       :label="t('questions.question_search_placeholder')"
       @on-input="onSearch"
     />
-    <FDPopup
-      :is-open="isFilterOpen"
-    >
-      <template #container>
-        <FDButton
-          class="!bg-white !text-primary-950"
-          variant="text"
-          icon="filter"
-          @click="isFilterOpen = !isFilterOpen"
-        />
-      </template>
-      <template #popupContent>
+    <FDMenu menu-icon="filter">
+      <template #menu>
         <QuestionFilter />
       </template>
-    </FDPopup>
+    </FDMenu>
   </div>
 </template>
