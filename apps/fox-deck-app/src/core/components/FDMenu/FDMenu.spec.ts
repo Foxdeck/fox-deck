@@ -1,6 +1,6 @@
 import {describe, expect, it} from 'vitest'
 import {render} from "@/testing/utils/vue-test-utils";
-import FDActionMenu from "@/core/components/FDMenu/FDActionMenu.vue";
+import FDActionMenu from "@/core/components/FDMenu/FDMenu.vue";
 
 describe('FDActionMenu', () => {
   it('should render the items', async () => {
