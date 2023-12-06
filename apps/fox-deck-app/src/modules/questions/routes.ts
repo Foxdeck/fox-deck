@@ -1,4 +1,5 @@
 import type {FoxdeckRoute} from "@/router/foxdeck-route.type";
+import {Icon} from "@/core/components/FDIcon/icons";
 
 export enum QuestionRouteNames {
   QUESTIONS = "questions",
@@ -11,7 +12,7 @@ export const questionRoutes: FoxdeckRoute[] = [
     name: QuestionRouteNames.QUESTIONS,
     component: () => import("./QuestionsView.vue"),
     isVisibleInNavigation: true,
-    icon: "book",
+    icon: Icon.QUESTION,
     label: "Fragen",
   },
   {

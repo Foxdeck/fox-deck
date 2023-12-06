@@ -6,6 +6,8 @@ import {ref, watch} from "vue";
 import {useAuthStore} from "@/core/stores/auth.store";
 import {LoginRouteNames} from "@/modules/login/routes";
 import {useFoxdeckRouter} from "@/core/composables/useFoxdeckRouter";
+import FDIcon from "@/core/components/FDIcon/FDIcon.vue";
+import {Icon} from "@/core/components/FDIcon/icons";
 
 const { push } = useFoxdeckRouter();
 const authStore = useAuthStore();
@@ -45,16 +47,16 @@ async function onLogoutClick() {
       <RouterLink
         v-for="route in routes.filter((r) => r.isVisibleInNavigation)"
         :key="route.path"
-        class="m-3 flex flex-row items-center justify-start gap-2 rounded-md p-3 text-white opacity-70 transition"
+        class="m-3 flex flex-row items-center justify-start gap-2 rounded-md p-4 text-white opacity-70 transition"
         :class="{
           '!justify-center': isCollapsed,
         }"
         active-class="bg-white !text-black !opacity-100"
         :to="route.path"
       >
-        <vue-feather
+        <FDIcon
           v-if="route.icon"
-          :type="route.icon"
+          :icon="route.icon"
         />
         <span
           v-if="!isCollapsed"
@@ -67,8 +69,8 @@ async function onLogoutClick() {
         class="cursor-pointer p-4 text-white hover:opacity-70"
         @click="isCollapsed = !isCollapsed"
       >
-        <vue-feather
-          type="chevrons-right"
+        <FDIcon
+          :icon="Icon.CHEVRON_DOUBLE_RIGHT"
           class="transition duration-500 ease-in-out"
           :class="{
             'rotate-180': !isCollapsed,
@@ -79,9 +81,9 @@ async function onLogoutClick() {
         class="cursor-pointer p-4 text-white hover:opacity-70"
         @click="onLogoutClick()"
       >
-        <vue-feather
-          type="log-out"
+        <FDIcon
           class="transition duration-500 ease-in-out"
+          :icon="Icon.SIGN_OUT"
           :class="{
             'rotate-180': !isCollapsed,
           }"

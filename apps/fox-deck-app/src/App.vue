@@ -3,7 +3,7 @@ import FDSideNavigation from "@/core/components/FDSideNavigation/FDSideNavigatio
 import FDHorizontalMenu from "@/core/components/FDHorizontalMenu/FDHorizontalMenu.vue";
 import NotificationLayout from "@/core/components/Layouts/NotificationLayout.vue";
 import RouterLayout from "@/core/components/Layouts/RouterLayout.vue";
-import { useThemeStore } from "@/core/stores/theme.store";
+import {useThemeStore} from "@/core/stores/theme.store";
 
 const themeStore = useThemeStore();
 </script>

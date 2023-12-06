@@ -1,0 +1,6 @@
+/** sets the <p>-tag in storybook to a better default **/
+.sbdocs .normalize-p p {
+    margin: 0;
+    color: inherit;
+    font-size: inherit;
+}

@@ -3,6 +3,8 @@ import ContentLayout from "@/core/components/Layouts/ContentLayout.vue";
 import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
 import {useI18n} from "vue-i18n";
 import FDHero from "@/core/components/FDHero/FDHero.vue";
+import FDIcon from "@/core/components/FDIcon/FDIcon.vue";
+import {Icon} from "@/core/components/FDIcon/icons";
 
 const {t} = useI18n();
 </script>
@@ -18,33 +20,33 @@ const {t} = useI18n();
         <FDTypography class="font-bold">
           Questionnaire 1
         </FDTypography>
-        <vue-feather type="chevron-down" />
+        <FDIcon :icon="Icon.CHEVRON_DOWN" />
       </div>
       <div class="flex p-4 b-2 justify-between">
         <FDTypography>
           Question 1
         </FDTypography>
-        <vue-feather
-          type="x"
-          size="14"
+        <FDIcon
+          class="text-xs"
+          :icon="Icon.X"
         />
       </div>
       <div class="flex p-4 b-2 justify-between">
         <FDTypography>
           Question 1
         </FDTypography>
-        <vue-feather
-          type="x"
-          size="14"
+        <FDIcon
+          class="text-xs"
+          :icon="Icon.X"
         />
       </div>
       <div class="flex p-4 b-2 justify-between">
         <FDTypography>
           Question 1
         </FDTypography>
-        <vue-feather
-          type="x"
-          size="14"
+        <FDIcon
+          class="text-xs"
+          :icon="Icon.X"
         />
       </div>
     </div>
