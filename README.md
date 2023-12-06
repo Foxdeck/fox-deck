@@ -1,4 +1,7 @@
 # Fox-Deck
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 <img src="./.github/assets/foxdeck-logo.png" alt="Logo" />
 
@@ -65,6 +68,20 @@ available for the IDEs:
 ## Contributors
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/Eric-Schubert"><img src="https://avatars.githubusercontent.com/u/90089802?v=4?s=100" width="100px;" alt="Eric Schubert"/><br /><sub><b>Eric Schubert</b></sub></a><br /><a href="#infra-Eric-Schubert" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="https://github.com/Foxdeck/fox-deck/commits?author=Eric-Schubert" title="Code">💻</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
 
