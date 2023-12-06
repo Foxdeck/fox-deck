@@ -3,18 +3,39 @@ import FDGrid from "@/core/components/FDGrid/FDGrid.vue";
 import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
 import {type PropType} from "vue";
 import type {QuestionsResponseDto} from "@/core/services/api";
-import QuestionListItemActionMenu from "@/modules/questions/components/QuestionListItemActionMenu.vue";
 import {useAuthStore} from "@/core/stores/auth.store";
+import FDActionMenu, {type FDActionMenuItem} from "@/core/components/FDActionMenu/FDActionMenu.vue";
+import {useI18n} from "vue-i18n";
+import {useQuestions} from "@/modules/questions/composables/useQuestions";
 
 const props = defineProps({
   question: { type: Object as PropType<QuestionsResponseDto>, required: true},
 });
 
+const { deleteQuestion } = useQuestions();
 const { readJWT } = useAuthStore();
+const { t } = useI18n();
 
 function isAuthor(): boolean {
   return props.question?.authorId == readJWT().id;
 }
+
+const actionItems: FDActionMenuItem[] = [
+  {
+    id: "edit",
+    label: t("common.edit"),
+    icon: "edit",
+    action: () => {},
+    severity: "primary"
+  },
+  {
+    id: "delete",
+    label: t("common.delete"),
+    icon: "trash",
+    action: () => deleteQuestion(props.question?.id!),
+    severity: "danger"
+  }
+]
 
 </script>
 <template>
@@ -42,9 +63,9 @@ function isAuthor(): boolean {
         '!justify-end': !isAuthor()
       }"
     >
-      <QuestionListItemActionMenu
-        v-if="isAuthor()"
-        :question-id="question.id"
+      <FDActionMenu
+          v-if="isAuthor()"
+          :action-items="actionItems"
       />
       <FDTypography
         type="pxs"
