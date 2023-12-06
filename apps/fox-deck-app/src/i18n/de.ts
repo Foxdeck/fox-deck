@@ -5,7 +5,9 @@ export const de = {
     settings: "Einstellungen",
     more_settings: "weitere Einstellungen",
     foxdeck: "Foxdeck",
-    intro_text: "Erstelle, teile und erlebe interaktives Lernen"
+    intro_text: "Erstelle, teile und erlebe interaktives Lernen",
+    edit: "Bearbeiten",
+    delete: "Löschen"
   },
   home: {
     title: "Starte jetzt mit dem Lernen!",

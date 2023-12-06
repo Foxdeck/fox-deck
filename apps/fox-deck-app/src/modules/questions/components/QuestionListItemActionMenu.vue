@@ -3,12 +3,14 @@ import {ref} from "vue";
 import FDButton from "@/core/components/FDButton/FDButton.vue";
 import FDPopup from "@/core/components/FDPopup/FDPopup.vue";
 import {useQuestions} from "@/modules/questions/composables/useQuestions";
+import {useI18n} from "vue-i18n";
 
 defineProps({
   questionId: { type: String, required: true }
 });
 
 const { deleteQuestion } = useQuestions();
+const { t } = useI18n();
 
 const isMenuOpen = ref(false);
 </script>
@@ -27,13 +29,13 @@ const isMenuOpen = ref(false);
         <FDButton
           variant="text"
           icon="edit"
-          label="Bearbeiten"
+          :label="t('common.edit')"
         />
         <FDButton
           variant="text"
           severity="danger"
           icon="trash"
-          label="Löschen"
+          :label="t('common.delete')"
           @click="deleteQuestion(questionId)"
         />
       </div>

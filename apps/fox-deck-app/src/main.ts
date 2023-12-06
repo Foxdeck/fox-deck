@@ -14,7 +14,7 @@ import Vue3Lottie from "vue3-lottie";
 const app = createApp(App);
 
 const i18n = createI18n({
-  locale: "de",
+  locale: "en",
   fallbackLocale: "en",
   messages: {
     en,
