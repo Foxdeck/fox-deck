@@ -1,0 +1,27 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "commitType": "docs",
+  "commitConvention": "angular",
+  "contributors": [
+    {
+      "login": "Eric-Schubert",
+      "name": "Eric Schubert",
+      "avatar_url": "https://avatars.githubusercontent.com/u/90089802?v=4",
+      "profile": "https://github.com/Eric-Schubert",
+      "contributions": [
+        "infra",
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "skipCi": true,
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "projectName": "fox-deck",
+  "projectOwner": "Foxdeck"
+}
