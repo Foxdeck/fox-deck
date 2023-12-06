@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import FDGrid from "@/core/components/FDGrid/FDGrid.vue";
 import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
 import {type PropType} from "vue";
 import type {QuestionsResponseDto} from "@/core/services/api";
@@ -39,9 +38,9 @@ const actionItems: FDActionMenuItem[] = [
 
 </script>
 <template>
-  <FDGrid
+  <div
     v-if="question"
-    class="relative w-full border-b bg-white p-8 shadow-sm dark:border-gray-600 dark:bg-gray-800 dark:text-white"
+    class="grid grid-cols-12 items-center justify-center gap-8 self-center relative w-full border-b bg-white p-8 shadow-sm dark:border-gray-600 dark:bg-gray-800 dark:text-white"
   >
     <div class="col-span-9 flex flex-col gap-4">
       <FDTypography
@@ -74,5 +73,5 @@ const actionItems: FDActionMenuItem[] = [
         @{{ question.author.username }}
       </FDTypography>
     </div>
-  </FDGrid>
+  </div>
 </template>
