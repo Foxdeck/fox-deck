@@ -416,5 +416,20 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         format: "json",
         ...params,
       }),
+
+    /**
+     * No description
+     *
+     * @tags Questionnaire
+     * @name QuestionnaireControllerGetAllQuestionnaires
+     * @request GET:/questionnaire
+     */
+    questionnaireControllerGetAllQuestionnaires: (params: RequestParams = {}) =>
+      this.request<QuestionnaireResponseDto[], any>({
+        path: `/questionnaire`,
+        method: "GET",
+        format: "json",
+        ...params,
+      }),
   };
 }

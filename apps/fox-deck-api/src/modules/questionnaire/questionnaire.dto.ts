@@ -1,6 +1,6 @@
 import {Question, Questionnaire} from "@prisma/client";
 import {ApiProperty} from "@nestjs/swagger";
-import {IsString} from "class-validator";
+import {IsOptional, IsString} from "class-validator";
 
 export class QuestionnaireResponseDto implements Questionnaire {
   @ApiProperty()
@@ -16,5 +16,6 @@ export class QuestionnaireResponseDto implements Questionnaire {
   title: string;
 
   @ApiProperty()
+  @IsOptional()
   questions: Question[];
 }
