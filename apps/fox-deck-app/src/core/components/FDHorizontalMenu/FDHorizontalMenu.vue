@@ -4,6 +4,7 @@ import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
 import FDSwitch from "@/core/components/FDSwitch/FDSwitch.vue";
 import {useThemeStore} from "@/core/stores/theme.store";
 import {useI18n} from "vue-i18n";
+import FDMenu from "@/core/components/FDMenu/FDMenu.vue";
 
 const authStore = useAuthStore();
 const themeStore = useThemeStore();
