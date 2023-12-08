@@ -7,6 +7,9 @@
 
 [![Test & Deploy](https://github.com/Foxdeck/fox-deck/actions/workflows/test-and-deploy.yml/badge.svg)](https://github.com/Foxdeck/fox-deck/actions/workflows/test-and-deploy.yml)
 
+> [!note]  
+> We're particularly eager for fresh UX/UI ideas to enhance the Foxdeck experience. If you have any Ideas you can use the [»UX/UI Suggestions«](https://github.com/Foxdeck/fox-deck/discussions/34) board in disussions!
+
 Welcome to the future of learning with Foxdeck, a dynamic web application where flashcards meet community collaboration.
 At Foxdeck, we've digitalized the tried-and-true method of learning with flashcards, adding a twist of interactivity and
 user engagement. Here, not only can you create and manage your own digital flashcards, but you can also share them with
@@ -14,6 +17,7 @@ and learn from a vibrant community. Whether you're looking to master new concept
 your knowledge, Foxdeck connects you with like-minded learners. Join our community and experience a new, collaborative
 approach to learning, one question at a time.
 
+> [!important]  
 > Please note that this project is currently in progress and may not yet be complete.
 
 <img src="./.github/assets/home.png" alt="Logo" />
