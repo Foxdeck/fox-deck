@@ -1,0 +1,16 @@
+== Foxdeck - Design System Documentation
+
+=== Storybook
+
+Our design system is documented using Storybook.
+To access this documentation, please visit https://design.foxdeck.de.
+
+Storybook is a powerful open-source tool for developing UI components in isolation.
+It serves as a playground to build user interface components independently and interactively, allowing you to create components without needing to worry about application-specific dependencies.
+
+Storybook supports a range of view libraries including React, Vue, Angular, and many others.
+It provides a sandbox to test different states of your UI components and develop them outside of your application, which can also lead to better reusability of components.
+
+In addition, Storybook allows you to create and showcase a component library, document the usage of each component, hence improving collaboration among team members.
+It serves as a single point of reference for developers, UX/UI designers, testers and product owners.
+
