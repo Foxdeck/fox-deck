@@ -2,15 +2,15 @@ import type {Meta, StoryObj} from "@storybook/vue3";
 import FDButton from "./FDButton.vue";
 
 export default {
-  title: "Buttons",
+  title: "Components/Buttons",
   component: FDButton,
   argTypes: {
-    color: {
+    variant: {
       control: "select",
       options: ["primary", "danger", "warn", "success"],
     },
   },
-  args: { label: "Button", isRounded: true },
+  args: { label: "Button" },
 } satisfies Meta<typeof FDButton>;
 
 // primary buttons

@@ -12,7 +12,7 @@ const preview: Preview = {
   parameters: {
     options: {
       storySort: {
-        order: ["Introduction", "Navigation"]
+        order: ["Getting Started", "Components"]
       }
     },
     actions: { argTypesRegex: "^on[A-Z].*" },

@@ -26,8 +26,10 @@ defineProps({
 });
 </script>
 <template>
-  <div class="bg-white shadow-sm rounded-md dark:bg-gray-800 dark:text-white">
-    <slot name="header" />
+  <div class="bg-white border shadow-sm rounded-md dark:bg-gray-800 dark:text-white">
+    <div class="p-4">
+      <slot name="header" />
+    </div>
     <FDCardHeader
       :title="title"
       :subtitle="subtitle"

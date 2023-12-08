@@ -1,8 +1,8 @@
-import type { Meta, StoryObj } from "@storybook/vue3";
+import type {Meta, StoryObj} from "@storybook/vue3";
 import FDTextInput from "./FDTextInput.vue";
 
 export default {
-  title: "Inputs",
+  title: "Components/Inputs",
   component: FDTextInput,
   args: { label: "E-Mail", disabled: false },
 } satisfies Meta<typeof FDTextInput>;

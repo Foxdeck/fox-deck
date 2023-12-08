@@ -25,6 +25,7 @@
     "openai": "^4.15.0",
     "pinia": "^2.1.7",
     "qs": "^6.11.2",
+    "storybook-addon-vue-slots": "^0.9.27",
     "vee-validate": "^4.11.8",
     "vite-svg-loader": "^4.0.0",
     "vue": "^3.3.7",
