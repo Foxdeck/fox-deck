@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import {onMounted} from "vue";
 import Header from "@editorjs/header";
-import EditorJS from "@editorjs/editorjs";
+import EditorJS, {type OutputData} from "@editorjs/editorjs";
 
+export type EditorOutputData = OutputData;
 onMounted(() => new EditorJS({
   holder: "editorjs",
   tools: {
@@ -16,7 +17,7 @@ onMounted(() => new EditorJS({
 }));
 
 const emits = defineEmits<{
-  (e: "onChange", value: any): void
+  (e: "onChange", value: EditorOutputData): void
 }>();
 </script>
 

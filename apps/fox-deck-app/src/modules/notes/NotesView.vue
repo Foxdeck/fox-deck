@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import FDEditor from "@/core/components/FDEditor/FDEditor.vue";
+import FDEditor, {type EditorOutputData} from "@/core/components/FDEditor/FDEditor.vue";
 import {ref} from "vue";
 import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
 import FDIcon from "@/core/components/FDIcon/FDIcon.vue";
@@ -7,13 +7,12 @@ import {Icon} from "@/core/components/FDIcon/icons";
 
 const isSaving = ref(false);
 
-function onEditorChanged(data: any) {
+function onEditorChanged(data: EditorOutputData) {
   isSaving.value = true;
   setTimeout(() => {
     isSaving.value = false;
   }, 2000);
-  const blocks = data.blocks;
-  const dataString = JSON.stringify(blocks);
+  const dataString = JSON.stringify(data);
   const decoded = btoa(dataString);
   console.log("decoded content", decoded);
   // TODO: this needs real implementation, after talking about if we want to make this feature real.
