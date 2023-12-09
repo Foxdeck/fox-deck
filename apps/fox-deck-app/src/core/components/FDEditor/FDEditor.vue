@@ -1,13 +1,15 @@
 <script setup lang="ts">
 import {onMounted} from "vue";
 import Header from "@editorjs/header";
+import List from "@editorjs/list";
 import EditorJS, {type OutputData} from "@editorjs/editorjs";
 
 export type EditorOutputData = OutputData;
 onMounted(() => new EditorJS({
   holder: "editorjs",
   tools: {
-    header: Header
+    header: Header,
+    list: List
   },
   placeholder: "Start creating your notes!",
   onChange: async (api) => {
