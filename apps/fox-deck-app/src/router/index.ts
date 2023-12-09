@@ -5,16 +5,19 @@ import {HomeRouteNames, homeRoutes} from "@/modules/home/routes";
 import {QuestionRouteNames, questionRoutes} from "@/modules/questions/routes";
 import type {FoxdeckRoute} from "@/router/foxdeck-route.type";
 import {questionnaireRoutes} from "@/modules/questionnaires/routes";
+import {NoteRouteNames, noteRoutes} from "@/modules/notes/routes";
 
 export type RouteNames = LoginRouteNames
   | HomeRouteNames
-  | QuestionRouteNames;
+  | QuestionRouteNames
+  | NoteRouteNames;
 
 export const routes: FoxdeckRoute[] = [
   ...loginRoutes,
   ...homeRoutes,
   ...questionRoutes,
   ...questionnaireRoutes,
+  ...noteRoutes
 ];
 
 const router = createRouter({

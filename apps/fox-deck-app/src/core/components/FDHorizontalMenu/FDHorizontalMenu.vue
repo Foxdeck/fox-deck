@@ -14,7 +14,7 @@ const { t } = useI18n();
 <template>
   <div
     v-if="authStore.isAuthenticated()"
-    class="flex items-center justify-between border-b border-gray-300 px-6 py-4 dark:bg-gray-950 dark:border-gray-800"
+    class="bg-white flex items-center justify-between border-b border-gray-300 px-6 py-4 dark:bg-gray-950 dark:border-gray-800"
   >
     <span class="text-4xl font-bold font-gabarito dark:text-white">{{ t("common.hello") }}, {{ authStore.readJWT()?.username }}! 👋</span>
     <FDMenu menu-icon="settings">
