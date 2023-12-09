@@ -16,6 +16,8 @@
     "generate:api": "npx swagger-typescript-api -p ./../fox-deck-api/swagger-spec.json -o ./src/core/services/ -n api.ts"
   },
   "dependencies": {
+    "@editorjs/editorjs": "^2.28.2",
+    "@editorjs/header": "^2.8.1",
     "@vee-validate/i18n": "^4.11.8",
     "@vee-validate/rules": "^4.11.8",
     "@vueuse/core": "^10.6.1",
