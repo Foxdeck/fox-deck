@@ -9,6 +9,8 @@ import FDMenu from "@/core/components/FDMenu/FDMenu.vue";
 const { isAuthenticated, getUsername } = useAuthStore();
 const { isThemeLight, switchTheme } = useThemeStore();
 const { t } = useI18n();
+
+const renderWelcomeMessage = () => `${t("common.hello")}, ${getUsername()}! 👋`;
 </script>
 
 <template>
@@ -17,7 +19,7 @@ const { t } = useI18n();
     class="bg-white flex items-center justify-between border-b border-gray-300 px-6 py-4 dark:bg-gray-950 dark:border-gray-800"
   >
     <span class="text-4xl font-bold font-gabarito dark:text-white">
-      {{ t("common.hello") }}, {{ getUsername() }}! 👋
+      {{ renderWelcomeMessage() }}
     </span>
 
     <FDMenu menu-icon="settings">
