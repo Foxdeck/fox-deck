@@ -1,22 +1,25 @@
 <script setup lang="ts">
+import {useI18n} from "vue-i18n";
 import {useAuthStore} from "@/core/stores/auth.store";
+import {useThemeStore} from "@/core/stores/theme.store";
 import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
 import FDSwitch from "@/core/components/FDSwitch/FDSwitch.vue";
-import {useThemeStore} from "@/core/stores/theme.store";
-import {useI18n} from "vue-i18n";
 import FDMenu from "@/core/components/FDMenu/FDMenu.vue";
 
-const authStore = useAuthStore();
-const themeStore = useThemeStore();
+const { isAuthenticated, getUsername } = useAuthStore();
+const { isThemeLight, switchTheme } = useThemeStore();
 const { t } = useI18n();
 </script>
 
 <template>
   <div
-    v-if="authStore.isAuthenticated()"
+    v-if="isAuthenticated()"
     class="bg-white flex items-center justify-between border-b border-gray-300 px-6 py-4 dark:bg-gray-950 dark:border-gray-800"
   >
-    <span class="text-4xl font-bold font-gabarito dark:text-white">{{ t("common.hello") }}, {{ authStore.readJWT()?.username }}! 👋</span>
+    <span class="text-4xl font-bold font-gabarito dark:text-white">
+      {{ t("common.hello") }}, {{ getUsername() }}! 👋
+    </span>
+
     <FDMenu menu-icon="settings">
       <template #menu>
         <div class="flex items-center gap-2">
@@ -28,8 +31,8 @@ const { t } = useI18n();
           </FDTypography>
           <FDSwitch
             size="small"
-            :checked="themeStore.isThemeLight()"
-            @on-toggle="themeStore.switchTheme()"
+            :checked="isThemeLight()"
+            @on-toggle="switchTheme()"
           />
         </div>
         <RouterLink to="/">

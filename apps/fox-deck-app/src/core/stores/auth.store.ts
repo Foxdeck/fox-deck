@@ -18,6 +18,8 @@ export const useAuthStore = defineStore("authStore", () => {
     }
   };
 
+  const getUsername = (): string => readJWT()?.username ?? "";
+
   /**
    * Logs the user in and sets the jwt token.
    * @param token {string} the JWT of the user, coming from the back-end.
@@ -45,6 +47,7 @@ export const useAuthStore = defineStore("authStore", () => {
    */
   return {
     jwt: jwt,
+    getUsername: getUsername,
     setJwt: login,
     logout: logout,
     isAuthenticated: isAuthenticated,
