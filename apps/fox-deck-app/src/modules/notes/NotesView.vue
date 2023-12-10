@@ -41,7 +41,7 @@ function onEditorChanged(data: EditorOutputData) {
         />
       </FDTypography>
     </div>
-    <div class="bg-white shadow-2xl w-7/12 py-20 min-h-screen mx-auto rounded-xl">
+    <div class="bg-white shadow-2xl max-w-[900px] w-full py-20 min-h-screen mx-auto rounded-xl">
       <FDEditor @on-change="onEditorChanged" />
     </div>
   </div>
