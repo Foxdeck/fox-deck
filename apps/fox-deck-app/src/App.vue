@@ -15,7 +15,7 @@ const themeStore = useThemeStore();
       light: themeStore.selectedTheme === 'light',
     }"
   >
-    <main class="flex w-screen h-screen bg-[#f2f2f2] dark:bg-gray-900">
+    <main class="flex w-screen h-screen bg-[#f5f6fb] dark:bg-gray-900">
       <FDSideNavigation />
 
       <div class="w-full overflow-y-scroll">
