@@ -7,11 +7,6 @@ import List from "@editorjs/list";
 const editorElementId = "editorjs";
 
 /**
- * Represents the output data of the editor.
- */
-export type EditorOutputData = OutputData;
-
-/**
  * We initialize a new instance of EditorJS,
  * @see https://editorjs.io/
  */
@@ -43,7 +38,7 @@ onMounted(() => new EditorJS({
 }));
 
 const emits = defineEmits<{
-  (e: "onChange", value: EditorOutputData): void
+  (e: "onChange", value: OutputData): void
 }>();
 </script>
 
