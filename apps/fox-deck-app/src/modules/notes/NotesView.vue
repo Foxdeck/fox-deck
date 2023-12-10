@@ -20,7 +20,7 @@ function onEditorChanged(data: EditorOutputData) {
 
 </script>
 <template>
-  <div class="min-h-screen">
+  <div class="min-h-screen bg-white">
     <div class="flex justify-end p-2">
       <FDTypography
         class="flex gap-2 items-center bg-success-normal text-white py-2 px-3 rounded-full w-fit"
@@ -41,7 +41,7 @@ function onEditorChanged(data: EditorOutputData) {
         />
       </FDTypography>
     </div>
-    <div class="bg-white shadow-2xl max-w-[1400px] w-full py-20 min-h-screen mx-auto rounded-xl">
+    <div class="max-w-[1400px] w-full min-h-screen">
       <FDEditor @on-change="onEditorChanged" />
     </div>
   </div>
