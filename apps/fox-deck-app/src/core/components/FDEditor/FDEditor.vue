@@ -1,18 +1,42 @@
 <script setup lang="ts">
 import {onMounted} from "vue";
+import EditorJS, {type API, type OutputData} from "@editorjs/editorjs";
 import Header from "@editorjs/header";
 import List from "@editorjs/list";
-import EditorJS, {type OutputData} from "@editorjs/editorjs";
 
+const editorElementId = "editorjs";
+
+/**
+ * Represents the output data of the editor.
+ */
 export type EditorOutputData = OutputData;
+
+/**
+ * We initialize a new instance of EditorJS,
+ * @see https://editorjs.io/
+ */
 onMounted(() => new EditorJS({
-  holder: "editorjs",
+  holder: editorElementId,
+
+  /**
+   * Registered tools for EditorJS
+   * @see https://editorjs.io/creating-a-block-tool/
+   */
   tools: {
     header: Header,
     list: List
   },
+
+  /**
+   * A placeholder so that the user knows where to write his first note.
+   */
   placeholder: "Start creating your notes!",
-  onChange: async (api) => {
+
+  /**
+   * If the user inputs, this is triggered. We simply emit this event up to the parent component.
+   * @param api {API} the EditorJS API
+   */
+  onChange: async (api: API) => {
     const data = await api.saver.save();
     emits("onChange", data);
   }
@@ -24,7 +48,7 @@ const emits = defineEmits<{
 </script>
 
 <template>
-  <div id="editorjs" />
+  <div :id="editorElementId" />
 </template>
 
 <style lang="scss">
