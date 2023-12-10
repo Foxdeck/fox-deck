@@ -52,6 +52,11 @@ const emits = defineEmits<{
 </template>
 
 <style lang="scss">
+.ce-block__content,
+.ce-toolbar__content {
+  max-width: 80%;
+}
+
 h1.ce-header {
   font-size: 2rem;
   font-weight: bold;
