@@ -16,7 +16,7 @@ onMounted(async () => await fetchNotes());
   <div class="min-h-screen bg-white">
     <div class="flex gap-4">
       <NotesList />
-      <div class="max-w-[1400px] w-full min-h-screen">
+      <div class="w-full min-h-screen">
         <NotesToolbar />
         <FDEditor
           :selected-note="notesStore.selectedNote"
