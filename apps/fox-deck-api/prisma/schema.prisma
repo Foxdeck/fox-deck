@@ -19,6 +19,7 @@ model User {
   password      String
   Question      Question[]
   Questionnaire Questionnaire[]
+  Note          Note[]
 }
 
 model Questionnaire {
@@ -27,6 +28,14 @@ model Questionnaire {
   author             User                 @relation(fields: [authorId], references: [id])
   authorId           String               @default("")
   QuestionAssignment QuestionAssignment[]
+}
+
+model Note {
+  id       String @id @default(uuid())
+  author   User   @relation(fields: [authorId], references: [id])
+  title    String @default("")
+  authorId String @default("")
+  content  String
 }
 
 model Question {
