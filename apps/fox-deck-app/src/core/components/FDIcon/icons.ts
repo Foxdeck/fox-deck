@@ -10,6 +10,8 @@ export enum Icon {
   CHEVRON_RIGHT = "fi-rr-angle-right",
   CHEVRON_DOWN = "fi-rr-angle-down",
   DELETE = "fi-rr-trash",
+  DOCUMENT = "fi-rr-document",
+  DOCUMENT_FILLED = "fi-sr-document",
   EDIT = "fi-rr-edit",
   FILTER = "fi-rr-filter",
   GRADUATION = "fi-rr-graduation-cap",
