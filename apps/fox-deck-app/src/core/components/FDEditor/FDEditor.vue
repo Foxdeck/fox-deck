@@ -1,17 +1,18 @@
 <script setup lang="ts">
-import {onMounted} from "vue";
+import {onUpdated} from "vue";
 import EditorJS, {type API, type OutputData} from "@editorjs/editorjs";
 import Header from "@editorjs/header";
 import List from "@editorjs/list";
+import type {NoteResponseDto} from "@/core/services/api";
 
-const editorElementId = "editorjs";
+interface FDEditorProps {
+  selectedNote?: NoteResponseDto;
+}
 
-/**
- * We initialize a new instance of EditorJS,
- * @see https://editorjs.io/
- */
-onMounted(() => new EditorJS({
-  holder: editorElementId,
+const props = defineProps<FDEditorProps>();
+
+const editor = new EditorJS({
+  holder: "editorjs",
 
   /**
    * Registered tools for EditorJS
@@ -34,8 +35,18 @@ onMounted(() => new EditorJS({
   onChange: async (api: API) => {
     const data = await api.saver.save();
     emits("onChange", data);
+  },
+});
+
+/**
+ * If props are updating (if a user selected a new note to render),
+ * we re-render the editor with the content of this note.
+ */
+onUpdated(() => {
+  if (props.selectedNote !== undefined) {
+    editor.blocks.render(props.selectedNote.content as OutputData);
   }
-}));
+});
 
 const emits = defineEmits<{
   (e: "onChange", value: OutputData): void
@@ -43,7 +54,7 @@ const emits = defineEmits<{
 </script>
 
 <template>
-  <div :id="editorElementId" />
+  <div id="editorjs" />
 </template>
 
 <style lang="scss">

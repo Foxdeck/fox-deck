@@ -56,6 +56,18 @@ export interface QuestionnaireResponseDto {
   questions: string[];
 }
 
+export interface NoteResponseDto {
+  id: string;
+  authorId: string;
+  content: string;
+  title: string;
+}
+
+export interface CreateNoteDto {
+  content: string;
+  title: string;
+}
+
 export type QueryParamsType = Record<string | number, any>;
 export type ResponseFormat = keyof Omit<Body, "body" | "bodyUsed">;
 
@@ -428,6 +440,44 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       this.request<QuestionnaireResponseDto[], any>({
         path: `/questionnaire`,
         method: "GET",
+        format: "json",
+        ...params,
+      }),
+  };
+  note = {
+    /**
+     * No description
+     *
+     * @tags Notes
+     * @name NoteControllerGetAllNotes
+     * @request GET:/note
+     * @secure
+     */
+    noteControllerGetAllNotes: (params: RequestParams = {}) =>
+      this.request<NoteResponseDto[], any>({
+        path: `/note`,
+        method: "GET",
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Notes
+     * @name NoteControllerCreateNote
+     * @summary Create a new note
+     * @request POST:/note
+     * @secure
+     */
+    noteControllerCreateNote: (data: CreateNoteDto, params: RequestParams = {}) =>
+      this.request<NoteResponseDto, any>({
+        path: `/note`,
+        method: "POST",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
         format: "json",
         ...params,
       }),
