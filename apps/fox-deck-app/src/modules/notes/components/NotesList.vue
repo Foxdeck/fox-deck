@@ -5,7 +5,7 @@ const notesStore = useNotesStore();
 </script>
 
 <template>
-  <div class="flex flex-col gap-2 w-full max-w-[200px]">
+  <div class="flex flex-col gap-2 w-full max-w-[200px] bg-primary-50/10 h-fit p-4 rounded-md">
     <div
       v-for="note in notesStore.notes"
       :key="note.id"
