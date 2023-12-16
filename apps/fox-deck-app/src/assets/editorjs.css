@@ -1,0 +1,15 @@
+.ce-question {
+    @apply shadow-sm p-2 flex flex-col gap-2 border border-l-4 border-l-primary-500;
+}
+
+.ce-question-input {
+    @apply p-2 outline-none;
+}
+
+.ce-question-title {
+    @apply font-bold outline-none;
+}
+
+.ce-question-answer {
+    @apply italic;
+}

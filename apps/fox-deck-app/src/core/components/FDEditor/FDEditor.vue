@@ -3,6 +3,7 @@ import {onUnmounted, watch} from "vue";
 import EditorJS, {type API, type OutputData} from "@editorjs/editorjs";
 import Header from "@editorjs/header";
 import List from "@editorjs/list";
+import {SimpleQuestion} from "@/core/components/FDEditor/plugins/simple-question/simple-question";
 
 interface FDEditorProps {
   selectedNote?: OutputData;
@@ -19,7 +20,8 @@ const editor = new EditorJS({
    */
   tools: {
     header: Header,
-    list: List
+    list: List,
+    question: SimpleQuestion
   },
 
   /**
