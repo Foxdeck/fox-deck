@@ -1,13 +1,20 @@
 import type {FoxdeckRoute} from "@/router/foxdeck-route.type";
 
 export enum NoteRouteNames {
-  NOTES = "notes",
+  NOTE = "note",
+  CREATE_NOTE = "create-note",
 }
 
 export const noteRoutes: FoxdeckRoute[] = [
   {
-    path: "/notes",
-    name: NoteRouteNames.NOTES,
+    path: "/create-note",
+    name: NoteRouteNames.CREATE_NOTE,
+    component: () => import("./NotesView.vue"),
+    isVisibleInNavigation: false,
+  },
+  {
+    path: "/note/:id",
+    name: NoteRouteNames.NOTE,
     component: () => import("./NotesView.vue"),
     isVisibleInNavigation: false
   },

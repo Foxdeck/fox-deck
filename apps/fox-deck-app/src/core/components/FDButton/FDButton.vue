@@ -58,7 +58,7 @@ function getTextColorClassBasedOnBorder(): string {
 <template>
   <button
     ref="buttonRef"
-    class="flex items-center justify-center gap-3 rounded-md border-2 px-5 py-4 text-white transition-all font-gabarito ring-primary-300/50 hover:opacity-80 focus:outline-none focus:ring-2 active:bg-grey-900"
+    class="flex items-center justify-center gap-3 rounded-lg border-2 px-5 py-3 text-white transition-all font-gabarito ring-primary-300/50 hover:opacity-80 focus:outline-none focus:ring-2 active:bg-grey-900"
     :data-testid="testId"
     :class="[
       getSeverityClass(),

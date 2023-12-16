@@ -7,7 +7,8 @@ export const de = {
     foxdeck: "Foxdeck",
     intro_text: "Erstelle, teile und erlebe interaktives Lernen",
     edit: "Bearbeiten",
-    delete: "Löschen"
+    delete: "Löschen",
+    sign_out: "Abmelden"
   },
   home: {
     title: "Starte jetzt mit dem Lernen!",
@@ -75,6 +76,9 @@ export const de = {
         answer_required: "Bitte gib deine Antwort ein"
       }
     }
+  },
+  notes: {
+    new_note: "Notiz erstellen"
   },
   // Exceptions
   FETCH_QUESTION_EXCEPTION: "Fehler beim Abrufen der Fragen",

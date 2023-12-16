@@ -7,7 +7,8 @@ export const en = {
     foxdeck: "Foxdeck",
     intro_text: "Create, share and experience interactive learning",
     edit: "Edit",
-    delete: "Delete"
+    delete: "Delete",
+    sign_out: "Sign out"
   },
   home: {
     title: "Get started with learning!",
@@ -75,6 +76,9 @@ export const en = {
         answer_required: "Please enter your answer"
       }
     }
+  },
+  notes: {
+    new_note: "Create note"
   },
   // exceptions
   FETCH_QUESTION_EXCEPTION: "Error while getting questions",

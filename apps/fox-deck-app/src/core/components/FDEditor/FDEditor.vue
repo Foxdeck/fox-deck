@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import {onUpdated} from "vue";
+import {onUnmounted, watch} from "vue";
 import EditorJS, {type API, type OutputData} from "@editorjs/editorjs";
 import Header from "@editorjs/header";
 import List from "@editorjs/list";
-import type {NoteResponseDto} from "@/core/services/api";
 
 interface FDEditorProps {
-  selectedNote?: NoteResponseDto;
+  selectedNote?: OutputData;
 }
 
 const props = defineProps<FDEditorProps>();
@@ -42,11 +41,16 @@ const editor = new EditorJS({
  * If props are updating (if a user selected a new note to render),
  * we re-render the editor with the content of this note.
  */
-onUpdated(() => {
+watch(props, async () => {
+  await editor.isReady;
   if (props.selectedNote !== undefined) {
-    editor.blocks.render(props.selectedNote.content as OutputData);
+    await editor.blocks.render(props.selectedNote as OutputData);
+  } else {
+    await editor.clear();
   }
 });
+
+onUnmounted(() => editor.destroy());
 
 const emits = defineEmits<{
   (e: "onChange", value: OutputData): void

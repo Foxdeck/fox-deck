@@ -1,11 +1,21 @@
 <script setup lang="ts">
-import FDSideNavigation from "@/core/components/FDSideNavigation/FDSideNavigation.vue";
-import FDHorizontalMenu from "@/core/components/FDHorizontalMenu/FDHorizontalMenu.vue";
 import NotificationLayout from "@/core/components/Layouts/NotificationLayout.vue";
 import RouterLayout from "@/core/components/Layouts/RouterLayout.vue";
 import {useThemeStore} from "@/core/stores/theme.store";
+import {useNotes} from "@/modules/notes/composables/useNotes";
+import {onMounted} from "vue";
+import {useI18n} from "vue-i18n";
+import {useFoxdeckRouter} from "@/core/composables/useFoxdeckRouter";
+import AppSideNavigation from "@/core/components/AppSideNavigation/AppSideNavigation.vue";
 
+const { save, fetchNotes } = useNotes();
 const themeStore = useThemeStore();
+const { t } = useI18n();
+const { push } = useFoxdeckRouter();
+
+onMounted(async () => await fetchNotes());
+
+
 </script>
 
 <template>
@@ -16,10 +26,8 @@ const themeStore = useThemeStore();
     }"
   >
     <main class="flex w-screen h-screen bg-[#f5f6fb] dark:bg-gray-900">
-      <FDSideNavigation />
-
+      <AppSideNavigation />
       <div class="w-full overflow-y-scroll">
-        <FDHorizontalMenu />
         <RouterLayout />
         <NotificationLayout />
       </div>

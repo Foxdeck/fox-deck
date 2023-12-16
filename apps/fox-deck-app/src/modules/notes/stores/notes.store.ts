@@ -8,11 +8,9 @@ import type {NoteResponseDto} from "@/core/services/api";
 export const useNotesStore = defineStore("notesStore", () => {
   const isSynchronizing = ref(false);
   const notes = ref<NoteResponseDto[]>([]);
-  const selectedNote = ref<NoteResponseDto | undefined>(undefined);
 
   return {
     isSynchronizing: isSynchronizing,
     notes: notes,
-    selectedNote: selectedNote
   }
 });
