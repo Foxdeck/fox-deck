@@ -49,8 +49,9 @@ defineEmits(["update:modelValue"]);
     @input="$emit('update:modelValue', $event.target.value)"
   >
     <AppIcon
-      slot="leading-icon"
-      :icon="Icon.SEARCH"
+      v-if="icon"
+      :slot="iconPosition === 'leading' ? 'leading-icon' : 'trailing-icon'"
+      :icon="icon"
     />
   </md-filled-text-field>
   <md-outlined-text-field
@@ -67,7 +68,7 @@ defineEmits(["update:modelValue"]);
     <AppIcon
       v-if="icon"
       :slot="iconPosition === 'leading' ? 'leading-icon' : 'trailing-icon'"
-      :icon="Icon.SEARCH"
+      :icon="icon"
     />
   </md-outlined-text-field>
 </template>
