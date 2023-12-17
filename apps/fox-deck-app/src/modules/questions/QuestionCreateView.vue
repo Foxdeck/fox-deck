@@ -6,8 +6,6 @@ import {useI18n} from "vue-i18n";
 import ContentLayout from "@/core/components/Layouts/ContentLayout.vue";
 import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
 import FDTextInput from "@/core/components/FDTextInput/FDTextInput.vue";
-import FDSwitch from "@/core/components/FDSwitch/FDSwitch.vue";
-import FDButton from "@/core/components/FDButton/FDButton.vue";
 import FDTextArea from "@/core/components/FDTextArea/FDTextArea.vue";
 import {useAuthStore} from "@/core/stores/auth.store";
 import {useNotificationStore} from "@/core/stores/notification.store";
@@ -16,17 +14,20 @@ import type {CreateQuestionRequestDto} from "@/core/services/api";
 import {useFoxdeckRouter} from "@/core/composables/useFoxdeckRouter";
 import {QuestionRouteNames} from "@/modules/questions/routes";
 import FDCard from "@/core/components/FDCard/FDCard.vue";
+import AppButton from "@/core/components/AppButton/AppButton.vue";
+import {Icon} from "@/core/components/FDIcon/icons";
+import AppSwitch from "@/core/components/AppSwitch/AppSwitch.vue";
 
 type FormModel = {
   question: string;
   solution: string;
 };
 
-const { push } = useFoxdeckRouter();
-const { addNotification } = useNotificationStore();
-const { createQuestion } = useQuestions();
-const { readJWT } = useAuthStore();
-const { t } = useI18n();
+const {push} = useFoxdeckRouter();
+const {addNotification} = useNotificationStore();
+const {createQuestion} = useQuestions();
+const {readJWT} = useAuthStore();
+const {t} = useI18n();
 
 const schema = Yup.object().shape({
   question: Yup.string().required(
@@ -37,14 +38,13 @@ const schema = Yup.object().shape({
   ),
 });
 
-const isPublic = ref(false);
+const isPublic = ref(true);
 
 async function onFormSubmit(formModel: FormModel) {
   try {
     const question: CreateQuestionRequestDto = {
       ...formModel,
-      isPublic: isPublic.value,
-      authorId: readJWT().id,
+      isPublic: isPublic.value
     };
     await createQuestion(question);
     await push({
@@ -118,15 +118,14 @@ async function onFormSubmit(formModel: FormModel) {
             >
               {{ t("questions.creation.is_question_public_explanation") }}
             </FDTypography>
-            <FDSwitch
-              size="medium"
-              :checked="isPublic"
-              @on-toggle="isPublic = $event"
+            <AppSwitch
+              v-model="isPublic"
+              :aria-label="t('questions.creation.is_question_public_explanation')"
             />
           </div>
-          <FDButton
-            class="w-fit"
-            icon="save"
+          <AppButton
+            class="mt-4"
+            :icon="Icon.SAVE_FILLED"
             :label="t('questions.creation.create_question')"
           />
         </Form>

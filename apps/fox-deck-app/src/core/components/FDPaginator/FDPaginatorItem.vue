@@ -1,15 +1,19 @@
 <script setup lang="ts">
-defineProps({
-  isSelected: { type: Boolean, default: false },
-});
+import AppButton from "@/core/components/AppButton/AppButton.vue";
+import {Icon} from "@/core/components/FDIcon/icons";
+
+type AppPaginatorItem = {
+  isSelected: boolean;
+  label: string;
+  icon?: Icon
+}
+
+defineProps<AppPaginatorItem>();
 </script>
 <template>
-  <li
-    class="flex aspect-square h-12 cursor-pointer select-none items-center justify-center rounded-sm bg-white text-center leading-8 text-gray-900 shadow-sm hover:opacity-70"
-    :class="{
-      '!bg-primary-500 !text-white': isSelected,
-    }"
-  >
-    <slot />
-  </li>
+  <AppButton
+    :variant="isSelected ? 'tonal' : 'text'"
+    :label="label"
+    :icon="icon"
+  />
 </template>

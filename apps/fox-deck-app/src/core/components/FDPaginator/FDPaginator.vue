@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {MathUtil} from "@/core/util/math.util";
 import FDPaginatorItem from "@/core/components/FDPaginator/FDPaginatorItem.vue";
+import {Icon} from "@/core/components/FDIcon/icons";
 
 const props = defineProps({
   currentPage: {type: Number, default: 1},
@@ -59,35 +60,26 @@ function onPaginatePrev() {
 </script>
 
 <template>
-  <ol class="flex justify-center gap-1 text-sm">
+  <div class="flex justify-center items-center gap-1">
     <FDPaginatorItem
       data-testid="paginator-prev"
+      :icon="Icon.CHEVRON_LEFT"
       @click="onPaginatePrev()"
-    >
-      <vue-feather
-        type="chevron-left"
-        size="14"
-      />
-    </FDPaginatorItem>
+    />
 
     <FDPaginatorItem
       v-for="index in generatePaginatorNumbers()"
       :key="index"
       :is-selected="currentPage === index"
+      :label="''+index"
       data-testid="paginator-item"
       @click="onPaginate(index)"
-    >
-      {{ index }}
-    </FDPaginatorItem>
+    />
 
     <FDPaginatorItem
       data-testid="paginator-next"
+      :icon="Icon.CHEVRON_RIGHT"
       @click="onPaginateNext()"
-    >
-      <vue-feather
-        type="chevron-right"
-        size="14"
-      />
-    </FDPaginatorItem>
-  </ol>
+    />
+  </div>
 </template>

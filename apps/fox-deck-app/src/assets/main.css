@@ -2,10 +2,16 @@
 @import url('https://cdn-uicons.flaticon.com/2.0.0/uicons-regular-rounded/css/uicons-regular-rounded.css');
 @import url('https://cdn-uicons.flaticon.com/2.0.0/uicons-solid-rounded/css/uicons-solid-rounded.css');
 @import "./editorjs.css";
+@import "material/theme.css";
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --md-ref-typeface-brand: 'Gabarito';
+  --md-ref-typeface-plain: 'Gabarito';
+}
 
 body {
   overflow-x: hidden;

@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import QuestionFilter from "@/modules/questions/components/QuestionFilter.vue";
-import FDButton from "@/core/components/FDButton/FDButton.vue";
-import FDTextInput from "@/core/components/FDTextInput/FDTextInput.vue";
 import {useI18n} from "vue-i18n";
 import {useQuestions} from "@/modules/questions/composables/useQuestions";
 import {useNotificationStore} from "@/core/stores/notification.store";
 import type {FDDropdownItem} from "@/core/components/FDDropDown/FDDropDown.types";
 import FDMenu from "@/core/components/FDMenu/FDMenu.vue";
+import AppButton from "@/core/components/AppButton/AppButton.vue";
+import {Icon} from "@/core/components/FDIcon/icons";
+import AppTextField from "@/core/components/AppTextField/AppTextField.vue";
+import {ref} from "vue";
 
 const {searchQuestions} = useQuestions();
 const {addNotification} = useNotificationStore();
@@ -32,29 +34,27 @@ async function onSearch(search: string) {
     });
   }
 }
+
+const search = ref("");
 </script>
 <template>
-  <div class="flex items-center justify-between">
+  <div class="flex gap-2 items-center justify-between bg-white p-1 shadow-md rounded-full">
     <RouterLink
       to="/question/create"
     >
-      <FDButton
-        icon="plus"
+      <AppButton
+        :icon="Icon.PLUS"
         :label="t('questions.question_create')"
       />
     </RouterLink>
-    <FDTextInput
-      class="max-w-[500px] w-full shadow-2xl"
-      name="search"
-      icon="search"
-      :has-select="true"
-      :items="categories"
-      :selected-item="categories[0]"
-      :is-open="true"
-      :label="t('questions.question_search_placeholder')"
-      @on-input="onSearch"
+    <AppTextField
+      v-model="search"
+      placeholder="Search"
+      :icon="Icon.SEARCH"
+      @update:model-value="onSearch"
     />
-    <FDMenu menu-icon="filter">
+
+    <FDMenu :menu-icon="Icon.FILTER">
       <template #menu>
         <QuestionFilter />
       </template>

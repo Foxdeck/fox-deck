@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import {ref} from "vue";
 import {useI18n} from "vue-i18n";
-import FDButton from "@/core/components/FDButton/FDButton.vue";
 import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
 import FDTextInput from "@/core/components/FDTextInput/FDTextInput.vue";
+import AppButton from "@/core/components/AppButton/AppButton.vue";
 
 defineProps({
   hasError: { type: Boolean },
@@ -84,7 +84,7 @@ const passwordRepeat = ref("");
     >
       {{ t("register.validation.register_error") }}
     </FDTypography>
-    <FDButton
+    <AppButton
       class="flex-1"
       :label="t('register.register')"
     />

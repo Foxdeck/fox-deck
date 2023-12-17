@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import {Form} from "vee-validate";
-import FDButton from "@/core/components/FDButton/FDButton.vue";
 import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
 import FDTextInput from "@/core/components/FDTextInput/FDTextInput.vue";
 import * as Yup from "yup";
 import {useI18n} from "vue-i18n";
+import AppButton from "@/core/components/AppButton/AppButton.vue";
+import {Icon} from "@/core/components/FDIcon/icons";
 
 type FormModel = {
   email: string;
@@ -81,8 +82,9 @@ function onFormSubmit(formModel: FormModel) {
     >
       {{ t("login.validation.login_error") }}
     </FDTypography>
-    <FDButton
+    <AppButton
       class="flex-1"
+      :icon="Icon.SIGN_IN"
       :label="t('login.login')"
       data-testid="loginButton"
     />

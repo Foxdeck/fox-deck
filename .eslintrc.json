@@ -13,6 +13,8 @@
   "rules": {
     "indent": ["warn", 2],
     "quotes": ["error", "double"],
-    "semi": ["error", "always"]
+    "semi": ["error", "always"],
+    // we need to turn this off, because material-design components are using slots
+    "vue/no-deprecated-slot-attribute": ["off"]
   }
 }

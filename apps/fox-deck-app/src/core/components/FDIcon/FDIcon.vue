@@ -11,7 +11,7 @@ defineProps<FDIconProps>();
 </script>
 <template>
   <span
-    class="fi m-0 p-0 text-lg"
+    class="fi m-0 p-0"
     :class="icon"
   />
 </template>

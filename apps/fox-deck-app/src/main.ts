@@ -11,6 +11,9 @@ import {de} from "@/i18n/de";
 import {en} from "@/i18n/en";
 import Vue3Lottie from "vue3-lottie";
 
+import '@material/web/menu/menu.js';
+import '@material/web/menu/menu-item.js';
+
 const app = createApp(App);
 
 const i18n = createI18n({

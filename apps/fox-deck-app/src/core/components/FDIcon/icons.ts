@@ -20,7 +20,11 @@ export enum Icon {
   MENU_VERTICAL = "fi-rr-menu-dots-vertical",
   PLUS = "fi-rr-plus",
   QUESTION = "fi-rr-lightbulb-question",
+  SAVE = "fi-rr-disk",
+  SAVE_FILLED = "fi-sr-disk",
+  SEARCH = "fi-rr-search",
   SIGN_OUT = "fi-rr-exit",
+  SIGN_IN = "fi-rr-enter",
   SETTINGS = "fi-rr-settings",
   X = "fi-rr-cross"
 }
