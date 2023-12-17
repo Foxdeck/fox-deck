@@ -1,13 +1,11 @@
 <script setup lang="ts">
+import {Icon} from "./icons";
 
-import {Icon} from "@/core/components/FDIcon/icons";
-
-type FDIconProps = {
+type AppIconProps = {
   icon: Icon;
 }
 
-defineProps<FDIconProps>();
-
+defineProps<AppIconProps>();
 </script>
 <template>
   <span

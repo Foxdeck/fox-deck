@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import "@material/web/menu/menu.js";
 import "@material/web/menu/menu-item.js";
-import FDIcon from "@/core/components/FDIcon/FDIcon.vue";
-import {Icon} from "@/core/components/FDIcon/icons";
+import AppIcon from "@/core/components/AppIcon/AppIcon.vue";
+import {Icon} from "@/core/components/AppIcon/icons";
 
 export type AppMenuItemProps = {
   label?: string;
@@ -16,7 +16,7 @@ defineProps<AppMenuItemProps>();
 <template>
   <md-menu-item>
     <span class="flex gap-2">
-      <FDIcon
+      <AppIcon
         v-if="icon"
         :icon="icon"
       />

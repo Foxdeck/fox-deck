@@ -4,7 +4,7 @@ import Logo from "@/assets/icons/foxdeck-logo.svg";
 import {useAuthStore} from "@/core/stores/auth.store";
 import {LoginRouteNames} from "@/modules/login/routes";
 import {useFoxdeckRouter} from "@/core/composables/useFoxdeckRouter";
-import {Icon} from "@/core/components/FDIcon/icons";
+import {Icon} from "@/core/components/AppIcon/icons";
 import {NoteRouteNames} from "@/modules/notes/routes";
 import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
 import {useNotesStore} from "@/modules/notes/stores/notes.store";
@@ -80,7 +80,7 @@ const renderWelcomeMessage = () => `${t("common.hello")}, ${authStore.getUsernam
         })"
       />
     </div>
-    
+
     <div class="flex flex-col gap-2 flex-wrap">
       <AppButton
         variant="outlined"

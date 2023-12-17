@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import {Icon} from "@/core/components/FDIcon/icons";
-import FDIcon from "@/core/components/FDIcon/FDIcon.vue";
+import {Icon} from "@/core/components/AppIcon/icons";
+import AppIcon from "@/core/components/AppIcon/AppIcon.vue";
 import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
 import {useNotesStore} from "@/modules/notes/stores/notes.store";
 
@@ -17,12 +17,12 @@ const notes = useNotesStore();
       type="pxs"
     >
       {{ notes.isSynchronizing ? 'synchronizing changes' : 'synchronized' }}
-      <FDIcon
+      <AppIcon
         v-if="notes.isSynchronizing"
         class="animate-spin"
         :icon="Icon.LOADING"
       />
-      <FDIcon
+      <AppIcon
         v-else
         :icon="Icon.CHECK"
       />

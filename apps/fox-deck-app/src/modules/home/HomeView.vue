@@ -4,7 +4,7 @@ import PersonReading from "@/assets/images/book.svg";
 import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
 import {useI18n} from "vue-i18n";
 import AppButton from "@/core/components/AppButton/AppButton.vue";
-import {Icon} from "@/core/components/FDIcon/icons";
+import {Icon} from "@/core/components/AppIcon/icons";
 
 const { t } = useI18n();
 </script>

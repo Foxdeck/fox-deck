@@ -1,5 +1,5 @@
 import type {FoxdeckRoute} from "@/router/foxdeck-route.type";
-import {Icon} from "@/core/components/FDIcon/icons";
+import {Icon} from "@/core/components/AppIcon/icons";
 
 export enum HomeRouteNames {
   HOME = "home",

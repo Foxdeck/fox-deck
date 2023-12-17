@@ -15,7 +15,7 @@ import {useFoxdeckRouter} from "@/core/composables/useFoxdeckRouter";
 import {QuestionRouteNames} from "@/modules/questions/routes";
 import FDCard from "@/core/components/FDCard/FDCard.vue";
 import AppButton from "@/core/components/AppButton/AppButton.vue";
-import {Icon} from "@/core/components/FDIcon/icons";
+import {Icon} from "@/core/components/AppIcon/icons";
 import AppSwitch from "@/core/components/AppSwitch/AppSwitch.vue";
 
 type FormModel = {

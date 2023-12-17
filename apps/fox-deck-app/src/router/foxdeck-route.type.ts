@@ -1,5 +1,5 @@
 import type {RouteRecordRaw} from "vue-router";
-import type {Icon} from "@/core/components/FDIcon/icons";
+import type {Icon} from "@/core/components/AppIcon/icons";
 
 /**
  * Extends the VueJS router type for usage in the navigation bar.

@@ -3,8 +3,8 @@ import ContentLayout from "@/core/components/Layouts/ContentLayout.vue";
 import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
 import {useI18n} from "vue-i18n";
 import FDHero from "@/core/components/FDHero/FDHero.vue";
-import FDIcon from "@/core/components/FDIcon/FDIcon.vue";
-import {Icon} from "@/core/components/FDIcon/icons";
+import AppIcon from "@/core/components/AppIcon/AppIcon.vue";
+import {Icon} from "@/core/components/AppIcon/icons";
 
 const {t} = useI18n();
 </script>
@@ -20,13 +20,13 @@ const {t} = useI18n();
         <FDTypography class="font-bold">
           Questionnaire 1
         </FDTypography>
-        <FDIcon :icon="Icon.CHEVRON_DOWN" />
+        <AppIcon :icon="Icon.CHEVRON_DOWN" />
       </div>
       <div class="flex p-4 b-2 justify-between">
         <FDTypography>
           Question 1
         </FDTypography>
-        <FDIcon
+        <AppIcon
           class="text-xs"
           :icon="Icon.X"
         />
@@ -35,7 +35,7 @@ const {t} = useI18n();
         <FDTypography>
           Question 1
         </FDTypography>
-        <FDIcon
+        <AppIcon
           class="text-xs"
           :icon="Icon.X"
         />
@@ -44,7 +44,7 @@ const {t} = useI18n();
         <FDTypography>
           Question 1
         </FDTypography>
-        <FDIcon
+        <AppIcon
           class="text-xs"
           :icon="Icon.X"
         />

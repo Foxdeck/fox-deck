@@ -3,7 +3,7 @@ import {ref} from "vue";
 import type {Severity} from "@/core/components/severity.types";
 import FadeOutInTransition from "@/core/components/Transitions/FadeOutInTransition.vue";
 import AppButton from "@/core/components/AppButton/AppButton.vue";
-import {Icon} from "@/core/components/FDIcon/icons";
+import {Icon} from "@/core/components/AppIcon/icons";
 
 export type FDActionMenuItem = {
   id: string,

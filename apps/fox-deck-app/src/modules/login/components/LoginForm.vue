@@ -5,7 +5,7 @@ import FDTextInput from "@/core/components/FDTextInput/FDTextInput.vue";
 import * as Yup from "yup";
 import {useI18n} from "vue-i18n";
 import AppButton from "@/core/components/AppButton/AppButton.vue";
-import {Icon} from "@/core/components/FDIcon/icons";
+import {Icon} from "@/core/components/AppIcon/icons";
 
 type FormModel = {
   email: string;

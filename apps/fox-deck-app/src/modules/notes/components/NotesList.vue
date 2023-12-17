@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {useNotesStore} from "@/modules/notes/stores/notes.store";
-import {Icon} from "@/core/components/FDIcon/icons";
+import {Icon} from "@/core/components/AppIcon/icons";
 import type {NoteResponseDto} from "@/core/services/api";
 import NotesListItem from "@/modules/notes/components/NotesListItem.vue";
 

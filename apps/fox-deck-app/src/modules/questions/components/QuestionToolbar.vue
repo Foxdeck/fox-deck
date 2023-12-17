@@ -6,7 +6,7 @@ import {useNotificationStore} from "@/core/stores/notification.store";
 import type {FDDropdownItem} from "@/core/components/FDDropDown/FDDropDown.types";
 import FDMenu from "@/core/components/FDMenu/FDMenu.vue";
 import AppButton from "@/core/components/AppButton/AppButton.vue";
-import {Icon} from "@/core/components/FDIcon/icons";
+import {Icon} from "@/core/components/AppIcon/icons";
 import AppTextField from "@/core/components/AppTextField/AppTextField.vue";
 import {ref} from "vue";
 

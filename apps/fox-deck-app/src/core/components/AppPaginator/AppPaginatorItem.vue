@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import AppButton from "@/core/components/AppButton/AppButton.vue";
-import {Icon} from "@/core/components/FDIcon/icons";
+import {Icon} from "@/core/components/AppIcon/icons";
 
 type AppPaginatorItem = {
   isSelected?: boolean;

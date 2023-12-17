@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import {Icon} from "@/core/components/FDIcon/icons";
-import FDIcon from "@/core/components/FDIcon/FDIcon.vue";
+import {Icon} from "@/core/components/AppIcon/icons";
+import AppIcon from "@/core/components/AppIcon/AppIcon.vue";
 
 import "@material/web/button/text-button.js";
 import "@material/web/button/filled-tonal-button.js";
@@ -33,7 +33,7 @@ withDefaults(defineProps<AppButtonProps>(), {
       <span
         class="flex gap-2 p-2 primary-text"
       >
-        <FDIcon
+        <AppIcon
           v-if="icon"
           :icon="icon"
         />
@@ -46,7 +46,7 @@ withDefaults(defineProps<AppButtonProps>(), {
       <span
         class="flex gap-2 p-2 primary-text"
       >
-        <FDIcon
+        <AppIcon
           v-if="icon"
           :icon="icon"
         />
@@ -59,7 +59,7 @@ withDefaults(defineProps<AppButtonProps>(), {
       <span
         class="flex gap-2 p-2 primary-text"
       >
-        <FDIcon
+        <AppIcon
           v-if="icon"
           :icon="icon"
         />

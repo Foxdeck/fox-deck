@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {MathUtil} from "@/core/util/math.util";
 import AppPaginatorItem from "@/core/components/AppPaginator/AppPaginatorItem.vue";
-import {Icon} from "@/core/components/FDIcon/icons";
+import {Icon} from "@/core/components/AppIcon/icons";
 
 const props = defineProps({
   currentPage: {type: Number, default: 1},

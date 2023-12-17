@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import "@material/web/textfield/filled-text-field";
 import "@material/web/textfield/outlined-text-field";
-import FDIcon from "@/core/components/FDIcon/FDIcon.vue";
-import {Icon} from "@/core/components/FDIcon/icons";
+import {Icon} from "@/core/components/AppIcon/icons";
+import AppIcon from "@/core/components/AppIcon/AppIcon.vue";
 
 type AppTextFieldType = "text" | "email" | "number" | "password" | "search" | "tel" | "url" | "textarea";
 type AppTextFieldVariant = "filled" | "outlined";
@@ -48,7 +48,7 @@ defineEmits(["update:modelValue"]);
     :supporting-text="supportingText"
     @input="$emit('update:modelValue', $event.target.value)"
   >
-    <FDIcon
+    <AppIcon
       slot="leading-icon"
       :icon="Icon.SEARCH"
     />
@@ -64,7 +64,7 @@ defineEmits(["update:modelValue"]);
     :supporting-text="supportingText"
     @input="$emit('update:modelValue', $event.target.value)"
   >
-    <FDIcon
+    <AppIcon
       v-if="icon"
       :slot="iconPosition === 'leading' ? 'leading-icon' : 'trailing-icon'"
       :icon="Icon.SEARCH"
