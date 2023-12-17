@@ -3,7 +3,6 @@ import "@material/web/switch/switch";
 
 type AppSwitchProps = {
   ariaLabel: string;
-  s?: boolean;
   modelValue?: boolean;
 }
 
