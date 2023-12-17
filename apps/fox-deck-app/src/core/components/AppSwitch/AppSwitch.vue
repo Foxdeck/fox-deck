@@ -7,7 +7,7 @@ type AppSwitchProps = {
   modelValue?: boolean;
 }
 
-const props = defineProps<AppSwitchProps>();
+defineProps<AppSwitchProps>();
 
 defineEmits(["update:modelValue"]);
 
