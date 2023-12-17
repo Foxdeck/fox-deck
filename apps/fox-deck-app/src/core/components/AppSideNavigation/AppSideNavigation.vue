@@ -81,19 +81,19 @@ const renderWelcomeMessage = () => `${t("common.hello")}, ${authStore.getUsernam
       />
     </div>
 
-    <div class="flex flex-col gap-2 flex-wrap">
-      <AppButton
-        variant="outlined"
-        width="full"
-        :label="t('common.settings')"
-        :icon="Icon.SETTINGS"
-      />
+    <div class="flex gap-2 flex-wrap">
       <AppButton
         variant="text"
         width="full"
         :label="t('common.sign_out')"
         :icon="Icon.SIGN_OUT"
         @click="logout"
+      />
+      <AppButton
+        variant="outlined"
+        width="full"
+        :label="t('common.settings')"
+        :icon="Icon.SETTINGS"
       />
     </div>
   </aside>
