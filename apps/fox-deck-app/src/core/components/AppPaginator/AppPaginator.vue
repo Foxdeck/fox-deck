@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {MathUtil} from "@/core/util/math.util";
-import FDPaginatorItem from "@/core/components/FDPaginator/FDPaginatorItem.vue";
+import AppPaginatorItem from "@/core/components/AppPaginator/AppPaginatorItem.vue";
 import {Icon} from "@/core/components/FDIcon/icons";
 
 const props = defineProps({
@@ -61,13 +61,13 @@ function onPaginatePrev() {
 
 <template>
   <div class="flex justify-center items-center gap-1">
-    <FDPaginatorItem
+    <AppPaginatorItem
       data-testid="paginator-prev"
       :icon="Icon.CHEVRON_LEFT"
       @click="onPaginatePrev()"
     />
 
-    <FDPaginatorItem
+    <AppPaginatorItem
       v-for="index in generatePaginatorNumbers()"
       :key="index"
       :is-selected="currentPage === index"
@@ -76,7 +76,7 @@ function onPaginatePrev() {
       @click="onPaginate(index)"
     />
 
-    <FDPaginatorItem
+    <AppPaginatorItem
       data-testid="paginator-next"
       :icon="Icon.CHEVRON_RIGHT"
       @click="onPaginateNext()"

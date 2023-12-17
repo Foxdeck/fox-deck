@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {onMounted, ref} from "vue";
 import ListGroupTransition from "@/core/components/Transitions/ListGroupTransition.vue";
-import FDPaginator from "@/core/components/FDPaginator/FDPaginator.vue";
+import AppPaginator from "@/core/components/AppPaginator/AppPaginator.vue";
 import QuestionListItem from "@/modules/questions/components/QuestionListItem.vue";
 import {useQuestionsStore} from "@/modules/questions/stores/questions.store";
 import QuestionListEmpty from "@/modules/questions/components/QuestionListEmpty.vue";
@@ -51,7 +51,7 @@ const currentPage = ref(1);
       </ListGroupTransition>
     </div>
     <QuestionListEmpty v-else />
-    <FDPaginator
+    <AppPaginator
       :pages="8"
       :current-page="currentPage"
       @on-paginate="currentPage = $event"

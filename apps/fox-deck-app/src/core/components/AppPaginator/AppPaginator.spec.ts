@@ -1,11 +1,11 @@
 import {describe, expect, it} from 'vitest'
-import FDPaginator from './FDPaginator.vue'
+import AppPaginator from './AppPaginator.vue'
 import {render} from "@/testing/utils/vue-test-utils";
 
 
 describe('FDPaginator', () => {
   it('should calculate the first pages correct', () => {
-    const wrapper = render(FDPaginator, {
+    const wrapper = render(AppPaginator, {
       pages: 10,
       currentPage: 2
     });
@@ -21,7 +21,7 @@ describe('FDPaginator', () => {
   })
 
   it('should calculate the pages between correct', () => {
-    const wrapper = render(FDPaginator, {
+    const wrapper = render(AppPaginator, {
       pages: 10,
       currentPage: 4
     });
@@ -37,7 +37,7 @@ describe('FDPaginator', () => {
   })
 
   it('should calculate the last pages correct', () => {
-    const wrapper = render(FDPaginator, {
+    const wrapper = render(AppPaginator, {
       pages: 10,
       currentPage: 8
     });
