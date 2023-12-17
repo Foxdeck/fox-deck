@@ -10,11 +10,16 @@ import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
 import {useNotesStore} from "@/modules/notes/stores/notes.store";
 import type {NoteResponseDto} from "@/core/services/api";
 import AppButton from "@/core/components/AppButton/AppButton.vue";
+import {onMounted} from "vue";
+import {useNotes} from "@/modules/notes/composables/useNotes";
 
 const authStore = useAuthStore();
 const notesStore = useNotesStore();
+const { fetchNotes } = useNotes();
 const {t} = useI18n();
 const {getVisibleRoutes, push, isRouteSelected} = useFoxdeckRouter();
+
+onMounted(async () => await fetchNotes());
 
 async function logout() {
   await authStore.logout();
