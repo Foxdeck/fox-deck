@@ -73,7 +73,7 @@ function getButtonTypeFromVariant(variant: AppButtonVariant): AppButtonType {
   >
     <component :is="getButtonTypeFromVariant(variant)">
       <span
-        class="flex gap-2 p-2 primary-text"
+        class="flex gap-2 p-2"
       >
         <AppIcon
           v-if="icon"
