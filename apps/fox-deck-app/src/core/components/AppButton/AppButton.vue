@@ -31,8 +31,8 @@ type AppButtonVariant = "tonal" | "outlined" | "text";
 /**
  * Defines the width of the button.
  *
- @property {"block"} block - The button takes up the minimum width required to display its content.
- @property {"full"} full - The button expands to take up the full width of its container.
+ * @property {"block"} block - The button takes up the minimum width required to display its content.
+ * @property {"full"} full - The button expands to take up the full width of its container.
  */
 type AppButtonWidth = "block" | "full";
 
