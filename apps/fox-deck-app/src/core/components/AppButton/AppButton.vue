@@ -42,7 +42,10 @@ function getButtonTypeFromVariant(variant: AppButtonVariant): AppButtonType {
           data-testid="button-icon"
           :icon="icon"
         />
-        <span data-testid="button-label">{{ label }}</span>
+        <span
+          v-if="label"
+          data-testid="button-label"
+        >{{ label }}</span>
       </span>
     </component>
   </div>
