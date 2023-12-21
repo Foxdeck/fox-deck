@@ -1,14 +1,9 @@
 <script setup lang="ts">
 import AppButton from "@/core/components/AppButton/AppButton.vue";
-import {Icon} from "@/core/components/AppIcon/icons";
+import type {AppPaginatorItemProps} from "@/core/components/AppPaginator/AppPaginator.types";
 
-type AppPaginatorItem = {
-  isSelected?: boolean;
-  label?: string;
-  icon?: Icon
-}
 
-withDefaults(defineProps<AppPaginatorItem>(), {
+withDefaults(defineProps<AppPaginatorItemProps>(), {
   isSelected: false,
   label: undefined,
   icon: undefined

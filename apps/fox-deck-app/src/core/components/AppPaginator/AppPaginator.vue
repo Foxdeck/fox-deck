@@ -2,40 +2,46 @@
 import {MathUtil} from "@/core/util/math.util";
 import AppPaginatorItem from "@/core/components/AppPaginator/AppPaginatorItem.vue";
 import {Icon} from "@/core/components/AppIcon/icons";
+import type {AppPaginatorProps} from "@/core/components/AppPaginator/AppPaginator.types";
 
-const props = defineProps({
-  currentPage: {type: Number, default: 1},
-  pages: {type: Number, default: 1},
+const props = withDefaults(defineProps<AppPaginatorProps>(), {
+  currentPage: 1,
+  pages: 5
 });
-
 const emit = defineEmits<{
   (e: "onPaginate", value: number);
 }>();
-
 const displayPageAmount = props.pages < 5 ? props.pages : 5;
 const minPage = 1;
 
-function generatePaginatorNumbers(): number[] {
-  // TODO: refactor this to make it more logical, this is currently hard to read.
-  const isFirstPages = props.currentPage < displayPageAmount;
-  const isLastPages = props.currentPage >= props.pages - displayPageAmount + displayPageAmount - 1;
-  const isBetweenFirstAndLastPages = !isFirstPages && !isLastPages;
+function isFirstPages(): boolean {
+  return props.currentPage < displayPageAmount;
+}
 
-  if (isFirstPages) {
-    return MathUtil.range(displayPageAmount!, minPage);
+function isLastPages(): boolean {
+  return props.currentPage >= props.pages - displayPageAmount + displayPageAmount - 1;
+}
+
+function isBetweenFirstAndLastPages(): boolean {
+  return !isFirstPages() && !isLastPages();
+}
+
+function generatePaginatorNumbers(): number[] {
+  if (isFirstPages()) {
+    return MathUtil.range(displayPageAmount, minPage);
   }
 
-  if (isBetweenFirstAndLastPages) {
+  if (isBetweenFirstAndLastPages()) {
     return MathUtil.range(
-        displayPageAmount!,
-        props.currentPage - 2,
+      displayPageAmount,
+      props.currentPage - 2,
     );
   }
 
-  if (isLastPages) {
+  if (isLastPages()) {
     return MathUtil.range(
-        displayPageAmount!,
-        props.pages - displayPageAmount + 1,
+      displayPageAmount,
+      props.pages - displayPageAmount + 1,
     );
   }
 }
@@ -58,7 +64,6 @@ function onPaginatePrev() {
   }
 }
 </script>
-
 <template>
   <div class="flex justify-center items-center gap-1">
     <AppPaginatorItem

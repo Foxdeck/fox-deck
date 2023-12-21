@@ -1,6 +1,7 @@
 import {describe, expect, it} from 'vitest'
 import AppPaginator from './AppPaginator.vue'
 import {render} from "@/testing/utils/vue-test-utils";
+import type {DOMWrapper} from "@vue/test-utils";
 
 
 describe('FDPaginator', () => {
@@ -10,14 +11,9 @@ describe('FDPaginator', () => {
       currentPage: 2
     });
 
-    const paginatorItem = wrapper.findAll("[data-testid=paginator-item]");
+    const paginatorItems = wrapper.findAll(AppPaginatorSpecHelper.paginatorItem);
 
-    const expectedNumbers = ["1","2","3","4","5"];
-    paginatorItem.forEach((item, index) => {
-      expect(item.text()).toBe(expectedNumbers[index])
-    })
-
-    expect(paginatorItem.length).toEqual(5);
+    expect(AppPaginatorSpecHelper.getPaginatorItemsText(paginatorItems)).toEqual(["1","2","3","4","5"]);
   })
 
   it('should calculate the pages between correct', () => {
@@ -26,14 +22,9 @@ describe('FDPaginator', () => {
       currentPage: 4
     });
 
-    const paginatorItem = wrapper.findAll("[data-testid=paginator-item]");
+    const paginatorItems = wrapper.findAll(AppPaginatorSpecHelper.paginatorItem);
 
-    const expectedNumbers = ["1","2","3","4","5"];
-    paginatorItem.forEach((item, index) => {
-      expect(item.text()).toBe(expectedNumbers[index])
-    })
-
-    expect(paginatorItem.length).toEqual(5);
+    expect(AppPaginatorSpecHelper.getPaginatorItemsText(paginatorItems)).toEqual(["1","2","3","4","5"]);
   })
 
   it('should calculate the last pages correct', () => {
@@ -42,13 +33,19 @@ describe('FDPaginator', () => {
       currentPage: 8
     });
 
-    const paginatorItem = wrapper.findAll("[data-testid=paginator-item]");
+    const paginatorItems = wrapper.findAll(AppPaginatorSpecHelper.paginatorItem);
 
-    const expectedNumbers2 = ["6","7","8","9","10"];
-    paginatorItem.forEach((item, index) => {
-      expect(item.text()).toBe(expectedNumbers2[index])
-    })
-
-    expect(paginatorItem.length).toEqual(5);
+    expect(AppPaginatorSpecHelper.getPaginatorItemsText(paginatorItems)).toEqual(["6","7","8","9","10"]);
   })
 })
+
+/**
+ * Helper functions for writing UI tests for the paginator component.
+ */
+const AppPaginatorSpecHelper = {
+  paginatorItem: "[data-testid=paginator-item]",
+
+  getPaginatorItemsText: (paginatorItems: DOMWrapper<Element>[]): string[] => {
+    return paginatorItems.map((item) => item.text());
+  },
+}
