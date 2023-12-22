@@ -1,5 +1,9 @@
-import {Meta} from "@storybook/addon-docs";
+import {Meta} from "@storybook/blocks";
 import Banner from "./storybook-introduction-banner.png";
+import IntroductionButton from "./INTRODUCTION_BUTTON.png";
+import IntroductionCard from "./INTRODUCTION_CARD.png";
+import IntroductionTextField from "./INTRODUCTION_TEXTFIELD.png";
+
 
 <Meta title="Getting Started/Introduction"/>
 
@@ -11,12 +15,51 @@ import Banner from "./storybook-introduction-banner.png";
   `}
 </style>
 
-<img alt="Banner" src={Banner} />
+<img alt="Banner" src={Banner}/>
 
-
-<article className="flex gap-4 p-4 my-4 text-sm text-white rounded-md shadow-2xl shadow-primary-500/60 normalize-p bg-primary-500">
-  <span className="fi fi-rr-hand-wave !text-2xl" />
+<article className="flex gap-4 p-4 my-4 text-sm text-white rounded-md normalize-p bg-gray-800 text-white">
+  <span className="fi fi-rr-hand-wave !text-2xl"/>
   This documentation should show you the basics of Foxdecks UI. It should be the comprehensive Guidelines for UI/UX
   decisions made within the Software. We highly recommend reading this guidelines, if you are interested in development
   of the Foxdeck Front-End.
 </article>
+
+<h1 className="!text-white !mt-12">Components</h1>
+<h2 className="!text-white !text-base !mb-6">Components are interactive building blocks for creating a user interface.</h2>
+
+<div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+  <a href="/?path=/docs/components-buttons--docs">
+    <div className="bg-gray-700 text-white rounded-xl overflow-hidden cursor-pointer transition hover:bg-gray-600">
+      <img className="rounded-xl h-[200px] w-full object-cover"
+           src={IntroductionButton}
+      />
+      <div className="flex flex-col gap-2 px-4 py-5">
+        <span className="!text-2xl">Buttons</span>
+        <article className="!text-sm">Buttons prompt most actions in a UI.</article>
+      </div>
+    </div>
+  </a>
+  <a href="/?path=/story/components-textfield--filled">
+    <div className="bg-gray-700 text-white rounded-xl overflow-hidden cursor-pointer transition hover:bg-gray-600">
+      <img className="rounded-xl h-[200px] w-full object-cover"
+           src={IntroductionTextField}
+      />
+      <div className="flex flex-col gap-2 px-4 py-5">
+        <span className="!text-2xl">TextField</span>
+        <article className="!text-sm">TextFields lets the users enter text into the UI.</article>
+      </div>
+    </div>
+  </a>
+  <a href="/?path=/story/components-cards--default">
+    <div className="bg-gray-700 text-white rounded-xl overflow-hidden cursor-pointer transition hover:bg-gray-600">
+      <img className="rounded-xl h-[200px] w-full object-cover"
+           src={IntroductionCard}
+      />
+      <div className="flex flex-col gap-2 px-4 py-5">
+        <span className="!text-2xl">Cards</span>
+        <article className="!text-sm">Cards display content in a elevated container.</article>
+      </div>
+    </div>
+  </a>
+</div>
+

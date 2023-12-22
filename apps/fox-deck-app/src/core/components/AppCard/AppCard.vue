@@ -18,7 +18,7 @@ const hasCardFooter = () => props.actions.length > 0;
 
 <template>
   <section
-    class="flex flex-col shadow-md border rounded-2xl overflow-hidden"
+    class="flex flex-col shadow-md rounded-2xl overflow-hidden surface on-surface-text"
     data-testid="card"
   >
     <header

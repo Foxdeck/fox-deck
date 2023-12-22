@@ -3,7 +3,7 @@ import AppCard from "./AppCard.vue";
 import {Icon} from "@/core/components/AppIcon/icons";
 
 const meta = {
-  title: "Components/AppCards",
+  title: "Components/Cards",
   component: AppCard,
 } satisfies Meta<typeof AppCard>;
 
