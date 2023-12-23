@@ -39,7 +39,7 @@ const renderWelcomeMessage = () => `${t("common.hello")}, ${authStore.getUsernam
 <template>
   <aside
     v-if="authStore.isAuthenticated()"
-    class="flex flex-col justify-between w-full max-w-[300px] bg-white min-h-screen p-4 border-r shadow-md"
+    class="flex flex-col justify-between w-full max-w-[300px] min-h-screen on-surface-text p-4 border-r shadow-md"
   >
     <div class="flex flex-col">
       <FDTypography class="flex gap-2 font-bold items-center">
@@ -61,6 +61,7 @@ const renderWelcomeMessage = () => `${t("common.hello")}, ${authStore.getUsernam
           :to="route.path"
         >
           <AppButton
+            class="w-full primary-fixed rounded-full"
             variant="text"
             :label="t(route.label as string)"
             :icon="route.icon as Icon"
@@ -69,7 +70,7 @@ const renderWelcomeMessage = () => `${t("common.hello")}, ${authStore.getUsernam
       </div>
 
       <div class="mt-6 mb-2">
-        <span class="uppercase text-sm font-bold text-gray-600/70">notes</span>
+        <span class="uppercase text-sm font-bold on-surface-text">notes</span>
       </div>
       <AppButton
         v-for="note in notesStore.notes"
