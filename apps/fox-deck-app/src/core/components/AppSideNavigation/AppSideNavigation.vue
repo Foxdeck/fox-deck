@@ -12,6 +12,7 @@ import type {NoteResponseDto} from "@/core/services/api";
 import AppButton from "@/core/components/AppButton/AppButton.vue";
 import {onMounted} from "vue";
 import {useNotes} from "@/modules/notes/composables/useNotes";
+import AppSideNavigationItem from "@/core/components/AppSideNavigation/AppSideNavigationItem.vue";
 
 const authStore = useAuthStore();
 const notesStore = useNotesStore();
@@ -39,7 +40,7 @@ const renderWelcomeMessage = () => `${t("common.hello")}, ${authStore.getUsernam
 <template>
   <aside
     v-if="authStore.isAuthenticated()"
-    class="flex flex-col justify-between w-full max-w-[300px] min-h-screen on-surface-text p-4 border-r shadow-md"
+    class="flex flex-col justify-between w-full max-w-[300px] min-h-screen on-surface-text p-4 border-r shadow-md surface-container-lowest"
   >
     <div class="flex flex-col">
       <FDTypography class="flex gap-2 font-bold items-center">
@@ -54,15 +55,13 @@ const renderWelcomeMessage = () => `${t("common.hello")}, ${authStore.getUsernam
           :icon="Icon.PLUS"
         />
       </RouterLink>
-      <div class="flex flex-col gap-1">
+      <div class="flex flex-col gap-2">
         <RouterLink
           v-for="route in getVisibleRoutes()"
           :key="route.path"
           :to="route.path"
         >
-          <AppButton
-            class="w-full primary-fixed rounded-full"
-            variant="text"
+          <AppSideNavigationItem
             :label="t(route.label as string)"
             :icon="route.icon as Icon"
           />
@@ -72,19 +71,21 @@ const renderWelcomeMessage = () => `${t("common.hello")}, ${authStore.getUsernam
       <div class="mt-6 mb-2">
         <span class="uppercase text-sm font-bold on-surface-text">notes</span>
       </div>
-      <AppButton
-        v-for="note in notesStore.notes"
-        :key="note.id"
-        variant="text"
-        :label="note.title"
-        :icon="isNoteSelected(note) ? Icon.DOCUMENT_FILLED : Icon.DOCUMENT"
-        @click="push({
-          'name': NoteRouteNames.NOTE,
-          params: {
-            id: note.id
-          }
-        })"
-      />
+
+      <div class="flex flex-col gap-2">
+        <AppSideNavigationItem
+          v-for="note in notesStore.notes"
+          :key="note.id"
+          :label="note.title"
+          :icon="isNoteSelected(note) ? Icon.DOCUMENT_FILLED : Icon.DOCUMENT"
+          @click="push({
+            'name': NoteRouteNames.NOTE,
+            params: {
+              id: note.id
+            }
+          })"
+        />
+      </div>
     </div>
 
     <div class="flex gap-2 flex-wrap">
