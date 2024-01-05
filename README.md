@@ -1,57 +1,37 @@
-# Fox-Deck
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+<img src="./.github/assets/README-BANNER.png" alt="Logo" />
+
+[![Test & Deploy](https://github.com/Foxdeck/fox-deck/actions/workflows/test-and-deploy.yml/badge.svg)](https://github.com/Foxdeck/fox-deck/actions/workflows/test-and-deploy.yml) <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-<img src="./.github/assets/foxdeck-logo.png" alt="Logo" />
-
-[![Test & Deploy](https://github.com/Foxdeck/fox-deck/actions/workflows/test-and-deploy.yml/badge.svg)](https://github.com/Foxdeck/fox-deck/actions/workflows/test-and-deploy.yml)
-
 > [!note]  
-> We're particularly eager for fresh UX/UI ideas to enhance the Foxdeck experience. If you have any Ideas you can use the [»UX/UI Suggestions«](https://github.com/Foxdeck/fox-deck/discussions/34) board in disussions!
+> We're particularly eager for fresh UX/UI ideas to enhance the Foxdeck experience. If you have any Ideas you can use
+> the [»UX/UI Suggestions«](https://github.com/Foxdeck/fox-deck/discussions/34) board in disussions!
 
-Welcome to the future of learning with Foxdeck, a dynamic web application where flashcards meet community collaboration.
-At Foxdeck, we've digitalized the tried-and-true method of learning with flashcards, adding a twist of interactivity and
-user engagement. Here, not only can you create and manage your own digital flashcards, but you can also share them with
-and learn from a vibrant community. Whether you're looking to master new concepts, prepare for exams, or simply expand
-your knowledge, Foxdeck connects you with like-minded learners. Join our community and experience a new, collaborative
-approach to learning, one question at a time.
+Foxdeck is a dedicated note-taking application designed specifically to cater to the unique requirements of students.
+With its user-friendly interface and a wide range of features, Foxdeck simplifies the process of capturing and
+organizing your class notes, lecture summaries, and study materials. Whether you're a high school student or a college
+scholar, Foxdeck is your go-to tool for enhancing your academic experience and staying organized throughout your
+educational journey.
 
 > [!important]  
 > Please note that this project is currently in progress and may not yet be complete.
 
-<img src="./.github/assets/home.png" alt="Logo" />
-
-## ❓ Rediscovering Learning with Flashcards?
-
-The beauty of flashcards lies in their simplicity: small, digestible bits of information that effortlessly imprint on
-your memory. You'll notice a swift improvement in your ability to recall facts and understand concepts. Moreover, the
-repetitive process of reviewing flashcards transforms your study time into an engaging and enjoyable game-like
-experience, enhancing both the fun and efficacy of learning.
-
 ## 💫 Features
 
-Foxdeck emphasizes the creation of personalized questions. This approach is rooted in the philosophy that learning is
-most effective when it's tailored to the individual's style and needs. We are tying to make learning more engaging,
-efficient, and deeply personalized.
+### Empower your learning experience with flashcards
 
-### Empower your learning experience
+Empower your learning experience with the ability to create flashcards inside your study notes, which can be used to
+create questionnaires for you. Whether you're tackling complex theories, brushing up on language skills, or preparing
+for specific exams, crafting your own questions helps reinforce understanding and retention. Foxdeck makes it simple and
+efficient to personalize your learning journey.
 
-Empower your learning experience with the ability to create custom questions on Foxdeck! This feature puts the control
-in your hands, allowing you to tailor your study material to perfectly fit your learning needs. Whether you're tackling
-complex theories, brushing up on language skills, or preparing for specific exams, crafting your own questions helps
-reinforce understanding and retention. With a user-friendly interface, Foxdeck makes it simple and efficient to
-personalize your learning journey. Start creating your questions today and study smarter, not harder.
-
-### Share your questions with the community
+### Share your flashcards and notes with the community
 
 Unlock the power of collective learning with Foxdeck's community-sharing feature! This platform isn't just about
-personal learning; it's about growing together. Share your custom-made flashcards and tap into a wealth of knowledge
+personal learning; it's about growing together. Share your notes and flashcards and tap into a wealth of knowledge
 from fellow learners. Whether you're seeking input on tricky questions or offering insights into challenging topics, our
-community is here to support and enrich your learning journey. Engage, interact, and discover new perspectives – all
-while helping others on their path to knowledge.
-
-<img src="./.github/assets/feature_question.gif" alt="Logo" />
+community is here to support and enrich your learning journey.
 
 ## 🖥️ Get Involved in Development
 
@@ -69,7 +49,7 @@ available for the IDEs:
 * **IntelliJ:** https://plugins.jetbrains.com/plugin/13389-conventional-commit
 * **VSCode:** https://marketplace.visualstudio.com/items?itemName=vivaxy.vscode-conventional-commits
 
-## Contributors
+## 👥 Contributors
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->

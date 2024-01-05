@@ -8,6 +8,10 @@ IMPORTANT: Please note that this documentation is currently in progress and may 
 This document provides a comprehensive guide to the software's architecture, highlighting key components and their interactions to facilitate efficient development and collaboration.
 It is designed to help developers build an understanding of the code and its philosophies in order to help shape and extend the software.
 
+== Our goal
+
+We want to help students organizing their class notes, lecture summaries and study materials and create questions about these topics to help remembering all the things.
+
 == Understanding the basic structure
 
 One of the most difficult things is to find your way around the code of other developers.
