@@ -11,6 +11,10 @@ import {de} from "@/i18n/de";
 import {en} from "@/i18n/en";
 import Vue3Lottie from "vue3-lottie";
 
+// Vuetify
+import 'vuetify/styles'
+import {vuetify} from "@/vuetify";
+
 const app = createApp(App);
 
 const i18n = createI18n({
@@ -27,6 +31,7 @@ app.use(InlineSvgPlugin);
 app.use(createPinia());
 app.use(router);
 app.use(i18n);
+app.use(vuetify);
 app.use(Vue3Lottie);
 app.component(VueFeather.name, VueFeather);
 

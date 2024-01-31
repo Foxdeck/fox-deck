@@ -1,52 +1,51 @@
 <script setup lang="ts">
+import type {AppButtonProps} from "@/core/components/AppButton/AppButton.types";
 import AppIcon from "@/core/components/AppIcon/AppIcon.vue";
-import type {AppButtonProps, AppButtonType, AppButtonVariant} from "@/core/components/AppButton/AppButton.types";
 
-// we are using googles material-design buttons as foundation, imported here and used as web-components in the template
-// @see https://m3.material.io/components/buttons/specs
-// @see https://github.com/material-components/material-web/blob/main/docs/components/button.md
-import "@material/web/button/text-button.js";
-import "@material/web/button/filled-tonal-button.js";
-import "@material/web/button/outlined-button.js";
+// we are using vuetify buttons as foundation:
+// @see https://vuetifyjs.com/en/components/buttons
 
 withDefaults(defineProps<AppButtonProps>(), {
   variant: "tonal",
-  width: "block"
+  block: false,
 });
 
-/**
- * Function which maps button variant to the web-component tag.
- */
-function getButtonTypeFromVariant(variant: AppButtonVariant): AppButtonType {
-  const buttonTypesMapping: Record<AppButtonVariant, AppButtonType> = {
-    "tonal": "md-filled-tonal-button",
-    "outlined": "md-outlined-button",
-    "text": "md-text-button"
-  };
-
-  return buttonTypesMapping[variant];
-}
 </script>
 <template>
-  <div
-    :class="{
-      'flex flex-col': width === 'full'
-    }"
+  <v-btn
+    data-testid="button"
+    class="text-none"
+    :block="block"
+    :variant="variant"
+    :rounded="rounded as string"
   >
-    <component :is="getButtonTypeFromVariant(variant)">
+    <span class="flex gap-2">
+      <AppIcon
+        v-if="icon"
+        data-testid="button-icon"
+        :icon="icon"
+      />
       <span
-        class="flex gap-2 p-2"
+        v-if="label"
+        data-testid="button-label"
       >
-        <AppIcon
-          v-if="icon"
-          data-testid="button-icon"
-          :icon="icon"
-        />
-        <span
-          v-if="label"
-          data-testid="button-label"
-        >{{ label }}</span>
+        {{ label }}
       </span>
-    </component>
-  </div>
+    </span>
+  </v-btn>
+  <!--    <component :is="getButtonTypeFromVariant(variant)">-->
+  <!--      <span-->
+  <!--        class="flex gap-2 p-2"-->
+  <!--      >-->
+  <!--        <AppIcon-->
+  <!--          v-if="icon"-->
+  <!--          data-testid="button-icon"-->
+  <!--          :icon="icon"-->
+  <!--        />-->
+  <!--        <span-->
+  <!--          v-if="label"-->
+  <!--          data-testid="button-label"-->
+  <!--        >{{ label }}</span>-->
+  <!--      </span>-->
+  <!--    </component>-->
 </template>
