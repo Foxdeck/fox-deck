@@ -14,7 +14,7 @@ describe("AppButton", () => {
       }
     );
 
-    const buttonElement = wrapper.find(AppButtonSpecHelper.buttonElementSelector);
+    const buttonElement = wrapper.find("md-filled-tonal-button");
 
     expect(AppButtonSpecHelper.isButtonVisible(buttonElement)).toBeTruthy();
     expect(AppButtonSpecHelper.hasLabel(buttonElement, "Click me!")).toBeTruthy();
@@ -29,7 +29,7 @@ describe("AppButton", () => {
       }
     );
 
-    const buttonElement = wrapper.find(AppButtonSpecHelper.buttonElementSelector);
+    const buttonElement = wrapper.find("md-outlined-button");
 
     expect(AppButtonSpecHelper.isButtonVisible(buttonElement)).toBeTruthy();
     expect(AppButtonSpecHelper.hasLabel(buttonElement, "Click me!")).toBeTruthy();
@@ -44,7 +44,7 @@ describe("AppButton", () => {
       }
     );
 
-    const buttonElement = wrapper.find(AppButtonSpecHelper.buttonElementSelector);
+    const buttonElement = wrapper.find("md-text-button");
 
     expect(AppButtonSpecHelper.isButtonVisible(buttonElement)).toBeTruthy();
     expect(AppButtonSpecHelper.hasLabel(buttonElement, "Click me!")).toBeTruthy();
@@ -58,7 +58,7 @@ describe("AppButton", () => {
       }
     );
 
-    const buttonElement = wrapper.find(AppButtonSpecHelper.buttonElementSelector);
+    const buttonElement = wrapper.find("md-text-button");
 
     expect(AppButtonSpecHelper.isButtonVisible(buttonElement)).toBeTruthy();
     expect(AppButtonSpecHelper.doesLabelExist(buttonElement)).toBeFalsy();
@@ -68,11 +68,11 @@ describe("AppButton", () => {
   it("should render only the label", async () => {
     const wrapper = render<AppButtonProps>(AppButton, {
         variant: "text",
-        label: "Click me!",
+      label: "Click me!",
       }
     );
 
-    const buttonElement = wrapper.find(AppButtonSpecHelper.buttonElementSelector);
+    const buttonElement = wrapper.find("md-text-button");
 
     expect(AppButtonSpecHelper.isButtonVisible(buttonElement)).toBeTruthy();
     expect(AppButtonSpecHelper.doesIconExist(buttonElement)).toBeFalsy();
@@ -84,7 +84,6 @@ describe("AppButton", () => {
  * Helper functions for writing UI tests for the button component.
  */
 const AppButtonSpecHelper = {
-  buttonElementSelector: "[data-testid=button]",
   labelElementSelector: "[data-testid=button-label]",
   iconElementSelector: "[data-testid=button-icon]",
 

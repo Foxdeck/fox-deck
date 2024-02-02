@@ -1,20 +1,31 @@
 import type {Icon} from "@/core/components/AppIcon/icons";
 
 /**
+ * The button types are the material-design buttons, which can be used.
+ * The string matches the web-component's html tag.
+ *
+ * @example
+ * <!-- material filled tonal button -->
+ * <md-filled-tonal-button></md-filled-tonal-button>
+ * <!-- material outlined button -->
+ * <md-outlined-button></md-outlined-button>
+ * <!-- material text button -->
+ * <md-text-button></md-text-button>
+ */
+export type AppButtonType = "md-filled-tonal-button" | "md-outlined-button" | "md-text-button";
+
+/**
  * The variants can be used to define, which kind of buttons the application supports.
  */
-export type AppButtonVariant = "tonal" | "outlined" | "text" | "plain";
+export type AppButtonVariant = "tonal" | "outlined" | "text";
 
 /**
- * The size property is used to control the size of the button and scales with density. The default size is undefined
- * which essentially translates to medium.
+ * Defines the width of the button.
+ *
+ * @property block - The button takes up the minimum width required to display its content.
+ * @property full - The button expands to take up the full width of its container.
  */
-export type AppButtonSize = undefined | "x-small" | "small" | "large" | "x-large";
-
-/**
- * Use the rounded prop to control the border radius of a button.
- */
-export type AppButtonRounded = undefined | "sm" | "lg" | "xl";
+export type AppButtonWidth = "block" | "full";
 
 
 /**
@@ -24,7 +35,5 @@ export type AppButtonProps = {
   label?: string;
   icon?: Icon;
   variant?: AppButtonVariant;
-  block?: boolean;
-  size?: AppButtonSize;
-  rounded?: AppButtonRounded;
+  width?: AppButtonWidth;
 }
