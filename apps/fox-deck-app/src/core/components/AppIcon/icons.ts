@@ -3,6 +3,8 @@
  * Please try to sort the icons alphabetically.
  */
 export enum Icon {
+  CARET_RIGHT = "fi-rr-caret-right",
+  CARET_DOWN = "fi-rr-caret-down",
   CHECK = "fi-rr-check",
   CHEVRON_DOUBLE_RIGHT = "fi-rr-angle-double-right",
   CHEVRON_DOUBLE_LEFT = "fi-rr-angle-double-left",
@@ -14,6 +16,9 @@ export enum Icon {
   DOCUMENT_FILLED = "fi-sr-document",
   EDIT = "fi-rr-edit",
   FILTER = "fi-rr-filter",
+  FOLDER = "fi-rr-folder",
+  FOLDER_FILLED = "fi-sr-folder",
+  FOLDER_FILLED_OPEN = "fi-sr-folder-open",
   GRADUATION = "fi-rr-graduation-cap",
   HOME = "fi-rr-home",
   LOADING = "fi-rr-loading",
