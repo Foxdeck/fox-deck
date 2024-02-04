@@ -3,11 +3,10 @@ import {HstVue} from '@histoire/plugin-vue'
 
 export default defineConfig({
   theme: {
-    title: 'Acme Design System',
+    title: 'Foxdeck Design System',
     colors: {
       primary: defaultColors.cyan,
     },
-    logoHref: 'https://acme.com',
     hideColorSchemeSwitch: true,
     storeColorScheme: true,
   },
