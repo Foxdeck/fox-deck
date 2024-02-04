@@ -18,7 +18,7 @@ export enum Icon {
   FILTER = "fi-rr-filter",
   FOLDER = "fi-rr-folder",
   FOLDER_FILLED = "fi-sr-folder",
-  FOLDER_FILLED_OPEN = "fi-sr-folder-open",
+  FOLDER_FILLED_OPEN = "fi-rr-folder-open",
   GRADUATION = "fi-rr-graduation-cap",
   HOME = "fi-rr-home",
   LOADING = "fi-rr-loading",

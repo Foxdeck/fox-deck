@@ -3,13 +3,14 @@ import type {
   AppTreeViewItemOnItemSelect,
   AppTreeViewItemProps,
   AppTreeViewItemType
-} from "@/core/components/AppTreeView/AppTreeViewItem.types";
+} from "@/core/components/AppTreeViewItem/AppTreeViewItem.types";
 import AppIcon from "@/core/components/AppIcon/AppIcon.vue";
 import {Icon} from "@/core/components/AppIcon/icons";
 
 const props = withDefaults(defineProps<AppTreeViewItemProps>(), {
   isOpen: false,
-  label: ""
+  label: "",
+  isSelected: false
 });
 
 const emit = defineEmits<{
@@ -20,13 +21,18 @@ function getOpenIcon(isOpen: boolean): Icon {
   return isOpen ? Icon.CARET_DOWN : Icon.CARET_RIGHT;
 }
 
-function getTypeIcon(type: AppTreeViewItemType, isOpen: boolean): Icon {
-  if (type === "document") return Icon.DOCUMENT_FILLED;
-  if (type === "folder") {
-    if (isOpen) {
-      return Icon.FOLDER_FILLED_OPEN;
+function getTypeIcon(type: AppTreeViewItemType, isOpen: boolean, isSelected: boolean): Icon {
+  if (type === "document") {
+    if (isSelected) {
+      return Icon.DOCUMENT_FILLED;
     }
-    return Icon.FOLDER_FILLED;
+    return Icon.DOCUMENT;
+  }
+
+  if (type === "folder") {
+    if (isOpen) return Icon.FOLDER_FILLED_OPEN;
+
+    return Icon.FOLDER;
   }
 
   console.error("(getTypeIcon) => can not get type-icon: ", props);
@@ -56,7 +62,7 @@ function onItemSelect() {
       v-if="canBeOpened()"
       :icon="getOpenIcon(isOpen)"
     />
-    <AppIcon :icon="getTypeIcon(type, isOpen)" />
+    <AppIcon :icon="getTypeIcon(type, isOpen, isSelected)" />
     {{ label }}
   </span>
 </template>

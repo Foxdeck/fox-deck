@@ -14,6 +14,7 @@ export type AppTreeViewItemProps = {
   isSelected?: boolean;
   isOpen?: boolean;
   label?: string;
+  children?: AppTreeViewItemProps[];
 }
 
 /**

@@ -1,40 +1,94 @@
-<script setup>
-import AppTreeViewItem from "@/core/components/AppTreeView/AppTreeViewItem.vue";
+<script setup lang="ts">
+import AppTreeView from "@/core/components/AppTreeView/AppTreeView.vue";
+import type {AppTreeViewItemProps} from "@/core/components/AppTreeViewItem/AppTreeViewItem.types";
 
-function onAppTreeViewItemSelect(identifier) {
-  alert(identifier);
-}
+const items: AppTreeViewItemProps[] = [
+  {
+    identifier: "f-biology-1",
+    label: "Biology",
+    type: "folder",
+    isOpen: true,
+    children: [
+      {
+        identifier: "d-cell-biology",
+        type: "document",
+        label: "Cell Biology",
+      },
+      {
+        identifier: "f-genetics-1",
+        type: "folder",
+        label: "Genetics",
+        isOpen: true,
+        children: [
+          {
+            identifier: "d-dna-structure",
+            type: "document",
+            label: "DNA Structure",
+          },
+          {
+            identifier: "d-genetic-variation",
+            type: "document",
+            label: "Genetic Variation",
+          }
+        ]
+      },
+      {
+        identifier: "d-ecology",
+        isSelected: true,
+        type: "document",
+        label: "Ecology",
+      }
+    ]
+  },
+  {
+    identifier: "f-math-1",
+    label: "Mathematics",
+    type: "folder",
+    isOpen: true,
+    children: [
+      {
+        identifier: "f-algebra-1",
+        type: "folder",
+        label: "Algebra",
+        isOpen: false,
+      },
+      {
+        identifier: "d-geometry",
+        type: "document",
+        label: "Geometry",
+      }
+    ]
+  },
+  {
+    identifier: "f-history-1",
+    label: "History",
+    type: "folder",
+    isOpen: true,
+    children: [
+      {
+        identifier: "d-world-war-1",
+        type: "document",
+        label: "World War I",
+      },
+      {
+        identifier: "d-world-war-2",
+        type: "document",
+        label: "World War II",
+      }
+    ]
+  },
+  {
+    identifier: "d-todo-1",
+    label: "To-Do List",
+    type: "document"
+  }
+];
 
 </script>
 <template>
   <Story
-    title="Components/TreeView"
-    :layout="{ type: 'grid', iframe: false }"
+    title="Components/TreeView/TreeView"
   >
-    <Variant title="Folder">
-      <AppTreeViewItem
-        identifier="f-ecology-1"
-        type="folder"
-        label="Ecology"
-        @on-item-select="onAppTreeViewItemSelect"
-      />
-    </Variant>
-    <Variant title="Folder open">
-      <AppTreeViewItem
-        identifier="f-ecology-1"
-        type="folder"
-        label="Ecology"
-        :is-open="true"
-        @on-item-select="onAppTreeViewItemSelect"
-      />
-    </Variant>
-    <Variant title="Document">
-      <AppTreeViewItem
-        identifier="d-ecology-1"
-        type="document"
-        label="Ecology"
-        @on-item-select="onAppTreeViewItemSelect"
-      />
-    </Variant>
+    <AppTreeView :items="items" />
   </Story>
 </template>
