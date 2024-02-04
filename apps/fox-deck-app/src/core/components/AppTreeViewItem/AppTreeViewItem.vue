@@ -54,6 +54,9 @@ function onItemSelect() {
 <template>
   <span
     class="flex items-center gap-2 text-black p-2 rounded-md cursor-pointer hover:bg-gray-100"
+    :class="{
+      'bg-gray-100': isSelected
+    }"
     tabindex="0"
     @click="onItemSelect"
     @keydown.enter="onItemSelect"
