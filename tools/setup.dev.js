@@ -1,5 +1,8 @@
 const fs = require("fs");
+const util = require("util");
 const { exec } = require("child_process");
+
+const execPromise = util.promisify(exec);
 
 function copyEnvFiles() {
   const environmentFiles = [
@@ -19,15 +22,15 @@ function copyEnvFiles() {
   }
 }
 
-(() => {
+(async () => {
   console.log("Setup your developer environment...");
 
   console.log("Install dependencies...");
-  exec("npm i");
-  exec("npm run install:deps");
+  await execPromise("npm i");
+  await execPromise("npm run install:deps");
 
   console.log("Migrate your database...");
-  exec("cd ./apps/fox-deck-api && npm run prisma:migrate");
+  await execPromise("cd ./apps/fox-deck-api && npm run prisma:migrate");
 
   copyEnvFiles();
   console.log("Setup finished. Happy coding!");
