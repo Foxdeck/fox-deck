@@ -10,17 +10,25 @@ import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
 import {useNotesStore} from "@/modules/notes/stores/notes.store";
 import type {NoteResponseDto} from "@/core/services/api";
 import AppButton from "@/core/components/AppButton/AppButton.vue";
-import {onMounted} from "vue";
+import {onMounted, ref} from "vue";
 import {useNotes} from "@/modules/notes/composables/useNotes";
 import AppSideNavigationItem from "@/core/components/AppSideNavigation/AppSideNavigationItem.vue";
+import AppTreeView from "@/core/components/AppTreeView/AppTreeView.vue";
+import type {AppTreeViewItemProps} from "@/core/components/AppTreeViewItem/AppTreeViewItem.types";
+import {useFoxdeckNavigation} from "@/core/composables/useFoxdeckNavigation";
 
 const authStore = useAuthStore();
 const notesStore = useNotesStore();
 const { fetchNotes } = useNotes();
 const {t} = useI18n();
-const {getVisibleRoutes, push, isRouteSelected} = useFoxdeckRouter();
+const treeViewItems = ref<AppTreeViewItemProps[]>([]);
+const {push, isRouteSelected} = useFoxdeckRouter();
+const {getTreeViewItems} = useFoxdeckNavigation();
 
-onMounted(async () => await fetchNotes());
+onMounted(async () => {
+  await fetchNotes();
+  treeViewItems.value = await getTreeViewItems();
+});
 
 async function logout() {
   await authStore.logout();
@@ -33,6 +41,7 @@ const isNoteSelected = (note: NoteResponseDto) => isRouteSelected({
     id: note.id
   }
 });
+
 
 const renderWelcomeMessage = () => `${t("common.hello")}, ${authStore.getUsername()}`;
 
@@ -55,24 +64,13 @@ const renderWelcomeMessage = () => `${t("common.hello")}, ${authStore.getUsernam
           :icon="Icon.PLUS"
         />
       </RouterLink>
-      <div class="flex flex-col gap-2">
-        <RouterLink
-          v-for="route in getVisibleRoutes()"
-          :key="route.path"
-          :to="route.path"
-        >
-          <AppSideNavigationItem
-            :label="t(route.label as string)"
-            :icon="route.icon as Icon"
-          />
-        </RouterLink>
-      </div>
 
       <div class="mt-6 mb-2">
         <span class="uppercase text-sm font-bold on-surface-text">notes</span>
       </div>
 
       <div class="flex flex-col gap-2">
+        <AppTreeView :items="treeViewItems" />
         <AppSideNavigationItem
           v-for="note in notesStore.notes"
           :key="note.id"
