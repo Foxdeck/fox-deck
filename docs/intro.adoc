@@ -12,6 +12,22 @@ It is designed to help developers build an understanding of the code and its phi
 
 We want to help students organizing their class notes, lecture summaries and study materials and create questions about these topics to help remembering all the things.
 
+== Getting started
+
+=== Prerequisites
+
+- [NodeJS](https://nodejs.org/en)
+
+=== Installation
+
+We've built a script, which handles all the initial setup of your development environment by itself. You
+can start the script by running following console command:
+
+[source,bash]
+----
+$ npm run setup:dev
+----
+
 == Understanding the basic structure
 
 One of the most difficult things is to find your way around the code of other developers.

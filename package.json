@@ -10,7 +10,8 @@
     "install:api": "cd ./apps/fox-deck-api && npm i",
     "install:app": "cd ./apps/fox-deck-app && npm i",
     "lint": "npx eslint apps/**",
-    "lint:fix": "npx eslint apps/** --fix"
+    "lint:fix": "npx eslint apps/** --fix",
+    "setup:dev": "node tools/setup.dev.js"
   },
   "repository": {
     "type": "git",
