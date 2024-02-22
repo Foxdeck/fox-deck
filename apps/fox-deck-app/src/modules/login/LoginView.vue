@@ -14,7 +14,7 @@ const { push } = useFoxdeckRouter();
 const authService = useAuthStore();
 const { t } = useI18n();
 
-const hasLoginError = ref();
+const hasLoginError = ref(false);
 
 async function onFormSubmit({ email, password }) {
   try {
@@ -25,6 +25,9 @@ async function onFormSubmit({ email, password }) {
       name: HomeRouteNames.HOME,
     });
   } catch (e) {
+    if (e.error.statusCode === 401) {
+      // TODO: if login is not successful
+    }
     hasLoginError.value = true;
     return;
   }

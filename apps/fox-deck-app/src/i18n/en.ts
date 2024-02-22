@@ -17,8 +17,8 @@ export const en = {
   },
   login: {
     title: "Login",
-    new_user: "New User?",
-    create_account: "Create account",
+    new_user: "Don't have an account?",
+    create_account: "Sign up",
     email: "email",
     password: "password",
     validation: {
@@ -30,14 +30,14 @@ export const en = {
     login: "Login"
   },
   register: {
-    title: "Register",
+    title: "Sign Up",
     already_an_account: "Already have an account?",
     login_now: "Login now",
     email: "email",
     username: "username",
     password: "password",
     password_repeat: "repeat password",
-    register: "Register",
+    register: "Sign Up",
     validation: {
       email_required: "Please enter a valid e-mail",
       email_invalid: "Please enter a valid e-mail",
