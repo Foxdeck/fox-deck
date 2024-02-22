@@ -23,6 +23,7 @@ export const de = {
     password: "Passwort",
     validation: {
       email_required: "Bitte gib deine E-Mail ein",
+      email_invalid: "Bitte gib eine gültige E-Mail ein",
       password_required: "Bitte gib dein Passwort ein",
       login_error: "Anmeldung fehlgeschlagen! Bitte überprüfe deine E-Mail und dein Passwort."
     },
@@ -38,6 +39,12 @@ export const de = {
     password_repeat: "Passwort wiederholen",
     register: "Registrieren",
     validation: {
+      email_required: "Bitte gib deine E-Mail ein",
+      email_invalid: "Bitte gib eine gültige E-Mail ein",
+      username_required: "Bitte gib einen Benutzernamen ein",
+      password_required: "Bitte gib dein Passwort ein",
+      password_min_length_required: "Passwort muss mindestens 8 Zeichen enthalten",
+      password_must_match: "Passwörter müssen übereinstimmen",
       register_error: "Registrierung fehlgeschlagen!"
     }
   },

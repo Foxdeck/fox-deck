@@ -23,6 +23,7 @@ export const en = {
     password: "password",
     validation: {
       email_required: "Please enter your email",
+      email_invalid: "Please enter a valid e-mail",
       password_required: "Please enter your password",
       login_error: "Login failed! Please check your e-mail and password."
     },
@@ -38,6 +39,12 @@ export const en = {
     password_repeat: "repeat password",
     register: "Register",
     validation: {
+      email_required: "Please enter a valid e-mail",
+      email_invalid: "Please enter a valid e-mail",
+      username_required: "Please enter a username",
+      password_required: "Please enter your password",
+      password_min_length_required: "Password must contain at least 8 characters",
+      password_must_match: "Passwords must match",
       register_error: "Registration failed!"
     }
   },

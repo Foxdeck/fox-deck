@@ -7,13 +7,31 @@ import {LoginRouteNames} from "@/modules/login/routes";
 import FDTextInput from "@/core/components/FDTextInput/FDTextInput.vue";
 import FDFormBuilder, {type FormSchema} from "@/core/components/FDFormBuilder/FDFormBuilder.vue";
 import {useI18n} from "vue-i18n";
-import {registrationSchema} from "@/core/components/validation";
 import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
+import * as Yup from "yup";
 
 const { push } = useFoxdeckRouter();
 const { t } = useI18n();
 
 const hasRegisterError = ref();
+
+const registrationValidationSchema = Yup.object({
+  email: Yup.string()
+    .email(t("register.validation.email_invalid"))
+    .required(t("register.validation.email_required")),
+
+  username: Yup.string()
+    .required(t("register.validation.username_required")),
+
+  password: Yup.string()
+    .min(8, "register.validation.password_min_length_required")
+    .required(t("register.validation.password_required")),
+
+  passwordRepeat: Yup.string()
+    .oneOf([Yup.ref("password")], "register.validation.password_must_match")
+    .required(t("register.validation.password_required"))
+});
+
 
 const formSchema: FormSchema = {
   fields: [
@@ -42,7 +60,7 @@ const formSchema: FormSchema = {
       component: FDTextInput
     },
   ],
-  validation: registrationSchema,
+  validation: registrationValidationSchema,
   action: {
     label: "register.register"
   }

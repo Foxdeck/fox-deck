@@ -33,7 +33,7 @@ async function onFormSubmit({ email, password }) {
 }
 
 const loginValidationSchema = Yup.object().shape({
-  email: Yup.string().email().required(t("login.validation.email_required")),
+  email: Yup.string().email(t("login.validation.email_invalid")).required(t("login.validation.email_required")),
   password: Yup.string().required(t("login.validation.password_required")),
 });
 
