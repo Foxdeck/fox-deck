@@ -9,24 +9,12 @@ const {t} = useI18n();
   <div class="flex items-center justify-center">
     <img
       alt=""
-      class="h-screen w-[40%] object-cover"
-      src="https://images.pexels.com/photos/2574616/pexels-photo-2574616.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+      class="h-screen w-[50%] object-cover"
+      src="https://images.pexels.com/photos/2574616/pexels-photo-2574616.jpeg"
     >
     <div class="flex flex-col h-full w-full justify-center flex-wrap items-center max-w-[1440px]">
       <div class="z-50 mx-auto flex flex-col items-center gap-4">
         <Logo class="fixed right-12 top-12 w-12" />
-        <!--        <FDTypography-->
-        <!--          class="text-base font-bold"-->
-        <!--          type="p"-->
-        <!--        >-->
-        <!--          {{ t("common.foxdeck") }}-->
-        <!--        </FDTypography>-->
-        <!--        <FDTypography-->
-        <!--          class="w-56 text-center text-xs italic leading-relaxed"-->
-        <!--          type="p"-->
-        <!--        >-->
-        <!--          {{ t("common.intro_text") }}-->
-        <!--        </FDTypography>-->
         <FDTypography
           class="font-bold"
           type="h1"

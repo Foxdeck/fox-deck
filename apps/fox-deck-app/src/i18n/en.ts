@@ -42,8 +42,9 @@ export const en = {
       email_required: "Please enter a valid e-mail",
       email_invalid: "Please enter a valid e-mail",
       username_required: "Please enter a username",
+      username_min_length_required: "Username must contain at least {chars} characters",
       password_required: "Please enter your password",
-      password_min_length_required: "Password must contain at least 8 characters",
+      password_min_length_required: "Password must contain at least {chars} characters",
       password_must_match: "Passwords must match",
       register_error: "Registration failed!"
     }

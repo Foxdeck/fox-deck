@@ -10,10 +10,13 @@ import AppTextField from "@/core/components/AppTextField/AppTextField.vue";
 import LoginRegisterLayout from "@/modules/login/LoginRegisterLayout.vue";
 import {LoginRouteNames} from "@/modules/login/routes";
 
-const { push } = useFoxdeckRouter();
-const { t } = useI18n();
+const {push} = useFoxdeckRouter();
+const {t} = useI18n();
 
 const hasRegisterError = ref();
+
+const minUsernameCharacterLength = 6;
+const minPasswordCharacterLength = 8;
 
 const registrationValidationSchema = Yup.object({
   email: Yup.string()
@@ -21,14 +24,20 @@ const registrationValidationSchema = Yup.object({
     .required(t("register.validation.email_required")),
 
   username: Yup.string()
+    .min(minUsernameCharacterLength, t("register.validation.username_min_length_required", {
+      chars: minUsernameCharacterLength
+    }))
     .required(t("register.validation.username_required")),
 
   password: Yup.string()
-    .min(8, "register.validation.password_min_length_required")
+    .min(minPasswordCharacterLength, t("register.validation.password_min_length_required", {
+      chars: minPasswordCharacterLength
+    }))
+    .oneOf([Yup.ref("passwordRepeat")], t("register.validation.password_must_match"))
     .required(t("register.validation.password_required")),
 
   passwordRepeat: Yup.string()
-    .oneOf([Yup.ref("password")], "register.validation.password_must_match")
+    .oneOf([Yup.ref("password")], t("register.validation.password_must_match"))
     .required(t("register.validation.password_required"))
 });
 
@@ -55,7 +64,7 @@ const formSchema: FormSchema = {
     },
     {
       label: "register.password_repeat",
-      name: "password",
+      name: "passwordRepeat",
       type: "password",
       component: AppTextField
     },
@@ -73,9 +82,9 @@ const formSchema: FormSchema = {
  * @param password {string} password of the user to create
  * @param username {string} username of the user to create
  */
-async function onRegisterSubmit({ email, password, username }) {
+async function onRegisterSubmit({email, password, username}) {
   try {
-    await api.register.userControllerCreateUser({ email, password, username });
+    await api.register.userControllerCreateUser({email, password, username});
     await push({
       name: LoginRouteNames.LOGIN
     });
