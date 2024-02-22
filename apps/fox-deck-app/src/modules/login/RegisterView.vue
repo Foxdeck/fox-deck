@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import {ref} from "vue";
-import LoginRegisterLayout from "@/modules/login/LoginRegisterLayout.vue";
+import {useI18n} from "vue-i18n";
+import * as Yup from "yup";
 import {api} from "@/core/services";
 import {useFoxdeckRouter} from "@/core/composables/useFoxdeckRouter";
-import {LoginRouteNames} from "@/modules/login/routes";
-import FDTextInput from "@/core/components/FDTextInput/FDTextInput.vue";
 import FDFormBuilder, {type FormSchema} from "@/core/components/FDFormBuilder/FDFormBuilder.vue";
-import {useI18n} from "vue-i18n";
 import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
-import * as Yup from "yup";
+import AppTextField from "@/core/components/AppTextField/AppTextField.vue";
+import LoginRegisterLayout from "@/modules/login/LoginRegisterLayout.vue";
+import {LoginRouteNames} from "@/modules/login/routes";
 
 const { push } = useFoxdeckRouter();
 const { t } = useI18n();
@@ -39,25 +39,25 @@ const formSchema: FormSchema = {
       label: "register.email",
       name: "email",
       type: "email",
-      component: FDTextInput
+      component: AppTextField
     },
     {
       label: "register.username",
       name: "username",
       type: "text",
-      component: FDTextInput
+      component: AppTextField
     },
     {
       label: "register.password",
       name: "password",
       type: "password",
-      component: FDTextInput
+      component: AppTextField
     },
     {
       label: "register.password_repeat",
       name: "password",
       type: "password",
-      component: FDTextInput
+      component: AppTextField
     },
   ],
   validation: registrationValidationSchema,

@@ -56,6 +56,7 @@ defineEmits<{
     <!--       Instead we are using the <md-button> here. -->
     <AppButton
       v-if="formSchema.action"
+      class="mt-2"
       :label="t(formSchema.action.label)"
     />
   </VeeForm>

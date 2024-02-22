@@ -1,22 +1,20 @@
 <script setup lang="ts">
 import {ref} from "vue";
-import {useAuthStore} from "@/core/stores/auth.store";
-import LoginRegisterLayout from "@/modules/login/LoginRegisterLayout.vue";
-import {api} from "@/core/services";
-import {useFoxdeckRouter} from "@/core/composables/useFoxdeckRouter";
-import {HomeRouteNames} from "@/modules/home/routes";
-import FDFormBuilder, {FormSchema} from "@/core/components/FDFormBuilder/FDFormBuilder.vue";
-import FDTextInput from "@/core/components/FDTextInput/FDTextInput.vue";
 import * as Yup from "yup";
 import {useI18n} from "vue-i18n";
-import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
+import {useAuthStore} from "@/core/stores/auth.store";
+import {api} from "@/core/services";
+import {useFoxdeckRouter} from "@/core/composables/useFoxdeckRouter";
+import FDFormBuilder, {FormSchema} from "@/core/components/FDFormBuilder/FDFormBuilder.vue";
+import AppTextField from "@/core/components/AppTextField/AppTextField.vue";
+import LoginRegisterLayout from "@/modules/login/LoginRegisterLayout.vue";
+import {HomeRouteNames} from "@/modules/home/routes";
 
 const { push } = useFoxdeckRouter();
 const authService = useAuthStore();
 const { t } = useI18n();
 
 const hasLoginError = ref();
-
 
 async function onFormSubmit({ email, password }) {
   try {
@@ -43,13 +41,13 @@ const formSchema: FormSchema = {
       label: "login.email",
       name: "email",
       type: "email",
-      component: FDTextInput
+      component: AppTextField
     },
     {
       label: "login.password",
       name: "password",
       type: "password",
-      component: FDTextInput
+      component: AppTextField
     }
   ],
   validation: loginValidationSchema,
@@ -62,24 +60,6 @@ const formSchema: FormSchema = {
 <template>
   <LoginRegisterLayout>
     <template #form>
-      <FDTypography
-        type="h1"
-        class="pb-6"
-      >
-        {{ t("login.title") }}
-      </FDTypography>
-      <FDTypography
-        type="pxs"
-        class="text-sm"
-      >
-        {{ t("login.new_user") }}
-        <RouterLink
-          to="register"
-          class="underline text-primary-500"
-        >
-          {{ t("login.create_account") }}
-        </RouterLink>
-      </FDTypography>
       <FDFormBuilder
         :form-schema="formSchema"
         @on-submit="onFormSubmit"
