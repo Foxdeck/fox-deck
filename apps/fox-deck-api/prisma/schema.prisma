@@ -17,17 +17,7 @@ model User {
   secondname    String?
   email         String
   password      String
-  Question      Question[]
-  Questionnaire Questionnaire[]
   Note          Note[]
-}
-
-model Questionnaire {
-  id                 String               @id @default(uuid())
-  title              String               @default("")
-  author             User                 @relation(fields: [authorId], references: [id])
-  authorId           String               @default("")
-  QuestionAssignment QuestionAssignment[]
 }
 
 model Note {
@@ -36,28 +26,4 @@ model Note {
   title    String @default("")
   authorId String @default("")
   content  String
-}
-
-model Question {
-  id                 String               @id @default(uuid())
-  author             User                 @relation(fields: [authorId], references: [id])
-  authorId           String               @default("")
-  question           String
-  solution           String
-  isPublic           Boolean
-  notGoodAt          Int?                 @default(0)
-  average            Int?                 @default(0)
-  goodAt             Int?                 @default(0)
-  lastAnswered       DateTime?
-  category           String               @default("")
-  QuestionAssignment QuestionAssignment[]
-}
-
-model QuestionAssignment {
-  question        Question      @relation(fields: [questionId], references: [id])
-  questionId      String
-  questionnaire   Questionnaire @relation(fields: [questionnaireId], references: [id])
-  questionnaireId String
-
-  @@id([questionId, questionnaireId])
 }
