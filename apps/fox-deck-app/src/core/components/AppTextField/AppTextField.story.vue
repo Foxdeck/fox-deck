@@ -7,7 +7,7 @@ import {Icon} from "@/core/components/AppIcon/icons";
     title="Components/TextFields"
     :layout="{ type: 'grid', iframe: false }"
   >
-    <Variant title="Filled">
+    <Variant title="Filled with supporting text">
       <AppTextField
         label="E-Mail"
         variant="filled"
@@ -16,14 +16,7 @@ import {Icon} from "@/core/components/AppIcon/icons";
         :icon="Icon.SIGN_IN"
       />
     </Variant>
-    <Variant title="Outlined">
-      <AppTextField
-        variant="outlined"
-        placeholder="Search"
-        :icon="Icon.SEARCH"
-      />
-    </Variant>
-    <Variant title="Error">
+    <Variant title="Filled with error">
       <AppTextField
         label="E-Mail"
         variant="filled"
@@ -31,6 +24,13 @@ import {Icon} from "@/core/components/AppIcon/icons";
         error-text="E-Mail is not valid"
         :icon="Icon.SIGN_IN"
         :error="true"
+      />
+    </Variant>
+    <Variant title="Outlined">
+      <AppTextField
+        variant="outlined"
+        placeholder="Search"
+        :icon="Icon.SEARCH"
       />
     </Variant>
   </Story>
