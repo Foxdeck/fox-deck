@@ -7,7 +7,7 @@ import {useFoxdeckRouter} from "@/core/composables/useFoxdeckRouter";
 import FDFormBuilder, {type FormSchema} from "@/core/components/FDFormBuilder/FDFormBuilder.vue";
 import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
 import AppTextField from "@/core/components/AppTextField/AppTextField.vue";
-import LoginRegisterLayout from "@/modules/login/LoginRegisterLayout.vue";
+import LoginRegisterLayout from "@/modules/login/LoginSignUpLayout.vue";
 import {LoginRouteNames} from "@/modules/login/routes";
 
 const {push} = useFoxdeckRouter();
@@ -98,25 +98,19 @@ async function onRegisterSubmit({email, password, username}) {
 <template>
   <LoginRegisterLayout>
     <template #form>
-      <FDTypography
-        type="h1"
-        class="pb-6"
-      >
-        {{ t("register.title") }}
-      </FDTypography>
-      <FDTypography
-        type="pxs"
-        class="text-sm"
-      >
-        {{ t("register.already_an_account") }}
-        <RouterLink
-          to="login"
-          class="underline text-primary-500"
+      <div class="text-center block">
+        <FDTypography
+          class="font-bold"
+          type="h1"
         >
-          {{ t("register.login_now") }}
-        </RouterLink>
-      </FDTypography>
+          Create Account
+        </FDTypography>
+        <FDTypography type="psm">
+          In 5 minutes you can start learning
+        </FDTypography>
+      </div>
       <FDFormBuilder
+        class="mt-12"
         :form-schema="formSchema"
         @on-submit="onRegisterSubmit"
       />

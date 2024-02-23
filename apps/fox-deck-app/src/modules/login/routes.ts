@@ -15,7 +15,7 @@ export const loginRoutes: FoxdeckRoute[] = [
   {
     path: "/register",
     name: LoginRouteNames.REGISTER,
-    component: () => import("./RegisterView.vue"),
+    component: () => import("./SignUpView.vue"),
     isVisibleInNavigation: false,
   },
 ];

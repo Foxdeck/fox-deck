@@ -7,9 +7,10 @@ import {api} from "@/core/services";
 import {useFoxdeckRouter} from "@/core/composables/useFoxdeckRouter";
 import FDFormBuilder, {FormSchema} from "@/core/components/FDFormBuilder/FDFormBuilder.vue";
 import AppTextField from "@/core/components/AppTextField/AppTextField.vue";
-import LoginRegisterLayout from "@/modules/login/LoginRegisterLayout.vue";
+import LoginRegisterLayout from "@/modules/login/LoginSignUpLayout.vue";
 import {HomeRouteNames} from "@/modules/home/routes";
 import {ServerResponse} from "@/core/types/server-response.enum";
+import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
 
 const { push } = useFoxdeckRouter();
 const authService = useAuthStore();
@@ -74,7 +75,19 @@ const formSchema: FormSchema = {
 <template>
   <LoginRegisterLayout>
     <template #form>
+      <div class="text-center block">
+        <FDTypography
+          class="font-bold"
+          type="h1"
+        >
+          Welcome back!
+        </FDTypography>
+        <FDTypography type="psm">
+          Enter your email and password to access your account
+        </FDTypography>
+      </div>
       <FDFormBuilder
+        class="mt-12"
         :form-schema="formSchema"
         :is-form-error="formError.hasError"
         :form-error-text="formError.errorMessage"

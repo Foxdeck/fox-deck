@@ -8,6 +8,7 @@ import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
 import AppIcon from "@/core/components/AppIcon/AppIcon.vue";
 import {Icon} from "@/core/components/AppIcon/icons";
 import AppTextField from "@/core/components/AppTextField/AppTextField.vue";
+import AppSwitch from "@/core/components/AppSwitch/AppSwitch.vue";
 
 const { t } = useI18n();
 
@@ -84,6 +85,10 @@ function getIconForComponent(component: Component) {
     <!-- TODO: we need to make <form> to be submitted by pressing the 'Enter'-Key. -->
     <!--       This can be achieved by e.g. using a <input type="submit">-element inside the form. -->
     <!--       Instead we are using the <md-button> here. -->
+    <FDTypography
+      type="psm"
+      class="flex gap-2 items-center"
+    />
     <AppButton
       v-if="formSchema.action"
       class="mt-2"
