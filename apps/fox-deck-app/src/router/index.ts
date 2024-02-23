@@ -1,22 +1,16 @@
-import {createRouter, createWebHistory, type RouteLocationNormalized,} from "vue-router";
+import {createRouter, createWebHistory, type RouteLocationNormalized, type RouteRecordRaw,} from "vue-router";
 import {useAuthStore} from "@/core/stores/auth.store";
 import {LoginRouteNames, loginRoutes} from "@/modules/login/routes";
 import {HomeRouteNames, homeRoutes} from "@/modules/home/routes";
-import {QuestionRouteNames, questionRoutes} from "@/modules/questions/routes";
-import type {FoxdeckRoute} from "@/router/foxdeck-route.type";
-import {questionnaireRoutes} from "@/modules/questionnaires/routes";
 import {NoteRouteNames, noteRoutes} from "@/modules/notes/routes";
 
 export type RouteNames = LoginRouteNames
   | HomeRouteNames
-  | QuestionRouteNames
   | NoteRouteNames;
 
-export const routes: FoxdeckRoute[] = [
+export const routes: RouteRecordRaw[] = [
   ...loginRoutes,
   ...homeRoutes,
-  ...questionRoutes,
-  ...questionnaireRoutes,
   ...noteRoutes
 ];
 

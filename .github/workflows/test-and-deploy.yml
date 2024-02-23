@@ -44,30 +44,30 @@ jobs:
       - run: npm run test
 
   # build and deploy storybook
-  storybook_build:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./apps/fox-deck-app
-    name: Build and deploy design documentation
-    steps:
-      - uses: actions/checkout@v4
-      - name: Use Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18.x'
-      - run: npm ci
-      - run: npm run build-storybook
-      - name: deploy file
-        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
-        with:
-          username: ${{ secrets.FTP_USERNAME }}
-          server: ${{ secrets.FTP_SERVER }}
-          port: ${{ secrets.FTP_PORT }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local_path: './apps/fox-deck-app/storybook-static/*'
-          remote_path: '/design'
-          sftp_only: true
+#  storybook_build:
+#    runs-on: ubuntu-latest
+#    defaults:
+#      run:
+#        working-directory: ./apps/fox-deck-app
+#    name: Build and deploy design documentation
+#    steps:
+#      - uses: actions/checkout@v4
+#      - name: Use Node.js
+#        uses: actions/setup-node@v3
+#        with:
+#          node-version: '18.x'
+#      - run: npm ci
+#      - run: npm run build-storybook
+#      - name: deploy file
+#        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+#        with:
+#          username: ${{ secrets.FTP_USERNAME }}
+#          server: ${{ secrets.FTP_SERVER }}
+#          port: ${{ secrets.FTP_PORT }}
+#          password: ${{ secrets.FTP_PASSWORD }}
+#          local_path: './apps/fox-deck-app/storybook-static/*'
+#          remote_path: '/design'
+#          sftp_only: true
 
   # build and deploy the documentation
   adoc_build:

@@ -5,16 +5,13 @@ import {useThemeStore} from "@/core/stores/theme.store";
 import {useNotes} from "@/modules/notes/composables/useNotes";
 import {onMounted} from "vue";
 import {useI18n} from "vue-i18n";
-import {useFoxdeckRouter} from "@/core/composables/useFoxdeckRouter";
 import AppSideNavigation from "@/core/components/AppSideNavigation/AppSideNavigation.vue";
 
-const { save, fetchNotes } = useNotes();
+const { fetchNotes } = useNotes();
 const themeStore = useThemeStore();
 const { t } = useI18n();
-const { push } = useFoxdeckRouter();
 
 onMounted(async () => await fetchNotes());
-
 
 </script>
 
