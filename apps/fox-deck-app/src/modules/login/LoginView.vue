@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {ref} from "vue";
+import {reactive, ref} from "vue";
 import * as Yup from "yup";
 import {useI18n} from "vue-i18n";
 import {useAuthStore} from "@/core/stores/auth.store";
@@ -9,26 +9,37 @@ import FDFormBuilder, {FormSchema} from "@/core/components/FDFormBuilder/FDFormB
 import AppTextField from "@/core/components/AppTextField/AppTextField.vue";
 import LoginRegisterLayout from "@/modules/login/LoginRegisterLayout.vue";
 import {HomeRouteNames} from "@/modules/home/routes";
+import {ServerResponse} from "@/core/types/server-response.enum";
 
 const { push } = useFoxdeckRouter();
 const authService = useAuthStore();
 const { t } = useI18n();
 
-const hasLoginError = ref(false);
+const formError = reactive({
+  hasError: false,
+  errorMessage: ""
+});
 
 async function onFormSubmit({ email, password }) {
   try {
     const response = await api.login.userControllerGetUser({ email, password });
+
+    // if login is successful, store the JWT-Token
     const user = await response.data;
     authService.setJwt(user.accessToken);
+
+    formError.hasError = false;
     await push({
       name: HomeRouteNames.HOME,
     });
   } catch (e) {
-    if (e.error.statusCode === 401) {
-      // TODO: if login is not successful
+    formError.hasError = true;
+    if (e?.error?.statusCode === ServerResponse.AUTHENTICATION_ERROR) {
+      formError.errorMessage = t("login.error.authentication_error");
+      return;
     }
-    hasLoginError.value = true;
+
+    formError.errorMessage = t("login.error.generic_error");
     return;
   }
 }
@@ -53,10 +64,10 @@ const formSchema: FormSchema = {
       component: AppTextField
     }
   ],
-  validation: loginValidationSchema,
   action: {
-    label: "login.login"
-  }
+    label: "login.login",
+  },
+  validation: loginValidationSchema,
 };
 
 </script>
@@ -65,6 +76,8 @@ const formSchema: FormSchema = {
     <template #form>
       <FDFormBuilder
         :form-schema="formSchema"
+        :is-form-error="formError.hasError"
+        :form-error-text="formError.errorMessage"
         @on-submit="onFormSubmit"
       />
     </template>

@@ -12,23 +12,23 @@ const {t} = useI18n();
       class="h-screen w-[50%] object-cover"
       src="https://images.pexels.com/photos/2574616/pexels-photo-2574616.jpeg"
     >
-    <div class="flex flex-col h-full w-full justify-center flex-wrap items-center max-w-[1440px]">
-      <div class="z-50 mx-auto flex flex-col items-center gap-4">
-        <Logo class="fixed right-12 top-12 w-12" />
-        <FDTypography
-          class="font-bold"
-          type="h1"
-        >
-          Welcome back!
-        </FDTypography>
-        <FDTypography
-          type="psm"
-        >
-          Enter your email and password to access your account
-        </FDTypography>
-      </div>
-      <div class="col-span-1 flex flex-col gap-4 px-10 py-14 min-w-[500px] 3xl:gap-6 3xl:px-16 3xl:py-20">
-        <slot name="form" />
+    <div class="flex flex-col h-screen py-12 w-full justify-between flex-wrap items-center max-w-[1440px]">
+      <Logo class=" w-12" />
+      <div class="flex flex-col gap-8 px-10 py-14 min-w-[500px]">
+        <div class="flex flex-col items-center gap-4">
+          <FDTypography
+            class="font-bold"
+            type="h1"
+          >
+            Welcome back!
+          </FDTypography>
+          <FDTypography type="psm">
+            Enter your email and password to access your account
+          </FDTypography>
+        </div>
+        <div class="w-[400px] mt-8">
+          <slot name="form" />
+        </div>
       </div>
       <FDTypography
         type="psm"
@@ -37,7 +37,7 @@ const {t} = useI18n();
         {{ t("login.new_user") }}
         <RouterLink
           to="register"
-          class="font-bold text-primary-500"
+          class="font-bold underline text-primary-500"
         >
           {{ t("login.create_account") }}
         </RouterLink>

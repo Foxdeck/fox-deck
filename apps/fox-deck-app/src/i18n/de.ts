@@ -27,6 +27,10 @@ export const de = {
       password_required: "Bitte gib dein Passwort ein",
       login_error: "Anmeldung fehlgeschlagen! Bitte überprüfe deine E-Mail und dein Passwort."
     },
+    error: {
+      authentication_error: "Die eingegebene E-Mail-Adresse oder das Passwort ist ungültig. Bitte überprüfen Sie Ihre Eingaben und versuchen Sie es erneut.",
+      generic_error: "Es ist ein unerwarteter Fehler aufgetreten. Bitte laden Sie die Seite neu und versuchen Sie es erneut",
+    },
     login: "Anmelden"
   },
   register: {

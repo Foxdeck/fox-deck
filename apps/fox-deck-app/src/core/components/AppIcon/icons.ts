@@ -31,5 +31,6 @@ export enum Icon {
   SIGN_OUT = "fi-rr-exit",
   SIGN_IN = "fi-rr-enter",
   SETTINGS = "fi-rr-settings",
+  WARNING = "fi fi-rr-triangle-warning",
   X = "fi-rr-cross"
 }

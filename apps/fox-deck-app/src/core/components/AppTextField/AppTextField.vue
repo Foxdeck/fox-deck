@@ -30,7 +30,7 @@ const props = withDefaults(defineProps<AppTextFieldProps>(), {
   label: "",
   placeholder: "",
   type: "text",
-  error: false,
+  error: true,
   iconPosition: "leading",
   errorText: "",
   icon: undefined,

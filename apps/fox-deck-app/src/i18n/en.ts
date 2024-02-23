@@ -19,15 +19,19 @@ export const en = {
     title: "Login",
     new_user: "Don't have an account?",
     create_account: "Sign up",
-    email: "email",
-    password: "password",
+    email: "Email",
+    password: "Password",
     validation: {
       email_required: "Please enter your email",
       email_invalid: "Please enter a valid e-mail",
       password_required: "Please enter your password",
       login_error: "Login failed! Please check your e-mail and password."
     },
-    login: "Login"
+    error: {
+      authentication_error: "The email address or password you entered is invalid. Please check your entries and try again.",
+      generic_error: "An unexpected error has occurred. Please reload the page and try again",
+    },
+    login: "Sign In"
   },
   register: {
     title: "Sign Up",
