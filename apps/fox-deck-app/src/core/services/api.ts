@@ -9,31 +9,6 @@
  * ---------------------------------------------------------------
  */
 
-export interface QuestionResponseAuthorDto {
-  username: string;
-}
-
-export interface QuestionsResponseDto {
-  question: string;
-  solution: string;
-  isPublic: boolean;
-  authorId: string;
-  author: QuestionResponseAuthorDto;
-  average: number;
-  goodAt: number;
-  id: string;
-  /** @format date-time */
-  lastAnswered: string;
-  category: string;
-  notGoodAt: number;
-}
-
-export interface CreateQuestionRequestDto {
-  question: string;
-  solution: string;
-  isPublic: boolean;
-}
-
 export interface LoginResponseDto {
   accessToken: string;
 }
@@ -47,13 +22,6 @@ export interface CreateUserRequestDto {
   email: string;
   username: string;
   password: string;
-}
-
-export interface QuestionnaireResponseDto {
-  id: string;
-  authorId: string;
-  title: string;
-  questions: string[];
 }
 
 export interface NoteResponseDto {
@@ -286,98 +254,6 @@ export class HttpClient<SecurityDataType = unknown> {
  * This API handles requests from the FoxDeck Applications
  */
 export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDataType> {
-  question = {
-    /**
-     * No description
-     *
-     * @tags Questions
-     * @name QuestionControllerGetQuestionById
-     * @request GET:/question/{id}
-     */
-    questionControllerGetQuestionById: (id: string, params: RequestParams = {}) =>
-      this.request<QuestionsResponseDto, any>({
-        path: `/question/${id}`,
-        method: "GET",
-        format: "json",
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags Questions
-     * @name QuestionControllerDeleteQuestion
-     * @request DELETE:/question/{id}
-     * @secure
-     */
-    questionControllerDeleteQuestion: (id: string, params: RequestParams = {}) =>
-      this.request<void, any>({
-        path: `/question/${id}`,
-        method: "DELETE",
-        secure: true,
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags Questions
-     * @name QuestionControllerUpdateQuestion
-     * @request PUT:/question/{id}
-     * @secure
-     */
-    questionControllerUpdateQuestion: (id: string, data: CreateQuestionRequestDto, params: RequestParams = {}) =>
-      this.request<void, any>({
-        path: `/question/${id}`,
-        method: "PUT",
-        body: data,
-        secure: true,
-        type: ContentType.Json,
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags Questions
-     * @name QuestionControllerGetQuestions
-     * @request GET:/question
-     */
-    questionControllerGetQuestions: (
-      query?: {
-        search?: string;
-        page?: number;
-        /** @example ["public","private"] */
-        visibility?: string[];
-      },
-      params: RequestParams = {},
-    ) =>
-      this.request<QuestionsResponseDto[], any>({
-        path: `/question`,
-        method: "GET",
-        query: query,
-        format: "json",
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags Questions
-     * @name QuestionControllerCreateQuestion
-     * @request POST:/question
-     * @secure
-     */
-    questionControllerCreateQuestion: (data: CreateQuestionRequestDto, params: RequestParams = {}) =>
-      this.request<void, any>({
-        path: `/question`,
-        method: "POST",
-        body: data,
-        secure: true,
-        type: ContentType.Json,
-        ...params,
-      }),
-  };
   login = {
     /**
      * No description
@@ -410,37 +286,6 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         method: "POST",
         body: data,
         type: ContentType.Json,
-        ...params,
-      }),
-  };
-  questionnaire = {
-    /**
-     * No description
-     *
-     * @tags Questionnaire
-     * @name QuestionnaireControllerGetQuestionnaireById
-     * @request GET:/questionnaire/{id}
-     */
-    questionnaireControllerGetQuestionnaireById: (id: string, params: RequestParams = {}) =>
-      this.request<QuestionnaireResponseDto, any>({
-        path: `/questionnaire/${id}`,
-        method: "GET",
-        format: "json",
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags Questionnaire
-     * @name QuestionnaireControllerGetAllQuestionnaires
-     * @request GET:/questionnaire
-     */
-    questionnaireControllerGetAllQuestionnaires: (params: RequestParams = {}) =>
-      this.request<QuestionnaireResponseDto[], any>({
-        path: `/questionnaire`,
-        method: "GET",
-        format: "json",
         ...params,
       }),
   };

@@ -1,17 +1,13 @@
-import type {FoxdeckRoute} from "@/router/foxdeck-route.type";
-import {Icon} from "@/core/components/AppIcon/icons";
+import type {RouteRecordRaw} from "vue-router";
 
 export enum HomeRouteNames {
   HOME = "home",
 }
 
-export const homeRoutes: FoxdeckRoute[] = [
+export const homeRoutes: RouteRecordRaw[] = [
   {
     path: "/",
     name: HomeRouteNames.HOME,
     component: () => import("./HomeView.vue"),
-    isVisibleInNavigation: true,
-    icon: Icon.HOME,
-    label: "Home",
   },
 ];

@@ -1,21 +1,19 @@
-import type {FoxdeckRoute} from "@/router/foxdeck-route.type";
+import type {RouteRecordRaw} from "vue-router";
 
 export enum LoginRouteNames {
   LOGIN = "login",
   REGISTER = "register",
 }
 
-export const loginRoutes: FoxdeckRoute[] = [
+export const loginRoutes: RouteRecordRaw[] = [
   {
     path: "/login",
     name: LoginRouteNames.LOGIN,
     component: () => import("./LoginView.vue"),
-    isVisibleInNavigation: false,
   },
   {
     path: "/register",
     name: LoginRouteNames.REGISTER,
     component: () => import("./SignUpView.vue"),
-    isVisibleInNavigation: false,
   },
 ];
