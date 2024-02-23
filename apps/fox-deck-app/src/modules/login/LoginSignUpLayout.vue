@@ -23,7 +23,7 @@ function getRouteForSignInSignUp(currentRoute: RouteLocationNormalizedLoaded): L
   <div class="flex items-center justify-center">
     <img
       alt=""
-      class="h-screen w-[50%] object-cover"
+      class="h-screen w-[50%] object-cover hidden md:block"
       src="https://images.pexels.com/photos/2574616/pexels-photo-2574616.jpeg"
     >
     <div class="flex flex-col h-screen py-12 w-full justify-between flex-wrap items-center max-w-[1440px]">
