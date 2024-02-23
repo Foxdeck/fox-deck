@@ -23,8 +23,13 @@ export const de = {
     password: "Passwort",
     validation: {
       email_required: "Bitte gib deine E-Mail ein",
+      email_invalid: "Bitte gib eine gültige E-Mail ein",
       password_required: "Bitte gib dein Passwort ein",
       login_error: "Anmeldung fehlgeschlagen! Bitte überprüfe deine E-Mail und dein Passwort."
+    },
+    error: {
+      authentication_error: "Die eingegebene E-Mail-Adresse oder das Passwort ist ungültig. Bitte überprüfen Sie Ihre Eingaben und versuchen Sie es erneut.",
+      generic_error: "Es ist ein unerwarteter Fehler aufgetreten. Bitte laden Sie die Seite neu und versuchen Sie es erneut",
     },
     login: "Anmelden"
   },
@@ -38,6 +43,13 @@ export const de = {
     password_repeat: "Passwort wiederholen",
     register: "Registrieren",
     validation: {
+      email_required: "Bitte gib deine E-Mail ein",
+      email_invalid: "Bitte gib eine gültige E-Mail ein",
+      username_required: "Bitte gib einen Benutzernamen ein",
+      username_min_length_required: "Benutzername muss mindestens {chars} Zeichen enthalten",
+      password_required: "Bitte gib dein Passwort ein",
+      password_min_length_required: "Passwort muss mindestens {chars} Zeichen enthalten",
+      password_must_match: "Passwörter müssen übereinstimmen",
       register_error: "Registrierung fehlgeschlagen!"
     }
   },

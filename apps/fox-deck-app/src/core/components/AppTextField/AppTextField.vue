@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import {toRef} from "vue";
+import {useField} from "vee-validate";
 import "@material/web/textfield/filled-text-field";
 import "@material/web/textfield/outlined-text-field";
 import {Icon} from "@/core/components/AppIcon/icons";
@@ -9,31 +11,49 @@ type AppTextFieldVariant = "filled" | "outlined";
 type AppTextFieldIconPosition = "leading" | "trailing";
 
 export type AppTextFieldProps = {
-  modelValue: string;
-  variant?: AppTextFieldVariant;
-  label?: string;
-  placeholder?: string;
-  type?: AppTextFieldType;
-  error?: boolean;
-  errorText?: string;
-  icon?: Icon;
-  iconPosition?: AppTextFieldIconPosition
-  supportingText?: string;
+  modelValue?: string;
+  readonly variant?: AppTextFieldVariant;
+  readonly label?: string;
+  readonly placeholder?: string;
+  readonly type?: AppTextFieldType;
+  readonly error?: boolean;
+  readonly errorText?: string;
+  readonly icon?: Icon;
+  readonly iconPosition?: AppTextFieldIconPosition
+  readonly supportingText?: string;
+  readonly name?: string;
 }
 
-withDefaults(defineProps<AppTextFieldProps>(), {
+const props = withDefaults(defineProps<AppTextFieldProps>(), {
+  modelValue: "",
   variant: "outlined",
   label: "",
   placeholder: "",
   type: "text",
-  error: false,
+  error: true,
   iconPosition: "leading",
   errorText: "",
   icon: undefined,
-  supportingText: ""
+  supportingText: "",
+  name: ""
 });
 
-defineEmits(["update:modelValue"]);
+const emit = defineEmits(["update:modelValue"]);
+
+const name = toRef(props, "name");
+const {
+  value: modelValue,
+  errorMessage: errorText,
+  handleBlur,
+  handleChange,
+} = useField(name, undefined, {
+  initialValue: props.modelValue,
+});
+
+function onInput(e: Event) {
+  handleChange(e);
+  emit("update:modelValue", (e.target as HTMLInputElement).value as string);
+}
 </script>
 
 <template>
@@ -44,9 +64,10 @@ defineEmits(["update:modelValue"]);
     :placeholder="placeholder"
     :type="type"
     :error="error"
-    :error-text="errorText"
+    :error-text="error || errorText"
     :supporting-text="supportingText"
-    @input="$emit('update:modelValue', $event.target.value)"
+    @input="onInput"
+    @blur="handleBlur"
   >
     <AppIcon
       v-if="icon"
@@ -60,10 +81,11 @@ defineEmits(["update:modelValue"]);
     :value="modelValue"
     :placeholder="placeholder"
     :type="type"
-    :error="error"
+    :error="error || errorText"
     :error-text="errorText"
     :supporting-text="supportingText"
-    @input="$emit('update:modelValue', $event.target.value)"
+    @input="onInput"
+    @blur="handleBlur"
   >
     <AppIcon
       v-if="icon"

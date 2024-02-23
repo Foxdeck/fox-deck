@@ -17,27 +17,39 @@ export const en = {
   },
   login: {
     title: "Login",
-    new_user: "New User?",
-    create_account: "Create account",
-    email: "email",
-    password: "password",
+    new_user: "Don't have an account?",
+    create_account: "Sign up",
+    email: "Email",
+    password: "Password",
     validation: {
       email_required: "Please enter your email",
+      email_invalid: "Please enter a valid e-mail",
       password_required: "Please enter your password",
       login_error: "Login failed! Please check your e-mail and password."
     },
-    login: "Login"
+    error: {
+      authentication_error: "The email address or password you entered is invalid. Please check your entries and try again.",
+      generic_error: "An unexpected error has occurred. Please reload the page and try again",
+    },
+    login: "Sign In"
   },
   register: {
-    title: "Register",
+    title: "Sign Up",
     already_an_account: "Already have an account?",
     login_now: "Login now",
-    email: "email",
-    username: "username",
-    password: "password",
-    password_repeat: "repeat password",
-    register: "Register",
+    email: "Email",
+    username: "Username",
+    password: "Password",
+    password_repeat: "Repeat password",
+    register: "Sign Up",
     validation: {
+      email_required: "Please enter a valid e-mail",
+      email_invalid: "Please enter a valid e-mail",
+      username_required: "Please enter a username",
+      username_min_length_required: "Username must contain at least {chars} characters",
+      password_required: "Please enter your password",
+      password_min_length_required: "Password must contain at least {chars} characters",
+      password_must_match: "Passwords must match",
       register_error: "Registration failed!"
     }
   },
