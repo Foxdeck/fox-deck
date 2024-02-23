@@ -57,9 +57,25 @@ function getButtonTypeFromVariant(variant: AppButtonVariant): AppButtonType {
   </div>
 </template>
 
-<style scoped>
-md-filled-tonal-button.danger {
-  --md-sys-color-secondary-container: var(--md-sys-color-error);
-  --md-sys-color-on-secondary-container: var(--md-sys-color-on-error);
+<style scoped lang="scss">
+md-filled-tonal-button {
+  &.danger {
+    --md-sys-color-secondary-container: var(--md-sys-color-error);
+    --md-sys-color-on-secondary-container: var(--md-sys-color-on-error);
+  }
 }
+
+md-outlined-button {
+  &.danger {
+    --md-sys-color-primary: var(--md-sys-color-error);
+    --md-sys-color-outline: var(--md-sys-color-error);
+  }
+}
+
+md-text-button {
+  &.danger {
+    --md-sys-color-primary: var(--md-sys-color-error);
+  }
+}
+
 </style>

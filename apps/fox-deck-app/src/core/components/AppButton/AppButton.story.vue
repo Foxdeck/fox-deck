@@ -27,6 +27,29 @@ import {Icon} from "@/core/components/AppIcon/icons";
         :icon="Icon.CHEVRON_LEFT"
       />
     </Variant>
+    <Variant title="Tonal - Danger">
+      <AppButton
+        variant="tonal"
+        severity="danger"
+        label="Close"
+        :icon="Icon.X"
+      />
+    </Variant>
+    <Variant title="Outlined - Danger">
+      <AppButton
+        variant="outlined"
+        severity="danger"
+        label="Delete"
+      />
+    </Variant>
+    <Variant title="Text - Danger">
+      <AppButton
+        variant="text"
+        severity="danger"
+        label="Back"
+        :icon="Icon.CHEVRON_LEFT"
+      />
+    </Variant>
   </Story>
 </template>
 
