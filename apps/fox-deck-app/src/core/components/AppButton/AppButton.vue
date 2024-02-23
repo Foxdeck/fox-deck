@@ -11,7 +11,8 @@ import "@material/web/button/outlined-button.js";
 
 withDefaults(defineProps<AppButtonProps>(), {
   variant: "tonal",
-  width: "block"
+  width: "block",
+  severity: "primary"
 });
 
 /**
@@ -33,7 +34,12 @@ function getButtonTypeFromVariant(variant: AppButtonVariant): AppButtonType {
       'flex flex-col': width === 'full'
     }"
   >
-    <component :is="getButtonTypeFromVariant(variant)">
+    <component
+      :is="getButtonTypeFromVariant(variant)"
+      :class="{
+        danger: severity === 'danger'
+      }"
+    >
       <span
         class="flex gap-2 p-2"
       >
@@ -50,3 +56,10 @@ function getButtonTypeFromVariant(variant: AppButtonVariant): AppButtonType {
     </component>
   </div>
 </template>
+
+<style scoped>
+md-filled-tonal-button.danger {
+  --md-sys-color-secondary-container: var(--md-sys-color-error);
+  --md-sys-color-on-secondary-container: var(--md-sys-color-on-error);
+}
+</style>

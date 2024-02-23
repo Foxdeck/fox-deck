@@ -20,6 +20,11 @@ export type AppButtonType = "md-filled-tonal-button" | "md-outlined-button" | "m
 export type AppButtonVariant = "tonal" | "outlined" | "text";
 
 /**
+ * The severity of the button controls, in which color the button is rendered.
+ */
+export type AppButtonSeverity = "primary" | "danger";
+
+/**
  * Defines the width of the button.
  *
  * @property block - The button takes up the minimum width required to display its content.
@@ -35,5 +40,6 @@ export type AppButtonProps = {
   label?: string;
   icon?: Icon;
   variant?: AppButtonVariant;
+  severity?: AppButtonSeverity;
   width?: AppButtonWidth;
 }
