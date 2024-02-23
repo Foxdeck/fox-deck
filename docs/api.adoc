@@ -46,7 +46,8 @@ Afterward the Swagger documentation can be accessed via http://localhost:3000/ap
 === Structure
 
 The structure of the API follows the best practices of NestJS for modular applications.
-The application is divided into different "modules", with each module defining a specific topic area. These modules can be found in the /src/modules-directory of the fox-deck-api.
+The application is divided into different "modules", with each module defining a specific topic area.
+These modules can be found in the /src/modules-directory of the fox-deck-api.
 The NestJS documentation is a good starting point for understanding how NestJS applications are structured.
 
 Further information can be found at https://docs.nestjs.com/modules.
@@ -97,7 +98,9 @@ Further information can be found at https://docs.nestjs.com/providers
 
 ==== Shared directory
 
-The shared directory contains code that can be shared across different parts of the application. This approach helps in maintaining a clean and modular code structure. Here are some typical uses and examples:
+The shared directory contains code that can be shared across different parts of the application.
+This approach helps in maintaining a clean and modular code structure.
+Here are some typical uses and examples:
 
 1. *Common Services:* Services that are used by multiple modules, such as logging or validation services, can be placed in the shared directory.
 2. *Utilities and Helpers:* Functions or classes that provide utility operations like data formatting, validation rules, or custom decorators.
@@ -105,9 +108,11 @@ The shared directory contains code that can be shared across different parts of 
 4. *Interfaces and DTOs (Data Transfer Objects):* Shared interfaces or DTOs for consistent type definitions and data validation across different parts of the application.
 5.. *Common Middleware, Guards, and Interceptors:* Reusable middleware, guards, and interceptors that can be applied in various parts of the application.
 
-By using a shared directory, developers can avoid duplicating code and ensure that common functionalities and utilities are centrally managed and easily accessible throughout the application. This enhances the maintainability and scalability of the codebase.
+By using a shared directory, developers can avoid duplicating code and ensure that common functionalities and utilities are centrally managed and easily accessible throughout the application.
+This enhances the maintainability and scalability of the codebase.
 
-IMPORTANT: use the shared directory judiciously to avoid creating a catch-all location that becomes difficult to manage. The goal is to keep the shared directory well-organized and limited to truly reusable and application-wide concerns.
+IMPORTANT: use the shared directory judiciously to avoid creating a catch-all location that becomes difficult to manage.
+The goal is to keep the shared directory well-organized and limited to truly reusable and application-wide concerns.
 
 === Security
 
@@ -133,22 +138,17 @@ If the JWT is valid, it is parsed and the "User" property is added to the reques
 [source,typescript]
 ----
 @ApiBearerAuth("access-token")
-@Security(SecurityType.JWT_VALID)
-@HttpCode(HttpStatus.CREATED)
-@Post("question")
-async createQuestion(
+@Security(SecurityType.JWT_VALID) // 1. set Security-Type for this request
+async mySecurectFunction(
 @Body() data: CreateQuestionRequestDto,
-@Req() request: AuthenticatedRequest, // 1. get request object
+@Req() request: AuthenticatedRequest, // 2. get request object
 ): Promise<Question> {
-try {
-  const user = request.user; // 2. get user from request
-  return this.questionService.createQuestion({
-    ...data,
-    authorId: user.id,
-  });
-} catch (e) {
-  throw new InternalServerErrorException(e);
-}
+    try {
+      const user = request.user; // 3. get user from request
+      [...]
+    } catch (e) {
+      throw new InternalServerErrorException(e);
+    }
 }
 ----
 
@@ -184,45 +184,43 @@ image::assets/api/generate-jwt.png[]
 
 IMPORTANT: Look into jwt-body.interface.ts to see the current payload the JWT contains.
 
-=== E2E Testing
+=== What is a resource?
 
-To run the E2E tests (*.e2e-spec.ts), you must first create the test database. To do this, execute the following command in the main directory of fox-deck-api:
+A resource in this context refers to an entity within the fox-deck system. Resources are:
 
-[source,bash]
-----
-$ npm run prisma:e2e-migrate
-----
+* *folder:* - container object, folders can contain other folders or notes
+* *note:* - note, which the user create
 
-If the last command was successful, there is a test.db in the "Prisma" directory.
+==== Properties
 
-==== Using the db in test
+|===
+|Property |Description |Information
 
-To use the database in E2E, it is initialized before each test. The current database is deleted and rewritten.
+|resourceId
+|The unique identifier of a resource.
+|Primary Key - String
 
-The "setupDatabase()" function was implemented for this purpose. This function returns the current PrismaClient. This can in turn be used to gain direct access to the database.
 
-[source,typescript]
-----
-// 1. import setupDatabase from setup-test-db in prisma-directory
-import {setupDatabase} from "../../../prisma/setup-test-db";
+|parentResourceId
+|The identifier of the parent resource (folder) where the current resource is located.
+This field is null if the resource is at the root level of the hierarchy,
+indicating that the resource is positioned at the top of the hierarchy.
+|String - Nullable
 
-describe('QuestionController', () => {
-  let app: INestApplication;
-  let prisma: PrismaClient; // 2. create variable "prisma"
 
-  beforeEach(async () => {
+|type
+|Indicates whether the resource is a folder or a note.
+|String
 
-    const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [QuestionModule]
-    }).compile();
+|name
+|The user-provided name of the resource.
+|String
 
-    prisma = await setupDatabase(); // 3. assign "prisma"-variable to setupDatabase()
-    app = moduleFixture.createNestApplication();
-    await app.init();
-  });
+|content
+|The (base64 encoded) content of the resource. If the resource is a folder, this is null.
+|String - Nullable
 
-  // put your tests here...
-}
-----
-
-Examples for orientation can be found in the question.controller.e2e-spec.ts.
+|createdAt
+|The date and time when the resource was created.
+|Date
+|===
