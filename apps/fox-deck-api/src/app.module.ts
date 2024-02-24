@@ -3,7 +3,6 @@ import {ConfigModule} from "@nestjs/config";
 import {APP_INTERCEPTOR} from "@nestjs/core";
 import {UserModule} from "./modules/user/user.module";
 import {SecurityInterceptor} from "./shared/interceptors/security.interceptor";
-import {NoteModule} from "./modules/note/note.module";
 
 @Module({
   providers: [
@@ -12,6 +11,6 @@ import {NoteModule} from "./modules/note/note.module";
       useClass: SecurityInterceptor,
     },
   ],
-  imports: [ConfigModule.forRoot(), UserModule, NoteModule],
+  imports: [ConfigModule.forRoot(), UserModule],
 })
 export class AppModule {}
