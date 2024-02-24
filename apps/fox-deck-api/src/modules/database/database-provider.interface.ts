@@ -33,4 +33,34 @@ export interface DatabaseProvider {
      * @return {Promise<RunResult>} A Promise that resolves with the RunResult.
      */
     run(query: string): Promise<RunResult>
+
+    /**
+     * Executes a SELECT query in the database.
+     *
+     * @param params - The parameters for the SELECT query.
+     * @param params.table - The name of the table to select from.
+     * @param params.columns - An array of column names to select.
+     * @param params.join - (Optional) The join statement to use in the query.
+     * @param params.where - (Optional) The where clause to use in the query.
+     *
+     * @example
+     * ```ts
+     * const selectParams: SelectParams = {
+     *     table: "myTable",
+     *     columns: ["column", "column2", "scolumn3"],
+     *     join: "otherTable ON myTable.id = otherTable.id",
+     *     where: "column1 > 10"
+     * };
+     *
+     * selectFromDatabase(selectParams);
+     * ```
+     *
+     * @returns A Promise that resolves with the RunResult object representing the result of the SELECT query.
+     */
+    select(params: {
+        table: string;
+        columns: string[];
+        joins?: string[];
+        where?: string;
+    }): Promise<RunResult>
 }

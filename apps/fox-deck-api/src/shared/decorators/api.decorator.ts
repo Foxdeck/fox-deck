@@ -31,6 +31,7 @@ export const FoxdeckApiResponse = (options: FoxdeckApiResponseDecoratorOptions) 
     const decorators = [];
 
     decorators.push(HttpCode(options.httpCode));
+
     decorators.push(ApiOkResponse({
         description: options.responseDescription,
         schema: {

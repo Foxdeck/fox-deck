@@ -2,6 +2,8 @@ import {Injectable, Logger} from "@nestjs/common";
 import {v4 as uuidv4} from "uuid";
 import {SqliteProvider} from "../database/sqlite-provider.service";
 import {CreateResourceRequestDto} from "./dto/create-resource.dto";
+import e from "express";
+import {SelectResourceByUserIdResponseInterface} from "./dto/select-resource-by-user-id.dto";
 
 /**
  * A service class for managing resources.
@@ -10,7 +12,8 @@ import {CreateResourceRequestDto} from "./dto/create-resource.dto";
 export class ResourceService {
     private readonly logger = new Logger(ResourceService.name);
 
-    constructor(private readonly databaseProvider: SqliteProvider) {}
+    constructor(private readonly databaseProvider: SqliteProvider) {
+    }
 
     /**
      * Creates a resource for a given user.
@@ -32,6 +35,37 @@ export class ResourceService {
         } catch (e) {
             await this.databaseProvider.run("ROLLBACK");
             this.logger.debug("(createResource) => Error while creating resource", e.stack);
+            throw e;
+        }
+    }
+
+    /**
+     * Retrieves all resources associated with a given user ID.
+     *
+     * @param {string} userId - The ID of the user.
+     * @returns {Array} - An array of resources associated with the user.
+     * @throws {Error} - If there was an error while retrieving resources.
+     */
+    public getAllResourcesByUserId(userId: string): Promise<SelectResourceByUserIdResponseInterface> {
+        try {
+            return this.databaseProvider.select<SelectResourceByUserIdResponseInterface>({
+                table: "Resource",
+                columns: [
+                    "Resource.resourceId",
+                    "Resource.parentResourceId",
+                    "Resource.type",
+                    "Resource.name",
+                    "Resource.content",
+                    "Resource.createdAt"
+                ],
+                joins: [
+                    "UserResourceAssociation ON UserResourceAssociation.resourceId = Resource.resourceId",
+                    "User ON User.id = UserResourceAssociation.userId"
+                ],
+                where: `main.User.id = '${userId}'`
+            });
+        } catch (e) {
+            this.logger.debug("(getAllResourcesByUserId) => Error while getting resources by user ID", e.stack);
             throw e;
         }
     }
