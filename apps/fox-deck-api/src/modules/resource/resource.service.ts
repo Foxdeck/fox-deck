@@ -23,15 +23,15 @@ export class ResourceService {
     public async createResource(resource: CreateResourceRequestDto, userId: string): Promise<string> {
         try {
             await this.databaseProvider.run("BEGIN TRANSACTION");
-            const createdFolder = await this.insertResourceIntoResourceTable(resource);
-            await this.insertResourceIntoAssociationTable(userId, createdFolder);
+            const createdResource = await this.insertResourceIntoResourceTable(resource);
+            await this.insertResourceIntoAssociationTable(userId, createdResource);
             await this.databaseProvider.run("COMMIT");
 
-            this.logger.debug("Folder created successfully");
-            return createdFolder;
+            this.logger.debug("Resource created successfully");
+            return createdResource;
         } catch (e) {
             await this.databaseProvider.run("ROLLBACK");
-            this.logger.debug("(createFolder) => Error while creating resource", e.stack);
+            this.logger.debug("(createResource) => Error while creating resource", e.stack);
             throw e;
         }
     }
@@ -45,7 +45,7 @@ export class ResourceService {
      */
     private async insertResourceIntoResourceTable(resource: CreateResourceRequestDto): Promise<string> {
         try {
-            const folderName = resource.name;
+            const resourceName = resource.name;
             const resourceType = resource.type;
             const uuid = uuidv4();
             const content = resource.content;
@@ -53,7 +53,7 @@ export class ResourceService {
 
             await this.databaseProvider.insert("resource", {
                 resourceId: uuid,
-                name: folderName,
+                name: resourceName,
                 type: resourceType,
                 content,
                 createdAt
