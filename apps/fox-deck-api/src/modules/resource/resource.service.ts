@@ -1,83 +1,73 @@
-import { Injectable, Logger } from "@nestjs/common";
-import { CreateFolderRequestDto } from "./dto/create-folder.dto";
-import { PrismaService } from "../../shared/services/prisma.service";
-import { Prisma, Resource } from "@prisma/client";
-import { ResourceTypes } from "./resource-types.enum";
+import {Injectable, Logger} from "@nestjs/common";
+import {CreateFolderRequestDto} from "./dto/create-folder.dto";
+import {ResourceTypes} from "./resource-types.enum";
+import {DatabaseService} from "../database/database.service";
+import {v4 as uuidv4} from "uuid";
 
 /**
- * Service class for managing resources.
+ * A service class for managing resources.
  */
 @Injectable()
 export class ResourceService {
     private readonly logger = new Logger(ResourceService.name);
 
-    constructor(private readonly prisma: PrismaService) { }
+    constructor(
+        private readonly databaseService: DatabaseService
+    ) {}
 
     /**
-     * Creates a folder with the given information.
+     * Creates a folder for a given user.
      *
-     * @param folder - The folder information to create.
-     * @param userId - The ID of the user creating the folder.
-     * @returns A Promise that resolves to the created folder.
-     */
-    public async createFolder(folder: CreateFolderRequestDto, userId: string): Promise<Resource> {
+     * @param {CreateFolderRequestDto} folder - The folder to be created.
+     * @param {string} userId - The ID of the user creating the folder.
+     *
+     * @returns The ID of the created folder.
+     * */
+    public async createFolder(folder: CreateFolderRequestDto, userId: string): Promise<string> {
         const createdAt = new Date();
-        const folderCreateInput: Prisma.ResourceCreateInput = this.generateFolderCreationInput(folder, createdAt);
 
         try {
-            const createdFolder = await this.createResource(folderCreateInput);
-            await this.associateUserToResource(userId, createdFolder.resourceId);
+            await this.databaseService.db.run('BEGIN TRANSACTION');
+            const createdFolder = await this.createResource(folder, createdAt);
+            await this.insertResourceIntoAssociationTable(userId, createdFolder);
+            await this.databaseService.db.run('COMMIT');
 
             this.logger.debug("Folder created successfully");
             return createdFolder;
-        } catch (error) {
-            this.logger.error("Error while creating folder", error.stack);
+        } catch (e) {
+            await this.databaseService.db.run('ROLLBACK');
+            this.logger.error("(createFolder) => Error while creating folder", e.stack);
         }
     }
 
-    /**
-     * Generates the input for creating a folder resource.
-     *
-     * @param {CreateFolderRequestDto} folder - The folder object containing the name of the folder.
-     * @param {Date} createdAt - The creation date of the folder.
-     * @returns {Prisma.ResourceCreateInput} - The input object for creating a folder resource.
-     * @private
-     */
-    private generateFolderCreationInput(folder: CreateFolderRequestDto, createdAt: Date): Prisma.ResourceCreateInput {
-        return {
-            name: folder.name,
-            type: ResourceTypes.FOLDER,
-            createdAt,
-        };
+    private async createResource(folder: CreateFolderRequestDto, createdAt: Date): Promise<string> {
+        try {
+            const folderName = folder.name;
+            const resourceType = ResourceTypes.FOLDER;
+            const uuid = uuidv4();
+
+            // Use '?' to prevent SQL injection
+            const sql = `INSERT INTO resource (resourceId, name, type, createdAt)
+                         VALUES (?, ?, ?, ?) RETURNING resourceId;`;
+            await this.databaseService.db.run(sql, [uuid, folderName, resourceType, createdAt.toISOString()]);
+            return uuid;
+        } catch (e) {
+            this.logger.error(`(createResource) => error while creating resource: ${e.message}`);
+            throw e;
+        }
     }
 
-    /**
-     * Creates a resource.
-     *
-     * @param {Prisma.ResourceCreateInput} resourceCreateInput - The input data to create the resource.
-     * @returns {Promise<Resource>} A promise that resolves with the created resource.
-     * @private
-     */
-    private async createResource(resourceCreateInput: Prisma.ResourceCreateInput): Promise<Resource> {
-        return this.prisma.resource.create({ data: resourceCreateInput });
-    }
+    private async insertResourceIntoAssociationTable(userId: string, resourceId: string): Promise<void> {
+        try {
+            const uuid = uuidv4();
 
-    /**
-     * Associates a user to a resource.
-     *
-     * @param {string} userId - The ID of the user.
-     * @param {string} resourceId - The ID of the resource.
-     *
-     * @return {Promise<any>} - A promise that resolves with the created user resource association.
-     *
-     * @private
-     */
-    private async associateUserToResource(userId: string, resourceId: string) {
-        return this.prisma.userResourceAssociation.create({
-            data: {
-                userId,
-                resourceId
-            },
-        });
+            // Use '?' to prevent SQL injection
+            const sql = `INSERT INTO UserResourceAssociation (id, userId, resourceId)
+                         VALUES (?, ?, ?)`;
+            await this.databaseService.db.run(sql, [uuid, userId, resourceId]);
+        } catch (e) {
+            this.logger.error(`(insertResourceIntoAssociationTable) => error while inserting into table: ${e.message}`);
+            throw e;
+        }
     }
 }

@@ -34,6 +34,9 @@ export class ResourceController implements ResourceControllerInterface {
         const user = request.user;
         const userId = user.id;
 
-        return this.resourceService.createFolder(body, userId);
+        const createdResourceId = await this.resourceService.createFolder(body, userId);
+        return {
+            createdResourceId
+        };
     }
 }

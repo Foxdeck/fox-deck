@@ -1,8 +1,8 @@
 import {Module} from "@nestjs/common";
 import {JwtModule} from "@nestjs/jwt";
-import {PrismaService} from "../../shared/services/prisma.service";
 import {ResourceController} from "./resource.controller";
 import {ResourceService} from "./resource.service";
+import {DatabaseModule} from "../database/database.module";
 
 /**
  * Represents a resource module in the application.
@@ -19,8 +19,9 @@ import {ResourceService} from "./resource.service";
             secret: process.env.JWT_SECRET,
             signOptions: { expiresIn: "1y" },
         }),
+        DatabaseModule
     ],
-    providers: [PrismaService, ResourceService],
+    providers: [ResourceService],
     controllers: [ResourceController],
 })
 export class ResourceModule {}

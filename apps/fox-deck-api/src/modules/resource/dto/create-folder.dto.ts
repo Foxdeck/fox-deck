@@ -21,9 +21,5 @@ export class CreateFolderRequestDto {
 export class CreateFolderResponseDto {
     @ApiProperty()
     @IsString()
-    parentResourceId: string;
-
-    @ApiProperty()
-    @IsString()
-    name: string;
+    createdResourceId: string;
 }
