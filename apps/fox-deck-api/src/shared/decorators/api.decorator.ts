@@ -3,6 +3,10 @@ import {ApiBearerAuth, ApiExtraModels, ApiOkResponse, getSchemaPath} from "@nest
 import {Security, SecurityType} from "./security.decorator";
 
 type FoxdeckApiResponseDecoratorOptions = {
+    /**
+     * Represents the HTTP status code.
+     */
+    httpCode: HttpStatus;
     responseDescription: string;
     schema: any // needs to be a class
 }
@@ -24,15 +28,18 @@ type FoxdeckApiResponseDecoratorOptions = {
  * ```
  */
 export const FoxdeckApiResponse = (options: FoxdeckApiResponseDecoratorOptions) => {
-    return applyDecorators(
-        ApiOkResponse({
-            description: options.responseDescription,
-            schema: {
-                $ref: getSchemaPath(options.schema),
-            },
-        }) as PropertyDecorator,
-        ApiExtraModels(options.schema) as PropertyDecorator
-    )
+    const decorators = [];
+
+    decorators.push(HttpCode(options.httpCode));
+    decorators.push(ApiOkResponse({
+        description: options.responseDescription,
+        schema: {
+            $ref: getSchemaPath(options.schema),
+        },
+    }));
+    decorators.push(ApiExtraModels(options.schema))
+
+    return applyDecorators(...decorators);
 }
 
 
@@ -40,10 +47,6 @@ export const FoxdeckApiResponse = (options: FoxdeckApiResponseDecoratorOptions) 
  * Represents the options for decorating a Foxdeck API request.
  */
 type FoxdeckApiRequestDecoratorOptions = {
-    /**
-     * Represents the HTTP status code.
-     */
-    httpCode: HttpStatus;
     /**
      * The type of security for the endpoint.
      * If this is set, '@ApiBearerAuth' will automatically be added to the request.
@@ -60,8 +63,6 @@ export const FoxdeckApiRequest = (options: FoxdeckApiRequestDecoratorOptions) =>
         // this decorator is only important for the swagger documentation
         decorators.push(ApiBearerAuth("access-token"));
     }
-
-    decorators.push(HttpCode(options.httpCode));
 
     return applyDecorators(...decorators);
 }

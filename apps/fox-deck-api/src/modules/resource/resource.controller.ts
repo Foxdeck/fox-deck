@@ -16,15 +16,14 @@ export class ResourceController implements ResourceControllerInterface {
 
     constructor(
         private readonly resourceService: ResourceService
-    ) {}
+    ) {
+    }
 
+    @FoxdeckApiRequest({securityType: SecurityType.JWT_VALID})
     @FoxdeckApiResponse({
         responseDescription: "The created folder.",
-        schema: CreateFolderResponseDto
-    })
-    @FoxdeckApiRequest({
+        schema: CreateFolderResponseDto,
         httpCode: HttpStatus.CREATED,
-        securityType: SecurityType.JWT_VALID
     })
     @Post("create-folder")
     public async createFolder(
