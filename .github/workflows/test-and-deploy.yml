@@ -40,7 +40,6 @@ jobs:
       - name: Rename environment file
         run: mv .env.example .env
       - run: npm ci
-      - run: npm run prisma:e2e-migrate
       - run: npm run test
 
   # build and deploy storybook
