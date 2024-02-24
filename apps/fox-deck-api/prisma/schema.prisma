@@ -11,19 +11,30 @@ datasource db {
 }
 
 model User {
-  id            String          @id @default(uuid())
-  username      String          @default("")
-  firstname     String?
-  secondname    String?
-  email         String
-  password      String
-  Note          Note[]
+  id                      String                    @id @default(uuid())
+  username                String                    @default("")
+  firstname               String?
+  secondname              String?
+  email                   String
+  password                String
+  userResourceAssociation UserResourceAssociation[]
 }
 
-model Note {
-  id       String @id @default(uuid())
-  author   User   @relation(fields: [authorId], references: [id])
-  title    String @default("")
-  authorId String @default("")
-  content  String
+// relationship table between "User" and "Resource"
+model UserResourceAssociation {
+  id         String   @id @default(uuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id])
+  resourceId String
+  resource   Resource @relation(fields: [resourceId], references: [resourceId])
+}
+
+model Resource {
+  resourceId              String                    @id @default(uuid())
+  parentResourceId        String?
+  type                    String
+  name                    String
+  content                 String?
+  createdAt               DateTime
+  userResourceAssociation UserResourceAssociation[]
 }
