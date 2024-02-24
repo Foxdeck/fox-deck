@@ -36,5 +36,5 @@ model Resource {
   name                    String
   content                 String?
   createdAt               DateTime
-  rserResourceAssociation UserResourceAssociation[]
+  userResourceAssociation UserResourceAssociation[]
 }
