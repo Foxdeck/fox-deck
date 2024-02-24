@@ -5,6 +5,7 @@ import {SecurityType} from "../../shared/decorators/security.decorator";
 import {AuthenticatedRequest} from "../../shared/interfaces/authenticated-request.interface";
 import {CreateFolderRequestDto, CreateFolderResponseDto} from "./dto/create-folder.dto";
 import {ResourceControllerInterface} from "./resource.controller.interface";
+import {ResourceService} from "./resource.service";
 
 /**
  * Controller which handles CRUD operations for resources.
@@ -12,6 +13,10 @@ import {ResourceControllerInterface} from "./resource.controller.interface";
 @ApiTags("Resources")
 @Controller()
 export class ResourceController implements ResourceControllerInterface {
+
+    constructor(
+        private readonly resourceService: ResourceService
+    ) {}
 
     @FoxdeckApiResponse({
         responseDescription: "The created folder.",
@@ -22,13 +27,13 @@ export class ResourceController implements ResourceControllerInterface {
         securityType: SecurityType.JWT_VALID
     })
     @Post("create-folder")
-    public createFolder(
+    public async createFolder(
         @Body() body: CreateFolderRequestDto,
         @Req() request: AuthenticatedRequest
     ): Promise<CreateFolderResponseDto> {
         const user = request.user;
         const userId = user.id;
-        // TODO: needs business logic implementation
-        return {...body, userId} as any;
+
+        return this.resourceService.createFolder(body, userId);
     }
 }

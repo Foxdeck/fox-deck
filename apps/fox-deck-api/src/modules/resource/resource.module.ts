@@ -2,6 +2,7 @@ import {Module} from "@nestjs/common";
 import {JwtModule} from "@nestjs/jwt";
 import {PrismaService} from "../../shared/services/prisma.service";
 import {ResourceController} from "./resource.controller";
+import {ResourceService} from "./resource.service";
 
 /**
  * Represents a resource module in the application.
@@ -19,7 +20,7 @@ import {ResourceController} from "./resource.controller";
             signOptions: { expiresIn: "1y" },
         }),
     ],
-    providers: [PrismaService],
+    providers: [PrismaService, ResourceService],
     controllers: [ResourceController],
 })
 export class ResourceModule {}
