@@ -1,8 +1,8 @@
 import {Injectable, Logger} from "@nestjs/common";
 import {CreateFolderRequestDto} from "./dto/create-folder.dto";
 import {ResourceTypes} from "./resource-types.enum";
-import {DatabaseService} from "../database/database.service";
 import {v4 as uuidv4} from "uuid";
+import {SqliteProvider} from "../database/sqlite-provider.service";
 
 /**
  * A service class for managing resources.
@@ -12,7 +12,7 @@ export class ResourceService {
     private readonly logger = new Logger(ResourceService.name);
 
     constructor(
-        private readonly databaseService: DatabaseService
+        private readonly databaseProvider: SqliteProvider
     ) {}
 
     /**
@@ -27,15 +27,15 @@ export class ResourceService {
         const createdAt = new Date();
 
         try {
-            await this.databaseService.db.run('BEGIN TRANSACTION');
+            await this.databaseProvider.run('BEGIN TRANSACTION');
             const createdFolder = await this.createResource(folder, createdAt);
             await this.insertResourceIntoAssociationTable(userId, createdFolder);
-            await this.databaseService.db.run('COMMIT');
+            await this.databaseProvider.run('COMMIT');
 
             this.logger.debug("Folder created successfully");
             return createdFolder;
         } catch (e) {
-            await this.databaseService.db.run('ROLLBACK');
+            await this.databaseProvider.run('ROLLBACK');
             this.logger.error("(createFolder) => Error while creating folder", e.stack);
         }
     }
@@ -46,10 +46,12 @@ export class ResourceService {
             const resourceType = ResourceTypes.FOLDER;
             const uuid = uuidv4();
 
-            // Use '?' to prevent SQL injection
-            const sql = `INSERT INTO resource (resourceId, name, type, createdAt)
-                         VALUES (?, ?, ?, ?) RETURNING resourceId;`;
-            await this.databaseService.db.run(sql, [uuid, folderName, resourceType, createdAt.toISOString()]);
+            await this.databaseProvider.insert("resource", {
+                resourceId: uuid,
+                name: folderName,
+                type: resourceType,
+                createdAt: createdAt.toISOString()
+            });
             return uuid;
         } catch (e) {
             this.logger.error(`(createResource) => error while creating resource: ${e.message}`);
@@ -61,10 +63,11 @@ export class ResourceService {
         try {
             const uuid = uuidv4();
 
-            // Use '?' to prevent SQL injection
-            const sql = `INSERT INTO UserResourceAssociation (id, userId, resourceId)
-                         VALUES (?, ?, ?)`;
-            await this.databaseService.db.run(sql, [uuid, userId, resourceId]);
+            await this.databaseProvider.insert("UserResourceAssociation", {
+                id: uuid,
+                userId,
+                resourceId
+            });
         } catch (e) {
             this.logger.error(`(insertResourceIntoAssociationTable) => error while inserting into table: ${e.message}`);
             throw e;

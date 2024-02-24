@@ -1,5 +1,6 @@
-import {DatabaseService} from "./database.service";
 import {Module} from "@nestjs/common";
+import {SqliteProvider} from "./sqlite-provider.service";
+import {DatabaseService} from "./database.service";
 
 /**
  * @module DatabaseModule
@@ -8,7 +9,7 @@ import {Module} from "@nestjs/common";
  * @requires {@link DatabaseService}
  */
 @Module({
-    providers: [DatabaseService],
-    exports: [DatabaseService]
+    providers: [DatabaseService, SqliteProvider],
+    exports: [SqliteProvider]
 })
 export class DatabaseModule {}
