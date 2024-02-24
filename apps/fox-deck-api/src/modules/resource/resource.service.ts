@@ -1,8 +1,7 @@
 import {Injectable, Logger} from "@nestjs/common";
-import {CreateFolderRequestDto} from "./dto/create-folder.dto";
-import {ResourceTypes} from "./resource-types.enum";
 import {v4 as uuidv4} from "uuid";
 import {SqliteProvider} from "../database/sqlite-provider.service";
+import {CreateResourceRequestDto} from "./dto/create-resource.dto";
 
 /**
  * A service class for managing resources.
@@ -11,54 +10,69 @@ import {SqliteProvider} from "../database/sqlite-provider.service";
 export class ResourceService {
     private readonly logger = new Logger(ResourceService.name);
 
-    constructor(
-        private readonly databaseProvider: SqliteProvider
-    ) {}
+    constructor(private readonly databaseProvider: SqliteProvider) {}
 
     /**
-     * Creates a folder for a given user.
+     * Creates a resource for a given user.
      *
-     * @param {CreateFolderRequestDto} folder - The folder to be created.
-     * @param {string} userId - The ID of the user creating the folder.
+     * @param {CreateResourceRequestDto} resource - The resource to be created.
+     * @param {string} userId - The ID of the user creating the resource.
      *
-     * @returns The ID of the created folder.
+     * @returns The ID of the created resource.
      * */
-    public async createFolder(folder: CreateFolderRequestDto, userId: string): Promise<string> {
-        const createdAt = new Date();
-
+    public async createResource(resource: CreateResourceRequestDto, userId: string): Promise<string> {
         try {
-            await this.databaseProvider.run('BEGIN TRANSACTION');
-            const createdFolder = await this.createResource(folder, createdAt);
+            await this.databaseProvider.run("BEGIN TRANSACTION");
+            const createdFolder = await this.insertResourceIntoResourceTable(resource);
             await this.insertResourceIntoAssociationTable(userId, createdFolder);
-            await this.databaseProvider.run('COMMIT');
+            await this.databaseProvider.run("COMMIT");
 
             this.logger.debug("Folder created successfully");
             return createdFolder;
         } catch (e) {
-            await this.databaseProvider.run('ROLLBACK');
-            this.logger.error("(createFolder) => Error while creating folder", e.stack);
+            await this.databaseProvider.run("ROLLBACK");
+            this.logger.debug("(createFolder) => Error while creating resource", e.stack);
+            throw e;
         }
     }
 
-    private async createResource(folder: CreateFolderRequestDto, createdAt: Date): Promise<string> {
+    /**
+     * Inserts a resource into the resource table.
+     *
+     * @param {CreateResourceRequestDto} resource - The resource to be inserted.
+     * @returns {Promise<string>} - The UUID of the inserted resource.
+     * @private
+     */
+    private async insertResourceIntoResourceTable(resource: CreateResourceRequestDto): Promise<string> {
         try {
-            const folderName = folder.name;
-            const resourceType = ResourceTypes.FOLDER;
+            const folderName = resource.name;
+            const resourceType = resource.type;
             const uuid = uuidv4();
+            const content = resource.content;
+            const createdAt = new Date().toISOString();
 
             await this.databaseProvider.insert("resource", {
                 resourceId: uuid,
                 name: folderName,
                 type: resourceType,
-                createdAt: createdAt.toISOString()
+                content,
+                createdAt
             });
             return uuid;
         } catch (e) {
-            this.logger.error(`(createResource) => error while creating resource: ${e.message}`);
+            this.logger.debug(`(createResource) => error while creating resource: ${e.message}`);
             throw e;
         }
     }
 
+    /**
+     * Inserts a resource into the association table for a specific user.
+     *
+     * @param {string} userId - The ID of the user.
+     * @param {string} resourceId - The ID of the resource.
+     * @return {Promise<void>} - A promise that resolves with no value when the insertion is successful.
+     * @private
+     */
     private async insertResourceIntoAssociationTable(userId: string, resourceId: string): Promise<void> {
         try {
             const uuid = uuidv4();
@@ -69,7 +83,7 @@ export class ResourceService {
                 resourceId
             });
         } catch (e) {
-            this.logger.error(`(insertResourceIntoAssociationTable) => error while inserting into table: ${e.message}`);
+            this.logger.debug(`(insertResourceIntoAssociationTable) => error while inserting into table: ${e.message}`);
             throw e;
         }
     }

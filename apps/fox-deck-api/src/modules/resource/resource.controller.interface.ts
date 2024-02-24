@@ -1,5 +1,5 @@
-import {CreateFolderRequestDto, CreateFolderResponseDto} from "./dto/create-folder.dto";
 import {AuthenticatedRequest} from "../../shared/interfaces/authenticated-request.interface";
+import {CreateResourceRequestDto, CreateResourceResponseDto} from "./dto/create-resource.dto";
 
 /**
  * Resource Controller Interface
@@ -7,16 +7,16 @@ import {AuthenticatedRequest} from "../../shared/interfaces/authenticated-reques
 export interface ResourceControllerInterface {
 
     /**
-     * Creates a new folder with the given details.
+     * Creates a new resource with the given details.
      *
-     * @param {CreateFolderRequestDto} body - The details of the folder to be created.
+     * @param {CreateResourceRequestDto} body - The details of the resource to be created.
      * @param {AuthenticatedRequest} request - The authenticated request object.
      *                                         Used for retrieving the user-object via 'request.user'.
      *
-     * @return {Promise<CreateFolderResponseDto>} - A promise that resolves with the response details of the created folder.
+     * @return {Promise<CreateResourceResponseDto>} - A promise that resolves with the response details of the created resource.
      */
-    createFolder(
-        body: CreateFolderRequestDto,
+    createResource(
+        body: CreateResourceRequestDto,
         request: AuthenticatedRequest
-    ): Promise<CreateFolderResponseDto>;
+    ): Promise<CreateResourceResponseDto>;
 }
