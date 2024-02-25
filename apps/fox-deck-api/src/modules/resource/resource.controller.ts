@@ -66,4 +66,25 @@ export class ResourceController implements ResourceControllerInterface {
             throw e;
         }
     }
+
+    @FoxdeckApiRequest({securityType: SecurityType.JWT_VALID})
+    @FoxdeckApiResponse({
+        responseDescription: "The root-level resources of the logged in user.",
+        schema: SelectResourceByUserIdResponseDto,
+        httpCode: HttpStatus.OK,
+    })
+    @Get("resource-root")
+    public async getRootLevelResourceByUserId(
+        @Req() request: AuthenticatedRequest
+    ): Promise<SelectResourceByUserIdResponseDto> {
+        try {
+            const user = request.user;
+            const userId = user.id;
+
+            return this.resourceService.getAllRootLevelResourcesByUserId(userId);
+        } catch (e) {
+            this.logger.error(`(getResourceByUserId) => failed to get resources: ${e.message}`);
+            throw e;
+        }
+    }
 }

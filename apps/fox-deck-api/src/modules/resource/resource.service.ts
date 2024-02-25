@@ -70,6 +70,41 @@ export class ResourceService {
     }
 
     /**
+     * Retrieves all root level resources associated with a given user ID.
+     *
+     * Root level resources has no parentResourceId (IS NULL)
+     *
+     * @param {string} userId - The ID of the user.
+     *
+     * @returns {Promise<SelectResourceByUserIdResponseInterface>} A Promise that resolves to the list of root level resources.
+     *
+     * @throws {Error} If there is an error while fetching the resources.
+     */
+    public getAllRootLevelResourcesByUserId(userId: string): Promise<SelectResourceByUserIdResponseInterface> {
+        try {
+            return this.databaseProvider.select<SelectResourceByUserIdResponseInterface>({
+                table: "Resource",
+                columns: [
+                    "Resource.resourceId",
+                    "Resource.parentResourceId",
+                    "Resource.type",
+                    "Resource.name",
+                    "Resource.content",
+                    "Resource.createdAt"
+                ],
+                joins: [
+                    "UserResourceAssociation ON UserResourceAssociation.resourceId = Resource.resourceId",
+                    "User ON User.id = UserResourceAssociation.userId"
+                ],
+                where: `main.User.id = '${userId}' AND Resource.parentResourceId IS NULL`
+            });
+        } catch (e) {
+            this.logger.debug("(getAllResourcesByUserId) => Error while getting resources by user ID", e.stack);
+            throw e;
+        }
+    }
+
+    /**
      * Inserts a resource into the resource table.
      *
      * @param {CreateResourceRequestDto} resource - The resource to be inserted.
