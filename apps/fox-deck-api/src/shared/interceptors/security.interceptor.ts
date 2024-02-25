@@ -44,7 +44,9 @@ export class SecurityInterceptor implements NestInterceptor {
 
         // because authorization has the form 'Bearer <JWT>' we need to use string.split here
         const jwt = authorizationHeader.split(" ")[1];
-        const isJwtValid = this.jwtService.verify(jwt);
+        const isJwtValid = this.jwtService.verify(jwt, {
+          secret: process.env.JWT_SECRET,
+        });
 
         if (!isJwtValid) {
           throw new ForbiddenException();
