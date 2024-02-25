@@ -20,7 +20,7 @@ export function useNotes() {
    */
   async function fetchNotes(): Promise<void> {
     noteStore.isSynchronizing = true;
-    const response = await api.note.noteControllerGetAllNotes({
+    const response = await api.resource.resourceControllerGetResourceByUserId({
       headers: {
         Authorization: `Bearer ${jwt}`,
       },

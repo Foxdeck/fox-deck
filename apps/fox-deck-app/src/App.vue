@@ -6,6 +6,7 @@ import {useNotes} from "@/modules/notes/composables/useNotes";
 import {onMounted} from "vue";
 import {useI18n} from "vue-i18n";
 import AppSideNavigation from "@/core/components/AppSideNavigation/AppSideNavigation.vue";
+import AppResourceNavigation from "@/modules/resource-navigation/AppResourceNavigation.vue";
 
 const { fetchNotes } = useNotes();
 const themeStore = useThemeStore();
@@ -23,7 +24,7 @@ onMounted(async () => await fetchNotes());
     }"
   >
     <main class="flex w-screen h-screen bg-[#f5f6fb] dark:bg-gray-900">
-      <AppSideNavigation />
+      <AppResourceNavigation />
       <div class="w-full overflow-y-scroll">
         <RouterLayout />
         <NotificationLayout />

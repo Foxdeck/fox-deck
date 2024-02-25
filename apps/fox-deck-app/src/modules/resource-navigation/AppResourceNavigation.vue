@@ -1,36 +1,35 @@
 <script setup lang="ts">
+import {onMounted} from "vue";
 import {useI18n} from "vue-i18n";
 import Logo from "@/assets/icons/foxdeck-logo.svg";
 import {useAuthStore} from "@/core/stores/auth.store";
-import {LoginRouteNames} from "@/modules/login/routes";
 import {useFoxdeckRouter} from "@/core/composables/useFoxdeckRouter";
 import {Icon} from "@/core/components/AppIcon/icons";
 import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
-import {useNotesStore} from "@/modules/notes/stores/notes.store";
 import AppButton from "@/core/components/AppButton/AppButton.vue";
-import {onMounted, ref} from "vue";
-import {useNotes} from "@/modules/notes/composables/useNotes";
 import AppTreeView from "@/core/components/AppTreeView/AppTreeView.vue";
-import type {AppTreeViewItemProps} from "@/core/components/AppTreeViewItem/AppTreeViewItem.types";
-import {useFoxdeckNavigation} from "@/core/composables/useFoxdeckNavigation";
+import {LoginRouteNames} from "@/modules/login/routes";
+import {useResources} from "@/modules/resource-navigation/composables/useResources";
+import {useResourceStore} from "@/modules/resource-navigation/stores/resource.store";
 
+// stores
 const authStore = useAuthStore();
-const {fetchNotes} = useNotes();
+const resourceStore = useResourceStore();
+
+// composables
+const {fetchResources} = useResources();
 const {t} = useI18n();
-const treeViewItems = ref<AppTreeViewItemProps[]>([]);
 const {push} = useFoxdeckRouter();
-const {getTreeViewItems} = useFoxdeckNavigation();
+
 
 onMounted(async () => {
-  await fetchNotes();
-  treeViewItems.value = await getTreeViewItems();
+  await fetchResources();
 });
 
 async function logout() {
   await authStore.logout();
   await push({name: LoginRouteNames.LOGIN});
 }
-
 
 const renderWelcomeMessage = () => `${t("common.hello")}, ${authStore.getUsername()}`;
 
@@ -59,7 +58,7 @@ const renderWelcomeMessage = () => `${t("common.hello")}, ${authStore.getUsernam
       </div>
 
       <div class="flex flex-col gap-2">
-        <AppTreeView :items="treeViewItems" />
+        <AppTreeView :items="resourceStore.fetchResourcesAsNavigation()" />
       </div>
     </div>
 

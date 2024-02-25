@@ -2,7 +2,8 @@ import {Injectable, Logger} from "@nestjs/common";
 import {v4 as uuidv4} from "uuid";
 import {SqliteProvider} from "../database/sqlite-provider.service";
 import {CreateResourceRequestDto} from "./dto/create-resource.dto";
-import {SelectResourceByUserIdResponseInterface} from "./dto/select-resource-by-user-id.dto";
+import {GetResourceByUserIdResponseInterface} from "./dto/get-resource-by-user-id.dto";
+import {GetResourceRootByUserIdResponseDto} from "./dto/get-resource-root-by-user-id.dto";
 
 /**
  * A service class for managing resources.
@@ -45,9 +46,9 @@ export class ResourceService {
      * @returns {Array} - An array of resources associated with the user.
      * @throws {Error} - If there was an error while retrieving resources.
      */
-    public getAllResourcesByUserId(userId: string): Promise<SelectResourceByUserIdResponseInterface> {
+    public getAllResourcesByUserId(userId: string): Promise<GetResourceByUserIdResponseInterface> {
         try {
-            return this.databaseProvider.select<SelectResourceByUserIdResponseInterface>({
+            return this.databaseProvider.select<GetResourceByUserIdResponseInterface>({
                 table: "Resource",
                 columns: [
                     "Resource.resourceId",
@@ -76,13 +77,13 @@ export class ResourceService {
      *
      * @param {string} userId - The ID of the user.
      *
-     * @returns {Promise<SelectResourceByUserIdResponseInterface>} A Promise that resolves to the list of root level resources.
+     * @returns {Promise<GetResourceByUserIdResponseInterface>} A Promise that resolves to the list of root level resources.
      *
      * @throws {Error} If there is an error while fetching the resources.
      */
-    public getAllRootLevelResourcesByUserId(userId: string): Promise<SelectResourceByUserIdResponseInterface> {
+    public getAllRootLevelResourcesByUserId(userId: string): Promise<GetResourceRootByUserIdResponseDto[]> {
         try {
-            return this.databaseProvider.select<SelectResourceByUserIdResponseInterface>({
+            return this.databaseProvider.select<GetResourceRootByUserIdResponseDto[]>({
                 table: "Resource",
                 columns: [
                     "Resource.resourceId",

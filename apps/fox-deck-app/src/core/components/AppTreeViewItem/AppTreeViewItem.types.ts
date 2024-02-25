@@ -1,4 +1,4 @@
-export type AppTreeViewItemType = "document" | "folder";
+export type AppTreeViewItemType = "note" | "folder";
 
 /**
  * Represents the identifier of an item in the AppTreeView.

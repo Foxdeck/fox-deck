@@ -1,16 +1,8 @@
 import {ApiProperty} from "@nestjs/swagger";
 import {IsString} from "class-validator";
 
-export interface SelectResourceByUserIdResponseInterface {
-    resourceId: string
-    parentResourceId: string
-    type: string
-    name: string
-    content: string
-    createdAt: string
-}
 
-export class SelectResourceByUserIdResponseDto implements SelectResourceByUserIdResponseInterface {
+export class GetResourceRootByUserIdResponseDto {
     @ApiProperty()
     @IsString()
     resourceId: string

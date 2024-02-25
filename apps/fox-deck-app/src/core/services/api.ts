@@ -24,16 +24,29 @@ export interface CreateUserRequestDto {
   password: string;
 }
 
-export interface NoteResponseDto {
-  id: string;
-  authorId: string;
+export interface CreateResourceRequestDto {
+  parentResourceId: string;
+  name: string;
   content: string;
-  title: string;
+  type: "note" | "folder";
 }
 
-export interface CreateNoteDto {
+export interface GetResourceByUserIdResponseDto {
+  resourceId: string;
+  parentResourceId: string;
+  type: string;
+  name: string;
   content: string;
-  title: string;
+  createdAt: string;
+}
+
+export interface GetResourceRootByUserIdResponseDto {
+  resourceId: string;
+  parentResourceId: string;
+  type: string;
+  name: string;
+  content: string;
+  createdAt: string;
 }
 
 export type QueryParamsType = Record<string | number, any>;
@@ -289,40 +302,58 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         ...params,
       }),
   };
-  note = {
+  createResource = {
     /**
      * No description
      *
-     * @tags Notes
-     * @name NoteControllerGetAllNotes
-     * @request GET:/note
+     * @tags Resources
+     * @name ResourceControllerCreateResource
+     * @request POST:/create-resource
      * @secure
      */
-    noteControllerGetAllNotes: (params: RequestParams = {}) =>
-      this.request<NoteResponseDto[], any>({
-        path: `/note`,
+    resourceControllerCreateResource: (data: CreateResourceRequestDto, params: RequestParams = {}) =>
+      this.request<CreateResourceRequestDto, any>({
+        path: `/create-resource`,
+        method: "POST",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+  };
+  resource = {
+    /**
+     * No description
+     *
+     * @tags Resources
+     * @name ResourceControllerGetResourceByUserId
+     * @request GET:/resource
+     * @secure
+     */
+    resourceControllerGetResourceByUserId: (params: RequestParams = {}) =>
+      this.request<GetResourceByUserIdResponseDto[], any>({
+        path: `/resource`,
         method: "GET",
         secure: true,
         format: "json",
         ...params,
       }),
-
+  };
+  resourceRoot = {
     /**
      * No description
      *
-     * @tags Notes
-     * @name NoteControllerCreateNote
-     * @summary Create a new note
-     * @request POST:/note
+     * @tags Resources
+     * @name ResourceControllerGetRootLevelResourceByUserId
+     * @request GET:/resource-root
      * @secure
      */
-    noteControllerCreateNote: (data: CreateNoteDto, params: RequestParams = {}) =>
-      this.request<NoteResponseDto, any>({
-        path: `/note`,
-        method: "POST",
-        body: data,
+    resourceControllerGetRootLevelResourceByUserId: (params: RequestParams = {}) =>
+      this.request<GetResourceRootByUserIdResponseDto[], any>({
+        path: `/resource-root`,
+        method: "GET",
         secure: true,
-        type: ContentType.Json,
         format: "json",
         ...params,
       }),

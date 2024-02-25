@@ -13,7 +13,7 @@ export function useFoxdeckNavigation() {
                 children: [
                     {
                         identifier: "d-cell-biology",
-                        type: "document",
+                        type: "note",
                         label: "Cell Biology",
                     },
                     {
@@ -24,12 +24,12 @@ export function useFoxdeckNavigation() {
                         children: [
                             {
                                 identifier: "d-dna-structure",
-                                type: "document",
+                                type: "note",
                                 label: "DNA Structure",
                             },
                             {
                                 identifier: "d-genetic-variation",
-                                type: "document",
+                                type: "note",
                                 label: "Genetic Variation",
                             }
                         ]
@@ -37,7 +37,7 @@ export function useFoxdeckNavigation() {
                     {
                         identifier: "d-ecology",
                         isSelected: true,
-                        type: "document",
+                        type: "note",
                         label: "Ecology",
                     }
                 ]
@@ -56,7 +56,7 @@ export function useFoxdeckNavigation() {
                     },
                     {
                         identifier: "d-geometry",
-                        type: "document",
+                        type: "note",
                         label: "Geometry",
                     }
                 ]
@@ -69,12 +69,12 @@ export function useFoxdeckNavigation() {
                 children: [
                     {
                         identifier: "d-world-war-1",
-                        type: "document",
+                        type: "note",
                         label: "World War I",
                     },
                     {
                         identifier: "d-world-war-2",
-                        type: "document",
+                        type: "note",
                         label: "World War II",
                     }
                 ]
@@ -82,7 +82,7 @@ export function useFoxdeckNavigation() {
             {
                 identifier: "d-todo-1",
                 label: "To-Do List",
-                type: "document"
+                type: "note"
             }
         ];
 

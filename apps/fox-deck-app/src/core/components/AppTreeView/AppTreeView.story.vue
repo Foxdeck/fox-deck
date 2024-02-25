@@ -11,7 +11,7 @@ const items: AppTreeViewItemProps[] = [
     children: [
       {
         identifier: "d-cell-biology",
-        type: "document",
+        type: "note",
         label: "Cell Biology",
       },
       {
@@ -22,12 +22,12 @@ const items: AppTreeViewItemProps[] = [
         children: [
           {
             identifier: "d-dna-structure",
-            type: "document",
+            type: "note",
             label: "DNA Structure",
           },
           {
             identifier: "d-genetic-variation",
-            type: "document",
+            type: "note",
             label: "Genetic Variation",
           }
         ]
@@ -35,7 +35,7 @@ const items: AppTreeViewItemProps[] = [
       {
         identifier: "d-ecology",
         isSelected: true,
-        type: "document",
+        type: "note",
         label: "Ecology",
       }
     ]
@@ -54,7 +54,7 @@ const items: AppTreeViewItemProps[] = [
       },
       {
         identifier: "d-geometry",
-        type: "document",
+        type: "note",
         label: "Geometry",
       }
     ]
@@ -67,12 +67,12 @@ const items: AppTreeViewItemProps[] = [
     children: [
       {
         identifier: "d-world-war-1",
-        type: "document",
+        type: "note",
         label: "World War I",
       },
       {
         identifier: "d-world-war-2",
-        type: "document",
+        type: "note",
         label: "World War II",
       }
     ]
@@ -80,7 +80,7 @@ const items: AppTreeViewItemProps[] = [
   {
     identifier: "d-todo-1",
     label: "To-Do List",
-    type: "document"
+    type: "note"
   }
 ];
 

@@ -6,7 +6,8 @@ import {AuthenticatedRequest} from "../../shared/interfaces/authenticated-reques
 import {ResourceControllerInterface} from "./resource.controller.interface";
 import {ResourceService} from "./resource.service";
 import {CreateResourceRequestDto, CreateResourceResponseDto} from "./dto/create-resource.dto";
-import {SelectResourceByUserIdResponseDto} from "./dto/select-resource-by-user-id.dto";
+import {GetResourceByUserIdResponseDto} from "./dto/get-resource-by-user-id.dto";
+import {GetResourceRootByUserIdResponseDto} from "./dto/get-resource-root-by-user-id.dto";
 
 /**
  * Controller which handles CRUD operations for resources.
@@ -49,13 +50,14 @@ export class ResourceController implements ResourceControllerInterface {
     @FoxdeckApiRequest({securityType: SecurityType.JWT_VALID})
     @FoxdeckApiResponse({
         responseDescription: "The resources of the logged in user.",
-        schema: SelectResourceByUserIdResponseDto,
+        schema: GetResourceByUserIdResponseDto,
+        isArray: true,
         httpCode: HttpStatus.OK,
     })
     @Get("resource")
     public async getResourceByUserId(
         @Req() request: AuthenticatedRequest
-    ): Promise<SelectResourceByUserIdResponseDto> {
+    ): Promise<GetResourceByUserIdResponseDto> {
         try {
             const user = request.user;
             const userId = user.id;
@@ -70,13 +72,14 @@ export class ResourceController implements ResourceControllerInterface {
     @FoxdeckApiRequest({securityType: SecurityType.JWT_VALID})
     @FoxdeckApiResponse({
         responseDescription: "The root-level resources of the logged in user.",
-        schema: SelectResourceByUserIdResponseDto,
+        schema: GetResourceRootByUserIdResponseDto,
+        isArray: true,
         httpCode: HttpStatus.OK,
     })
     @Get("resource-root")
     public async getRootLevelResourceByUserId(
         @Req() request: AuthenticatedRequest
-    ): Promise<SelectResourceByUserIdResponseDto> {
+    ): Promise<GetResourceRootByUserIdResponseDto[]> {
         try {
             const user = request.user;
             const userId = user.id;

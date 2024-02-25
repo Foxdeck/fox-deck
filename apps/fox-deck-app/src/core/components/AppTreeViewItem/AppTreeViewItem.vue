@@ -22,7 +22,7 @@ function getOpenIcon(isOpen: boolean): Icon {
 }
 
 function getTypeIcon(type: AppTreeViewItemType, isOpen: boolean, isSelected: boolean): Icon {
-  if (type === "document") {
+  if (type === "note") {
     if (isSelected) {
       return Icon.DOCUMENT_FILLED;
     }

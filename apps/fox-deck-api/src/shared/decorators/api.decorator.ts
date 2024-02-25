@@ -9,6 +9,7 @@ type FoxdeckApiResponseDecoratorOptions = {
     httpCode: HttpStatus;
     responseDescription: string;
     schema: any // needs to be a class
+    isArray?: boolean;
 }
 /**
  * FoxdeckApiResponse is a function that generates decorators for API responses.
@@ -37,6 +38,8 @@ export const FoxdeckApiResponse = (options: FoxdeckApiResponseDecoratorOptions) 
         schema: {
             $ref: getSchemaPath(options.schema),
         },
+        type: options.schema,
+        isArray: options.isArray ?? false
     }));
     decorators.push(ApiExtraModels(options.schema))
 

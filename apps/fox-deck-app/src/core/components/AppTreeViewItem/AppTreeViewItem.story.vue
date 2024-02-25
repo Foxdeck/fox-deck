@@ -28,10 +28,10 @@ function onAppTreeViewItemSelect(identifier) {
         @on-item-select="onAppTreeViewItemSelect"
       />
     </Variant>
-    <Variant title="Document">
+    <Variant title="Note">
       <AppTreeViewItem
         identifier="d-ecology-1"
-        type="document"
+        type="note"
         label="Ecology"
         @on-item-select="onAppTreeViewItemSelect"
       />
