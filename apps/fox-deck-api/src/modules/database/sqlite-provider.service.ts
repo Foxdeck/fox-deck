@@ -34,6 +34,7 @@ export class SqliteProvider implements DatabaseProvider {
         columns: string[];
         joins?: string[];
         where?: string;
+        singleSelect?: boolean;
     }): Promise<T> {
         try {
             let query = `SELECT ${params.columns.join(', ')}
@@ -51,7 +52,17 @@ export class SqliteProvider implements DatabaseProvider {
             }
 
 
-            const result = await this.databaseService.db.all(query) as T;
+            let result;
+            if (params.singleSelect) {
+                result = await this.databaseService.db.get(query) as T;
+            } else {
+                result = await this.databaseService.db.all(query) as T;
+            }
+
+            // if the result is an array with only 1 item, we return the single object
+            if (Array.isArray(result) && result.length === 1) {
+               result = result[0];
+            }
             this.logger.debug(`(select) => successfully selected from database`);
             return result;
         } catch (e) {

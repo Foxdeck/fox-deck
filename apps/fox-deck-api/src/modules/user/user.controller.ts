@@ -56,12 +56,7 @@ export class UserController {
   @Post("register")
   async createUser(@Body() body: CreateUserRequestDto): Promise<User> {
     try {
-      const { email, password, username } = body;
-      return await this.userService.createUser({
-        email,
-        password,
-        username,
-      });
+      return await this.userService.createUser(body);
     } catch (e) {
       const errorName = e.constructor.name;
       this.logger.error(

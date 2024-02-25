@@ -2,7 +2,6 @@ import {Injectable, Logger} from "@nestjs/common";
 import {v4 as uuidv4} from "uuid";
 import {SqliteProvider} from "../database/sqlite-provider.service";
 import {CreateResourceRequestDto} from "./dto/create-resource.dto";
-import e from "express";
 import {SelectResourceByUserIdResponseInterface} from "./dto/select-resource-by-user-id.dto";
 
 /**

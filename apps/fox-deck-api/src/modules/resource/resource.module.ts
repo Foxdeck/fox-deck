@@ -19,7 +19,7 @@ import {DatabaseModule} from "../database/database.module";
             secret: process.env.JWT_SECRET,
             signOptions: { expiresIn: "1y" },
         }),
-        DatabaseModule
+        DatabaseModule,
     ],
     providers: [ResourceService],
     controllers: [ResourceController],
