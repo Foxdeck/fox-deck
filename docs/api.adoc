@@ -160,6 +160,9 @@ Clicking on it opens a dialog in which the authentication token can be entered:
 
 image::assets/api/add-jwt-swagger.png[]
 
+IMPORTANT: To Generate a JWT, you need create an account via the `/register`-Endpoint. After that, you can log in into the
+the account via the `/login`-Endpoint. This Endpoint returns the access token for the logged-in user.
+
 ===== Example
 
 The annotation can be used in the code as follows:
@@ -175,14 +178,6 @@ export class ExampleController {
   }
 }
 ----
-
-==== Generate a JWT for Testing
-
-To generate a JWT, you can use the official website https://jwt.io/:
-
-image::assets/api/generate-jwt.png[]
-
-IMPORTANT: Look into jwt-body.interface.ts to see the current payload the JWT contains.
 
 === What is a resource?
 
