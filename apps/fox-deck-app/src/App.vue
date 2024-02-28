@@ -24,7 +24,9 @@ onMounted(async () => await fetchNotes());
     }"
   >
     <main class="flex w-screen h-screen bg-[#f5f6fb] dark:bg-gray-900">
-      <AppResourceNavigation />
+      <Suspense>
+        <AppResourceNavigation />
+      </Suspense>
       <div class="w-full overflow-y-scroll">
         <RouterLayout />
         <NotificationLayout />
