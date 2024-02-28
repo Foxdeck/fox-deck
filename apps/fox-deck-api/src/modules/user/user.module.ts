@@ -3,7 +3,6 @@ import {UserController} from "./user.controller";
 import {UserService} from "./user.service";
 import {PasswordService} from "../../shared/services/password.service";
 import {JwtModule} from "@nestjs/jwt";
-import {DatabaseModule} from "../database/database.module";
 
 @Module({
   imports: [
@@ -11,7 +10,6 @@ import {DatabaseModule} from "../database/database.module";
       global: true,
       signOptions: { expiresIn: "1y" },
     }),
-    DatabaseModule
   ],
   providers: [UserService, PasswordService],
   controllers: [UserController],

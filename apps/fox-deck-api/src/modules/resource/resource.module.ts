@@ -2,7 +2,6 @@ import {Module} from "@nestjs/common";
 import {JwtModule} from "@nestjs/jwt";
 import {ResourceController} from "./resource.controller";
 import {ResourceService} from "./resource.service";
-import {DatabaseModule} from "../database/database.module";
 
 /**
  * Represents a resource module in the application.
@@ -18,8 +17,7 @@ import {DatabaseModule} from "../database/database.module";
             global: true,
             secret: process.env.JWT_SECRET,
             signOptions: { expiresIn: "1y" },
-        }),
-        DatabaseModule,
+        })
     ],
     providers: [ResourceService],
     controllers: [ResourceController],

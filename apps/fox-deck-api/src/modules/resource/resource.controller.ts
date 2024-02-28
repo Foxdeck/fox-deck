@@ -62,7 +62,7 @@ export class ResourceController implements ResourceControllerInterface {
             const user = request.user;
             const userId = user.id;
 
-            return this.resourceService.getAllResourcesByUserId(userId);
+            return await this.resourceService.getAllResourcesByUserId(userId);
         } catch (e) {
             this.logger.error(`(getResourceByUserId) => failed to get resources: ${e.message}`);
             throw e;

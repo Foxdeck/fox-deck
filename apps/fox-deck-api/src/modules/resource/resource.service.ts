@@ -1,9 +1,10 @@
 import {Injectable, Logger} from "@nestjs/common";
 import {v4 as uuidv4} from "uuid";
-import {SqliteProvider} from "../database/sqlite-provider.service";
 import {CreateResourceRequestDto} from "./dto/create-resource.dto";
-import {GetResourceByUserIdResponseInterface} from "./dto/get-resource-by-user-id.dto";
 import {GetResourceRootByUserIdResponseDto} from "./dto/get-resource-root-by-user-id.dto";
+import {db} from "../../db/database";
+import {Transaction} from "kysely";
+import {DB} from "../../db/types";
 
 /**
  * A service class for managing resources.
@@ -11,9 +12,6 @@ import {GetResourceRootByUserIdResponseDto} from "./dto/get-resource-root-by-use
 @Injectable()
 export class ResourceService {
     private readonly logger = new Logger(ResourceService.name);
-
-    constructor(private readonly databaseProvider: SqliteProvider) {
-    }
 
     /**
      * Creates a resource for a given user.
@@ -25,15 +23,16 @@ export class ResourceService {
      * */
     public async createResource(resource: CreateResourceRequestDto, userId: string): Promise<string> {
         try {
-            await this.databaseProvider.run("BEGIN TRANSACTION");
-            const createdResource = await this.insertResourceIntoResourceTable(resource);
-            await this.insertResourceIntoAssociationTable(userId, createdResource);
-            await this.databaseProvider.run("COMMIT");
+            const createdResource = await db.transaction().execute(async (dbTransaction) => {
+                const resourceId = await this.insertResource(dbTransaction, resource);
+                await this.insertUserResourceAssociation(dbTransaction, userId, resourceId);
+
+                return resourceId;
+            });
 
             this.logger.debug("Resource created successfully");
             return createdResource;
         } catch (e) {
-            await this.databaseProvider.run("ROLLBACK");
             this.logger.debug("(createResource) => Error while creating resource", e.stack);
             throw e;
         }
@@ -46,24 +45,22 @@ export class ResourceService {
      * @returns {Array} - An array of resources associated with the user.
      * @throws {Error} - If there was an error while retrieving resources.
      */
-    public getAllResourcesByUserId(userId: string): Promise<GetResourceByUserIdResponseInterface> {
+    public async getAllResourcesByUserId(userId: string): Promise<any> {
         try {
-            return this.databaseProvider.select<GetResourceByUserIdResponseInterface>({
-                table: "Resource",
-                columns: [
+            return await db
+                .selectFrom("Resource")
+                .innerJoin("UserResourceAssociation", "UserResourceAssociation.resourceId", "Resource.resourceId")
+                .innerJoin("User", "User.id", "UserResourceAssociation.userId")
+                .select([
                     "Resource.resourceId",
                     "Resource.parentResourceId",
                     "Resource.type",
                     "Resource.name",
                     "Resource.content",
                     "Resource.createdAt"
-                ],
-                joins: [
-                    "UserResourceAssociation ON UserResourceAssociation.resourceId = Resource.resourceId",
-                    "User ON User.id = UserResourceAssociation.userId"
-                ],
-                where: `main.User.id = '${userId}'`
-            });
+                ])
+                .where("User.id", "=", userId)
+                .execute();
         } catch (e) {
             this.logger.debug("(getAllResourcesByUserId) => Error while getting resources by user ID", e.stack);
             throw e;
@@ -81,79 +78,53 @@ export class ResourceService {
      *
      * @throws {Error} If there is an error while fetching the resources.
      */
-    public getAllRootLevelResourcesByUserId(userId: string): Promise<GetResourceRootByUserIdResponseDto[]> {
+    public async getAllRootLevelResourcesByUserId(userId: string): Promise<GetResourceRootByUserIdResponseDto[]> {
         try {
-            return this.databaseProvider.select<GetResourceRootByUserIdResponseDto[]>({
-                table: "Resource",
-                columns: [
+            return await db
+                .selectFrom("Resource")
+                .innerJoin("UserResourceAssociation", "UserResourceAssociation.resourceId", "Resource.resourceId")
+                .innerJoin("User", "User.id", "UserResourceAssociation.userId")
+                .select([
                     "Resource.resourceId",
                     "Resource.parentResourceId",
                     "Resource.type",
                     "Resource.name",
                     "Resource.content",
                     "Resource.createdAt"
-                ],
-                joins: [
-                    "UserResourceAssociation ON UserResourceAssociation.resourceId = Resource.resourceId",
-                    "User ON User.id = UserResourceAssociation.userId"
-                ],
-                where: `main.User.id = '${userId}' AND Resource.parentResourceId IS NULL`,
-            });
+                ])
+                .where("User.id", "=", userId)
+                .where("Resource.parentResourceId", "is", null)
+                .execute();
         } catch (e) {
             this.logger.debug("(getAllResourcesByUserId) => Error while getting resources by user ID", e.stack);
             throw e;
         }
     }
 
-    /**
-     * Inserts a resource into the resource table.
-     *
-     * @param {CreateResourceRequestDto} resource - The resource to be inserted.
-     * @returns {Promise<string>} - The UUID of the inserted resource.
-     * @private
-     */
-    private async insertResourceIntoResourceTable(resource: CreateResourceRequestDto): Promise<string> {
-        try {
-            const resourceName = resource.name;
-            const resourceType = resource.type;
-            const uuid = uuidv4();
-            const content = resource.content;
-            const createdAt = new Date().toISOString();
-
-            await this.databaseProvider.insert("resource", {
-                resourceId: uuid,
-                name: resourceName,
-                type: resourceType,
-                content,
+    private async insertResource(trx: Transaction<DB>, resource: CreateResourceRequestDto) {
+        const resourceId = uuidv4();
+        const createdAt = new Date().toISOString();
+        await trx.insertInto("Resource")
+            .values({
+                resourceId,
+                name: resource.name,
+                type: resource.type,
+                content: resource.content,
                 createdAt
-            });
-            return uuid;
-        } catch (e) {
-            this.logger.debug(`(createResource) => error while creating resource: ${e.message}`);
-            throw e;
-        }
+            })
+            .executeTakeFirstOrThrow();
+        return resourceId;
     }
 
-    /**
-     * Inserts a resource into the association table for a specific user.
-     *
-     * @param {string} userId - The ID of the user.
-     * @param {string} resourceId - The ID of the resource.
-     * @return {Promise<void>} - A promise that resolves with no value when the insertion is successful.
-     * @private
-     */
-    private async insertResourceIntoAssociationTable(userId: string, resourceId: string): Promise<void> {
-        try {
-            const uuid = uuidv4();
-
-            await this.databaseProvider.insert("UserResourceAssociation", {
-                id: uuid,
+    private async insertUserResourceAssociation(trx: Transaction<DB>, userId: string, resourceId: string) {
+        const userResourceAssociationId = uuidv4();
+        await trx.insertInto("UserResourceAssociation")
+            .values({
+                id: userResourceAssociationId,
                 userId,
                 resourceId
-            });
-        } catch (e) {
-            this.logger.debug(`(insertResourceIntoAssociationTable) => error while inserting into table: ${e.message}`);
-            throw e;
-        }
+            })
+            .returningAll()
+            .executeTakeFirst();
     }
 }
