@@ -4,7 +4,7 @@ import type {GetResourceRootByUserIdResponseDto} from "@/core/services/api";
 import type {AppTreeViewItemProps, AppTreeViewItemType} from "@/core/components/AppTreeViewItem/AppTreeViewItem.types";
 
 export const useResourceStore = defineStore("resourceStore", () => {
-    const resources = ref<GetResourceRootByUserIdResponseDto[]>();
+    const resources = ref<GetResourceRootByUserIdResponseDto[]>([]);
 
     function fetchResourcesAsNavigation(): AppTreeViewItemProps[] {
 

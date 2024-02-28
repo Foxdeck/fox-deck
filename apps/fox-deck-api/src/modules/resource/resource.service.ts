@@ -97,7 +97,7 @@ export class ResourceService {
                     "UserResourceAssociation ON UserResourceAssociation.resourceId = Resource.resourceId",
                     "User ON User.id = UserResourceAssociation.userId"
                 ],
-                where: `main.User.id = '${userId}' AND Resource.parentResourceId IS NULL`
+                where: `main.User.id = '${userId}' AND Resource.parentResourceId IS NULL`,
             });
         } catch (e) {
             this.logger.debug("(getAllResourcesByUserId) => Error while getting resources by user ID", e.stack);

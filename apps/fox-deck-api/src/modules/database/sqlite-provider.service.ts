@@ -53,16 +53,12 @@ export class SqliteProvider implements DatabaseProvider {
 
 
             let result;
-            if (params.singleSelect) {
+            if (params.singleSelect === true) {
                 result = await this.databaseService.db.get(query) as T;
             } else {
                 result = await this.databaseService.db.all(query) as T;
             }
 
-            // if the result is an array with only 1 item, we return the single object
-            if (Array.isArray(result) && result.length === 1) {
-               result = result[0];
-            }
             this.logger.debug(`(select) => successfully selected from database`);
             return result;
         } catch (e) {
