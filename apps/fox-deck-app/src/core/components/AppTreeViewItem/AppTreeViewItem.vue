@@ -53,7 +53,7 @@ function onItemSelect() {
 
 <template>
   <span
-    class="flex items-center gap-2 text-black p-2 rounded-md cursor-pointer hover:bg-gray-100"
+    class="flex items-center gap-2 text-black p-2 rounded-md cursor-pointer select-none truncate hover:bg-gray-100"
     :class="{
       'bg-gray-100': isSelected
     }"
@@ -61,11 +61,20 @@ function onItemSelect() {
     @click="onItemSelect"
     @keydown.enter="onItemSelect"
   >
-    <AppIcon
-      v-if="canBeOpened()"
-      :icon="getOpenIcon(isOpen)"
-    />
-    <AppIcon :icon="getTypeIcon(type, isOpen, isSelected)" />
-    {{ label }}
+    <template v-if="isLoading">
+      <AppIcon
+        class="animate-spin"
+        :icon="Icon.SPINNER"
+      />
+      <span class="w-full h-3 rounded-full bg-gray-300 animate-pulse" />
+    </template>
+    <template v-else>
+      <AppIcon
+        v-if="canBeOpened()"
+        :icon="getOpenIcon(isOpen)"
+      />
+      <AppIcon :icon="getTypeIcon(type, isOpen, isSelected)" />
+      {{ label }}
+    </template>
   </span>
 </template>

@@ -10,16 +10,18 @@ import AppTreeView from "@/core/components/AppTreeView/AppTreeView.vue";
 import {LoginRouteNames} from "@/modules/login/routes";
 import {useResources} from "@/modules/resource-navigation/composables/useResources";
 import {useResourceStore} from "@/modules/resource-navigation/stores/resource.store";
+import type {AppTreeViewItemOnItemSelect} from "@/core/components/AppTreeViewItem/AppTreeViewItem.types";
 
 // stores
 const authStore = useAuthStore();
 const resourceStore = useResourceStore();
 
 // composables
-const {fetchResources} = useResources();
+const {fetchResources, getResourceChildren, removeResourceChildren, isResourceExpanded} = useResources();
 const {t} = useI18n();
 const {push} = useFoxdeckRouter();
 
+// initially fetch the resources from the database
 await fetchResources();
 
 /**
@@ -35,6 +37,25 @@ async function onLogoutClick() {
   await push({name: LoginRouteNames.LOGIN});
 }
 
+/**
+ * Handles the click event on a resource item in the tree view
+ *
+ * @param {AppTreeViewItemOnItemSelect} selectedItem - The selected item from the tree view
+ *
+ * @returns {Promise<void>} - A promise that resolves after handling the click event
+ */
+async function onResourceClick(selectedItem: AppTreeViewItemOnItemSelect) {
+  const {
+    identifier
+  } = selectedItem;
+
+  if (isResourceExpanded(identifier)) {
+    removeResourceChildren(identifier);
+    return;
+  }
+
+  await getResourceChildren(identifier);
+}
 </script>
 <template>
   <aside
@@ -60,7 +81,10 @@ async function onLogoutClick() {
       </div>
 
       <div class="flex flex-col gap-2">
-        <AppTreeView :items="resourceStore.fetchResourcesAsNavigation()" />
+        <AppTreeView
+          :items="resourceStore.fetchResourcesAsNavigation()"
+          @onItemSelect="onResourceClick($event)"
+        />
       </div>
     </div>
 

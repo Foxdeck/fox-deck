@@ -8,6 +8,7 @@ import {ResourceService} from "./resource.service";
 import {CreateResourceRequestDto, CreateResourceResponseDto} from "./dto/create-resource.dto";
 import {GetResourceByUserIdResponseDto} from "./dto/get-resource-by-user-id.dto";
 import {GetResourceRootByUserIdResponseDto} from "./dto/get-resource-root-by-user-id.dto";
+import {GetChildrenOfResourceRequestDto, GetChildrenOfResourceResponseDto} from "./dto/get-children-of-resource.dto";
 
 /**
  * Controller which handles CRUD operations for resources.
@@ -85,6 +86,29 @@ export class ResourceController implements ResourceControllerInterface {
             const userId = user.id;
 
             return this.resourceService.getAllRootLevelResourcesByUserId(userId);
+        } catch (e) {
+            this.logger.error(`(getResourceByUserId) => failed to get resources: ${e.message}`);
+            throw e;
+        }
+    }
+
+    @FoxdeckApiRequest({securityType: SecurityType.JWT_VALID})
+    @FoxdeckApiResponse({
+        responseDescription: "The children of a specific resource.",
+        schema: GetChildrenOfResourceResponseDto,
+        isArray: true,
+        httpCode: HttpStatus.OK,
+    })
+    @Post("resource-children")
+    public async getChildrenOfResource(
+        @Body() body: GetChildrenOfResourceRequestDto,
+        @Req() request: AuthenticatedRequest
+    ): Promise<GetChildrenOfResourceResponseDto[]> {
+        try {
+            const user = request.user;
+            const userId = user.id;
+
+            return this.resourceService.getChildrenOfResource(body.resourceId, userId);
         } catch (e) {
             this.logger.error(`(getResourceByUserId) => failed to get resources: ${e.message}`);
             throw e;
