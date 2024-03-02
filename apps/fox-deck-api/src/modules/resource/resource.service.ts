@@ -101,6 +101,37 @@ export class ResourceService {
         }
     }
 
+    /**
+     * Get the children resources of a given resource for a specific user.
+     *
+     * @param {string} resourceId - The ID of the resource for which to retrieve the children resources.
+     * @param {string} userId - The ID of the user.
+     * @returns {Promise<any[]>} - A Promise that resolves to an array of child resources.
+     * @throws {Error} - If there is an error retrieving the resources.
+     */
+    public async getChildrenOfResource(resourceId: string, userId: string): Promise<any[]> {
+        try {
+            return await db
+                .selectFrom("Resource")
+                .innerJoin("UserResourceAssociation", "UserResourceAssociation.resourceId", "Resource.resourceId")
+                .innerJoin("User", "User.id", "UserResourceAssociation.userId")
+                .select([
+                    "Resource.resourceId",
+                    "Resource.parentResourceId",
+                    "Resource.type",
+                    "Resource.name",
+                    "Resource.content",
+                    "Resource.createdAt"
+                ])
+                .where("User.id", "=", userId)
+                .where("Resource.parentResourceId", "=", resourceId)
+                .execute();
+        } catch (e) {
+            this.logger.debug("(getAllResourcesByUserId) => Error while getting resources by user ID", e.stack);
+            throw e;
+        }
+    }
+
     private async insertResource(trx: Transaction<DB>, resource: CreateResourceRequestDto) {
         const resourceId = uuidv4();
         const createdAt = new Date().toISOString();

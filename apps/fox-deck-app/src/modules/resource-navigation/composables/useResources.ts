@@ -1,22 +1,115 @@
 import {useAuthStore} from "@/core/stores/auth.store";
 import {useResourceStore} from "@/modules/resource-navigation/stores/resource.store";
 import {api} from "@/core/services";
+import type {GetResourceRootByUserIdResponseDto} from "@/core/services/api";
+import {HttpStatusCode} from "axios";
 
+/**
+ * Fetches resources from the API and updates the resource store.
+ *
+ * @return {Promise<void>} A promise that resolves when the resources are fetched and stored successfully.
+ */
 export function useResources() {
     const {jwt} = useAuthStore();
     const resourceStore = useResourceStore();
 
-    async function fetchResources() {
+    /**
+     * Fetches resources from the API and updates the resource store.
+     *
+     * @return {Promise<void>} A promise that resolves when the resources are fetched and stored successfully.
+     */
+    async function fetchResources(): Promise<void> {
         const response = await api.resourceRoot.resourceControllerGetRootLevelResourceByUserId({
             headers: {
                 Authorization: `Bearer ${jwt}`,
             },
         });
 
-        resourceStore.resources = response.data;
+        if (response.status === HttpStatusCode.Ok) {
+            resourceStore.resources = response.data;
+        }
     }
 
+    /**
+     * Removes children of the resource with the given ID.
+     *
+     * @param {string} resourceId - The ID of the resource.
+     */
+    function removeResourceChildren(resourceId: string) {
+        console.debug(`(removeResourceChildren) => remove children of resource with id '${resourceId}'`);
+        resourceStore.resources = [...resourceStore.resources.filter((resource) => resource.parentResourceId !== resourceId)];
+    }
+
+    /**
+     * Checks if a resource is expanded in the TreeView.
+     *
+     * @param {string} resourceId - The identifier of the resource to check.
+     * @returns {boolean} - True if the resource is expanded, false otherwise.
+     */
+    function isResourceExpanded(resourceId: string) {
+        const isResourceExpanded = resourceStore.resources.find(resource => resource.parentResourceId === resourceId) !== undefined;
+        console.debug(`(isResourceExpanded) => resource with id '${resourceId}' is expanded: '${isResourceExpanded}'`);
+
+        return isResourceExpanded;
+    }
+
+    /**
+     * Retrieves the children of a resource.
+     *
+     * @param {string} resourceId - The ID of the resource.
+     *
+     * @returns {Promise<void>} - A Promise that resolves when the children of the resource have been retrieved.
+     */
+    async function getResourceChildren(resourceId: string) {
+        console.debug(`(getResourceChildren) => get children of resource with id '${resourceId}'`);
+
+        // we add a placeholder which is rendered and shows, that the TreeView is currently loading
+        resourceStore.resources = [...resourceStore.resources, getLoadingResourcePlaceholder(resourceId)]
+
+        const response = await api.resourceChildren.resourceControllerGetChildrenOfResource({
+                resourceId
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${jwt}`,
+                },
+            });
+
+        // we remove the placeholder which is rendered and shows, that the TreeView is currently loading
+        resourceStore.resources = [...resourceStore.resources.filter((resource) =>
+            (resource.resourceId !== getLoadingResourcePlaceholder(resourceId).resourceId))
+        ];
+
+        resourceStore.resources = [...resourceStore.resources, ...response.data];
+    }
+
+    /**
+     * Retrieves the loading resource placeholder for a given parent resource ID.
+     * This Resource contains mainly dummy data.
+     *
+     * @param {string} parentResourceId - The ID of the parent resource to retrieve the loading placeholder for.
+     *
+     * @returns {GetResourceRootByUserIdResponseDto} - The loading resource placeholder object.
+     */
+    function getLoadingResourcePlaceholder(parentResourceId: string): GetResourceRootByUserIdResponseDto {
+        return {
+            resourceId: "loadingPlaceholder",
+            type: "loading",
+            name: "loading",
+            parentResourceId,
+            content: "",
+            createdAt: new Date().toISOString()
+        };
+    }
+
+    /**
+     * Public API
+     */
     return {
-        fetchResources: fetchResources
+        fetchResources: fetchResources,
+        getResourceChildren: getResourceChildren,
+        removeResourceChildren: removeResourceChildren,
+        getLoadingResourcePlaceholder: getLoadingResourcePlaceholder,
+        isResourceExpanded: isResourceExpanded,
     }
 }

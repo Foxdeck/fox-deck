@@ -49,6 +49,19 @@ export interface GetResourceRootByUserIdResponseDto {
   createdAt: string;
 }
 
+export interface GetChildrenOfResourceResponseDto {
+  resourceId: string;
+  parentResourceId: string;
+  type: string;
+  name: string;
+  content: string;
+  createdAt: string;
+}
+
+export interface GetChildrenOfResourceRequestDto {
+  resourceId: string;
+}
+
 export type QueryParamsType = Record<string | number, any>;
 export type ResponseFormat = keyof Omit<Body, "body" | "bodyUsed">;
 
@@ -354,6 +367,26 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         path: `/resource-root`,
         method: "GET",
         secure: true,
+        format: "json",
+        ...params,
+      }),
+  };
+  resourceChildren = {
+    /**
+     * No description
+     *
+     * @tags Resources
+     * @name ResourceControllerGetChildrenOfResource
+     * @request POST:/resource-children
+     * @secure
+     */
+    resourceControllerGetChildrenOfResource: (data: GetChildrenOfResourceRequestDto, params: RequestParams = {}) =>
+      this.request<GetChildrenOfResourceResponseDto[], any>({
+        path: `/resource-children`,
+        method: "POST",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
         format: "json",
         ...params,
       }),
