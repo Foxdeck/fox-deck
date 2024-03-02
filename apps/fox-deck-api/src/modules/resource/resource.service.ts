@@ -127,7 +127,7 @@ export class ResourceService {
                 .where("Resource.parentResourceId", "=", resourceId)
                 .execute();
         } catch (e) {
-            this.logger.debug("(getAllResourcesByUserId) => Error while getting resources by user ID", e.stack);
+            this.logger.debug("(getChildrenOfResource) => Error while getting children of resource", e.stack);
             throw e;
         }
     }
