@@ -6,6 +6,7 @@
     "dev": "concurrently \"npm run dev:api\" \"npm run dev:app\"",
     "dev:api": "cd ./apps/fox-deck-api && npm run start:dev",
     "dev:app": "cd ./apps/fox-deck-app && npm run dev",
+    "docs": "cd ./docs && npx antora antora-playbook.yml",
     "install:deps": "concurrently \"npm run install:api\" \"npm run install:app\"",
     "install:api": "cd ./apps/fox-deck-api && npm i",
     "install:app": "cd ./apps/fox-deck-app && npm i",

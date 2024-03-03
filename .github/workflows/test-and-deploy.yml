@@ -76,7 +76,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Get build container
-        run:  npx antora antora-playbook.yml
+        run:  npm run docs
       - name: Print execution time
         run: echo "Time ${{ steps.adocbuild.outputs.time }}"
       - name: deploy file
