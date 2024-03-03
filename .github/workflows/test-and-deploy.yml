@@ -76,10 +76,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Get build container
-        id: adocbuild
-        uses: tonynv/asciidoctor-action@master
-        with:
-          program: "asciidoctor -D docs --backend=html5 -o index.html docs/base.adoc"
+        run:  npm run docs
       - name: Print execution time
         run: echo "Time ${{ steps.adocbuild.outputs.time }}"
       - name: deploy file
@@ -89,16 +86,6 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           port: ${{ secrets.FTP_PORT }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local_path: './docs/index.html'
-          remote_path: '/developer'
-          sftp_only: true
-      - name: deploy documentation assets
-        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
-        with:
-          username: ${{ secrets.FTP_USERNAME }}
-          server: ${{ secrets.FTP_SERVER }}
-          port: ${{ secrets.FTP_PORT }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local_path: './docs/assets'
+          local_path: './docs/build/site/*'
           remote_path: '/developer'
           sftp_only: true

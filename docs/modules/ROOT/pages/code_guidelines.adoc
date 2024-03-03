@@ -1,8 +1,8 @@
-== Code Guidelines
+= Code Guidelines
 
 In our project, ESLint is an integral part of the development process. It ensures that all code contributions adhere to a unified standard, reducing the likelihood of syntax-related bugs and enhancing code readability and maintainability. The ESLint configuration has been tailored to our specific coding practices and is regularly updated to reflect changes in our coding standards and the evolving JavaScript ecosystem.
 
-=== What is ESLint?
+== What is ESLint?
 
 ESLint is a powerful and widely-used static analysis tool for identifying problematic patterns found in JavaScript code. It's not limited to just flagging potential errors; it also offers solutions for syntax that doesn't adhere to certain style guidelines. ESLint is highly configurable, allowing teams to adjust the rules to their specific coding standards and workflows.
 
@@ -18,29 +18,27 @@ ESLint is a powerful and widely-used static analysis tool for identifying proble
 
 6. *Auto-fixing:* ESLint can automatically fix some of the problems it detects, which is a significant time-saver. This feature can be used in both local development environments and as part of CI/CD pipelines.
 
-=== How to use ESLint locally?
+== How to use ESLint locally?
 
 In our project, we have incorporated ESLint to ensure code quality and consistency. To facilitate this, we have two specific npm script commands that can be used locally by developers to find and fix ESLint errors.
 
-==== Finding ESLint Errors
+=== Finding ESLint Errors
 
 To identify ESLint errors in the codebase, you can use the following command:
 
 [source, bash]
 ----
-// [root directory]
 $ npm run lint
 ----
 
 This command runs ESLint on all files in the apps directory and its subdirectories. It scans the JavaScript files for any code that doesn't comply with the defined ESLint rules. The output will list any issues found, along with their locations and descriptions. This is particularly useful for quickly identifying areas of the code that need attention.
 
-==== Automatically Fixing ESLint Errors
+=== Automatically Fixing ESLint Errors
 
 For convenience, we also have a command that not only identifies ESLint errors but also attempts to fix them automatically:
 
 [source, bash]
 ----
-// [root directory]
 $ npm run lint:fix
 ----
 
