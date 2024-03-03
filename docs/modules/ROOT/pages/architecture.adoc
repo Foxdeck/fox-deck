@@ -1,0 +1,36 @@
+= Architecture and Technologies
+
+This section should give you a basic understanding of the general architecture and technology decisions of Foxdeck.
+For more detailed information you should look into the more specific sections.
+
+== Overview
+
+Foxdeck is a web application that utilizes modern web technologies to deliver an efficient and user-friendly experience.
+The application consists of a frontend developed in Vue.js and a backend based on NestJS.
+
+== Frontend
+
+The frontend of Foxdeck is where the application's user experience comes to life, crafted using *https://vuejs.org/[Vue.js]*, a progressive JavaScript framework known for its adaptability and component-based architecture.
+This choice reflects a commitment to creating an intuitive and dynamic user interface, allowing users to interact seamlessly with the application's features.
+
+To complement Vue.js, we've embraced *https://tailwindcss.com/[TailwindCSS]* for styling.
+TailwindCSS's utility-first approach grants us the flexibility to design a bespoke user interface without the overhead of excessive custom CSS.
+This results in a clean, modern, and responsive design that enhances the overall user experience, making navigation and interaction with Foxdeck both pleasant and efficient.
+
+We have decided against UI libraries, but build our components ourselves based on https://github.com/material-components/material-web[Google's Material Design web components.]
+
+== Backend
+
+On the other side, the backend of Foxdeck is powered by *https://nestjs.com/[NestJS]*, a robust and versatile framework for building efficient, reliable, and scalable server-side applications.
+NestJS provides a solid foundation for our application, ensuring stable performance and ease of maintenance.
+
+For database migrations we use we've integrated *https://www.prisma.io/[Prisma]*.
+However, we use Prisma **only** for the migration of databases, not for operations on the database.
+
+We use *https://kysely.dev/[kysely]* for database operations.
+"Kysely" is a type-safe SQL query builder for TypeScript and JavaScript. It's designed to provide developers with a way to write SQL queries in a structured and secure manner, reducing the risk of SQL injection attacks.
+
+Furthermore, our RESTful API, a key component of our backend architecture, is meticulously documented using *https://swagger.io/[Swagger]*.
+This documentation is not only a valuable resource, it's also the "single source of truth" for developers and serves as the backbone for our TypeScript API generation.
+
+With *https://github.com/acacode/swagger-typescript-api[swagger-typescript-api]*, we automatically create a TypeScript interface for our API, ensuring a smooth and type-safe integration between our frontend and backend.

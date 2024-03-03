@@ -1,0 +1,59 @@
+= Foxdeck: Developer Guide
+
+IMPORTANT: Please note that this documentation is currently in progress and may not yet be complete. We are actively working to update and expand its contents to ensure it provides the most accurate and comprehensive information.
+
+== About this Document
+
+This documentation contains a guide on how to support and contribute to the development of Foxdeck.
+It also provides a comprehensive guide to the software's architecture, highlighting key components and their interactions to facilitate efficient development and collaboration.
+After reading the documentation, you should have a basic understanding of the code and its philosophies. If there are still open questions,
+please post an https://github.com/Foxdeck/fox-deck/issues/new?template=feature_request.md&title=[issue on GitHub], and we will answer your question promptly and expand the documentation!
+
+== Our goal
+
+»Our goal is to assist students in organizing their class notes, lecture summaries, and study materials,
+and to create questions on these subjects to facilitate the retention of all this information.«
+
+== Getting started
+
+Getting started with development should be made as easy as possible. We want to offer a place where even junior developers feel comfortable and can learn to develop software.
+That's why we try to automate as much as possible and offer "bootstrap scripts" that set up the system intuitively.
+This way we ensure that you can start developing immediately without having to worry about setting up databases or installing individual dependencies.
+
+=== Prerequisites
+
+- https://nodejs.org/en[Node.js] (tested with v16.20.0 or greater)
+
+=== Installation
+
+We've built a script, which handles all the initial setup of your development environment by itself. You
+can start the script by running following console command:
+
+[source,bash]
+----
+$ npm run setup:dev
+----
+
+**Technical background:** The `setup:dev` command is located in the package.json at root level of the project.
+The script calls the _'setup.dev.js'_ in the _'tools'_-folder, which among other things:
+
+* installs dependencies of the frontend
+* installs dependencies of the API
+* initializes / migrates the database
+
+=== Run the software
+
+There are various ways to start Foxdeck. The easiest and fastest option is to start the frontend and the API at the same time.
+This is done by entering the following command at root level of the project:
+
+[source,bash]
+----
+$ npm run start:dev
+----
+
+If the start was successful, the frontend can be accessed at http://localhost:5173 and the API at http://localhost:3000/api.
+
+== What happens next?
+
+Feel free to get to know the software first, change lines of code and play around a bit and see what happens.
+Or take a look at the other sections of this documentation and learn a little more about the architecture and structure of the software. Have fun!

@@ -1,0 +1,5 @@
+name: foxdeck
+title: Fox-Deck
+version: '1.0'
+nav:
+  - modules/ROOT/nav.adoc
