@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import AppCard from "@/core/components/AppCard/AppCard.vue";
 </script>
 <template>

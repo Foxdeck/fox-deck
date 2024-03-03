@@ -1,7 +1,7 @@
-<script setup>
+<script setup lang="ts">
 import AppTreeViewItem from "@/core/components/AppTreeViewItem/AppTreeViewItem.vue";
 
-function onAppTreeViewItemSelect(identifier) {
+function onAppTreeViewItemSelect(identifier: any) {
   alert(JSON.stringify(identifier));
 }
 

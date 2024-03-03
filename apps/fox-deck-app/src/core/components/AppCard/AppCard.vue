@@ -56,7 +56,7 @@ const hasCardFooter = () => props.actions.length > 0;
       >
         <AppButton
           v-for="action of actions"
-          :key="action"
+          :key="action.label"
           data-testid="card-action"
           :variant="action.variant"
           :label="action.label"

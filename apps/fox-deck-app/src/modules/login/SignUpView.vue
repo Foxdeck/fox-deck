@@ -82,7 +82,7 @@ const formSchema: FormSchema = {
  * @param password {string} password of the user to create
  * @param username {string} username of the user to create
  */
-async function onRegisterSubmit({email, password, username}) {
+async function onRegisterSubmit({email, password, username}: any) {
   try {
     await api.register.userControllerCreateUser({email, password, username});
     await push({
@@ -98,7 +98,7 @@ async function onRegisterSubmit({email, password, username}) {
 <template>
   <LoginRegisterLayout>
     <template #form>
-      <div class="text-center block">
+      <div class="flex flex-col text-center">
         <FDTypography
           class="font-bold"
           type="h1"

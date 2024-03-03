@@ -11,9 +11,7 @@ const { currentRoute } = useRouter();
 function getRouteForSignInSignUp(currentRoute: RouteLocationNormalizedLoaded): LoginRouteNames {
   if (currentRoute.name === "login") {
     return LoginRouteNames.REGISTER;
-  }
-
-  if (currentRoute.name === "register") {
+  } else {
     return LoginRouteNames.LOGIN;
   }
 }

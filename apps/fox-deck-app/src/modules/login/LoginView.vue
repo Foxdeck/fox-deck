@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import {reactive, ref} from "vue";
+import {reactive} from "vue";
 import * as Yup from "yup";
 import {useI18n} from "vue-i18n";
 import {useAuthStore} from "@/core/stores/auth.store";
 import {api} from "@/core/services";
 import {useFoxdeckRouter} from "@/core/composables/useFoxdeckRouter";
-import FDFormBuilder, {FormSchema} from "@/core/components/FDFormBuilder/FDFormBuilder.vue";
+import FDFormBuilder, {type FormSchema} from "@/core/components/FDFormBuilder/FDFormBuilder.vue";
 import AppTextField from "@/core/components/AppTextField/AppTextField.vue";
 import LoginRegisterLayout from "@/modules/login/LoginSignUpLayout.vue";
 import {HomeRouteNames} from "@/modules/home/routes";
@@ -21,7 +21,7 @@ const formError = reactive({
   errorMessage: ""
 });
 
-async function onFormSubmit({ email, password }) {
+async function onFormSubmit({ email, password }: any) {
   try {
     const response = await api.login.userControllerGetUser({ email, password });
 
@@ -35,7 +35,7 @@ async function onFormSubmit({ email, password }) {
     });
   } catch (e) {
     formError.hasError = true;
-    if (e?.error?.statusCode === ServerResponse.AUTHENTICATION_ERROR) {
+    if ((e as any)?.error?.statusCode === ServerResponse.AUTHENTICATION_ERROR) {
       formError.errorMessage = t("login.error.authentication_error");
       return;
     }
@@ -75,7 +75,7 @@ const formSchema: FormSchema = {
 <template>
   <LoginRegisterLayout>
     <template #form>
-      <div class="text-center block">
+      <div class="flex flex-col text-center">
         <FDTypography
           class="font-bold"
           type="h1"

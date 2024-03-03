@@ -2,16 +2,13 @@ import {createRouter, createWebHistory, type RouteLocationNormalized, type Route
 import {useAuthStore} from "@/core/stores/auth.store";
 import {LoginRouteNames, loginRoutes} from "@/modules/login/routes";
 import {HomeRouteNames, homeRoutes} from "@/modules/home/routes";
-import {NoteRouteNames, noteRoutes} from "@/modules/notes/routes";
 
 export type RouteNames = LoginRouteNames
-  | HomeRouteNames
-  | NoteRouteNames;
+  | HomeRouteNames;
 
 export const routes: RouteRecordRaw[] = [
   ...loginRoutes,
   ...homeRoutes,
-  ...noteRoutes
 ];
 
 const router = createRouter({

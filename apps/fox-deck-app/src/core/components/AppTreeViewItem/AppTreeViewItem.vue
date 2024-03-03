@@ -14,14 +14,14 @@ const props = withDefaults(defineProps<AppTreeViewItemProps>(), {
 });
 
 const emit = defineEmits<{
-  (e: "onItemSelect", value: AppTreeViewItemOnItemSelect);
+  (e: "onItemSelect", value: AppTreeViewItemOnItemSelect): void;
 }>();
 
 function getOpenIcon(isOpen: boolean): Icon {
   return isOpen ? Icon.CARET_DOWN : Icon.CARET_RIGHT;
 }
 
-function getTypeIcon(type: AppTreeViewItemType, isOpen: boolean, isSelected: boolean): Icon {
+function getTypeIcon(type: AppTreeViewItemType, isOpen: boolean, isSelected: boolean): Icon | undefined {
   if (type === "note") {
     if (isSelected) {
       return Icon.DOCUMENT_FILLED;
@@ -73,7 +73,10 @@ function onItemSelect() {
         v-if="canBeOpened()"
         :icon="getOpenIcon(isOpen)"
       />
-      <AppIcon :icon="getTypeIcon(type, isOpen, isSelected)" />
+      <AppIcon
+        v-if="getTypeIcon(type, isOpen, isSelected)"
+        :icon="getTypeIcon(type, isOpen, isSelected)"
+      />
       {{ label }}
     </template>
   </span>

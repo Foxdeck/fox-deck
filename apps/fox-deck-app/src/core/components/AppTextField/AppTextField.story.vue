@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import AppTextField from "@/core/components/AppTextField/AppTextField.vue";
 import {Icon} from "@/core/components/AppIcon/icons";
 </script>

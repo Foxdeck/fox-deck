@@ -19,11 +19,11 @@ const { getLoadingResourcePlaceholder } = useResources();
       :identifier="item.identifier"
       :type="item.type"
       :label="item.label"
-      :is-open="item.children?.length > 0"
+      :is-open="item.children ? item.children.length > 0 : false"
       :is-selected="item.isSelected"
       :is-loading="item.identifier === getLoadingResourcePlaceholder(item.identifier).resourceId"
       :title="item.label"
-      @onItemSelect="$emit('onItemSelect', $event)"
+      @on-item-select="$emit('onItemSelect', $event)"
     />
     <div class="ml-12">
       <AppTreeView

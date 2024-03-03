@@ -19,7 +19,7 @@ onMounted(() => {
   const menuEl = document.body.querySelector("#usage-menu") as any;
   menuEl.anchorElement = anchorEl;
 
-  anchorEl.addEventListener("click", () => { menuEl.open = !menuEl.open; });
+  anchorEl?.addEventListener("click", () => { menuEl.open = !menuEl.open; });
 });
 </script>
 

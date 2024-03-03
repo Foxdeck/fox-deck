@@ -48,7 +48,7 @@ const storys = [
     <div class="grid gap-4 grid-cols-1 md:grid-cols-2 2xl:grid-cols-3">
       <a
         v-for="story in storys"
-        :key="story"
+        :key="story.headline"
         class="cursor-pointer transition hover:opacity-80"
         :href="story.url"
       >
