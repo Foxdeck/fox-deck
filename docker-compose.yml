@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  fox-deck-app:
+    build:
+      context: .
+      dockerfile: app.Dockerfile
+    ports:
+      - "80:80"
+  fox-deck-api:
+    build:
+      context: .
+      dockerfile: api.Dockerfile
+    ports:
+      - "3000:3000"
