@@ -1,0 +1,33 @@
+= Properties
+
+|===
+|Property |Description |Information
+
+|resourceId
+|The unique identifier of a resource.
+|Primary Key - String
+
+
+|parentResourceId
+|The identifier of the parent resource (folder) where the current resource is located.
+This field is null if the resource is at the root level of the hierarchy,
+indicating that the resource is positioned at the top of the hierarchy.
+|String - Nullable
+
+
+|type
+|Indicates whether the resource is a folder or a note.
+|String
+
+|name
+|The user-provided name of the resource.
+|String
+
+|content
+|The (base64 encoded) content of the resource. If the resource is a folder, this is null.
+|String - Nullable
+
+|createdAt
+|The date and time when the resource was created.
+|Date
+|===

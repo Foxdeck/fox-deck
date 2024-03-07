@@ -1,0 +1,41 @@
+= Frontend
+
+This document is intended to provide an insight into the structure of the Foxdeck Frontend.
+It is intended to be a first entry point for developers who want to implement new functionalities in the Frontend or who want to get an in-depth overview.
+
+== Overview
+
+The frontend of Foxdeck is where the application's user experience comes to life, crafted using *https://vuejs.org/[Vue.js]*, a progressive JavaScript framework known for its adaptability and component-based architecture.
+This choice reflects a commitment to creating an intuitive and dynamic user interface, allowing users to interact seamlessly with the application's features.
+
+To complement Vue.js, we've embraced *https://tailwindcss.com/[TailwindCSS]* for styling.
+TailwindCSS's utility-first approach grants us the flexibility to design a bespoke user interface without the overhead of excessive custom CSS.
+This results in a clean, modern, and responsive design that enhances the overall user experience, making navigation and interaction with Foxdeck both pleasant and efficient.
+
+We have decided against UI libraries, but build our components ourselves based on https://github.com/material-components/material-web[Google's Material Design web components.]
+
+== Getting started
+
+NOTE: If you have followed the guide at Introduction, you can skip these steps.
+
+=== Install dependencies
+
+To install the frontend, navigate to the fox-deck-app directory and install the NPM dependencies with the following command:
+
+[source,bash]
+----
+$ npm install
+----
+
+.icon[name=fas:camera-retro]
+== Start the Front-end
+
+After the above steps have been carried out, the front-end can be started with the following command:
+
+[source,bash]
+----
+$ npm run dev
+----
+
+Afterward the Frontend can be accessed via http://localhost:5173 in the browser.
+

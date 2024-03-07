@@ -1,51 +1,4 @@
-= API
-
-This document is intended to provide an insight into the structure of the Foxdeck API.
-It is intended to be a first entry point for developers who want to implement new functionalities in the API or who want to get an in-depth overview.
-
-== Getting started
-
-NOTE: If you have followed the guide at Introduction, you can skip these steps.
-
-=== Install dependencies
-
-To install the back-end, navigate to the fox-deck-api directory and install the NPM dependencies with the following command:
-
-[source,bash]
-----
-$ npm install
-----
-
-=== Generate database
-
-The API uses a SQLite database which must be initialized.
-The location of the database is stored in the .env file in the fox-deck-api directory.
-There is an .env.example file by default.
-It is best to make a copy of it and rename this copy to ".env".
-
-To create the database, execute the following command in the main directory of fox-deck-api:
-
-[source,bash]
-----
-$ npm run prisma:migrate
-----
-
-This command creates the database in the directory stored in .env.
-
-TIP: It makes sense to connect to the database via https://www.jetbrains.com/help/idea/database-tool-window.html[IntelliJ], for example, in order to be able to easily understand the contents of the database.
-
-=== Start the API
-
-After the above steps have been carried out, the back-end can be started with the following command:
-
-[source,bash]
-----
-$ npm run start:dev
-----
-
-Afterward the Swagger documentation can be accessed via http://localhost:3000/api in the browser.
-
-== Structure
+= Structure
 
 The structure of the API follows the best practices of NestJS for modular applications.
 The application is divided into different "modules", with each module defining a specific topic area.
@@ -54,7 +7,7 @@ The NestJS documentation is a good starting point for understanding how NestJS a
 
 Further information can be found at https://docs.nestjs.com/modules.
 
-=== Controller
+== Controller
 
 In NestJS, a framework for Node.js, a controller is a class that handles incoming requests.
 Controllers are responsible for managing the flow of data between the server and the client.
@@ -76,7 +29,7 @@ The role of a controller in NestJS is to:
 
 Further information can be found at https://docs.nestjs.com/controllers
 
-=== Service (Providers)
+== Service (Providers)
 
 In NestJS, a service is a fundamental concept that refers to a class responsible for handling business logic and data access.
 Services in NestJS are designed to be reusable and modular, allowing for a clear separation of concerns within the application.
@@ -98,7 +51,7 @@ In summary, services in NestJS play a crucial role in handling the business logi
 
 Further information can be found at https://docs.nestjs.com/providers
 
-=== Shared directory
+== Shared directory
 
 The shared directory contains code that can be shared across different parts of the application.
 This approach helps in maintaining a clean and modular code structure.
@@ -115,111 +68,3 @@ This enhances the maintainability and scalability of the codebase.
 
 IMPORTANT: use the shared directory judiciously to avoid creating a catch-all location that becomes difficult to manage.
 The goal is to keep the shared directory well-organized and limited to truly reusable and application-wide concerns.
-
-== Security
-
-An interceptor was implemented in NestJS to protect the endpoints of the API.
-This interceptor checks every incoming connection to see whether extended authentication is required or not.
-
-The form in which authentication is required or not depends on whether a route has a certain security level.
-This is determined with an @Security-Decorator.
-
-=== Usage of the @Security Annotation
-
-The @Security annotation can be used to set which security level is required to call up the route.
-There are currently two security levels:
-
-* *NO_SECURE*: No security validation at all, the same as leaving the @Security-Decorator away.
-* *JWT_VALID*: Validation of the JWT, which must be a valid JWT.
-
-If the security level "JWT_VALID" has been selected, the JWT in the header is compared with the checksum.
-If the JWT is valid, it is parsed and the "User" property is added to the request (see _AuthenticatedRequest_-interface).
-
-==== Example
-
-[source,typescript]
-----
-@ApiBearerAuth("access-token")
-@Security(SecurityType.JWT_VALID) // 1. set Security-Type for this request
-async mySecurectFunction(
-@Body() data: CreateQuestionRequestDto,
-@Req() request: AuthenticatedRequest, // 2. get request object
-): Promise<Question> {
-    try {
-      const user = request.user; // 3. get user from request
-      [...]
-    } catch (e) {
-      throw new InternalServerErrorException(e);
-    }
-}
-----
-
-=== Usage of the @ApiBearerAuth Annotation
-
-The@ApiBearerAuth("access-token") annotation is used to enable authentication in the Swagger documentation.
-After the annotation has been installed, you will find a small lock at the top right of the screen in the Swagger documentation.
-Clicking on it opens a dialog in which the authentication token can be entered:
-
-image::assets/api/add-jwt-swagger.png[]
-
-=== Generate a JWT
-
-To Generate a JWT, you need create an account via the `/register`-Endpoint. After that, you can log in into the
-the account via the `/login`-Endpoint. This Endpoint returns the access token for the logged-in user.
-
-==== Example
-
-The annotation can be used in the code as follows:
-
-[source,typescript]
-----
-@Controller('example')
-export class ExampleController {
-  @Get()
-  @ApiBearerAuth("access-token")
-  getData() {
-    // ...
-  }
-}
-----
-
-== What is a resource?
-
-A resource in this context refers to an entity within the fox-deck system. Resources are:
-
-* *folder:* - container object, folders can contain other folders or notes
-* *note:* - note, which the user create
-
-=== Properties
-
-|===
-|Property |Description |Information
-
-|resourceId
-|The unique identifier of a resource.
-|Primary Key - String
-
-
-|parentResourceId
-|The identifier of the parent resource (folder) where the current resource is located.
-This field is null if the resource is at the root level of the hierarchy,
-indicating that the resource is positioned at the top of the hierarchy.
-|String - Nullable
-
-
-|type
-|Indicates whether the resource is a folder or a note.
-|String
-
-|name
-|The user-provided name of the resource.
-|String
-
-|content
-|The (base64 encoded) content of the resource. If the resource is a folder, this is null.
-|String - Nullable
-
-|createdAt
-|The date and time when the resource was created.
-|Date
-|===

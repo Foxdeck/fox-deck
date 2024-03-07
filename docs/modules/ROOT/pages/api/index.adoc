@@ -1,0 +1,63 @@
+= API
+
+This document is intended to provide an insight into the structure of the Foxdeck API.
+It is intended to be a first entry point for developers who want to implement new functionalities in the API or who want to get an in-depth overview.
+
+== Overview
+
+
+On the other side, the backend of Foxdeck is powered by *https://nestjs.com/[NestJS]*, a robust and versatile framework for building efficient, reliable, and scalable server-side applications.
+NestJS provides a solid foundation for our application, ensuring stable performance and ease of maintenance.
+
+For database migrations we use we've integrated *https://www.prisma.io/[Prisma]*.
+However, we use Prisma **only** for the migration of databases, not for operations on the database.
+
+We use *https://kysely.dev/[kysely]* for database operations.
+"Kysely" is a type-safe SQL query builder for TypeScript and JavaScript. It's designed to provide developers with a way to write SQL queries in a structured and secure manner, reducing the risk of SQL injection attacks.
+
+Furthermore, our RESTful API, a key component of our backend architecture, is meticulously documented using *https://swagger.io/[Swagger]*.
+This documentation is not only a valuable resource, it's also the "single source of truth" for developers and serves as the backbone for our TypeScript API generation.
+
+With *https://github.com/acacode/swagger-typescript-api[swagger-typescript-api]*, we automatically create a TypeScript interface for our API, ensuring a smooth and type-safe integration between our frontend and backend.
+
+== Getting started
+
+NOTE: If you have followed the guide at Introduction, you can skip these steps.
+
+=== Install dependencies
+
+To install the back-end, navigate to the fox-deck-api directory and install the NPM dependencies with the following command:
+
+[source,bash]
+----
+$ npm install
+----
+
+== Generate database
+
+The API uses a SQLite database which must be initialized.
+The location of the database is stored in the .env file in the fox-deck-api directory.
+There is an .env.example file by default.
+It is best to make a copy of it and rename this copy to ".env".
+
+To create the database, execute the following command in the main directory of fox-deck-api:
+
+[source,bash]
+----
+$ npm run prisma:migrate
+----
+
+This command creates the database in the directory stored in .env.
+
+TIP: It makes sense to connect to the database via https://www.jetbrains.com/help/idea/database-tool-window.html[IntelliJ], for example, in order to be able to easily understand the contents of the database.
+
+== Start the API
+
+After the above steps have been carried out, the back-end can be started with the following command:
+
+[source,bash]
+----
+$ npm run start:dev
+----
+
+Afterward the Swagger documentation can be accessed via http://localhost:3000/api in the browser.

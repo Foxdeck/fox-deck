@@ -1,0 +1,66 @@
+= Security
+
+An interceptor was implemented in NestJS to protect the endpoints of the API.
+This interceptor checks every incoming connection to see whether extended authentication is required or not.
+
+The form in which authentication is required or not depends on whether a route has a certain security level.
+This is determined with an @Security-Decorator.
+
+== Usage of the @Security Annotation
+
+The @Security annotation can be used to set which security level is required to call up the route.
+There are currently two security levels:
+
+* *NO_SECURE*: No security validation at all, the same as leaving the @Security-Decorator away.
+* *JWT_VALID*: Validation of the JWT, which must be a valid JWT.
+
+If the security level "JWT_VALID" has been selected, the JWT in the header is compared with the checksum.
+If the JWT is valid, it is parsed and the "User" property is added to the request (see _AuthenticatedRequest_-interface).
+
+=== Example
+
+[source,typescript]
+----
+@ApiBearerAuth("access-token")
+@Security(SecurityType.JWT_VALID) // 1. set Security-Type for this request
+async mySecurectFunction(
+@Body() data: CreateQuestionRequestDto,
+@Req() request: AuthenticatedRequest, // 2. get request object
+): Promise<Question> {
+    try {
+      const user = request.user; // 3. get user from request
+      [...]
+    } catch (e) {
+      throw new InternalServerErrorException(e);
+    }
+}
+----
+
+== Usage of the @ApiBearerAuth Annotation
+
+The@ApiBearerAuth("access-token") annotation is used to enable authentication in the Swagger documentation.
+After the annotation has been installed, you will find a small lock at the top right of the screen in the Swagger documentation.
+Clicking on it opens a dialog in which the authentication token can be entered:
+
+image::assets/add-jwt-swagger.png[]
+
+== Generate a JWT
+
+To Generate a JWT, you need create an account via the `/register`-Endpoint. After that, you can log in into the
+the account via the `/login`-Endpoint. This Endpoint returns the access token for the logged-in user.
+
+=== Example
+
+The annotation can be used in the code as follows:
+
+[source,typescript]
+----
+@Controller('example')
+export class ExampleController {
+  @Get()
+  @ApiBearerAuth("access-token")
+  getData() {
+    // ...
+  }
+}
+----

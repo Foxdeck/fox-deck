@@ -1,0 +1,53 @@
+= Structure
+
+The structure of the Frontend is based on the [modularised architecture](https://www.maxpou.fr/blog/vue-js-module-architecture/) which is also known from Applications build with Angular.
+
+== What is a module?
+
+In a Vue.js application, a module refers to a self-contained unit of code that encapsulates a specific functionality or feature.
+Modules in Vue.js help organize code by breaking down the application into smaller, manageable pieces, making it easier to maintain and scale.
+
+Typically, a Vue.js module consists of:
+
+1. **Components:** These are reusable Vue.js components that encapsulate a specific piece of UI functionality.
+Components can include template markup, JavaScript logic, and styles.
+2. **State Management:** Modules often include state management solutions such as Vuex, which helps manage the application's state in a centralized store.
+This allows components to access and modify data without directly communicating with each other.
+3. **Routing:** For applications with multiple views or pages, modules may include routing functionality using Vue Router.
+This enables navigation between different components or pages within the application.
+4. **Services and Utilities:** Modules may also include various services or utility functions that provide common functionality across the application, such as API communication, validation, or data manipulation.
+
+Overall, modules in Vue.js promote modularity, reusability, and maintainability by organizing code into smaller, cohesive units, which can be independently developed, tested, and updated.
+It's important, that a module does not contain code from other modules and only shares the state via the core.
+
+== Core
+
+In the context of a Vue.js application, a "core" typically refers to the fundamental or essential functionality that forms the foundation of the application.
+The "core" encompasses the central features, libraries, and infrastructure that are necessary for the application to function properly.
+
+The "core" of a Vue.js application may include:
+
+1. **Core Components:** These are basic building blocks provided by Vue.js, such as <template>, <script>, and <style>, which are used to define the structure, behavior, and styling of components.
+2. **Global Configuration and Plugins:** The core often includes global configuration settings and plugins that extend Vue.js's capabilities, such as Vue Router for routing and Vuex for state management.
+3. **Utilities and Helpers:** Core functionalities may also include various utility functions and helpers provided by Vue.js or third-party libraries, which assist in common tasks such as data manipulation, event handling, and debugging.
+
+Overall, the "core" of a Vue.js application forms the backbone of the development framework, providing the essential tools and features needed to build and run Vue.js applications effectively.
+
+== Our modules
+
+This should give you an overall overview over the modules we have in the frontend of Foxdeck.
+
+=== home
+
+INFO: This module does not have a good purpose for now. This will be refined in future versions of Foxdeck.
+
+=== login
+
+This module contains logic for:
+
+* login / Sign in
+* register / Sign up
+
+=== resource-navigation
+
+This module contains the side-navigation which is used to navigate through folders and notes. The side-navigation is self-contained and fetches the resources from the backend itself.
