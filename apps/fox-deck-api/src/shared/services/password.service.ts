@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import * as bcrypt from "bcryptjs";
+import * as bcrypt from "bcrypt";
 
 /**
  * Services which handles password generation and validation.

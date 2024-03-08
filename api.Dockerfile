@@ -4,7 +4,6 @@ COPY apps/fox-deck-api/package*.json ./
 RUN npm ci --prefer-offline --no-audit --progress=false
 COPY apps/fox-deck-api/ .
 COPY apps/fox-deck-api/.env.example /usr/src/app/.env
-RUN npm rebuild  # Rebuilds all native dependencies, used because we use c++ libraries
 RUN npm run prisma:migrate
 EXPOSE 3000
 CMD ["npm", "run", "start:dev"]

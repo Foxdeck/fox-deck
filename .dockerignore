@@ -1,1 +1,2 @@
-node_modules
+# ignore every node_modules of both projects
+**/node_modules
