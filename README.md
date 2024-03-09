@@ -36,7 +36,7 @@ community is here to support and enrich your learning journey.
 ## 🖥️ Get Involved in Development
 
 We invite all developers to dive into Foxdeck's unassigned issues – your opportunity to make a significant impact. Start
-your journey with us by exploring our [developer documentation](http://developer.foxdeck.de), a comprehensive guide to
+your journey with us by exploring our [developer documentation](http://docs.foxdeck.de), a comprehensive guide to
 the inner workings of Foxdeck.
 If you're inspired to add your own unique features or improvements, feel free to open new issues. We're particularly
 eager for fresh UX/UI ideas to enhance the Foxdeck experience. Join us in shaping the future of this innovative learning
