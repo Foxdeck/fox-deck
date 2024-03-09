@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
+    "build": "concurrently \"npm run build:api\" \"npm run build:app\"",
+    "build:api": "cd ./apps/fox-deck-api && npm run build",
+    "build:app": "cd ./apps/fox-deck-app && npm run build",
     "dev": "concurrently \"npm run dev:api\" \"npm run dev:app\"",
     "dev:api": "cd ./apps/fox-deck-api && npm run start:dev",
     "dev:app": "cd ./apps/fox-deck-app && npm run dev",

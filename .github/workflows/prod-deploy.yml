@@ -1,0 +1,13 @@
+name: Deplay to production
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy_to_production:
+    if: contains('["dominique-boerner", "Eric-Schubert"]', github.actor)
+    runs-on: ubuntu-latest
+    name: Deploy to production
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
