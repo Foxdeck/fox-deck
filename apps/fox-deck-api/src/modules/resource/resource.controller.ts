@@ -58,7 +58,7 @@ export class ResourceController implements ResourceControllerInterface {
     @Get("resource")
     public async getResourceByUserId(
         @Req() request: AuthenticatedRequest
-    ): Promise<GetResourceByUserIdResponseDto> {
+    ): Promise<GetResourceByUserIdResponseDto[]> {
         try {
             const user = request.user;
             const userId = user.id;
