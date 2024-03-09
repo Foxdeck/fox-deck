@@ -1,12 +1,12 @@
 import {Injectable, InternalServerErrorException, Logger,} from "@nestjs/common";
 import {JwtService} from "@nestjs/jwt";
 import {v4 as uuidv4} from "uuid";
-import {PasswordService} from "../../shared/services/password.service";
 import {JwtBody} from "../../shared/interfaces/jwt-body.interface";
 import {InvalidLoginException} from "./invalid-login.exception";
 import {CreateUserRequestDto, LoginRequestDto, LoginResponseDto} from "./user.dto";
 import {SelectUser} from "./types/select-user.type";
 import {db} from "../../db/database";
+import {PasswordService} from "../../shared/services/password-service/password.service";
 
 /**
  * Service class for user-related operations.
