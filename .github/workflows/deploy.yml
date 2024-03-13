@@ -1,10 +1,9 @@
 name: Deploy to dev
 
 on:
-  workflow_run:
-    workflows: ["Testing - fox-deck-app", "Testing - fox-deck-api", "Build & Deploy - Documentation"]
-    type:
-      - completed
+  push:
+    branches:
+      - master
 
 jobs:
   # build and deploy the app

@@ -4,20 +4,15 @@ on:
   pull_request:
     branches:
       - master
-  push:
-    branches:
-      - master
 
 jobs:
   # testing the fox-deck frontend
   test_app:
     runs-on: ubuntu-latest
-    env:
-
     defaults:
       run:
         working-directory: ./apps/fox-deck-app
-    name: Run Unit-Tests
+    name: Run App Unit Tests
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js
@@ -27,4 +22,4 @@ jobs:
       - name: Rename environment file
         run: mv .env.example .env
       - run: npm ci
-      - run: npm run test
+      - run: npm run test:unit
