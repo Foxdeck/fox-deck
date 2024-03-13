@@ -12,12 +12,10 @@ jobs:
   # testing the fox-deck frontend
   test_app:
     runs-on: ubuntu-latest
-    env:
-
     defaults:
       run:
         working-directory: ./apps/fox-deck-api
-    name: Run Unit-Tests
+    name: Run API Unit Tests
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js
@@ -25,4 +23,4 @@ jobs:
         with:
           node-version: '18.x'
       - run: npm ci
-      - run: npm run test:unit
+      - run: npm run test
