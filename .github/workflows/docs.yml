@@ -1,11 +1,6 @@
 name: Build & Deploy - Documentation
 
 on:
-  pull_request:
-    paths:
-      - "docs/**"
-    branches:
-      - master
   push:
     paths:
       - "docs/**"
