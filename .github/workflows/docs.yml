@@ -1,0 +1,34 @@
+name: Build & Deploy - Documentation
+
+on:
+  pull_request:
+    paths:
+      - "docs/**"
+    branches:
+      - master
+  push:
+    paths:
+      - "docs/**"
+    branches:
+      - master
+
+jobs:
+  # build and deploy the documentation
+  deploy_docs:
+    runs-on: ubuntu-latest
+    name: Generate and deploy developer documentation
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: ⚙️ Build documentation
+        run:  npm run docs
+      - name: 📂 Upload documentation via SFTP
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+        with:
+          username: ${{ secrets.FTP_DEV_USERNAME }}
+          server: ${{ secrets.FTP_SERVER }}
+          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.FTP_PORT }}
+          local_path: './docs/build/site/*'
+          remote_path: '/var/www/docs'
+          sftp_only: true
