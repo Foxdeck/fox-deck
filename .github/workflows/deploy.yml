@@ -1,0 +1,32 @@
+name: Deploy to dev
+
+on:
+  workflow_run:
+    workflows: ["Testing - fox-deck-app", "Testing - fox-deck-api", "Build & Deploy - Documentation"]
+    type:
+      - completed
+
+jobs:
+  # build and deploy the app
+  deploy_app:
+    runs-on: ubuntu-latest
+    name: Build and deploy the app
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Install dependencies
+        run: npm run install:app
+      - name: ⚙️ Build app
+        run:  npm run build:app
+      - name: Print execution time
+        run: echo "Time ${{ steps.adocbuild.outputs.time }}"
+      - name: 📂 Upload fox-deck-app via SFTP
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+        with:
+          username: ${{ secrets.FTP_DEV_USERNAME }}
+          server: ${{ secrets.FTP_SERVER }}
+          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.FTP_PORT }}
+          local_path: './apps/fox-deck-app/dist/*'
+          remote_path: '/var/www/dev'
+          sftp_only: true
