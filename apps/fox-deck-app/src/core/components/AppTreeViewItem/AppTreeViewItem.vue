@@ -6,6 +6,7 @@ import type {
 } from "@/core/components/AppTreeViewItem/AppTreeViewItem.types";
 import AppIcon from "@/core/components/AppIcon/AppIcon.vue";
 import {Icon} from "@/core/components/AppIcon/icons";
+import AppMenu from "@/core/components/AppMenu/AppMenu.vue";
 
 const props = withDefaults(defineProps<AppTreeViewItemProps>(), {
   isOpen: false,
@@ -53,7 +54,7 @@ function onItemSelect() {
 
 <template>
   <span
-    class="flex items-center gap-2 text-black p-2 rounded-md cursor-pointer select-none truncate hover:bg-gray-100"
+    class="flex items-center gap-2 text-black p-2 rounded-md cursor-pointer select-none hover:bg-gray-100"
     :class="{
       'bg-gray-100': isSelected
     }"
@@ -79,5 +80,22 @@ function onItemSelect() {
       />
       {{ label }}
     </template>
+    <AppMenu
+      :items="[
+        {
+          label: 'New Note',
+          icon: Icon.DOCUMENT_FILLED
+        },
+        {
+          label: 'New Folder',
+          icon: Icon.FOLDER_FILLED
+        }
+      ]"
+    >
+      <AppIcon
+        class="p-2 rounded-md hover:bg-gray-200"
+        :icon="Icon.MENU_VERTICAL"
+      />
+    </AppMenu>
   </span>
 </template>

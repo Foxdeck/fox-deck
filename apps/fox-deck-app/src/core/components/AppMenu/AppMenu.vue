@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import {onMounted} from "vue";
 import AppMenuItem from "@/core/components/AppMenu/AppMenuItem.vue";
 import type {AppMenuProps} from "@/core/components/AppMenu/AppMenu.types";
 
@@ -8,6 +7,7 @@ import type {AppMenuProps} from "@/core/components/AppMenu/AppMenu.types";
 // @see https://github.com/material-components/material-web/blob/main/docs/components/menu.md
 import "@material/web/menu/menu.js";
 import "@material/web/menu/menu-item.js";
+import {onMounted} from "vue";
 
 defineProps<AppMenuProps>();
 
@@ -19,12 +19,14 @@ onMounted(() => {
   const menuEl = document.body.querySelector("#usage-menu") as any;
   menuEl.anchorElement = anchorEl;
 
+  menuEl.open = true;
+
   anchorEl?.addEventListener("click", () => { menuEl.open = !menuEl.open; });
 });
 </script>
 
 <template>
-  <span style="position: relative">
+  <div class="relative">
     <span
       id="usage-anchor"
       data-testid="menu-anchor"
@@ -43,5 +45,18 @@ onMounted(() => {
         data-testid="menu-item"
       />
     </md-menu>
-  </span>
+  </div>
 </template>
+
+<style>
+:root {
+  background-color: #ffffff;
+  --md-menu-container-color: #ffffff;
+  --md-menu-container-shape: .4rem;
+}
+
+md-menu {
+  border-radius: 1rem;
+  min-width: 200px;
+}
+</style>
