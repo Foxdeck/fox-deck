@@ -13,27 +13,9 @@ import (
 // GetUser
 // Searches for the user in the database and returns a JWT if user is found.
 func GetUser(loginRequest LoginRequest) (*database.User, error) {
-	retrievedUser := &database.User{}
-
-	selectOptions := &sqlitex.ExecOptions{
-		ResultFunc: func(stmt *sqlite.Stmt) error {
-			retrievedUser.Id = stmt.ColumnText(0)
-			retrievedUser.Username = stmt.ColumnText(1)
-			retrievedUser.Email = stmt.ColumnText(2)
-			retrievedUser.Password = stmt.ColumnText(3)
-			return nil
-		},
-		Args: []interface{}{
-			loginRequest.Email,
-		},
-	}
-
-	connection := database.GetInstance().Connect()
-	query := `SELECT * FROM User 
-         	  WHERE email = ?;`
-	err := sqlitex.Execute(connection, query, selectOptions)
+	retrievedUser, err := getUserByEmail(loginRequest.Email)
 	if err != nil {
-		return nil, &exceptions.DatabaseError{}
+		return nil, err
 	}
 
 	// check if the password which the user entered matches with the password in the database
@@ -47,6 +29,15 @@ func GetUser(loginRequest LoginRequest) (*database.User, error) {
 // InsertUser
 // Creates a new user in the database and returns the created users id.
 func InsertUser(registerRequest RegisterRequest) (*string, error) {
+	retrievedUser, err := getUserByEmail(registerRequest.Email)
+	if err != nil {
+		return nil, err
+	}
+
+	if retrievedUser != nil {
+		return nil, &exceptions.EmailAlreadyUsedError{}
+	}
+
 	hashedPassword, err := crypto.HashPassword(registerRequest.Password)
 	if err != nil {
 		return nil, err
@@ -72,4 +63,31 @@ func InsertUser(registerRequest RegisterRequest) (*string, error) {
 	}
 
 	return &userId, nil
+}
+
+func getUserByEmail(email string) (*database.User, error) {
+	retrievedUser := &database.User{}
+
+	selectOptions := &sqlitex.ExecOptions{
+		ResultFunc: func(stmt *sqlite.Stmt) error {
+			retrievedUser.Id = stmt.ColumnText(0)
+			retrievedUser.Username = stmt.ColumnText(1)
+			retrievedUser.Email = stmt.ColumnText(2)
+			retrievedUser.Password = stmt.ColumnText(3)
+			return nil
+		},
+		Args: []interface{}{
+			email,
+		},
+	}
+
+	connection := database.GetInstance().Connect()
+	query := `SELECT * FROM User 
+         	  WHERE email = ?;`
+	err := sqlitex.Execute(connection, query, selectOptions)
+	if err != nil {
+		return nil, &exceptions.DatabaseError{}
+	}
+
+	return retrievedUser, nil
 }

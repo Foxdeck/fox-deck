@@ -64,6 +64,7 @@ func Register(responseWriter http.ResponseWriter, request *http.Request) {
 		var unexpectedError *exceptions.UnexpectedError
 		var authenticationError *exceptions.AuthenticationError
 		var databaseError *exceptions.DatabaseError
+		var emailAlreadyUsedError *exceptions.EmailAlreadyUsedError
 		switch {
 		case errors.As(err, &authenticationError):
 			responseWriter.WriteHeader(http.StatusUnauthorized)
@@ -71,6 +72,10 @@ func Register(responseWriter http.ResponseWriter, request *http.Request) {
 			return
 		case errors.As(err, &databaseError):
 			responseWriter.WriteHeader(http.StatusInternalServerError)
+			responseWriter.Write([]byte(err.Error()))
+			return
+		case errors.As(err, &emailAlreadyUsedError):
+			responseWriter.WriteHeader(http.StatusConflict)
 			responseWriter.Write([]byte(err.Error()))
 			return
 		default:
