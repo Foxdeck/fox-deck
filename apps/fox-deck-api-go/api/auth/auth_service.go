@@ -27,7 +27,8 @@ func GetUser(loginRequest LoginRequest) (*database.User, error) {
 			loginRequest.Email,
 		},
 	}
-	connection := database.GetDatabaseConnection()
+
+	connection := database.GetInstance().Connect()
 	query := `SELECT * FROM User 
          	  WHERE email = ?;`
 	err := sqlitex.Execute(connection, query, selectOptions)
@@ -61,7 +62,8 @@ func InsertUser(registerRequest RegisterRequest) (*string, error) {
 			hashedPassword,
 		},
 	}
-	connection := database.GetDatabaseConnection()
+
+	connection := database.GetInstance().Connect()
 	query := `INSERT into User (id, username, email, password) 
 			  VALUES (?, ?, ?, ?);`
 	err = sqlitex.Execute(connection, query, insertOptions)

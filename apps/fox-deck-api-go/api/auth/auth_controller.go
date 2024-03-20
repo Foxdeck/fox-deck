@@ -17,6 +17,7 @@ func Login(responseWriter http.ResponseWriter, _ *http.Request) {
 
 	user, err := GetUser(mockLoginRequest)
 	if err != nil {
+		var unexpectedError *exceptions.UnexpectedError
 		var authenticationError *exceptions.AuthenticationError
 		var databaseError *exceptions.DatabaseError
 		switch {
@@ -30,7 +31,7 @@ func Login(responseWriter http.ResponseWriter, _ *http.Request) {
 			return
 		default:
 			responseWriter.WriteHeader(http.StatusInternalServerError)
-			responseWriter.Write([]byte("internal server error"))
+			responseWriter.Write([]byte(unexpectedError.Error()))
 			return
 		}
 	}
@@ -55,6 +56,7 @@ func Register(responseWriter http.ResponseWriter, _ *http.Request) {
 
 	user, err := InsertUser(mockRegisterRequest)
 	if err != nil {
+		var unexpectedError *exceptions.UnexpectedError
 		var authenticationError *exceptions.AuthenticationError
 		var databaseError *exceptions.DatabaseError
 		switch {
@@ -68,7 +70,7 @@ func Register(responseWriter http.ResponseWriter, _ *http.Request) {
 			return
 		default:
 			responseWriter.WriteHeader(http.StatusInternalServerError)
-			responseWriter.Write([]byte("internal server error"))
+			responseWriter.Write([]byte(unexpectedError.Error()))
 			return
 		}
 	}

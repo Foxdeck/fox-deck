@@ -1,11 +1,17 @@
 package exceptions
 
+const (
+	authenticationErrorMsg = "AUTHENTICATION_ERROR"
+	databaseErrorMsg       = "DATABASE_ERROR"
+	unexpectedErrorMsg     = "UNEXPECTED_ERROR"
+)
+
 type AuthenticationError struct {
 	message string
 }
 
 func (e *AuthenticationError) Error() string {
-	return "authentication error"
+	return authenticationErrorMsg
 }
 
 type DatabaseError struct {
@@ -13,5 +19,13 @@ type DatabaseError struct {
 }
 
 func (e *DatabaseError) Error() string {
-	return "An error occurred while working with the database"
+	return databaseErrorMsg
+}
+
+type UnexpectedError struct {
+	message string
+}
+
+func (e *UnexpectedError) Error() string {
+	return unexpectedErrorMsg
 }
