@@ -9,13 +9,16 @@ import (
 	"fox-deck-api/token"
 )
 
-func Login(responseWriter http.ResponseWriter, _ *http.Request) {
-	var mockLoginRequest = LoginRequest{
-		Email:    "dev@dev.de",
-		Password: "devdevdev",
+func Login(responseWriter http.ResponseWriter, request *http.Request) {
+	loginRequest := LoginRequest{}
+	err := json.NewDecoder(request.Body).Decode(&loginRequest)
+	if err != nil {
+		responseWriter.WriteHeader(http.StatusBadRequest)
+		responseWriter.Write([]byte(err.Error()))
+		return
 	}
 
-	user, err := GetUser(mockLoginRequest)
+	user, err := GetUser(loginRequest)
 	if err != nil {
 		var unexpectedError *exceptions.UnexpectedError
 		var authenticationError *exceptions.AuthenticationError
@@ -47,14 +50,16 @@ func Login(responseWriter http.ResponseWriter, _ *http.Request) {
 	responseWriter.Write(response)
 }
 
-func Register(responseWriter http.ResponseWriter, _ *http.Request) {
-	var mockRegisterRequest = RegisterRequest{
-		Email:    "dev@dev.de",
-		Username: "dev",
-		Password: "devdevdev",
+func Register(responseWriter http.ResponseWriter, request *http.Request) {
+	registerRequest := RegisterRequest{}
+	err := json.NewDecoder(request.Body).Decode(&registerRequest)
+	if err != nil {
+		responseWriter.WriteHeader(http.StatusBadRequest)
+		responseWriter.Write([]byte(err.Error()))
+		return
 	}
 
-	user, err := InsertUser(mockRegisterRequest)
+	user, err := InsertUser(registerRequest)
 	if err != nil {
 		var unexpectedError *exceptions.UnexpectedError
 		var authenticationError *exceptions.AuthenticationError
