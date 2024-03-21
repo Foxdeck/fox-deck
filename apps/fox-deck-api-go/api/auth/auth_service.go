@@ -1,19 +1,23 @@
 package auth
 
 import (
-	"github.com/google/uuid"
-	"zombiezen.com/go/sqlite"
-	"zombiezen.com/go/sqlite/sqlitex"
-
+	"fmt"
 	"fox-deck-api/crypto"
 	"fox-deck-api/database"
 	"fox-deck-api/exceptions"
+	"fox-deck-api/logging"
+	"fox-deck-api/repository"
+	"github.com/google/uuid"
 )
 
-// GetUser
+// AuthenticateUser
 // Searches for the user in the database and returns a JWT if user is found.
-func GetUser(loginRequest LoginRequest) (*database.User, error) {
-	retrievedUser, err := getUserByEmail(loginRequest.Email)
+func AuthenticateUser(loginRequest LoginRequest) (*database.User, error) {
+	userRepository := repository.UserRepository{
+		DbConnection: database.GetInstance(),
+	}
+
+	retrievedUser, err := userRepository.GetInstance().GetUserByEmail(loginRequest.Email)
 	if err != nil {
 		return nil, err
 	}
@@ -26,15 +30,21 @@ func GetUser(loginRequest LoginRequest) (*database.User, error) {
 	return retrievedUser, nil
 }
 
-// InsertUser
+// CreateUser
 // Creates a new user in the database and returns the created users id.
-func InsertUser(registerRequest RegisterRequest) (*string, error) {
-	retrievedUser, err := getUserByEmail(registerRequest.Email)
+func CreateUser(registerRequest RegisterRequest) (*string, error) {
+	userRepository := repository.UserRepository{
+		DbConnection: database.GetInstance(),
+	}
+
+	// prevent registration with the same email multiple times
+	retrievedUser, err := userRepository.GetInstance().GetUserByEmail(registerRequest.Email)
 	if err != nil {
 		return nil, err
 	}
 
 	if retrievedUser != nil {
+		logging.Debug("auth_service", fmt.Sprintf("User found: %#v", retrievedUser))
 		return nil, &exceptions.EmailAlreadyUsedError{}
 	}
 
@@ -44,50 +54,15 @@ func InsertUser(registerRequest RegisterRequest) (*string, error) {
 	}
 
 	userId := uuid.New().String()
-
-	insertOptions := &sqlitex.ExecOptions{
-		Args: []any{
-			userId,
-			registerRequest.Username,
-			registerRequest.Email,
-			hashedPassword,
-		},
-	}
-
-	connection := database.GetInstance().Connect()
-	query := `INSERT into User (id, username, email, password) 
-			  VALUES (?, ?, ?, ?);`
-	err = sqlitex.Execute(connection, query, insertOptions)
+	user, err := userRepository.InsertUser(database.User{
+		Id:       userId,
+		Username: registerRequest.Username,
+		Email:    registerRequest.Email,
+		Password: hashedPassword,
+	})
 	if err != nil {
-		return nil, &exceptions.DatabaseError{}
+		return nil, err
 	}
 
-	return &userId, nil
-}
-
-func getUserByEmail(email string) (*database.User, error) {
-	retrievedUser := &database.User{}
-
-	selectOptions := &sqlitex.ExecOptions{
-		ResultFunc: func(stmt *sqlite.Stmt) error {
-			retrievedUser.Id = stmt.ColumnText(0)
-			retrievedUser.Username = stmt.ColumnText(1)
-			retrievedUser.Email = stmt.ColumnText(2)
-			retrievedUser.Password = stmt.ColumnText(3)
-			return nil
-		},
-		Args: []interface{}{
-			email,
-		},
-	}
-
-	connection := database.GetInstance().Connect()
-	query := `SELECT * FROM User 
-         	  WHERE email = ?;`
-	err := sqlitex.Execute(connection, query, selectOptions)
-	if err != nil {
-		return nil, &exceptions.DatabaseError{}
-	}
-
-	return retrievedUser, nil
+	return user, nil
 }

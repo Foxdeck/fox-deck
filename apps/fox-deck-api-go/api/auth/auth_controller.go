@@ -18,7 +18,7 @@ func Login(responseWriter http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	user, err := GetUser(loginRequest)
+	user, err := AuthenticateUser(loginRequest)
 	if err != nil {
 		var authenticationError *exceptions.AuthenticationError
 		var databaseError *exceptions.DatabaseError
@@ -51,7 +51,7 @@ func Register(responseWriter http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	user, err := InsertUser(registerRequest)
+	user, err := CreateUser(registerRequest)
 	if err != nil {
 		var authenticationError *exceptions.AuthenticationError
 		var databaseError *exceptions.DatabaseError
