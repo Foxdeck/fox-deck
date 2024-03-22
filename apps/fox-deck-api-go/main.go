@@ -4,7 +4,6 @@ import (
 	"fox-deck-api/api/auth"
 	"fox-deck-api/database"
 	"fox-deck-api/logging"
-	"log"
 	"net/http"
 )
 
@@ -16,12 +15,12 @@ func initializeRoutes() *http.ServeMux {
 }
 
 func main() {
+
 	mux := initializeRoutes()
 
 	go func() {
 		if err := http.ListenAndServe(":3000", mux); err != nil {
-			log.Fatal(err)
-			return
+			logging.Fatal(err)
 		}
 		logging.Debug("main", "Server started on :3000...")
 	}()
