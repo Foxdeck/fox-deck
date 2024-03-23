@@ -1,23 +1,20 @@
 package auth
 
 import (
-	"fmt"
 	"fox-deck-api/crypto"
 	"fox-deck-api/database"
 	"fox-deck-api/exceptions"
-	"fox-deck-api/logging"
 	"fox-deck-api/repository"
 	"github.com/google/uuid"
 )
 
 // AuthenticateUser
 // Searches for the user in the database and returns a JWT if user is found.
-func AuthenticateUser(loginRequest LoginRequest) (*database.User, error) {
-	userRepository := repository.UserRepository{
-		DbConnection: database.GetInstance(),
+func AuthenticateUser(userRepository repository.UserRepository, crypto crypto.Crypto, loginRequest LoginRequest) (*database.User, error) {
+	retrievedUser, err := userRepository.GetUserByEmail(loginRequest.Email)
+	if retrievedUser == nil {
+		return nil, &exceptions.AuthenticationError{}
 	}
-
-	retrievedUser, err := userRepository.GetInstance().GetUserByEmail(loginRequest.Email)
 	if err != nil {
 		return nil, err
 	}
@@ -32,19 +29,14 @@ func AuthenticateUser(loginRequest LoginRequest) (*database.User, error) {
 
 // CreateUser
 // Creates a new user in the database and returns the created users id.
-func CreateUser(registerRequest RegisterRequest) (*string, error) {
-	userRepository := repository.UserRepository{
-		DbConnection: database.GetInstance(),
-	}
-
+func CreateUser(userRepository repository.UserRepository, crypto crypto.Crypto, registerRequest RegisterRequest) (*string, error) {
 	// prevent registration with the same email multiple times
-	retrievedUser, err := userRepository.GetInstance().GetUserByEmail(registerRequest.Email)
+	retrievedUser, err := userRepository.GetUserByEmail(registerRequest.Email)
 	if err != nil {
 		return nil, err
 	}
 
 	if retrievedUser != nil {
-		logging.Debug("auth_service", fmt.Sprintf("User found: %#v", retrievedUser))
 		return nil, &exceptions.EmailAlreadyUsedError{}
 	}
 

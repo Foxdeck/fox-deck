@@ -7,18 +7,23 @@ import (
 	"zombiezen.com/go/sqlite/sqlitex"
 )
 
-type UserRepository struct {
+type UserRepositoryConnection struct {
 	DbConnection *database.Connection
 }
 
-var instance *UserRepository
+type UserRepository interface {
+	GetUserByEmail(email string) (*database.User, error)
+	InsertUser(user database.User) (*string, error)
+}
+
+var instance *UserRepositoryConnection
 var once sync.Once
 
 // GetInstance
 // Initiate the instance to the database exactly one time.
-func (userRepository *UserRepository) GetInstance() *UserRepository {
+func (userRepository *UserRepositoryConnection) GetInstance() *UserRepositoryConnection {
 	once.Do(func() {
-		instance = &UserRepository{
+		instance = &UserRepositoryConnection{
 			DbConnection: userRepository.DbConnection,
 		}
 	})
@@ -28,7 +33,7 @@ func (userRepository *UserRepository) GetInstance() *UserRepository {
 
 // GetUserByEmail
 // Retrieves a user by an email.
-func (userRepository *UserRepository) GetUserByEmail(email string) (*database.User, error) {
+func (userRepository *UserRepositoryConnection) GetUserByEmail(email string) (*database.User, error) {
 	retrievedUser := &database.User{}
 
 	selectOptions := &sqlitex.ExecOptions{
@@ -61,7 +66,7 @@ func (userRepository *UserRepository) GetUserByEmail(email string) (*database.Us
 	return retrievedUser, nil
 }
 
-func (userRepository *UserRepository) InsertUser(user database.User) (*string, error) {
+func (userRepository *UserRepositoryConnection) InsertUser(user database.User) (*string, error) {
 	insertOptions := &sqlitex.ExecOptions{
 		Args: []any{
 			user.Id,

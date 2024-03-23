@@ -3,12 +3,23 @@ package auth
 import (
 	"encoding/json"
 	"errors"
+	"fox-deck-api/crypto"
+	"fox-deck-api/database"
+	"fox-deck-api/repository"
 	"net/http"
 
 	"fox-deck-api/exceptions"
 	"fox-deck-api/token"
 	"fox-deck-api/utils"
 )
+
+var userRepoConn = &repository.UserRepositoryConnection{
+	DbConnection: database.GetInstance(),
+}
+var userRepository repository.UserRepository = userRepoConn
+
+var bCrypt = &crypto.BcryptCrypto{}
+var crypt crypto.Crypto = bCrypt
 
 func Login(responseWriter http.ResponseWriter, request *http.Request) {
 	loginRequest := LoginRequest{}
@@ -18,7 +29,7 @@ func Login(responseWriter http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	user, err := AuthenticateUser(loginRequest)
+	user, err := AuthenticateUser(userRepository, crypt, loginRequest)
 	if err != nil {
 		var authenticationError *exceptions.AuthenticationError
 		var databaseError *exceptions.DatabaseError
@@ -51,7 +62,7 @@ func Register(responseWriter http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	user, err := CreateUser(registerRequest)
+	user, err := CreateUser(userRepository, bCrypt, registerRequest)
 	if err != nil {
 		var authenticationError *exceptions.AuthenticationError
 		var databaseError *exceptions.DatabaseError
