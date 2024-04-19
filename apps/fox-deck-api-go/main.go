@@ -2,6 +2,7 @@ package main
 
 import (
 	"fox-deck-api/api/auth"
+	"fox-deck-api/api/resource"
 	"fox-deck-api/database"
 	"fox-deck-api/logging"
 	"net/http"
@@ -11,11 +12,12 @@ func initializeRoutes() *http.ServeMux {
 	logging.Debug("main", "Initializing routes...")
 	mux := http.NewServeMux()
 	auth.AppendRoutes(mux)
+	resources.AppendRoutes(mux)
+	logging.Debug("main", "Finished initializing routes...")
 	return mux
 }
 
 func main() {
-
 	mux := initializeRoutes()
 
 	go func() {

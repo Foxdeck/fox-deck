@@ -31,7 +31,6 @@ func GetInstance() *Connection {
 // If the connection already is established, use these instance.
 func (con *Connection) Connect() *sqlite.Conn {
 	if con.connection != nil {
-		logging.Debug("Database", "Use already established connection")
 		return con.connection
 	}
 
