@@ -21,6 +21,13 @@ var userRepository repository.UserRepository = userRepoConn
 var bCrypt = &crypto.BcryptCrypto{}
 var crypt crypto.Crypto = bCrypt
 
+// Login
+// @Summary     Logs a user in
+// @Tags        auth
+// @Produce     json
+// @Param       request		body	  auth.LoginRequest  true  "Query Parameter"
+// @Success     200  		{object}  auth.LoginResponse
+// @Router		/login [post]
 func Login(responseWriter http.ResponseWriter, request *http.Request) {
 	loginRequest := LoginRequest{}
 	err := json.NewDecoder(request.Body).Decode(&loginRequest)
@@ -54,6 +61,13 @@ func Login(responseWriter http.ResponseWriter, request *http.Request) {
 	http_utils.WriteJSONResponse(responseWriter, http.StatusOK, response)
 }
 
+// Register
+// @Summary     Register a new user
+// @Tags        auth
+// @Produce     json
+// @Param       request		body	  auth.RegisterRequest  true  "Query Parameter"
+// @Success     200  		{object}  auth.RegisterResponse
+// @Router		/register [post]
 func Register(responseWriter http.ResponseWriter, request *http.Request) {
 	registerRequest := RegisterRequest{}
 	err := json.NewDecoder(request.Body).Decode(&registerRequest)

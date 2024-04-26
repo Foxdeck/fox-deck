@@ -1,0 +1,112 @@
+definitions:
+  auth.LoginRequest:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    type: object
+  auth.LoginResponse:
+    properties:
+      token:
+        type: string
+    type: object
+  auth.RegisterRequest:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+      username:
+        type: string
+    type: object
+  auth.RegisterResponse:
+    properties:
+      id:
+        type: string
+    type: object
+  database.Resource:
+    properties:
+      content:
+        type: string
+      createdAt:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      parentResourceId:
+        type: string
+      type:
+        type: string
+    type: object
+externalDocs:
+  description: Developer Guide
+  url: https://docs.foxdeck.de
+info:
+  contact: {}
+  description: This API handles requests from the FoxDeck Applications
+  title: Foxdeck API
+  version: "1.0"
+paths:
+  /login:
+    post:
+      parameters:
+      - description: Query Parameter
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/auth.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/auth.LoginResponse'
+      summary: Logs a user in
+      tags:
+      - auth
+  /register:
+    post:
+      parameters:
+      - description: Query Parameter
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/auth.RegisterRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/auth.RegisterResponse'
+      summary: Register a new user
+      tags:
+      - auth
+  /resource:
+    get:
+      parameters:
+      - description: ParentResourceId
+        in: path
+        name: parentResourceId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/database.Resource'
+            type: array
+      summary: Retrieve resources for a user.
+      tags:
+      - resources
+securityDefinitions:
+  BasicAuth:
+    type: basic
+swagger: "2.0"

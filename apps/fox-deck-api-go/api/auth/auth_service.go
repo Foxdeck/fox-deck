@@ -46,7 +46,7 @@ func CreateUser(userRepository repository.UserRepository, crypto crypto.Crypto, 
 	}
 
 	userId := uuid.New().String()
-	user, err := userRepository.InsertUser(database.User{
+	_, err = userRepository.InsertUser(database.User{
 		Id:       userId,
 		Username: registerRequest.Username,
 		Email:    registerRequest.Email,
@@ -56,5 +56,5 @@ func CreateUser(userRepository repository.UserRepository, crypto crypto.Crypto, 
 		return nil, err
 	}
 
-	return user, nil
+	return &userId, nil
 }

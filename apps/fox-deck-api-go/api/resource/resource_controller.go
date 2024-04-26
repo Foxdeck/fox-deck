@@ -16,7 +16,12 @@ func CreateResource(responseWriter http.ResponseWriter, request *http.Request) {
 }
 
 // GetResource
-// Retrieve a resource for a user.
+// @Summary     Retrieve resources for a user.
+// @Tags        resources
+// @Produce     json
+// @Param       parentResourceId	path	string  false  "ParentResourceId"
+// @Success     200  {object}  []database.Resource
+// @Router		/resource [get]
 // TODO: Implement Authentication; the userId comes from the JWT Token
 func GetResource(responseWriter http.ResponseWriter, request *http.Request) {
 	userID := "d1c2fdf0-2025-4d7f-a87e-143744ed5b9c"
