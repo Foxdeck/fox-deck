@@ -14,6 +14,7 @@ const (
 	lightRed    = 91
 	lightYellow = 93
 	lightBlue   = 94
+	lightGreen  = 32
 )
 
 var logger = slog.Default()
@@ -42,10 +43,24 @@ func Debug(filename string, debugMsg string) {
 	logger.Debug(colorize(lightBlue, message))
 }
 
+// Success
+// Prints a success message with the provided filename and message.
+func Success(filename string, msg string) {
+	message := fmt.Sprintf("(%s) => %s", filename, msg)
+	logger.Debug(colorize(lightGreen, message))
+}
+
 // Fatal
-// Used for logging error messages. Also prints the stack.
+// Used for logging error messages. Also prints the stack and closes the application.
 func Fatal(err error) {
 	logger.Error(colorize(lightRed, err.Error()), debug.Stack())
+}
+
+// Error
+// Used for logging error messages without closing the application.
+func Error(filename string, msg string) {
+	message := fmt.Sprintf("(%s) => %s", filename, msg)
+	logger.Error(colorize(lightRed, message))
 }
 
 // HttpController

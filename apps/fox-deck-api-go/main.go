@@ -10,6 +10,10 @@ import (
 	"net/http"
 )
 
+func Foo() {
+
+}
+
 func initializeRoutes() *http.ServeMux {
 	logging.Debug("main", "Initializing routes...")
 	mux := http.NewServeMux()

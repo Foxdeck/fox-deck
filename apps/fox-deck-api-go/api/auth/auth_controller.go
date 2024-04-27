@@ -10,7 +10,7 @@ import (
 
 	"fox-deck-api/exceptions"
 	"fox-deck-api/token"
-	"fox-deck-api/utils"
+	"fox-deck-api/utils/http"
 )
 
 var userRepoConn = &repository.UserRepositoryConnection{

@@ -4,7 +4,7 @@ import (
 	"fox-deck-api/database"
 	"fox-deck-api/repository"
 	"fox-deck-api/repository/filter"
-	"fox-deck-api/utils"
+	"fox-deck-api/utils/http"
 	"net/http"
 )
 
