@@ -2,9 +2,8 @@ package repository
 
 import (
 	"fox-deck-api/database"
+	"log"
 	"sync"
-	"zombiezen.com/go/sqlite"
-	"zombiezen.com/go/sqlite/sqlitex"
 )
 
 type UserRepositoryConnection struct {
@@ -36,25 +35,29 @@ func (userRepository *UserRepositoryConnection) GetInstance() *UserRepositoryCon
 func (userRepository *UserRepositoryConnection) GetUserByEmail(email string) (*database.User, error) {
 	retrievedUser := &database.User{}
 
-	selectOptions := &sqlitex.ExecOptions{
-		ResultFunc: func(stmt *sqlite.Stmt) error {
-			retrievedUser.Id = stmt.ColumnText(0)
-			retrievedUser.Username = stmt.ColumnText(1)
-			retrievedUser.Email = stmt.ColumnText(2)
-			retrievedUser.Password = stmt.ColumnText(3)
-			return nil
-		},
-		Args: []interface{}{
-			email,
-		},
-	}
-
 	connection := userRepository.DbConnection.Connect()
 	query := `SELECT * FROM User 
          	  WHERE email = ?;`
-	err := sqlitex.Execute(connection, query, selectOptions)
+
+	stmt, err := connection.Prepare(query)
 	if err != nil {
 		return nil, err
+	}
+
+	result, err := stmt.Query(email)
+	if result.Err() != nil || err != nil {
+		return nil, result.Err()
+	}
+
+	defer result.Close()
+
+	for result.Next() {
+		user := &database.User{}
+		if err := result.Scan(&user.Id, &user.Email, &user.Username, &user.Password); err != nil {
+			log.Fatal(err)
+		}
+
+		retrievedUser = user
 	}
 
 	// return nil, if no user was found
@@ -67,22 +70,21 @@ func (userRepository *UserRepositoryConnection) GetUserByEmail(email string) (*d
 }
 
 func (userRepository *UserRepositoryConnection) InsertUser(user database.User) (*string, error) {
-	insertOptions := &sqlitex.ExecOptions{
-		Args: []any{
-			user.Id,
-			user.Username,
-			user.Email,
-			user.Password,
-		},
-	}
-
 	connection := userRepository.DbConnection.Connect()
 	query := `INSERT into User (id, username, email, password) 
 			  VALUES (?, ?, ?, ?);`
-	err := sqlitex.Execute(connection, query, insertOptions)
+
+	stmt, err := connection.Prepare(query)
 	if err != nil {
 		return nil, err
 	}
+
+	result, err := stmt.Query(user.Id, user.Username, user.Email, user.Password)
+	if result.Err() != nil || err != nil {
+		return nil, result.Err()
+	}
+
+	defer result.Close()
 
 	return &user.Id, nil
 }

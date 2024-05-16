@@ -1,9 +1,9 @@
-CREATE DATABASE IF NOT EXISTS Foxdeck;
+CREATE DATABASE IF NOT EXISTS foxdeck;
 
-USE Foxdeck;
+USE foxdeck;
 
 # table containing resources like 'folder' or 'note'
-CREATE TABLE IF NOT EXISTS Foxdeck.Resource
+CREATE TABLE IF NOT EXISTS foxdeck.Resource
 (
     resourceId       VARCHAR(36) PRIMARY KEY,
     parentResourceId VARCHAR(36),
@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS Foxdeck.Resource
 );
 
 # table containing the registered users
-CREATE TABLE IF NOT EXISTS Foxdeck.User
+CREATE TABLE IF NOT EXISTS foxdeck.User
 (
     id       VARCHAR(36) PRIMARY KEY,
     username VARCHAR(50),
@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS Foxdeck.User
 );
 
 # table maps resources with users
-CREATE TABLE IF NOT EXISTS Foxdeck.UserResourceAssociation
+CREATE TABLE IF NOT EXISTS foxdeck.UserResourceAssociation
 (
     id         VARCHAR(36) PRIMARY KEY,
     userId     VARCHAR(36),

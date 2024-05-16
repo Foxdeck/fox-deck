@@ -5,8 +5,6 @@ import (
 	"fox-deck-api/database"
 	"fox-deck-api/logging"
 	"fox-deck-api/repository/filter"
-	"zombiezen.com/go/sqlite"
-	"zombiezen.com/go/sqlite/sqlitex"
 )
 
 type ResourceRepositoryConnection struct {
@@ -21,25 +19,6 @@ type ResourceRepository interface {
 // Retrieves a resource from the database, based on the id of the user.
 func (resourceRepositoryConnection *ResourceRepositoryConnection) GetResourceByUserId(userId string, filter ...filter.ResourceFilter) (*[]database.Resource, error) {
 	retrievedResources := &[]database.Resource{}
-
-	selectOptions := &sqlitex.ExecOptions{
-		ResultFunc: func(stmt *sqlite.Stmt) error {
-			resource := &database.Resource{
-				Id:               stmt.ColumnText(0),
-				ParentResourceId: stmt.ColumnText(1),
-				Type:             stmt.ColumnText(2),
-				Name:             stmt.ColumnText(3),
-				Content:          stmt.ColumnText(4),
-				CreatedAt:        stmt.ColumnText(5),
-			}
-			*retrievedResources = append(*retrievedResources, *resource)
-
-			return nil
-		},
-		Args: []interface{}{
-			userId,
-		},
-	}
 
 	conn := resourceRepositoryConnection.DbConnection.Connect()
 	query := `SELECT
@@ -58,9 +37,25 @@ func (resourceRepositoryConnection *ResourceRepositoryConnection) GetResourceByU
 	WHERE
 		User.id = ?;`
 
-	err := sqlitex.Execute(conn, query, selectOptions)
+	stmt, err := conn.Prepare(query)
 	if err != nil {
 		return nil, err
+	}
+
+	result, err := stmt.Query(userId)
+	if result.Err() != nil || err != nil {
+		return nil, result.Err()
+	}
+
+	for result.Next() {
+		resource := &database.Resource{}
+
+		*retrievedResources = append(*retrievedResources, *resource)
+		err := result.Scan(&resource.Id, &resource.ParentResourceId, &resource.Type, &resource.Name, &resource.Content, &resource.CreatedAt)
+		if err != nil {
+			return nil, err
+		}
+		*retrievedResources = append(*retrievedResources, *resource)
 	}
 
 	filteredResources := filterResources(retrievedResources, filter)
