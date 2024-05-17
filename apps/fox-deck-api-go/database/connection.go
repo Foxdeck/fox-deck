@@ -2,6 +2,7 @@ package database
 
 import (
 	"database/sql"
+	"fmt"
 	"fox-deck-api/logging"
 	_ "github.com/go-sql-driver/mysql"
 	"sync"
@@ -9,8 +10,11 @@ import (
 )
 
 type Connection struct {
-	DatabasePath string
-	connection   *sql.DB
+	Ip         string
+	Port       string
+	Username   string
+	Password   string
+	connection *sql.DB
 }
 
 var instance *Connection
@@ -21,7 +25,10 @@ var once sync.Once
 func GetInstance() *Connection {
 	once.Do(func() {
 		instance = &Connection{
-			DatabasePath: GetDevDatabasePath(),
+			Ip:       "localhost",
+			Port:     "3306",
+			Username: "root",
+			Password: "fdadmin",
 		}
 	})
 
@@ -33,7 +40,7 @@ func GetInstance() *Connection {
 // If the connection already is established, use these instance.
 func (con *Connection) Connect() *sql.DB {
 	// todo: put login data into .env file!
-	dsn := "root:fdadmin@tcp(localhost:3306)/foxdeck?parseTime=true"
+	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/foxdeck?parseTime=true", con.Username, con.Password, con.Ip, con.Port)
 	db, err := sql.Open("mysql", dsn)
 	if err != nil {
 		panic("Error opening database connection: " + err.Error())
