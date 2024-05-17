@@ -10,10 +10,6 @@ import (
 	"net/http"
 )
 
-func Foo() {
-
-}
-
 func initializeRoutes() *http.ServeMux {
 	logging.Debug("main", "Initializing routes...")
 	mux := http.NewServeMux()
@@ -47,7 +43,7 @@ func main() {
 		logging.Debug("main", "Server started on :3000...")
 	}()
 
-	db := database.Connection{DatabasePath: database.GetDevDatabasePath()}
+	db := database.Connection{}
 	defer database.Close(&db)
 	select {}
 }

@@ -8,6 +8,7 @@ import (
 	"fox-deck-api/utils/dir"
 	"github.com/testcontainers/testcontainers-go"
 	"github.com/testcontainers/testcontainers-go/modules/mysql"
+	"github.com/testcontainers/testcontainers-go/wait"
 	"os"
 	"path/filepath"
 )
@@ -45,7 +46,7 @@ type IntegrationTestEnvironment interface {
 func (setup *IntegrationTestSetup) Startup() *mysql.MySQLContainer {
 	mysqlContainerImage := "mysql:8.0.36" // this image should be the same as in 'db.Dockerfile'
 	dbUsername := "root"
-	dbPassword := "password"
+	dbPassword := "fdadmin"
 	ctx := context.Background()
 
 	// todo: we should read every file from the 'migrations'-directory
@@ -57,6 +58,12 @@ func (setup *IntegrationTestSetup) Startup() *mysql.MySQLContainer {
 
 	mysqlContainer, err := mysql.RunContainer(ctx,
 		testcontainers.WithImage(mysqlContainerImage),
+		testcontainers.WithEnv(map[string]string{
+			"MYSQL_ROOT_PASSWORD": "fdadmin",
+		}),
+		testcontainers.WithWaitStrategy(wait.ForAll(
+			wait.ForListeningPort("3306")),
+		),
 		mysql.WithUsername(dbUsername),
 		mysql.WithPassword(dbPassword),
 		mysql.WithScripts(scripts...),
@@ -67,11 +74,11 @@ func (setup *IntegrationTestSetup) Startup() *mysql.MySQLContainer {
 	}
 
 	// clean up the container after the test run
-	defer func() {
-		if err := mysqlContainer.Terminate(ctx); err != nil {
-			logging.Fatal(err)
-		}
-	}()
+	//defer func() {
+	//	if err := mysqlContainer.Terminate(ctx); err != nil {
+	//		logging.Fatal(err)
+	//	}
+	//}()
 
 	return mysqlContainer
 }

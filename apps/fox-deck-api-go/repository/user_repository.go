@@ -1,6 +1,7 @@
 package repository
 
 import (
+	"fox-deck-api/crypto"
 	"fox-deck-api/database"
 	"log"
 	"sync"
@@ -79,7 +80,15 @@ func (userRepository *UserRepositoryConnection) InsertUser(user database.User) (
 		return nil, err
 	}
 
-	result, err := stmt.Query(user.Id, user.Username, user.Email, user.Password)
+	c := crypto.BcryptCrypto{}
+	encryptedPassword, err := c.HashPassword(user.Password)
+	if err != nil {
+		return nil, err
+	}
+
+	defer stmt.Close()
+
+	result, err := stmt.Query(user.Id, user.Username, user.Email, encryptedPassword)
 	if result.Err() != nil || err != nil {
 		return nil, result.Err()
 	}
