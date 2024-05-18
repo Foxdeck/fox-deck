@@ -18,6 +18,7 @@ type Connection struct {
 }
 
 var instance *Connection
+
 var once sync.Once
 
 // GetInstance
