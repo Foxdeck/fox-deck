@@ -1,5 +1,6 @@
 export const de = {
   common: {
+    add: "Hinzufügen",
     hello: "Hallo",
     light_theme: "Helles Design",
     settings: "Einstellungen",
@@ -90,8 +91,9 @@ export const de = {
       }
     }
   },
-  notes: {
-    new_note: "Notiz erstellen"
+  resource_navigation: {
+    treeview_header: "Lernbereich",
+    treeview_empty_text: "Es sind aktuell keine Lernmodule oder Notizen vorhanden."
   },
   // Exceptions
   FETCH_QUESTION_EXCEPTION: "Fehler beim Abrufen der Fragen",

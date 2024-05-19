@@ -11,6 +11,9 @@ import {LoginRouteNames} from "@/modules/login/routes";
 import {useResources} from "@/modules/resource-navigation/composables/useResources";
 import {useResourceStore} from "@/modules/resource-navigation/stores/resource.store";
 import type {AppTreeViewItemOnItemSelect} from "@/core/components/AppTreeViewItem/AppTreeViewItem.types";
+import AppMenu from "@/core/components/AppMenu/AppMenu.vue";
+import {addMenu} from "@/modules/resource-navigation/menus/create-menu";
+import AppIcon from "@/core/components/AppIcon/AppIcon.vue";
 
 // stores
 const authStore = useAuthStore();
@@ -67,24 +70,36 @@ async function onResourceClick(selectedItem: AppTreeViewItemOnItemSelect) {
         <Logo class="w-8 self-center" />
         {{ t("common.hello") }}, {{ authStore.getUsername() }}
       </FDTypography>
-      <RouterLink to="/create-note">
-        <AppButton
-          class="my-6"
-          width="full"
-          :label="t('notes.new_note')"
-          :icon="Icon.PLUS"
-        />
-      </RouterLink>
 
-      <div class="mt-6 mb-2">
-        <span class="uppercase text-sm font-bold on-surface-text">notes</span>
+      <div class="flex justify-between items-center mt-6 mb-2">
+        <span class="uppercase text-sm font-bold on-surface-text">{{ t("resource_navigation.treeview_header") }}</span>
+        <app-menu
+          :items="addMenu"
+        >
+          <app-button
+            variant="text"
+            :label="t('common.add')"
+            :icon="Icon.PLUS"
+          />
+        </app-menu>
       </div>
 
       <div class="flex flex-col gap-2">
         <AppTreeView
+          v-if="resourceStore.fetchResourcesAsNavigation().length > 0"
           :items="resourceStore.fetchResourcesAsNavigation()"
-          @onItemSelect="onResourceClick($event)"
+          @on-item-select="onResourceClick($event)"
         />
+        <span
+          v-else
+          class="flex gap-4 mt-4"
+        >
+          <app-icon
+            class="text-xl"
+            :icon="Icon.FOLDER_FILLED_OPEN"
+          />
+          <span>{{ t("resource_navigation.treeview_empty_text") }}</span>
+        </span>
       </div>
     </div>
 

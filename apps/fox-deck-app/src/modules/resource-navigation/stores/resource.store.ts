@@ -1,6 +1,6 @@
 import {defineStore} from "pinia";
 import {ref} from "vue";
-import type {GetResourceRootByUserIdResponseDto} from "@/core/services/api";
+import type {DatabaseResource} from "@/core/services/api";
 import type {AppTreeViewItemProps, AppTreeViewItemType} from "@/core/components/AppTreeViewItem/AppTreeViewItem.types";
 
 /**
@@ -15,21 +15,21 @@ import type {AppTreeViewItemProps, AppTreeViewItemType} from "@/core/components/
  *                                If there are no resources or if the resources array is empty, it returns an empty array.
  */
 export const useResourceStore = defineStore("resourceStore", () => {
-    const resources = ref<GetResourceRootByUserIdResponseDto[]>([]);
+    const resources = ref<DatabaseResource[]>([]);
 
     /**
      * Converts a given DTO and its children into an AppTreeViewItemProps object.
      *
-     * @param {GetResourceRootByUserIdResponseDto} dto - The DTO to convert.
-     * @param {GetResourceRootByUserIdResponseDto[]} allDtos - The array of all DTOs.
+     * @param {DatabaseResource} dto - The DTO to convert.
+     * @param {DatabaseResource[]} allDtos - The array of all DTOs.
      * @returns {AppTreeViewItemProps} The converted AppTreeViewItemProps object.
      */
-    function convertToAppTreeViewItem(dto: GetResourceRootByUserIdResponseDto, allDtos: GetResourceRootByUserIdResponseDto[]): AppTreeViewItemProps {
-        const childrenDtos = allDtos.filter(childDto => childDto.parentResourceId === dto.resourceId);
+    function convertToAppTreeViewItem(dto: DatabaseResource, allDtos: DatabaseResource[]): AppTreeViewItemProps {
+        const childrenDtos = allDtos.filter(childDto => childDto.parentResourceId === dto.id);
         const children = childrenDtos.map(childDto => convertToAppTreeViewItem(childDto, allDtos));
 
         return {
-            identifier: dto.resourceId,
+            identifier: dto.id as string,
             type: dto.type as AppTreeViewItemType,
             label: dto.name,
             children: children.length > 0 ? children : undefined,
@@ -47,8 +47,7 @@ export const useResourceStore = defineStore("resourceStore", () => {
             return [];
         }
 
-        const convertedResources = [convertToAppTreeViewItem(resources.value[0], resources.value)];
-        return convertedResources;
+        return [convertToAppTreeViewItem(resources.value[0], resources.value)];
     }
 
     return {
