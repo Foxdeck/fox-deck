@@ -74,7 +74,7 @@ export function useResources() {
 
         // we remove the placeholder which is rendered and shows, that the TreeView is currently loading
         resourceStore.resources = [...resourceStore.resources.filter((resource) =>
-            (resource.resourceId !== getLoadingResourcePlaceholder(resourceId).id))
+            (resource.id !== getLoadingResourcePlaceholder(resourceId).id))
         ];
 
         resourceStore.resources = [...resourceStore.resources, ...response.data];

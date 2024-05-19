@@ -1,38 +1,64 @@
 <script setup lang="ts">
-import {onMounted} from "vue";
 import AppMenuItem from "@/core/components/AppMenu/AppMenuItem.vue";
-import type {AppMenuProps} from "@/core/components/AppMenu/AppMenu.types";
+import type {AppMenuItemOnMenuActionSelect, AppMenuProps} from "@/core/components/AppMenu/AppMenu.types";
 
 // we are using googles material-design menus as foundation, imported here and used as web-components in the template
 // @see https://m3.material.io/components/menus/specs
 // @see https://github.com/material-components/material-web/blob/main/docs/components/menu.md
 import "@material/web/menu/menu.js";
 import "@material/web/menu/menu-item.js";
+import {onMounted} from "vue";
 
-defineProps<AppMenuProps>();
+const IS_MENU_OPEN_BY_DEFAULT = false;
+
+const props = defineProps<AppMenuProps>();
 
 /**
- * We initially need to set the element which opens the element as anchorElement.
+ * initially set the element which opens the element as anchorElement.
  */
 onMounted(() => {
-  const anchorEl = document.body.querySelector("#usage-anchor");
-  const menuEl = document.body.querySelector("#usage-menu") as any;
-  menuEl.anchorElement = anchorEl;
+  const anchorElementSelector = "#usage-anchor_" + props.identifier;
+  const menuElementSelector = "#usage-menu_" + props.identifier;
+  const anchorEl = document.body.querySelector(anchorElementSelector);
+  const menuEl = document.body.querySelector(menuElementSelector) as any; // we need to use any here, because the properties of this element is given by material-design
 
-  anchorEl?.addEventListener("click", () => { menuEl.open = !menuEl.open; });
+  menuEl.anchorElement = anchorEl;
+  menuEl.open = IS_MENU_OPEN_BY_DEFAULT;
+
+  if (!anchorEl) {
+    console.error("(AppMenu) => can't find element with id: ");
+    return;
+  }
+
+  anchorEl.addEventListener("click", (e) => {
+    onAnchorElementTrigger(e, menuEl);
+  });
+
+  // todo: make 'enter'-key usable for keyboard navigation
 });
+
+function onAnchorElementTrigger(e: Event, menuElement: any) {
+  // prevent click events from parent component
+  console.log("OPEN");
+  e.stopPropagation();
+  menuElement.open = !menuElement.open;
+}
+
+defineEmits<{
+  (e: "onActionSelect", value: AppMenuItemOnMenuActionSelect): void;
+}>();
 </script>
 
 <template>
-  <span style="position: relative">
+  <div class="relative">
     <span
-      id="usage-anchor"
+      :id="'usage-anchor_'+identifier"
       data-testid="menu-anchor"
     >
       <slot />
     </span>
     <md-menu
-      id="usage-menu"
+      :id="'usage-menu_'+identifier"
       data-testid="menu"
     >
       <AppMenuItem
@@ -41,7 +67,21 @@ onMounted(() => {
         :label="item.label"
         :icon="item.icon"
         data-testid="menu-item"
+        @click.stop="$emit('onActionSelect', { actionIdentifier: item.identifier, itemIdentifier: identifier })"
       />
     </md-menu>
-  </span>
+  </div>
 </template>
+
+<style>
+:root {
+  background-color: #ffffff;
+  --md-menu-container-color: #ffffff;
+  --md-menu-container-shape: .4rem;
+}
+
+md-menu {
+  border-radius: 1rem;
+  min-width: 200px;
+}
+</style>
