@@ -11,7 +11,7 @@
     "test:unit": "vitest --coverage",
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
-    "generate:api": "npx swagger-typescript-api -p ./../fox-deck-api/swagger-spec.json -o ./src/core/services/ -n api.ts"
+    "generate:api": "npx swagger-typescript-api -p ./../fox-deck-api-go/docs/swagger.json -o ./src/core/services/ -n api.ts"
   },
   "dependencies": {
     "@material/web": "^1.1.1",

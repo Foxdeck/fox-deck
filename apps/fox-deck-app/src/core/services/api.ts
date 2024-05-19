@@ -9,57 +9,32 @@
  * ---------------------------------------------------------------
  */
 
-export interface LoginResponseDto {
-  accessToken: string;
+export interface AuthLoginRequest {
+  email?: string;
+  password?: string;
 }
 
-export interface LoginRequestDto {
-  email: string;
-  password: string;
+export interface AuthLoginResponse {
+  token?: string;
 }
 
-export interface CreateUserRequestDto {
-  email: string;
-  username: string;
-  password: string;
+export interface AuthRegisterRequest {
+  email?: string;
+  password?: string;
+  username?: string;
 }
 
-export interface CreateResourceRequestDto {
-  parentResourceId: string;
-  name: string;
-  content: string;
-  type: "note" | "folder";
+export interface AuthRegisterResponse {
+  id?: string;
 }
 
-export interface GetResourceByUserIdResponseDto {
-  resourceId: string;
-  parentResourceId: string;
-  type: string;
-  name: string;
-  content: string;
-  createdAt: string;
-}
-
-export interface GetResourceRootByUserIdResponseDto {
-  resourceId: string;
-  parentResourceId: string;
-  type: string;
-  name: string;
-  content: string;
-  createdAt: string;
-}
-
-export interface GetChildrenOfResourceResponseDto {
-  resourceId: string;
-  parentResourceId: string;
-  type: string;
-  name: string;
-  content: string;
-  createdAt: string;
-}
-
-export interface GetChildrenOfResourceRequestDto {
-  resourceId: string;
+export interface DatabaseResource {
+  content?: string;
+  createdAt?: string;
+  id?: string;
+  name?: string;
+  parentResourceId?: string;
+  type?: string;
 }
 
 export type QueryParamsType = Record<string | number, any>;
@@ -273,8 +248,9 @@ export class HttpClient<SecurityDataType = unknown> {
 }
 
 /**
- * @title FoxDeck API
+ * @title Foxdeck API
  * @version 1.0
+ * @externalDocs https://docs.foxdeck.de
  * @contact
  *
  * This API handles requests from the FoxDeck Applications
@@ -284,15 +260,16 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags Users
-     * @name UserControllerGetUser
+     * @tags auth
+     * @name LoginCreate
+     * @summary Logs a user in
      * @request POST:/login
      */
-    userControllerGetUser: (data: LoginRequestDto, params: RequestParams = {}) =>
-      this.request<LoginResponseDto, any>({
+    loginCreate: (request: AuthLoginRequest, params: RequestParams = {}) =>
+      this.request<AuthLoginResponse, any>({
         path: `/login`,
         method: "POST",
-        body: data,
+        body: request,
         type: ContentType.Json,
         format: "json",
         ...params,
@@ -302,34 +279,16 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags Users
-     * @name UserControllerCreateUser
+     * @tags auth
+     * @name RegisterCreate
+     * @summary Register a new user
      * @request POST:/register
      */
-    userControllerCreateUser: (data: CreateUserRequestDto, params: RequestParams = {}) =>
-      this.request<void, any>({
+    registerCreate: (request: AuthRegisterRequest, params: RequestParams = {}) =>
+      this.request<AuthRegisterResponse, any>({
         path: `/register`,
         method: "POST",
-        body: data,
-        type: ContentType.Json,
-        ...params,
-      }),
-  };
-  createResource = {
-    /**
-     * No description
-     *
-     * @tags Resources
-     * @name ResourceControllerCreateResource
-     * @request POST:/create-resource
-     * @secure
-     */
-    resourceControllerCreateResource: (data: CreateResourceRequestDto, params: RequestParams = {}) =>
-      this.request<CreateResourceRequestDto, any>({
-        path: `/create-resource`,
-        method: "POST",
-        body: data,
-        secure: true,
+        body: request,
         type: ContentType.Json,
         format: "json",
         ...params,
@@ -339,54 +298,15 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags Resources
-     * @name ResourceControllerGetResourceByUserId
+     * @tags resources
+     * @name ResourceList
+     * @summary Retrieve resources for a user.
      * @request GET:/resource
-     * @secure
      */
-    resourceControllerGetResourceByUserId: (params: RequestParams = {}) =>
-      this.request<GetResourceByUserIdResponseDto[], any>({
+    resourceList: (parentResourceId?: string, params: RequestParams = {}) =>
+      this.request<DatabaseResource[], any>({
         path: `/resource`,
         method: "GET",
-        secure: true,
-        format: "json",
-        ...params,
-      }),
-  };
-  resourceRoot = {
-    /**
-     * No description
-     *
-     * @tags Resources
-     * @name ResourceControllerGetRootLevelResourceByUserId
-     * @request GET:/resource-root
-     * @secure
-     */
-    resourceControllerGetRootLevelResourceByUserId: (params: RequestParams = {}) =>
-      this.request<GetResourceRootByUserIdResponseDto[], any>({
-        path: `/resource-root`,
-        method: "GET",
-        secure: true,
-        format: "json",
-        ...params,
-      }),
-  };
-  resourceChildren = {
-    /**
-     * No description
-     *
-     * @tags Resources
-     * @name ResourceControllerGetChildrenOfResource
-     * @request POST:/resource-children
-     * @secure
-     */
-    resourceControllerGetChildrenOfResource: (data: GetChildrenOfResourceRequestDto, params: RequestParams = {}) =>
-      this.request<GetChildrenOfResourceResponseDto[], any>({
-        path: `/resource-children`,
-        method: "POST",
-        body: data,
-        secure: true,
-        type: ContentType.Json,
         format: "json",
         ...params,
       }),

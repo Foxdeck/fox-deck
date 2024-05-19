@@ -3,6 +3,7 @@ WORKDIR /app
 COPY apps/fox-deck-app/package*.json ./
 RUN npm install --prefer-offline --no-audit --progress=false
 COPY apps/fox-deck-app/ .
+
 RUN npm run build
 FROM nginx:alpine as production-stage
 COPY --from=build-stage /app/dist /usr/share/nginx/html

@@ -84,7 +84,7 @@ const formSchema: FormSchema = {
  */
 async function onRegisterSubmit({email, password, username}: any) {
   try {
-    await api.register.userControllerCreateUser({email, password, username});
+    await api.register.registerCreate({email, password, username});
     await push({
       name: LoginRouteNames.LOGIN
     });

@@ -11,9 +11,12 @@ import LoginRegisterLayout from "@/modules/login/LoginSignUpLayout.vue";
 import {HomeRouteNames} from "@/modules/home/routes";
 import {ServerResponse} from "@/core/types/server-response.enum";
 import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
+import {useNotificationStore} from "@/core/stores/notification.store";
+import type {Severity} from "@/core/components/severity.types";
 
 const { push } = useFoxdeckRouter();
 const authService = useAuthStore();
+const { addNotification } = useNotificationStore();
 const { t } = useI18n();
 
 const formError = reactive({
@@ -23,11 +26,21 @@ const formError = reactive({
 
 async function onFormSubmit({ email, password }: any) {
   try {
-    const response = await api.login.userControllerGetUser({ email, password });
+    const response = await api.login.loginCreate({ email, password });
 
     // if login is successful, store the JWT-Token
-    const user = await response.data;
-    authService.setJwt(user.accessToken);
+    const loginResponse = await response.data;
+
+    console.log(loginResponse);
+    if (!loginResponse.token) {
+      addNotification({
+        severity: "danger" as Severity,
+        text: t("login.error.generic_error"),
+        title: t("login.error.generic_error_title")
+      });
+      return;
+    }
+    authService.setJwt(loginResponse.token);
 
     formError.hasError = false;
     await push({

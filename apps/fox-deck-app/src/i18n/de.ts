@@ -30,6 +30,7 @@ export const de = {
     error: {
       authentication_error: "Die eingegebene E-Mail-Adresse oder das Passwort ist ungültig. Bitte überprüfen Sie Ihre Eingaben und versuchen Sie es erneut.",
       generic_error: "Es ist ein unerwarteter Fehler aufgetreten. Bitte laden Sie die Seite neu und versuchen Sie es erneut",
+      generic_error_title: "Ein Fehler ist aufgetreten",
     },
     login: "Anmelden"
   },
