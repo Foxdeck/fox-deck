@@ -24,3 +24,13 @@ export type AppTreeViewItemProps = {
 export type AppTreeViewItemOnItemSelect = {
   identifier: AppTreeViewItemIdentifier;
 }
+
+/**
+ * Property definitions, if the user selects a menu action
+ */
+export type AppTreeViewItemOnMenuActionSelect = {
+  // which item is clicked on the menu
+  itemIdentifier: string
+  // which action is triggered
+  actionIdentifier: string
+}
