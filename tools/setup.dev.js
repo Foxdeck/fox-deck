@@ -29,8 +29,8 @@ function copyEnvFiles() {
   await execPromise("npm i");
   await execPromise("npm run install:deps");
 
-  console.log("Migrate your database...");
-  await execPromise("cd ./apps/fox-deck-api && npm run prisma:migrate");
+  console.log("Create & Migrate your database...");
+  await execPromise("docker compose up");
 
   copyEnvFiles();
   console.log("Setup finished. Happy coding!");
