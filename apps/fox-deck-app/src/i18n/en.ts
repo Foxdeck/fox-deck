@@ -1,5 +1,6 @@
 export const en = {
   common: {
+    add: "Add",
     hello: "Hello",
     light_theme: "Light theme",
     settings: "Settings",
@@ -90,8 +91,9 @@ export const en = {
       }
     }
   },
-  notes: {
-    new_note: "Create note"
+  resource_navigation: {
+    treeview_header: "Learning area",
+    treeview_empty_text: "There are currently no learning modules or notes available."
   },
   // exceptions
   FETCH_QUESTION_EXCEPTION: "Error while getting questions",
