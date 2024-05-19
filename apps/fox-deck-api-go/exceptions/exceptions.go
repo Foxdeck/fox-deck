@@ -4,6 +4,7 @@ const (
 	authenticationErrorMsg   = "AUTHENTICATION_ERROR"
 	databaseErrorMsg         = "DATABASE_ERROR"
 	unexpectedErrorMsg       = "UNEXPECTED_ERROR"
+	resourceNotFoundErrorMsg = "RESOURCE_NOT_FOUND_ERROR"
 	emailAlreadyUsedErrorMsg = "EMAIL_ALREADY_USED"
 )
 
@@ -29,6 +30,14 @@ type DatabaseError struct {
 
 func (e *DatabaseError) Error() string {
 	return databaseErrorMsg
+}
+
+type ResourceNotFoundError struct {
+	message string
+}
+
+func (e *ResourceNotFoundError) Error() string {
+	return resourceNotFoundErrorMsg
 }
 
 type UnexpectedError struct {

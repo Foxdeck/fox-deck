@@ -30,6 +30,7 @@ export const en = {
     error: {
       authentication_error: "The email address or password you entered is invalid. Please check your entries and try again.",
       generic_error: "An unexpected error has occurred. Please reload the page and try again",
+      generic_error_title: "An error occurred",
     },
     login: "Sign In"
   },

@@ -49,9 +49,7 @@ func (setup *IntegrationTestSetup) Startup() *mysql.MySQLContainer {
 	dbPassword := "fdadmin"
 	ctx := context.Background()
 
-	// todo: we should read every file from the 'migrations'-directory
-	scripts := []string{filepath.Join(GetMigrationFile("1_0_0-setup-db.sql"))}
-
+	scripts := GetAllMigrationFiles()
 	if setup.AdditionalScripts != nil {
 		scripts = append(scripts, *setup.AdditionalScripts...)
 	}
@@ -81,6 +79,29 @@ func (setup *IntegrationTestSetup) Startup() *mysql.MySQLContainer {
 	//}()
 
 	return mysqlContainer
+}
+
+// GetAllMigrationFiles returns a list of all migration files in the migrations directory.
+// It uses the RootDir function from dir_utils package to get the root directory of the project.
+// It then constructs the path to the migrations directory and searches for all files with the .sql extension.
+// If any error occurs during the file search, it logs the error using the Fatal function from the logging package.
+// It creates a string slice to store the paths of the found files and returns it.
+// Example usage:
+// files := GetAllMigrationFiles()
+//
+//	for _, file := range files {
+//	    fmt.Println(file)
+//	}
+func GetAllMigrationFiles() []string {
+	files, err := filepath.Glob(filepath.Join(dir_utils.RootDir(), "..", "fox-deck-db", "migrations", "*.sql"))
+	if err != nil {
+		logging.Fatal(err)
+	}
+	scripts := make([]string, len(files))
+	for i, file := range files {
+		scripts[i] = file
+	}
+	return files
 }
 
 // GetMigrationFile returns the full path of a migration file based on its filename.

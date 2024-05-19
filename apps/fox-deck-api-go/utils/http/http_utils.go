@@ -3,6 +3,8 @@ package http_utils
 
 import (
 	"encoding/json"
+	"fmt"
+	"fox-deck-api/logging"
 	"net/http"
 )
 
@@ -17,8 +19,15 @@ import (
 // Next, it sets the HTTP status code of the response using the WriteHeader method of the responseWriter.
 // Finally, it writes the marshaled JSON data to the response using the Write method of the responseWriter.
 func WriteJSONResponse(responseWriter http.ResponseWriter, httpStatus int, data interface{}) {
-	res, _ := json.Marshal(data)
+	res, err := json.Marshal(data)
+	if err != nil {
+		logging.Error("http_utils", fmt.Sprintf("Error marshaling data: %o", err))
+		return
+	}
 	responseWriter.Header().Set("Content-Type", "application/json")
 	responseWriter.WriteHeader(httpStatus)
-	responseWriter.Write(res)
+	_, err = responseWriter.Write(res)
+	if err != nil {
+		logging.Error("http_utils", fmt.Sprintf("Error writing response: %o", err))
+	}
 }

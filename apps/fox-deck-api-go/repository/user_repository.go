@@ -1,9 +1,10 @@
 package repository
 
 import (
+	"fmt"
 	"fox-deck-api/crypto"
 	"fox-deck-api/database"
-	"log"
+	"fox-deck-api/logging"
 	"sync"
 )
 
@@ -42,11 +43,13 @@ func (userRepository *UserRepositoryConnection) GetUserByEmail(email string) (*d
 
 	stmt, err := connection.Prepare(query)
 	if err != nil {
+		logging.Error("user_repository", fmt.Sprintf("Error while preparing statement: %o", err))
 		return nil, err
 	}
 
 	result, err := stmt.Query(email)
 	if result.Err() != nil || err != nil {
+		logging.Error("user_repository", fmt.Sprintf("Error while executing query: %o; %o", result.Err(), err))
 		return nil, result.Err()
 	}
 
@@ -54,8 +57,9 @@ func (userRepository *UserRepositoryConnection) GetUserByEmail(email string) (*d
 
 	for result.Next() {
 		user := &database.User{}
-		if err := result.Scan(&user.Id, &user.Email, &user.Username, &user.Password); err != nil {
-			log.Fatal(err)
+		if err := result.Scan(&user.Id, &user.Username, &user.Email, &user.Password); err != nil {
+			logging.Error("user_repository", fmt.Sprintf("Error while reading database result: %o", err))
+			return nil, err
 		}
 
 		retrievedUser = user
@@ -77,22 +81,23 @@ func (userRepository *UserRepositoryConnection) InsertUser(user database.User) (
 
 	stmt, err := connection.Prepare(query)
 	if err != nil {
+		logging.Error("user_repository", fmt.Sprintf("Error while preparing statement: %o", err))
 		return nil, err
 	}
+	defer stmt.Close()
 
 	c := crypto.BcryptCrypto{}
 	encryptedPassword, err := c.HashPassword(user.Password)
 	if err != nil {
+		logging.Error("user_repository", fmt.Sprintf("Error while encrypting password: %o", err))
 		return nil, err
 	}
 
-	defer stmt.Close()
-
 	result, err := stmt.Query(user.Id, user.Username, user.Email, encryptedPassword)
 	if result.Err() != nil || err != nil {
+		logging.Error("user_repository", fmt.Sprintf("Error while executing query: %o; %o", result.Err(), err))
 		return nil, result.Err()
 	}
-
 	defer result.Close()
 
 	return &user.Id, nil

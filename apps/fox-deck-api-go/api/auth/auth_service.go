@@ -40,7 +40,6 @@ func CreateUser(userRepository repository.UserRepository, crypto crypto.Crypto, 
 		return nil, &exceptions.EmailAlreadyUsedError{}
 	}
 
-	hashedPassword, err := crypto.HashPassword(registerRequest.Password)
 	if err != nil {
 		return nil, err
 	}
@@ -50,10 +49,10 @@ func CreateUser(userRepository repository.UserRepository, crypto crypto.Crypto, 
 		Id:       userId,
 		Username: registerRequest.Username,
 		Email:    registerRequest.Email,
-		Password: hashedPassword,
+		Password: registerRequest.Password,
 	})
 	if err != nil {
-		return nil, err
+		return nil, &exceptions.DatabaseError{}
 	}
 
 	return &userId, nil

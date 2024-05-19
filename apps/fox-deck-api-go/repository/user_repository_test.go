@@ -2,32 +2,29 @@ package repository
 
 import (
 	"context"
+	"database/sql"
 	"fox-deck-api/database"
 	it "fox-deck-api/testing"
+	"github.com/stretchr/testify/assert"
 	"log"
 	"testing"
 )
 
 func TestUserRepository_CreateUser_Success(t *testing.T) {
+	// test-container startup
 	setup := it.IntegrationTestSetup{}
 	container := it.IntegrationTestEnvironment.Startup(&setup)
 
 	host, _ := container.Container.Host(context.Background())
 	mappedPort, _ := container.Container.MappedPort(context.Background(), "3306")
-	t.Logf("Container started at: %s:%s", host, mappedPort.Port())
 
-	userId := "1d978281-5ffc-48e8-ae40-5c85ab553816"
-	username := "1d978281-5ffc-48e8-ae40-5c85ab553816"
-	email := "1d978281-5ffc-48e8-ae40-5c85ab553816"
-	password := "Secur3P@ssw0rd!"
-	user := database.User{
-		Id:       userId,
-		Username: username,
-		Email:    email,
-		Password: password,
+	// the user, we want to insert
+	newUser := database.User{
+		Id:       "1d978281-5ffc-48e8-ae40-5c85ab553816",
+		Username: "John.doe94",
+		Email:    "john.doe94@gmail.com",
+		Password: "Secur3P@ssw0rd!",
 	}
-
-	defer container.Terminate(context.Background())
 
 	userRepoConn := &UserRepositoryConnection{
 		DbConnection: &database.Connection{
@@ -38,53 +35,42 @@ func TestUserRepository_CreateUser_Success(t *testing.T) {
 		},
 	}
 
-	insertedUserId, err := userRepoConn.InsertUser(user)
+	_, err := userRepoConn.InsertUser(newUser)
 	if err != nil {
-		t.Errorf("Error inserting user: %v", err)
+		t.Errorf("Error inserting newUser: %v", err)
 	}
 
-	if *insertedUserId != userId {
-		t.Errorf("Expected user ID to be returned, got nil")
-	}
+	// check if the user is really inserted
+	retrievedUser := fetchUserDetails(userRepoConn.DbConnection.Connect(), newUser.Id)
 
-	query := `SELECT * FROM User
-        	  WHERE id = ?;`
+	assert.Equalf(t, retrievedUser.Id, newUser.Id, "Expected user ID to be %s, got %s", newUser.Id, retrievedUser.Id)
+	assert.Equalf(t, retrievedUser.Email, newUser.Email, "Expected email to be %s, got %s", newUser.Email, retrievedUser.Email)
+	assert.Equalf(t, retrievedUser.Username, newUser.Username, "Expected username to be %s, got %s", newUser.Username, retrievedUser.Username)
+	assert.NotEqualf(t, retrievedUser.Password, newUser.Password, "Expected password to be encrypted, got %s", retrievedUser.Password)
+}
 
-	stmt, err := userRepoConn.DbConnection.Connect().Prepare(query)
+func fetchUserDetails(db *sql.DB, userID string) *database.User {
+	query := `SELECT * FROM User WHERE id = ?;`
+	stmt, err := db.Prepare(query)
 	if err != nil {
-		t.Fatalf("Error preparing query: %v", err)
+		log.Fatalf("Error preparing query: %v", err)
 	}
+	defer stmt.Close()
 
-	result, err := stmt.Query(userId)
-	if result.Err() != nil || err != nil {
-		t.Fatalf("Error executing query: %v", result.Err())
+	result, err := stmt.Query(userID)
+	if err != nil {
+		log.Fatalf("Error executing query: %v", err)
 	}
-
 	defer result.Close()
 
 	retrievedUser := &database.User{}
 	for result.Next() {
 		user := &database.User{}
-		if err := result.Scan(&user.Id, &user.Email, &user.Username, &user.Password); err != nil {
+		if err := result.Scan(&user.Id, &user.Username, &user.Email, &user.Password); err != nil {
 			log.Fatal(err)
 		}
-
 		retrievedUser = user
 	}
 
-	if retrievedUser.Id != userId {
-		t.Errorf("Expected user ID to be %s, got %s", userId, retrievedUser.Id)
-	}
-
-	if retrievedUser.Email != email {
-		t.Errorf("Expected email to be %s, got %s", email, retrievedUser.Email)
-	}
-
-	if retrievedUser.Username != username {
-		t.Errorf("Expected username to be %s, got %s", username, retrievedUser.Username)
-	}
-
-	if retrievedUser.Password == password {
-		t.Errorf("Expected password to be encrypted, got %s", retrievedUser.Password)
-	}
+	return retrievedUser
 }

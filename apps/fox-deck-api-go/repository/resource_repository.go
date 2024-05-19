@@ -18,6 +18,7 @@ type ResourceRepository interface {
 // GetResourceByUserId
 // Retrieves a resource from the database, based on the id of the user.
 func (resourceRepositoryConnection *ResourceRepositoryConnection) GetResourceByUserId(userId string, filter ...filter.ResourceFilter) (*[]database.Resource, error) {
+	logging.Debug("resource_repository", fmt.Sprintf("(GetResourceByUserId) => Get resource for user with id '%s'", userId))
 	retrievedResources := &[]database.Resource{}
 
 	conn := resourceRepositoryConnection.DbConnection.Connect()

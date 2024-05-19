@@ -1,7 +1,7 @@
 import {useAuthStore} from "@/core/stores/auth.store";
 import {useResourceStore} from "@/modules/resource-navigation/stores/resource.store";
 import {api} from "@/core/services";
-import type {GetResourceRootByUserIdResponseDto} from "@/core/services/api";
+import type {DatabaseResource} from "@/core/services/api";
 import {HttpStatusCode} from "axios";
 
 /**
@@ -19,7 +19,7 @@ export function useResources() {
      * @return {Promise<void>} A promise that resolves when the resources are fetched and stored successfully.
      */
     async function fetchResources(): Promise<void> {
-        const response = await api.resourceRoot.resourceControllerGetRootLevelResourceByUserId({
+        const response = await api.resource.resourceList("", {
             headers: {
                 Authorization: `Bearer ${jwt}`,
             },
@@ -66,18 +66,15 @@ export function useResources() {
         // we add a placeholder which is rendered and shows, that the TreeView is currently loading
         resourceStore.resources = [...resourceStore.resources, getLoadingResourcePlaceholder(resourceId)]
 
-        const response = await api.resourceChildren.resourceControllerGetChildrenOfResource({
-                resourceId
+        const response = await api.resource.resourceList(resourceId, {
+            headers: {
+                Authorization: `Bearer ${jwt}`,
             },
-            {
-                headers: {
-                    Authorization: `Bearer ${jwt}`,
-                },
-            });
+        });
 
         // we remove the placeholder which is rendered and shows, that the TreeView is currently loading
         resourceStore.resources = [...resourceStore.resources.filter((resource) =>
-            (resource.resourceId !== getLoadingResourcePlaceholder(resourceId).resourceId))
+            (resource.resourceId !== getLoadingResourcePlaceholder(resourceId).id))
         ];
 
         resourceStore.resources = [...resourceStore.resources, ...response.data];
@@ -91,9 +88,9 @@ export function useResources() {
      *
      * @returns {GetResourceRootByUserIdResponseDto} - The loading resource placeholder object.
      */
-    function getLoadingResourcePlaceholder(parentResourceId: string): GetResourceRootByUserIdResponseDto {
+    function getLoadingResourcePlaceholder(parentResourceId: string): DatabaseResource {
         return {
-            resourceId: "loadingPlaceholder",
+            id: "loadingPlaceholder",
             type: "loading",
             name: "loading",
             parentResourceId,

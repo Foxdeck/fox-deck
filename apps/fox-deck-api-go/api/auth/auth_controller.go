@@ -54,10 +54,10 @@ func Login(responseWriter http.ResponseWriter, request *http.Request) {
 		}
 	}
 
-	jwt, _ := token.CreateToken(user.Id)
-	response, _ := json.Marshal(LoginResponse{
+	jwt, _ := token.CreateToken(user.Id, user.Username)
+	response := &LoginResponse{
 		Token: jwt,
-	})
+	}
 	http_utils.WriteJSONResponse(responseWriter, http.StatusOK, response)
 }
 

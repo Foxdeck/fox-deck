@@ -19,8 +19,8 @@ const (
 
 var logger = slog.Default()
 
+// init initialze the logger
 func init() {
-	Info("logging", "logger initialized")
 	slog.SetDefault(logger)
 	slog.SetLogLoggerLevel(slog.LevelDebug)
 }
