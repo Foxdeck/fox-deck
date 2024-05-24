@@ -4,17 +4,15 @@ export const en = {
     hello: "Hello",
     light_theme: "Light theme",
     settings: "Settings",
-    more_settings: "more settings",
     foxdeck: "Foxdeck",
-    intro_text: "Create, share and experience interactive learning",
     edit: "Edit",
     delete: "Delete",
-    sign_out: "Sign out"
+    sign_out: "Sign out",
   },
   home: {
-    title: "Get started with learning!",
-    text: "Develop your own learning modules with targeted questions that effectively expand your knowledge. Create questions that help you to memorize facts and then assign them to different learning units.",
-    create_questions_now: "Create questions now"
+    title: "Welcome to Fox Deck",
+    search_in_notes: "Search in my notes...",
+    suggestions: "Suggestions"
   },
   login: {
     title: "Login",

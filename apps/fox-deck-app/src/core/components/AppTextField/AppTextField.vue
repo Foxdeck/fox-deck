@@ -25,7 +25,8 @@ const props = withDefaults(defineProps<AppTextFieldProps>(), {
   errorText: undefined,
   icon: undefined,
   supportingText: "",
-  name: ""
+  name: "",
+  isRounded: false
 });
 
 const emit = defineEmits(["update:modelValue"]);
@@ -73,6 +74,10 @@ watch(errors, () => {
 <template>
   <component
     :is="getTextFieldTypeFromVariant(variant)"
+    :class="{
+      'rounded': isRounded,
+      'indicator-none': true
+    }"
     :label="label"
     :value="modelValue"
     :placeholder="placeholder"
@@ -90,3 +95,28 @@ watch(errors, () => {
     />
   </component>
 </template>
+
+<style lang="scss">
+:root {
+  .rounded {
+    --text-field-container-shape: 2rem;
+
+    --md-filled-text-field-container-shape: var(--text-field-container-shape);
+    --md-outlined-text-field-container-shape: var(--text-field-container-shape);
+  }
+
+
+}
+
+// see @https://github.com/material-components/material-web/blob/main/tokens/_md-comp-filled-text-field.scss
+md-filled-text-field {
+  // remove the 'focus'/'active'-indicator
+  &.indicator-none {
+    --md-filled-text-field-active-indicator-height: 0px;
+    --md-filled-text-field-disabled-active-indicator-height: 20px;
+    --md-filled-text-field-focus-active-indicator-height: 0px;
+    --md-filled-text-field-hover-active-indicator-height: 0px;
+  }
+
+}
+</style>
