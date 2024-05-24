@@ -42,4 +42,5 @@ export type AppButtonProps = {
   variant?: AppButtonVariant;
   severity?: AppButtonSeverity;
   width?: AppButtonWidth;
+  isLoading?: boolean;
 }
