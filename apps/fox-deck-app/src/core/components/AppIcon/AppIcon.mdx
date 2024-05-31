@@ -1,0 +1,20 @@
+import {Canvas, Controls, Meta, Source} from '@storybook/blocks';
+
+import * as IconStories from './AppIcon.stories';
+
+<Meta of={IconStories} />
+
+# Icon
+
+Icons are small graphical elements used in user interfaces to represent actions, objects, or ideas visually.
+
+<Canvas of={IconStories.Default} />
+
+<Canvas of={IconStories.Loading} />
+
+**Properties**
+
+<Controls of={IconStories.Default} />
+
+> HINT: There is also an Enumeration `Icon` (currently in `icon.ts`). We prefer to use this Enumeration for using icons
+in the code.
