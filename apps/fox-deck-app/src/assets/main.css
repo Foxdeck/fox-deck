@@ -9,29 +9,27 @@
 @tailwind utilities;
 
 :root {
-  --md-ref-typeface-brand: 'Gabarito';
-  --md-ref-typeface-plain: 'Gabarito';
+    --md-ref-typeface-brand: 'Gabarito';
+    --md-ref-typeface-plain: 'Gabarito';
 }
 
 body {
-  overflow-x: hidden;
+    overflow-x: hidden;
 }
 
 /** we need to set the svg of a feather icon to inline, because else the element will have a small space around */
 .vue-feather {
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
 }
 
 .vue-feather svg {
-  display: inline;
+    display: inline;
 }
 
 /* center icons inside their container */
 .fi {
-  display: flex;
-  align-self: center;
+    display: flex;
+    align-self: center;
 }
-
-
