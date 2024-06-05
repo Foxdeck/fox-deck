@@ -3,8 +3,10 @@ import NotificationLayout from "@/core/components/Layouts/NotificationLayout.vue
 import RouterLayout from "@/core/components/Layouts/RouterLayout.vue";
 import {useThemeStore} from "@/core/stores/theme.store";
 import AppResourceNavigation from "@/modules/resource-navigation/AppResourceNavigation.vue";
+import {useAuthStore} from "@/core/stores/auth.store";
 
 const themeStore = useThemeStore();
+const authStore = useAuthStore();
 
 </script>
 
@@ -16,7 +18,7 @@ const themeStore = useThemeStore();
     }"
   >
     <main class="flex w-screen h-screen bg-[#f5f6fb] dark:bg-gray-900">
-      <Suspense>
+      <Suspense v-if="authStore.isAuthenticated()">
         <AppResourceNavigation />
       </Suspense>
       <div class="w-full overflow-y-scroll">
