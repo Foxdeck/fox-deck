@@ -11,6 +11,7 @@ import "@material/web/button/outlined-button.js";
 import {Icon} from "@/core/components/AppIcon/icons";
 
 withDefaults(defineProps<AppButtonProps>(), {
+  tooltip: "",
   variant: "tonal",
   width: "block",
   severity: "primary",
@@ -38,6 +39,7 @@ function getButtonTypeFromVariant(variant: AppButtonVariant): AppButtonType {
   >
     <component
       :is="getButtonTypeFromVariant(variant)"
+      :title="tooltip"
       :class="{
         danger: severity === 'danger'
       }"

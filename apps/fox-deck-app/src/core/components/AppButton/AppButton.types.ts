@@ -37,6 +37,7 @@ export type AppButtonWidth = "block" | "full";
  * Property definitions of the button.
  */
 export type AppButtonProps = {
+  tooltip?: string;
   label?: string;
   icon?: Icon;
   variant?: AppButtonVariant;

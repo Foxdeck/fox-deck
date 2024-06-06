@@ -23,6 +23,7 @@ export enum Icon {
   HOME = "fi-rr-home",
   LOADING = "fi-rr-loading",
   MENU_VERTICAL = "fi-rr-menu-dots-vertical",
+  MENU_BURGER = "fi-rr-menu-burger",
   PLUS = "fi-rr-plus",
   QUESTION = "fi-rr-lightbulb-question",
   SAVE = "fi-rr-disk",
@@ -32,6 +33,8 @@ export enum Icon {
   SIGN_IN = "fi-rr-enter",
   SETTINGS = "fi-rr-settings",
   SPINNER = "fi-rr-spinner",
+  SUN = "fi-rr-sun",
+  MOON = "fi-rr-moon",
   WARNING = "fi fi-rr-triangle-warning",
   X = "fi-rr-cross"
 }

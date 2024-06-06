@@ -1,11 +1,7 @@
 <script async setup lang="ts">
 import {useI18n} from "vue-i18n";
-import Logo from "@/assets/icons/foxdeck-logo.svg";
 import {useAuthStore} from "@/core/stores/auth.store";
 import {useFoxdeckRouter} from "@/core/composables/useFoxdeckRouter";
-import {Icon} from "@/core/components/AppIcon/icons";
-import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
-import AppButton from "@/core/components/AppButton/AppButton.vue";
 import AppTreeView from "@/core/components/AppTreeView/AppTreeView.vue";
 import {LoginRouteNames} from "@/modules/login/routes";
 import {useResources} from "@/modules/resource-navigation/composables/useResources";
@@ -15,15 +11,21 @@ import type {
   AppTreeViewItemOnMenuActionSelect,
   AppTreeViewItemProps
 } from "@/core/components/AppTreeViewItem/AppTreeViewItem.types";
+import AppSideNavigation from "@/core/components/AppSideNavigation/AppSideNavigation.vue";
+import {ref} from "vue";
+import {useThemeStore} from "@/core/stores/theme.store";
 
 // stores
 const authStore = useAuthStore();
 const resourceStore = useResourceStore();
+const themeStore = useThemeStore();
 
 // composables
 const {fetchResources, getResourceChildren, removeResourceChildren, isResourceExpanded} = useResources();
 const {t} = useI18n();
 const {push} = useFoxdeckRouter();
+
+const isNavigationExpanded = ref(false);
 
 // initially fetch the resources from the database
 await fetchResources();
@@ -48,7 +50,7 @@ const mockTreeViewItems: AppTreeViewItemProps[] = [
     children: [],
     isOpen: false,
     type: "folder",
-    isSelected: false
+    isSelected: true
   },
   {
     label: "Notes",
@@ -89,43 +91,24 @@ async function onResourceClick(selectedItem: AppTreeViewItemOnItemSelect) {
 }
 
 function onMenuActionSelect(menuActionSelectEvent: AppTreeViewItemOnMenuActionSelect) {
-  console.debug(`(AppResourceNavigation:onMenuActionSelect) => menu-action '${menuActionSelectEvent.actionIdentifier}' for menu '${menuActionSelectEvent.itemIdentifier}' is triggered`);
+  console.debug(`(AppResourceNavigation:onMenuActionSelect) => menu-action '${  menuActionSelectEvent.actionIdentifier}' for menu '${menuActionSelectEvent.itemIdentifier}' is triggered`);
 }
 </script>
 <template>
-  <aside
+  <AppSideNavigation
     v-if="authStore.isAuthenticated()"
-    class="flex flex-col justify-between w-full max-w-[300px] min-h-screen on-surface-text p-4 border-r shadow-md surface-container-lowest"
+    :is-expanded="isNavigationExpanded"
+    :is-light-theme="themeStore.isThemeLight()"
+    @on-menu-toggle="isNavigationExpanded = !isNavigationExpanded"
+    @on-theme-toggle="themeStore.switchTheme()"
   >
-    <div class="flex flex-col gap-4">
-      <FDTypography class="flex gap-2 font-bold items-center">
-        <Logo class="w-8 self-center" />
-        {{ t("common.hello") }}, {{ authStore.getUsername() }}
-      </FDTypography>
-
-      <div class="flex flex-col gap-2">
-        <AppTreeView
-          :items="mockTreeViewItems"
-          @on-item-select="onResourceClick($event)"
-          @on-menu-action-select="onMenuActionSelect($event)"
-        />
-      </div>
-    </div>
-
-    <div class="flex gap-2 flex-wrap">
-      <AppButton
-        variant="text"
-        width="full"
-        :label="t('common.sign_out')"
-        :icon="Icon.SIGN_OUT"
-        @click="onLogoutClick"
+    <template #content>
+      <AppTreeView
+        :items="mockTreeViewItems"
+        :is-expanded="isNavigationExpanded"
+        @on-item-select="onResourceClick($event)"
+        @on-menu-action-select="onMenuActionSelect($event)"
       />
-      <AppButton
-        variant="outlined"
-        width="full"
-        :label="t('common.settings')"
-        :icon="Icon.SETTINGS"
-      />
-    </div>
-  </aside>
+    </template>
+  </AppSideNavigation>
 </template>

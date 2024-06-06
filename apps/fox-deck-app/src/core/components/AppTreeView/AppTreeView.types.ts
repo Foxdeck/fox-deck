@@ -6,4 +6,5 @@ import type {AppTreeViewItemProps} from "@/core/components/AppTreeViewItem/AppTr
 export type AppTreeViewProps = {
   items: AppTreeViewItemProps[];
   isLoading?: boolean;
+  isExpanded?: boolean;
 }

@@ -9,8 +9,13 @@ const themeStore = useThemeStore();
 </script>
 
 <template>
-  <div class="light">
-    <main class="flex w-screen h-screen bg-[#f5f6fb] dark:bg-gray-900">
+  <div
+    :class="{
+      'light': themeStore.isThemeLight(),
+      'dark': !themeStore.isThemeLight()
+    }"
+  >
+    <main class="flex w-screen h-screen surface">
       <Suspense>
         <AppResourceNavigation />
       </Suspense>
