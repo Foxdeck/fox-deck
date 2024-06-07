@@ -1,0 +1,76 @@
+import {ColorItem, ColorPalette, Meta} from "@storybook/blocks";
+
+<Meta title="Guidelines/Colors"/>
+
+<div className="flex flex-col">
+  # Colors
+
+  Lorem ipsum ...
+
+  ## Palette
+
+  > <span className="fi-rr-lightbulb-question" /> **HINT**: To learn more about the usage of icons in fox-deck, look ath the `````` Component.
+
+  <div className="light">
+    <ColorPalette>
+      <ColorItem
+        title="md.sys.color.primary"
+        subtitle="Primary"
+        colors={{
+          "Light": "var(--md-sys-color-primary)",
+          "Container Light": "var(--md-sys-color-primary-container)",
+          "Fixed Light": "var(--md-sys-color-primary-fixed)",
+          "Fixed Dim Light": "var(--md-sys-color-primary-fixed-dim)",
+        }}
+      />
+      <ColorItem
+        title="md.sys.color.secondary"
+        subtitle="Secondary"
+        colors={{
+          "Light": "var(--md-sys-color-secondary)",
+          "Container Light": "var(--md-sys-color-secondary-container)",
+          "Fixed Light": "var(--md-sys-color-secondary-fixed)",
+          "Fixed Dim Light": "var(--md-sys-color-secondary-fixed-dim)",
+        }}
+      />
+      <ColorItem
+        title="md.sys.color.tertiary"
+        subtitle="Tertiary"
+        colors={{
+          "Light": "var(--md-sys-color-tertiary)",
+          "Container Light": "var(--md-sys-color-tertiary-container)",
+          "Fixed Light": "var(--md-sys-color-tertiary-fixed)",
+          "Fixed Dim Light": "var(--md-sys-color-tertiary-fixed-dim)",
+        }}
+      />
+      <ColorItem
+        title="md.sys.color.error"
+        subtitle="Error"
+        colors={{
+          "Error": "var(--md-sys-color-error)",
+          "Text Color": "var(--md-sys-color-on-error)",
+          "Fixed Light": "var(--md-sys-color-error-container)",
+          "Fixed Dim Light": "var(--md-sys-color-on-error-container)",
+        }}
+      />
+      <ColorItem
+        title="md.sys.color.error"
+        subtitle="Error"
+        colors={{
+          "Error": "var(--md-sys-color-error)",
+          "Text Color": "var(--md-sys-color-on-error)",
+          "Fixed Light": "var(--md-sys-color-error-container)",
+          "Fixed Dim Light": "var(--md-sys-color-on-error-container)",
+        }}
+      />
+      <ColorItem
+        title="md.sys.color.background"
+        subtitle="Background"
+        colors={{
+          "Background": "var(--md-sys-color-background)",
+          "On Background": "var(--md-sys-color-on-background)",
+        }}
+      />
+    </ColorPalette>
+  </div>
+</div>

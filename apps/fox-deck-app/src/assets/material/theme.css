@@ -1,5 +1,9 @@
 @import url(tokens.css);
 @import url(colors.module.css);
 @import url(typography.module.css);
-@import url(theme.light.css);
-/*@import url(theme.dark.css) (prefers-color-scheme: dark);*/
+@import url(themes/default/light.css);
+@import url(themes/default/light-hc.css);
+@import url(themes/default/light-mc.css);
+@import url(themes/default/dark.css);
+@import url(themes/default/dark-hc.css);
+@import url(themes/default/dark-mc.css);

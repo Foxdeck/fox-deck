@@ -8,11 +8,14 @@ import type {AppButtonProps, AppButtonType, AppButtonVariant} from "@/core/compo
 import "@material/web/button/text-button.js";
 import "@material/web/button/filled-tonal-button.js";
 import "@material/web/button/outlined-button.js";
+import {Icon} from "@/core/components/AppIcon/icons";
 
 withDefaults(defineProps<AppButtonProps>(), {
+  tooltip: "",
   variant: "tonal",
   width: "block",
-  severity: "primary"
+  severity: "primary",
+  isLoading: false
 });
 
 /**
@@ -36,6 +39,7 @@ function getButtonTypeFromVariant(variant: AppButtonVariant): AppButtonType {
   >
     <component
       :is="getButtonTypeFromVariant(variant)"
+      :title="tooltip"
       :class="{
         danger: severity === 'danger'
       }"
@@ -44,9 +48,15 @@ function getButtonTypeFromVariant(variant: AppButtonVariant): AppButtonType {
         class="flex gap-2 p-2"
       >
         <AppIcon
-          v-if="icon"
+          v-if="icon && !isLoading"
           data-testid="button-icon"
           :icon="icon"
+        />
+        <AppIcon
+          v-if="isLoading"
+          data-testid="button-icon"
+          :icon="Icon.SPINNER"
+          :spinning="isLoading"
         />
         <span
           v-if="label"

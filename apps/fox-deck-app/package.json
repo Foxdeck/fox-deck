@@ -11,7 +11,9 @@
     "test:unit": "vitest --coverage",
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
-    "generate:api": "npx swagger-typescript-api -p ./../fox-deck-api-go/docs/swagger.json -o ./src/core/services/ -n api.ts"
+    "generate:api": "npx swagger-typescript-api -p ./../fox-deck-api-go/docs/swagger.json -o ./src/core/services/ -n api.ts",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "@material/web": "^1.1.1",
@@ -33,8 +35,15 @@
     "yup": "^1.3.2"
   },
   "devDependencies": {
-    "@histoire/plugin-vue": "^0.17.6",
+    "@chromatic-com/storybook": "^1.4.0",
     "@playwright/test": "^1.40.0",
+    "@storybook/addon-essentials": "^8.1.3",
+    "@storybook/addon-interactions": "^8.1.3",
+    "@storybook/addon-links": "^8.1.3",
+    "@storybook/blocks": "^8.1.3",
+    "@storybook/test": "^8.1.3",
+    "@storybook/vue3": "^8.1.3",
+    "@storybook/vue3-vite": "^8.1.3",
     "@tsconfig/node18": "^18.2.2",
     "@types/jsdom": "^21.1.3",
     "@types/node": "^18.18.5",
@@ -45,13 +54,13 @@
     "@vue/test-utils": "^2.4.2",
     "@vue/tsconfig": "^0.4.0",
     "autoprefixer": "^10.4.16",
-    "histoire": "^0.17.6",
     "jsdom": "^22.1.0",
     "npm-run-all2": "^6.1.1",
     "postcss": "^8.4.31",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sass": "^1.69.5",
+    "storybook": "^8.1.3",
     "swagger-typescript-api": "^13.0.3",
     "tailwindcss": "^3.3.5",
     "typescript": "~5.2.0",

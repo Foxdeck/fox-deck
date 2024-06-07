@@ -4,17 +4,15 @@ export const de = {
     hello: "Hallo",
     light_theme: "Helles Design",
     settings: "Einstellungen",
-    more_settings: "weitere Einstellungen",
     foxdeck: "Foxdeck",
-    intro_text: "Erstelle, teile und erlebe interaktives Lernen",
     edit: "Bearbeiten",
     delete: "Löschen",
-    sign_out: "Abmelden"
+    sign_out: "Abmelden",
   },
   home: {
-    title: "Starte jetzt mit dem Lernen!",
-    text: "Entwickle deine eigenen Lernmodule mit gezielten Fragen, die dein Wissen effektiv erweitern. Erstelle Fragen, die dir helfen, Fakten zu merken und ordne sie dann verschiedenen Lerneinheiten zu.",
-    create_questions_now: "Jetzt Fragen erstellen"
+    title: "Willkommen bei Fox Deck",
+    search_in_notes: "In meinen Notizen suchen...",
+    suggestions: "Vorschläge",
   },
   login: {
     title: "Anmelden",

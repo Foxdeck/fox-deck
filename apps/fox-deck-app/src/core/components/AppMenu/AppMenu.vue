@@ -75,8 +75,7 @@ defineEmits<{
 
 <style>
 :root {
-  background-color: #ffffff;
-  --md-menu-container-color: #ffffff;
+  --md-menu-container-color: var(--md-sys-color-surface);
   --md-menu-container-shape: .4rem;
 }
 

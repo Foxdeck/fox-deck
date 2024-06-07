@@ -1,0 +1,34 @@
+import {Meta} from "@storybook/blocks";
+import {Icon} from "@/core/components/AppIcon/icons"
+import AppIcon from "@/core/components/AppIcon/AppIcon.vue";
+
+<Meta title="Guidelines/Icons"/>
+
+<div className="flex flex-col">
+  # Icons
+
+  Icons are small graphical elements used in user interfaces to represent actions, objects, or ideas visually. They
+  enhance the user experience by providing intuitive, easily recognizable symbols that convey meaning quickly and
+  efficiently. Icons help users navigate, perform actions, and understand information without relying solely on text.
+
+  ## Description
+
+  We are using the icon library from <a href="https://www.flaticon.com/uicons/interface-icons">flaticon</a> as the
+  foundation for our project. These icons feature a rounded shape, making them ideal for aligning with the design
+  philosophy of Material Design.
+
+  ## List of used icons:
+
+  > <span className="fi-rr-lightbulb-question" /> **HINT**: To learn more about the usage of icons in fox-deck, look ath the ```<AppIcon/>``` Component.
+
+  <div className="grid grid-cols-[repeat(auto-fill,10rem)] flex-wrap">
+    {
+      Object.values(Icon).map((icon) => <div
+          className="flex flex-col justify-center items-center aspect-square rounded-2xl hover:bg-gray-100">
+          <span className={`!text-3xl fi py-8 ${icon}`}></span>
+          <span className="!text-xs p-2 text-center" title={icon}>{icon}</span>
+        </div>
+      )
+    }
+  </div>
+</div>

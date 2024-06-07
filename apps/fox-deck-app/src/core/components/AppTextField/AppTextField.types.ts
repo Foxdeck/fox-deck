@@ -45,4 +45,5 @@ export type AppTextFieldProps = {
     readonly iconPosition?: AppTextFieldIconPosition
     readonly supportingText?: string;
     readonly name?: string;
+    readonly isRounded?: boolean;
 }

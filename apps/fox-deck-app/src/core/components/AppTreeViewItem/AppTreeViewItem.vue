@@ -7,6 +7,10 @@ import type {
 import AppIcon from "@/core/components/AppIcon/AppIcon.vue";
 import {Icon} from "@/core/components/AppIcon/icons";
 import AppMenu from "@/core/components/AppMenu/AppMenu.vue";
+import AppButton from "@/core/components/AppButton/AppButton.vue";
+
+// we use Material Design 3 Focus Ring for focusing the treeView item
+import "@material/web/focus/md-focus-ring";
 
 const props = withDefaults(defineProps<AppTreeViewItemProps>(), {
   isOpen: false,
@@ -36,8 +40,6 @@ function getTypeIcon(type: AppTreeViewItemType, isOpen: boolean, isSelected: boo
 
     return Icon.FOLDER;
   }
-
-  console.error("(getTypeIcon) => can not get type-icon: ", props);
 }
 
 function canBeOpened(): boolean {
@@ -55,14 +57,15 @@ function onItemSelect() {
 
 <template>
   <span
-    class="flex items-center justify-between text-black p-2 rounded-md cursor-pointer select-none hover:bg-gray-100"
+    class="relative flex items-center justify-between p-2 rounded-full cursor-pointer outline-none"
     :class="{
-      'bg-gray-100': isSelected
+      'secondary-container on-secondary-container-text': isSelected
     }"
     tabindex="0"
     @click="onItemSelect"
     @keydown.enter="onItemSelect"
   >
+    <md-focus-ring />
     <span class="flex gap-2">
 
       <template v-if="isLoading">
@@ -85,7 +88,6 @@ function onItemSelect() {
       </template>
     </span>
     <AppMenu
-      tabindex="0"
       :identifier="identifier"
       :items="[
         {
@@ -101,9 +103,10 @@ function onItemSelect() {
       ]"
       @on-action-select="$emit('onMenuActionSelect', $event)"
     >
-      <AppIcon
-        class="p-2 rounded-md hover:bg-gray-200"
-        :icon="Icon.MENU_VERTICAL"
+      <AppButton
+        variant="text"
+        class="h-auto"
+        :icon="Icon.PLUS"
       />
     </AppMenu>
   </span>
