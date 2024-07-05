@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import {Icon} from "@/core/components/AppIcon/icons";
 import AppButton from "@/core/components/AppButton/AppButton.vue";
+import {Icon} from "@/core/components/AppIcon/icons";
 
 defineProps<{
   tooltip?: string;

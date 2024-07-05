@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import {useI18n} from "vue-i18n";
 import {type RouteLocationNormalizedLoaded, useRouter} from "vue-router";
+
 import Logo from "@/assets/icons/foxdeck-logo.svg";
-import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
 import {LoginRouteNames} from "@/modules/login/routes";
 
 const {t} = useI18n();
@@ -33,7 +33,9 @@ function getRouteForSignInSignUp(currentRoute: RouteLocationNormalizedLoaded): L
         </div>
       </div>
 
-      <FDTypography type="psm">
+      <span
+        class="body-small"
+      >
         <span v-if="currentRoute.name === 'login'">
           {{ t("login.new_user") }}&nbsp;
         </span>
@@ -51,7 +53,7 @@ function getRouteForSignInSignUp(currentRoute: RouteLocationNormalizedLoaded): L
             {{ t("register.login_now") }}
           </span>
         </RouterLink>
-      </FDTypography>
+      </span>
     </div>
   </div>
 </template>

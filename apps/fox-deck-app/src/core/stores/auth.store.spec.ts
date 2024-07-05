@@ -1,5 +1,6 @@
 import {createPinia, setActivePinia} from "pinia";
 import {beforeEach, describe, expect, it} from "vitest";
+
 import {useAuthStore} from "@/core/stores/auth.store";
 
 describe("Auth Store", () => {

@@ -1,18 +1,21 @@
 <script setup lang="ts">
+// external imports
 import {reactive} from "vue";
-import * as Yup from "yup";
 import {useI18n} from "vue-i18n";
-import {useAuthStore} from "@/core/stores/auth.store";
-import {api} from "@/core/services";
-import {useFoxdeckRouter} from "@/core/composables/useFoxdeckRouter";
-import FDFormBuilder, {type FormSchema} from "@/core/components/FDFormBuilder/FDFormBuilder.vue";
+import * as Yup from "yup";
+
+// core imports
 import AppTextField from "@/core/components/AppTextField/AppTextField.vue";
-import LoginRegisterLayout from "@/modules/login/LoginSignUpLayout.vue";
-import {HomeRouteNames} from "@/modules/home/routes";
-import {ServerResponse} from "@/core/types/server-response.enum";
-import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
-import {useNotificationStore} from "@/core/stores/notification.store";
+import FDFormBuilder, {type FormSchema} from "@/core/components/FDFormBuilder/FDFormBuilder.vue";
 import type {Severity} from "@/core/components/severity.types";
+import {useFoxdeckRouter} from "@/core/composables/useFoxdeckRouter";
+import {api} from "@/core/services";
+import {useAuthStore} from "@/core/stores/auth.store";
+import {useNotificationStore} from "@/core/stores/notification.store";
+import {ServerResponse} from "@/core/types/server-response.enum";
+// modules imports
+import {HomeRouteNames} from "@/modules/home/routes";
+import LoginRegisterLayout from "@/modules/login/LoginSignUpLayout.vue";
 
 const { push } = useFoxdeckRouter();
 const authService = useAuthStore();
@@ -89,15 +92,12 @@ const formSchema: FormSchema = {
   <LoginRegisterLayout>
     <template #form>
       <div class="flex flex-col text-center">
-        <FDTypography
-          class="font-bold"
-          type="h1"
-        >
+        <h1 class="display-medium">
           Welcome back!
-        </FDTypography>
-        <FDTypography type="psm">
+        </h1>
+        <span class="body-medium">
           Enter your email and password to access your account
-        </FDTypography>
+        </span>
       </div>
       <FDFormBuilder
         class="mt-12"

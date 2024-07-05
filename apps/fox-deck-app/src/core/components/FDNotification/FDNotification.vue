@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
 import type {PropType} from "vue";
+
+import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
 import type {Severity} from "@/core/components/severity.types";
 
 defineProps({

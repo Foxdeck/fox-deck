@@ -3,14 +3,13 @@ import {Form as VeeForm, type YupSchema} from "vee-validate";
 import type {Component, PropType} from "vue";
 import {defineEmits} from "vue";
 import {useI18n} from "vue-i18n";
+
 import AppButton from "@/core/components/AppButton/AppButton.vue";
-import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
 import AppIcon from "@/core/components/AppIcon/AppIcon.vue";
 import {Icon} from "@/core/components/AppIcon/icons";
 import AppTextField from "@/core/components/AppTextField/AppTextField.vue";
-import AppSwitch from "@/core/components/AppSwitch/AppSwitch.vue";
 
-const { t } = useI18n();
+const {t} = useI18n();
 
 export type FormSchemaAction = {
   label: string;
@@ -50,8 +49,8 @@ function getIconForComponent(component: Component) {
       return Icon.WARNING;
     }
     break;
-  } 
-    
+  }
+
   default:
     return undefined;
   }
@@ -74,21 +73,17 @@ function getIconForComponent(component: Component) {
       :type="field.type"
       :label="t(field.label)"
     />
-    <FDTypography
+    <span
       v-if="isFormError"
       type="psm"
-      class="flex gap-4 items-center p-4 rounded-md bg-danger-light text-danger-normal"
+      class="body-medium flex gap-4 items-center p-4 rounded-md error on-error-text"
     >
       <AppIcon :icon="Icon.WARNING" />
       {{ formErrorText }}
-    </FDTypography>
+    </span>
     <!-- TODO: we need to make <form> to be submitted by pressing the 'Enter'-Key. -->
     <!--       This can be achieved by e.g. using a <input type="submit">-element inside the form. -->
-    <!--       Instead we are using the <md-button> here. -->
-    <FDTypography
-      type="psm"
-      class="flex gap-2 items-center"
-    />
+    <!--       Instead we are using the <app-button> here. -->
     <AppButton
       v-if="formSchema.action"
       class="mt-2"

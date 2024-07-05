@@ -1,16 +1,15 @@
 <script setup lang="ts">
-import AppTreeViewItem from "@/core/components/AppTreeViewItem/AppTreeViewItem.vue";
 import type {AppTreeViewProps} from "@/core/components/AppTreeView/AppTreeView.types";
 import type {
   AppTreeViewItemOnItemSelect,
   AppTreeViewItemOnMenuActionSelect
 } from "@/core/components/AppTreeViewItem/AppTreeViewItem.types";
+import AppTreeViewItem from "@/core/components/AppTreeViewItem/AppTreeViewItem.vue";
 
 defineProps<AppTreeViewProps>();
 
 defineEmits<{
   (e: "onItemSelect", value: AppTreeViewItemOnItemSelect): void;
-  (e: "onMenuActionSelect", value: AppTreeViewItemOnMenuActionSelect): void;
 }>();
 
 </script>
@@ -22,13 +21,12 @@ defineEmits<{
     <AppTreeViewItem
       :identifier="item.identifier"
       :type="item.type"
-      :label="isExpanded ? item.label : undefined"
+      :label="item.label"
       :is-open="item.children ? item.children.length > 0 : false"
       :is-selected="item.isSelected"
       :is-loading="false"
       :title="item.label"
       @on-item-select="$emit('onItemSelect', $event)"
-      @on-menu-action-select="$emit('onMenuActionSelect', $event)"
     />
     <div class="ml-12">
       <AppTreeView

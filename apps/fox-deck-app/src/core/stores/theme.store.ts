@@ -1,5 +1,5 @@
-import { defineStore } from "pinia";
 import { useLocalStorage } from "@vueuse/core";
+import { defineStore } from "pinia";
 
 /**
  * Store for saving theme information of the user.

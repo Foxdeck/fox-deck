@@ -1,19 +1,19 @@
 <script async setup lang="ts">
+import {ref} from "vue";
 import {useI18n} from "vue-i18n";
-import {useAuthStore} from "@/core/stores/auth.store";
-import {useFoxdeckRouter} from "@/core/composables/useFoxdeckRouter";
+
+import AppSideNavigation from "@/core/components/AppSideNavigation/AppSideNavigation.vue";
 import AppTreeView from "@/core/components/AppTreeView/AppTreeView.vue";
+import type {
+  AppTreeViewItemOnItemSelect,
+  AppTreeViewItemProps
+} from "@/core/components/AppTreeViewItem/AppTreeViewItem.types";
+import {useFoxdeckRouter} from "@/core/composables/useFoxdeckRouter";
+import {useAuthStore} from "@/core/stores/auth.store";
+import {useThemeStore} from "@/core/stores/theme.store";
 import {LoginRouteNames} from "@/modules/login/routes";
 import {useResources} from "@/modules/resource-navigation/composables/useResources";
 import {useResourceStore} from "@/modules/resource-navigation/stores/resource.store";
-import type {
-  AppTreeViewItemOnItemSelect,
-  AppTreeViewItemOnMenuActionSelect,
-  AppTreeViewItemProps
-} from "@/core/components/AppTreeViewItem/AppTreeViewItem.types";
-import AppSideNavigation from "@/core/components/AppSideNavigation/AppSideNavigation.vue";
-import {ref} from "vue";
-import {useThemeStore} from "@/core/stores/theme.store";
 
 // stores
 const authStore = useAuthStore();
@@ -25,7 +25,7 @@ const {fetchResources, getResourceChildren, removeResourceChildren, isResourceEx
 const {t} = useI18n();
 const {push} = useFoxdeckRouter();
 
-const isNavigationExpanded = ref(false);
+const isNavigationExpanded = ref(true);
 
 // initially fetch the resources from the database
 await fetchResources();
@@ -47,10 +47,43 @@ const mockTreeViewItems: AppTreeViewItemProps[] = [
   {
     label: "Courses",
     identifier: "courses_root",
-    children: [],
+    children: [
+      {
+        label: "Science",
+        identifier: "courses_science",
+        isOpen: false,
+        type: "folder",
+        isSelected: false,
+      },
+      {
+        label: "Math",
+        identifier: "courses_math",
+        isOpen: false,
+        type: "folder",
+        isSelected: false,
+        children: [
+          {
+            label: "Division",
+            identifier: "courses_math_division",
+            isOpen: false,
+            type: "folder",
+            isSelected: true,
+            children: [
+              {
+                label: "Note",
+                identifier: "courses_math_division_note",
+                isOpen: false,
+                type: "note",
+                isSelected: false,
+              },
+            ]
+          },
+        ]
+      },
+    ],
     isOpen: false,
     type: "folder",
-    isSelected: true
+    isSelected: false
   },
   {
     label: "Notes",
@@ -90,9 +123,6 @@ async function onResourceClick(selectedItem: AppTreeViewItemOnItemSelect) {
   await getResourceChildren(identifier);
 }
 
-function onMenuActionSelect(menuActionSelectEvent: AppTreeViewItemOnMenuActionSelect) {
-  console.debug(`(AppResourceNavigation:onMenuActionSelect) => menu-action '${  menuActionSelectEvent.actionIdentifier}' for menu '${menuActionSelectEvent.itemIdentifier}' is triggered`);
-}
 </script>
 <template>
   <AppSideNavigation
@@ -104,10 +134,10 @@ function onMenuActionSelect(menuActionSelectEvent: AppTreeViewItemOnMenuActionSe
   >
     <template #content>
       <AppTreeView
+        v-if="isNavigationExpanded"
         :items="mockTreeViewItems"
         :is-expanded="isNavigationExpanded"
         @on-item-select="onResourceClick($event)"
-        @on-menu-action-select="onMenuActionSelect($event)"
       />
     </template>
   </AppSideNavigation>

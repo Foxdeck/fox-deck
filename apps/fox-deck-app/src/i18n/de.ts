@@ -102,4 +102,4 @@ export const de = {
   SEARCH_QUESTION_EXCEPTION_MESSAGE: "Bitte aktualisiere die Seite oder versuche es später noch einmal.",
   DELETE_QUESTION_EXCEPTION: "Fehler beim Löschen der Frage",
   DELETE_QUESTION_EXCEPTION_MESSAGE: "Bitte aktualisiere die Seite oder versuche es später noch einmal."
-}
+};

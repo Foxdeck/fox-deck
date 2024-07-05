@@ -2,11 +2,11 @@
 import {ref} from "vue";
 import {useI18n} from "vue-i18n";
 import * as Yup from "yup";
-import {api} from "@/core/services";
-import {useFoxdeckRouter} from "@/core/composables/useFoxdeckRouter";
-import FDFormBuilder, {type FormSchema} from "@/core/components/FDFormBuilder/FDFormBuilder.vue";
-import FDTypography from "@/core/components/FDTypography/FDTypography.vue";
+
 import AppTextField from "@/core/components/AppTextField/AppTextField.vue";
+import FDFormBuilder, {type FormSchema} from "@/core/components/FDFormBuilder/FDFormBuilder.vue";
+import {useFoxdeckRouter} from "@/core/composables/useFoxdeckRouter";
+import {api} from "@/core/services";
 import LoginRegisterLayout from "@/modules/login/LoginSignUpLayout.vue";
 import {LoginRouteNames} from "@/modules/login/routes";
 
@@ -99,15 +99,12 @@ async function onRegisterSubmit({email, password, username}: any) {
   <LoginRegisterLayout>
     <template #form>
       <div class="flex flex-col text-center">
-        <FDTypography
-          class="font-bold"
-          type="h1"
-        >
+        <h1 class="display-medium">
           Create Account
-        </FDTypography>
-        <FDTypography type="psm">
+        </h1>
+        <span class="body-medium">
           In 5 minutes you can start learning
-        </FDTypography>
+        </span>
       </div>
       <FDFormBuilder
         class="mt-12"

@@ -1,7 +1,8 @@
 import {createRouter, createWebHistory, type RouteLocationNormalized, type RouteRecordRaw,} from "vue-router";
+
 import {useAuthStore} from "@/core/stores/auth.store";
-import {LoginRouteNames, loginRoutes} from "@/modules/login/routes";
 import {HomeRouteNames, homeRoutes} from "@/modules/home/routes";
+import {LoginRouteNames, loginRoutes} from "@/modules/login/routes";
 
 export type RouteNames = LoginRouteNames
   | HomeRouteNames;
@@ -38,7 +39,7 @@ router.beforeEach(
 
     // prevent navigation to login page to prevent users from re-login
     if (
-      authService.isAuthenticated() &&
+      authService.isLoginSessionValid() &&
       publicPaths.includes(to.name as string)
     ) {
       next(from.path);

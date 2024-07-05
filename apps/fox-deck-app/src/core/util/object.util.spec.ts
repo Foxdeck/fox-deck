@@ -1,4 +1,5 @@
 import {describe, expect, it} from "vitest";
+
 import {ObjectUtil} from "@/core/util/object.util";
 
 describe("ObjectUtil", () => {
@@ -9,13 +10,13 @@ describe("ObjectUtil", () => {
           nested: "object"
         },
         someString: "foo"
-      }
+      };
       const object2 = {
         someString: "foo",
         my: {
           nested: "object"
         }
-      }
+      };
       const isEqual = ObjectUtil.deepEqual(object1, object2);
 
       expect(isEqual).toBeTruthy();
@@ -24,13 +25,13 @@ describe("ObjectUtil", () => {
     it("should return false", () => {
       const object1 = {
         someString: "foo"
-      }
+      };
       const object2 = {
         someString: "foo",
         my: {
           nested: "object"
         }
-      }
+      };
       const isEqual = ObjectUtil.deepEqual(object1, object2);
 
       expect(isEqual).toBeFalsy();

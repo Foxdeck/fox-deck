@@ -18,6 +18,19 @@ export const useAuthStore = defineStore("authStore", () => {
     }
   };
 
+  /**
+   * Parse the JWT Token to get basic information from the user.
+   */
+  const isLoginSessionValid = (): boolean => {
+    if (isAuthenticated()) {
+      const exp = VueJwtDecode.decode(jwt.value)?.exp;
+
+      // we need to convert 'Date.now()' from milliseconds into seconds, therefore divide by 1000
+      return Date.now() / 1000 < exp;
+    }
+    return false;
+  };
+
   const getUsername = (): string => readJWT()?.username ?? "";
 
   /**
@@ -42,6 +55,10 @@ export const useAuthStore = defineStore("authStore", () => {
     return !!jwt.value && jwt.value.length > 0;
   };
 
+  const clearLoginStore = (): void => {
+    jwt.value = null;
+  };
+
   /**
    * Public API
    */
@@ -51,6 +68,8 @@ export const useAuthStore = defineStore("authStore", () => {
     setJwt: login,
     logout: logout,
     isAuthenticated: isAuthenticated,
+    isLoginSessionValid: isLoginSessionValid,
+    clearLoginStore: clearLoginStore,
     readJWT: readJWT,
   };
 });

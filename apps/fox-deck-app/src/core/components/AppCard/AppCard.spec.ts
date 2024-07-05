@@ -1,14 +1,15 @@
-import {describe, expect, it} from "vitest";
-import {render} from "@/testing/utils/vue-test-utils";
 import {DOMWrapper} from "@vue/test-utils";
+import {describe, expect, it} from "vitest";
+
 import type {AppCardProps} from "@/core/components/AppCard/AppCard.types";
 import AppCard from "@/core/components/AppCard/AppCard.vue";
+import {render} from "@/testing/utils/vue-test-utils";
 
 describe("AppCard", () => {
   it("should only render the image", async () => {
     const wrapper = render<AppCardProps>(AppCard, {
-        imageUrl: "https://myimageurl",
-      }
+      imageUrl: "https://myimageurl",
+    }
     );
 
     const cardElement = wrapper.find(AppCardSpecHelper.cardElementSelector);
@@ -16,12 +17,12 @@ describe("AppCard", () => {
     expect(AppCardSpecHelper.doesHeaderExist(cardElement)).toBeTruthy();
     expect(AppCardSpecHelper.doesBodyExist(cardElement)).toBeFalsy();
     expect(AppCardSpecHelper.doesFooterExist(cardElement)).toBeFalsy();
-  })
+  });
 
   it("should only render headline", async () => {
     const wrapper = render<AppCardProps>(AppCard, {
-        headline: "Glass Souls´ World Tour"
-      }
+      headline: "Glass Souls´ World Tour"
+    }
     );
 
     const cardElement = wrapper.find(AppCardSpecHelper.cardElementSelector);
@@ -30,19 +31,19 @@ describe("AppCard", () => {
     expect(AppCardSpecHelper.doesFooterExist(cardElement)).toBeFalsy();
     expect(AppCardSpecHelper.doesBodyExist(cardElement)).toBeTruthy();
     expect(AppCardSpecHelper.getHeadlineText(cardElement)).toBe("Glass Souls´ World Tour");
-  })
+  });
 
   it("should only render footer", async () => {
     const wrapper = render<AppCardProps>(AppCard, {
-        actions: [
-          {
-            label: "Primary action"
-          },
-          {
-            label: "Secondary action"
-          }
-        ]
-      }
+      actions: [
+        {
+          label: "Primary action"
+        },
+        {
+          label: "Secondary action"
+        }
+      ]
+    }
     );
 
     const cardElement = wrapper.find(AppCardSpecHelper.cardElementSelector);
@@ -52,8 +53,8 @@ describe("AppCard", () => {
     expect(AppCardSpecHelper.doesFooterExist(cardElement)).toBeTruthy();
     expect(AppCardSpecHelper.getActions(cardElement).length).toEqual(2);
     expect(AppCardSpecHelper.getActionsText(cardElement)).toEqual(["Primary action", "Secondary action"]);
-  })
-})
+  });
+});
 
 /**
  * Helper functions for writing UI tests for the card component.
@@ -89,4 +90,4 @@ const AppCardSpecHelper = {
   getActionsText: (cardElement: DOMWrapper<Element>) => {
     return AppCardSpecHelper.getActions(cardElement).map((action) => action.text());
   }
-}
+};

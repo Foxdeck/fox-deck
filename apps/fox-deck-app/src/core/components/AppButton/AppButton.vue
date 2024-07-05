@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import AppIcon from "@/core/components/AppIcon/AppIcon.vue";
 import type {AppButtonProps, AppButtonType, AppButtonVariant} from "@/core/components/AppButton/AppButton.types";
+import AppIcon from "@/core/components/AppIcon/AppIcon.vue";
+import {Icon} from "@/core/components/AppIcon/icons";
 
 // we are using googles material-design buttons as foundation, imported here and used as web-components in the template
 // @see https://m3.material.io/components/buttons/specs
@@ -8,7 +9,6 @@ import type {AppButtonProps, AppButtonType, AppButtonVariant} from "@/core/compo
 import "@material/web/button/text-button.js";
 import "@material/web/button/filled-tonal-button.js";
 import "@material/web/button/outlined-button.js";
-import {Icon} from "@/core/components/AppIcon/icons";
 
 withDefaults(defineProps<AppButtonProps>(), {
   tooltip: "",

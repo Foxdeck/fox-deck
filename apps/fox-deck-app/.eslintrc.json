@@ -1,0 +1,72 @@
+// We use ESLint to enforce certain rules and thus improve the readability and maintainability of the code.
+//
+// If there are suggestions for improving the basic rules or if rules are to be removed,
+// an issue should be created for this. **Please** do not ignore these rules just because
+// you do not agree with them. Healthy communication with the other developers is an essential
+// key for us all to have fun developing.
+
+{
+  "env": {
+    "browser": true,
+    "node": true,
+    "es2021": true
+  },
+  "plugins": ["vue", "import"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:vue/vue3-recommended",
+    "@vue/eslint-config-typescript",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:import/typescript"
+  ],
+  "rules": {
+    "indent": ["warn", 2],
+    "quotes": ["error", "double"],
+    "semi": ["error", "always"],
+    "vue/no-deprecated-slot-attribute": ["off"],
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          ["parent", "sibling", "index"]
+        ],
+        "pathGroups": [
+          {
+            "pattern": "@storybook/**",
+            "group": "external",
+            "position": "before"
+          },
+          {
+            "pattern": "@/**",
+            "group": "internal",
+            "position": "after"
+          }
+        ],
+        "pathGroupsExcludedImportTypes": ["builtin"],
+        "newlines-between": "always",
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        }
+      }
+    ]
+  },
+  "settings": {
+    "import/resolver": {
+      "alias": {
+        "map": [
+          ["@", "./src"]
+        ],
+        "extensions": [".ts", ".js", ".vue", ".json"]
+      },
+      "typescript": {
+        "alwaysTryTypes": true,
+        "project": "./tsconfig.json"
+      }
+    }
+  }
+}

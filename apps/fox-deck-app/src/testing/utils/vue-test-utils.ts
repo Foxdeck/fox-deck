@@ -1,6 +1,6 @@
 import {type ComponentMountingOptions, mount} from "@vue/test-utils";
-import VueFeather from "vue-feather";
 import type {Component} from "vue";
+import VueFeather from "vue-feather";
 
 /**
  * Wrapper around @vue/test-utils mount function to globally register component.

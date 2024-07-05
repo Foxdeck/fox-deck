@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
+
 import type { Severity } from "@/core/components/severity.types";
 
 export type Notification = {

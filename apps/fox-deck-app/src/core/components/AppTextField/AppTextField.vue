@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import {ref, toRef, watch} from "vue";
 import {useField} from "vee-validate";
+import {ref, toRef, watch} from "vue";
+
 import AppIcon from "@/core/components/AppIcon/AppIcon.vue";
 import type {
   AppTextFieldType,

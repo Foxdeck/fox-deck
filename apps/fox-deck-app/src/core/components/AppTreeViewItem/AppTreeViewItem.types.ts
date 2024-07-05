@@ -19,18 +19,21 @@ export type AppTreeViewItemProps = {
 }
 
 /**
- * Property definitions of the 'onItemSelect'-event.
+ * Represents the default event props for an `AppTreeViewItem`.
+ * These properties are passed in every event.
+ *
+ * @property {AppTreeViewItemIdentifier} identifier - The identifier of the `AppTreeViewItem`.
  */
-export type AppTreeViewItemOnItemSelect = {
+type AppTreeViewItemDefaultEventProps = {
   identifier: AppTreeViewItemIdentifier;
 }
 
 /**
- * Property definitions, if the user selects a menu action
+ * Property definitions of the 'onItemSelect'-event.
  */
-export type AppTreeViewItemOnMenuActionSelect = {
-  // which item is clicked on the menu
-  itemIdentifier: string
-  // which action is triggered
-  actionIdentifier: string
-}
+export type AppTreeViewItemOnItemSelect = AppTreeViewItemDefaultEventProps;
+
+/**
+ * Property definitions of the 'contextmenu'-event.
+ */
+export type AppTreeViewItemOnOpenContextMenu = AppTreeViewItemDefaultEventProps;

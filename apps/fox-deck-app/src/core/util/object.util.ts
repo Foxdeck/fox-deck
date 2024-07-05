@@ -8,19 +8,19 @@ export const ObjectUtil = {
    * @return {boolean} - True if the objects are deeply equal, false otherwise.
    */
   deepEqual: (object1: any, object2: any): boolean => {
-    for (let property in object1) {
-      if (!object1.hasOwnProperty(property)) {
+    for (const property in object1) {
+      if (!Object.prototype.hasOwnProperty.call(object1, property)) {
         continue;
       }
 
-      if (!object2.hasOwnProperty(property)) {
+      if (!Object.prototype.hasOwnProperty.call(object2, property)) {
         return false;
       }
 
       if (object1[property] === object2[property]) {
         continue;
       }
-      if (typeof (object1[property]) !== 'object') {
+      if (typeof (object1[property]) !== "object") {
         return false;
       }
       if (!ObjectUtil.deepEqual(object1[property], object2[property])) {
@@ -28,11 +28,11 @@ export const ObjectUtil = {
       }
     }
 
-    for (let p in object2) {
-      if (object2.hasOwnProperty(p) && !object1.hasOwnProperty(p)) {
+    for (const p in object2) {
+      if (Object.prototype.hasOwnProperty.call(object2, p) && !Object.prototype.hasOwnProperty.call(object1, p)) {
         return false;
       }
     }
     return true;
   }
-}
+};

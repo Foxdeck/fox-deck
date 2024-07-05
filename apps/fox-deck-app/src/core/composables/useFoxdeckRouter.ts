@@ -1,6 +1,7 @@
 import {type RouteParamsRaw, useRouter} from "vue-router";
-import {type RouteNames} from "@/router";
+
 import {ObjectUtil} from "@/core/util/object.util";
+import {type RouteNames} from "@/router";
 
 /**
  * Custom implementation of useRouter.
@@ -33,5 +34,5 @@ export function useFoxdeckRouter() {
   return {
     push: push,
     isRouteSelected: isRouteSelected
-  }
+  };
 }

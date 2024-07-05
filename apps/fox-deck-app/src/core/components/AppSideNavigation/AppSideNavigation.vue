@@ -1,7 +1,7 @@
 <script async setup lang="ts">
 import {Icon} from "@/core/components/AppIcon/icons";
-import AppSideNavigationItem from "@/core/components/AppSideNavigation/AppSideNavigationItem.vue";
 import type {AppSideNavigationProps} from "@/core/components/AppSideNavigation/AppSideNavigation.types";
+import AppSideNavigationItem from "@/core/components/AppSideNavigation/AppSideNavigationItem.vue";
 
 // For now, Material Design 3 Web does not have the 'Navigation Drawer' as a component. Therefore, we need to implement
 // our own kind of 'Navigation Drawer' based on the concepts for Material Design.

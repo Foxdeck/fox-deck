@@ -12,8 +12,6 @@
     "install:deps": "concurrently \"npm run install:api\" \"npm run install:app\"",
     "install:api": "cd ./apps/fox-deck-api && go mod tidy",
     "install:app": "cd ./apps/fox-deck-app && npm i",
-    "lint": "npx eslint apps/**",
-    "lint:fix": "npx eslint apps/** --fix",
     "setup:dev": "node tools/setup.dev.js"
   },
   "repository": {
@@ -27,13 +25,6 @@
   },
   "homepage": "https://github.com/dominique-boerner/fox-deck#readme",
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^6.12.0",
-    "@typescript-eslint/parser": "^6.12.0",
-    "concurrently": "^8.2.2",
-    "eslint": "^8.54.0",
-    "eslint-plugin-vue": "^9.18.1"
-  },
-  "dependencies": {
-    "@vue/eslint-config-typescript": "^12.0.0"
+    "concurrently": "^8.2.2"
   }
 }

@@ -27,7 +27,7 @@ function getAriaLevel(): AriaLevel | undefined {
 
 <template>
   <span
-    class="font-poppins dark:text-white"
+    class="on-surface-text"
     :role="getAriaRole()"
     :aria-level="getAriaLevel()"
     :class="{

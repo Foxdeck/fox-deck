@@ -1,14 +1,15 @@
 import "./assets/main.css";
-import {createApp} from "vue";
 import {createPinia} from "pinia";
+import {createApp} from "vue";
 import VueFeather from "vue-feather";
-import {InlineSvgPlugin} from "vue-inline-svg";
 import {createI18n} from "vue-i18n";
+import {InlineSvgPlugin} from "vue-inline-svg";
+
+import {de} from "@/i18n/de";
+import {en} from "@/i18n/en";
 
 import App from "./App.vue";
 import router from "./router";
-import {de} from "@/i18n/de";
-import {en} from "@/i18n/en";
 
 const app = createApp(App);
 
@@ -20,7 +21,7 @@ const i18n = createI18n({
     de
   },
   legacy: false
-})
+});
 
 app.use(InlineSvgPlugin);
 app.use(createPinia());

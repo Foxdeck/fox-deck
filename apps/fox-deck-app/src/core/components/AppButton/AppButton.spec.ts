@@ -1,17 +1,20 @@
-import {describe, expect, it} from "vitest";
-import {render} from "@/testing/utils/vue-test-utils";
 import {DOMWrapper} from "@vue/test-utils";
+import {describe, expect, it} from "vitest";
+
+import {Icon} from "@/core/components/AppIcon/icons";
+import {render} from "@/testing/utils/vue-test-utils";
+
 import type {AppButtonProps} from "./AppButton.types.ts";
 import AppButton from "./AppButton.vue";
-import {Icon} from "@/core/components/AppIcon/icons";
+
 
 describe("AppButton", () => {
   it("should render a filled button", async () => {
     const wrapper = render<AppButtonProps>(AppButton, {
-        variant: "tonal",
-        label: "Click me!",
-        icon: Icon.HOME,
-      }
+      variant: "tonal",
+      label: "Click me!",
+      icon: Icon.HOME,
+    }
     );
 
     const buttonElement = wrapper.find("md-filled-tonal-button");
@@ -19,14 +22,14 @@ describe("AppButton", () => {
     expect(AppButtonSpecHelper.isButtonVisible(buttonElement)).toBeTruthy();
     expect(AppButtonSpecHelper.hasLabel(buttonElement, "Click me!")).toBeTruthy();
     expect(AppButtonSpecHelper.hasIcon(buttonElement, "fi-rr-home")).toBeTruthy();
-  })
+  });
 
   it("should render a text button", async () => {
     const wrapper = render<AppButtonProps>(AppButton, {
-        variant: "outlined",
-        label: "Click me!",
-        icon: Icon.HOME,
-      }
+      variant: "outlined",
+      label: "Click me!",
+      icon: Icon.HOME,
+    }
     );
 
     const buttonElement = wrapper.find("md-outlined-button");
@@ -34,14 +37,14 @@ describe("AppButton", () => {
     expect(AppButtonSpecHelper.isButtonVisible(buttonElement)).toBeTruthy();
     expect(AppButtonSpecHelper.hasLabel(buttonElement, "Click me!")).toBeTruthy();
     expect(AppButtonSpecHelper.hasIcon(buttonElement, "fi-rr-home")).toBeTruthy();
-  })
+  });
 
   it("should render a text button", async () => {
     const wrapper = render<AppButtonProps>(AppButton, {
-        variant: "text",
-        label: "Click me!",
-        icon: Icon.HOME,
-      }
+      variant: "text",
+      label: "Click me!",
+      icon: Icon.HOME,
+    }
     );
 
     const buttonElement = wrapper.find("md-text-button");
@@ -49,13 +52,13 @@ describe("AppButton", () => {
     expect(AppButtonSpecHelper.isButtonVisible(buttonElement)).toBeTruthy();
     expect(AppButtonSpecHelper.hasLabel(buttonElement, "Click me!")).toBeTruthy();
     expect(AppButtonSpecHelper.hasIcon(buttonElement, "fi-rr-home")).toBeTruthy();
-  })
+  });
 
   it("should render only the icon", async () => {
     const wrapper = render<AppButtonProps>(AppButton, {
-        variant: "text",
-        icon: Icon.HOME,
-      }
+      variant: "text",
+      icon: Icon.HOME,
+    }
     );
 
     const buttonElement = wrapper.find("md-text-button");
@@ -63,13 +66,13 @@ describe("AppButton", () => {
     expect(AppButtonSpecHelper.isButtonVisible(buttonElement)).toBeTruthy();
     expect(AppButtonSpecHelper.doesLabelExist(buttonElement)).toBeFalsy();
     expect(AppButtonSpecHelper.hasIcon(buttonElement, "fi-rr-home")).toBeTruthy();
-  })
+  });
 
   it("should render only the label", async () => {
     const wrapper = render<AppButtonProps>(AppButton, {
-        variant: "text",
+      variant: "text",
       label: "Click me!",
-      }
+    }
     );
 
     const buttonElement = wrapper.find("md-text-button");
@@ -77,8 +80,8 @@ describe("AppButton", () => {
     expect(AppButtonSpecHelper.isButtonVisible(buttonElement)).toBeTruthy();
     expect(AppButtonSpecHelper.doesIconExist(buttonElement)).toBeFalsy();
     expect(AppButtonSpecHelper.hasLabel(buttonElement, "Click me!")).toBeTruthy();
-  })
-})
+  });
+});
 
 /**
  * Helper functions for writing UI tests for the button component.
@@ -104,6 +107,6 @@ const AppButtonSpecHelper = {
   },
   hasIcon: (buttonElement: DOMWrapper<Element>, icon: string): boolean => {
     const iconElement = buttonElement.find(AppButtonSpecHelper.iconElementSelector);
-    return iconElement.classes().includes("fi") && iconElement.classes().includes(icon)
+    return iconElement.classes().includes("fi") && iconElement.classes().includes(icon);
   }
-}
+};

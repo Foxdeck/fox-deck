@@ -1,13 +1,14 @@
 <script setup lang="ts">
-import AppMenuItem from "@/core/components/AppMenu/AppMenuItem.vue";
+import {onMounted} from "vue";
+
 import type {AppMenuItemOnMenuActionSelect, AppMenuProps} from "@/core/components/AppMenu/AppMenu.types";
+import AppMenuItem from "@/core/components/AppMenu/AppMenuItem.vue";
 
 // we are using googles material-design menus as foundation, imported here and used as web-components in the template
 // @see https://m3.material.io/components/menus/specs
 // @see https://github.com/material-components/material-web/blob/main/docs/components/menu.md
 import "@material/web/menu/menu.js";
 import "@material/web/menu/menu-item.js";
-import {onMounted} from "vue";
 
 const IS_MENU_OPEN_BY_DEFAULT = false;
 
