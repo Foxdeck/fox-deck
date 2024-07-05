@@ -5,6 +5,7 @@
 export enum Icon {
   CARET_RIGHT = "fi-rr-caret-right",
   CARET_DOWN = "fi-rr-caret-down",
+  CARET_UP = "fi-rr-caret-up",
   CHECK = "fi-rr-check",
   CHEVRON_DOUBLE_RIGHT = "fi-rr-angle-double-right",
   CHEVRON_DOUBLE_LEFT = "fi-rr-angle-double-left",
