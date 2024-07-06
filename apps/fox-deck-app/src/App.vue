@@ -15,7 +15,7 @@ const themeStore = useThemeStore();
       'dark': !themeStore.isThemeLight()
     }"
   >
-    <main class="flex w-screen h-screen surface">
+    <main class="surface flex h-screen w-screen">
       <Suspense>
         <AppResourceNavigation />
       </Suspense>

@@ -59,7 +59,7 @@ function getIconForComponent(component: Component) {
 
 <template>
   <VeeForm
-    class="flex flex-col gap-4 w-full"
+    class="flex w-full flex-col gap-4"
     :validation-schema="formSchema.validation"
     @submit="$emit('onSubmit', $event)"
   >
@@ -76,7 +76,7 @@ function getIconForComponent(component: Component) {
     <span
       v-if="isFormError"
       type="psm"
-      class="body-medium flex gap-4 items-center p-4 rounded-md error on-error-text"
+      class="body-medium error on-error-text flex items-center gap-4 rounded-md p-4"
     >
       <AppIcon :icon="Icon.WARNING" />
       {{ formErrorText }}

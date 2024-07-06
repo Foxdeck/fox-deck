@@ -5,7 +5,7 @@ import { useNotificationStore } from "@/core/stores/notification.store";
 const notificationStore = useNotificationStore();
 </script>
 <template>
-  <div class="fixed right-4 bottom-4 flex flex-col gap-2">
+  <div class="fixed bottom-4 right-4 flex flex-col gap-2">
     <FDNotification
       v-for="item of notificationStore.notifications"
       :key="item.title"

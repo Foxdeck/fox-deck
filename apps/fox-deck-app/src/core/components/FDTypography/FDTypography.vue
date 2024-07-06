@@ -31,12 +31,12 @@ function getAriaLevel(): AriaLevel | undefined {
     :role="getAriaRole()"
     :aria-level="getAriaLevel()"
     :class="{
-      'text-4xl font-indie font-bold tracking-wider md:text-7xl 3xl:text-8xl': type === 'title',
+      'font-indie text-4xl font-bold tracking-wider md:text-7xl 3xl:text-8xl': type === 'title',
       'text-5xl 3xl:text-6xl': type === 'h1',
       'text-4xl': type === 'h2',
       'text-3xl': type === 'h3',
       'text-lg !leading-9 3xl:text-xl': type === 'p',
-      'text-sm 3xl:text-md': type === 'psm',
+      '3xl:text-md text-sm': type === 'psm',
       'text-xs 3xl:text-sm': type === 'pxs',
     }"
   >

@@ -18,7 +18,8 @@
     "@vue/eslint-config-typescript",
     "plugin:import/errors",
     "plugin:import/warnings",
-    "plugin:import/typescript"
+    "plugin:import/typescript",
+    "plugin:tailwindcss/recommended"
   ],
   "rules": {
     "indent": ["warn", 2],
@@ -53,8 +54,17 @@
           "caseInsensitive": true
         }
       }
-    ]
+    ],
+    "tailwindcss/no-custom-classname": ["off"]
   },
+  "overrides": [
+    {
+      "files": [
+        "*.vue"
+      ],
+      "parser": "vue-eslint-parser"
+    }
+  ],
   "settings": {
     "import/resolver": {
       "alias": {

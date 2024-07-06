@@ -14,11 +14,11 @@ const {t} = useI18n();
   <ContentLayout>
     <div class="col-span-12 md:col-span-8">
       <div class="flex flex-col gap-4">
-        <span class="text-center text-2xl font-gabarito py-4">{{ t("home.title") }}</span>
+        <span class="py-4 text-center font-gabarito text-2xl">{{ t("home.title") }}</span>
         <app-search />
-        <div class="flex justify-center items-center gap-4">
+        <div class="flex items-center justify-center gap-4">
           <div
-            class="relative flex surface-container-high on-surface-text rounded-2xl shadow-sm py-4 px-6 gap-4 outline-none"
+            class="surface-container-high on-surface-text relative flex gap-4 rounded-2xl px-6 py-4 shadow-sm outline-none"
             tabindex="0"
           >
             <md-focus-ring />
@@ -28,11 +28,11 @@ const {t} = useI18n();
             />
             <div class="flex flex-col justify-center gap-1">
               <span class="text-base">New Folder</span>
-              <span class="text-xs on-surface-variant-text">Create a new folder for organizing your notes</span>
+              <span class="on-surface-variant-text text-xs">Create a new folder for organizing your notes</span>
             </div>
           </div>
           <div
-            class="relative flex surface-container-high on-surface-text rounded-2xl shadow-sm py-4 px-6 gap-4 outline-none"
+            class="surface-container-high on-surface-text relative flex gap-4 rounded-2xl px-6 py-4 shadow-sm outline-none"
             tabindex="0"
           >
             <md-focus-ring />
@@ -42,16 +42,16 @@ const {t} = useI18n();
             />
             <div class="flex flex-col justify-center gap-1">
               <span class="text-base">New Note</span>
-              <span class="text-xs on-surface-variant-text">Create a new note</span>
+              <span class="on-surface-variant-text text-xs">Create a new note</span>
             </div>
           </div>
         </div>
-        <span class="font-bold mb-2">{{ t("home.suggestions") }}</span>
+        <span class="mb-2 font-bold">{{ t("home.suggestions") }}</span>
         <div
           class="flex flex-row gap-4"
         >
           <div
-            class="relative flex on-primary on-primary-container-text rounded-2xl shadow-sm py-4 px-6 gap-4 outline-none"
+            class="on-primary on-primary-container-text relative flex gap-4 rounded-2xl px-6 py-4 shadow-sm outline-none"
             tabindex="0"
           >
             <md-focus-ring />
@@ -61,7 +61,7 @@ const {t} = useI18n();
             />
             <div class="flex flex-col justify-center gap-1">
               <span class="text-base">Lorem Ipsum</span>
-              <span class="text-xs on-surface-variant-text">last_edited_at_placeholder</span>
+              <span class="on-surface-variant-text text-xs">last_edited_at_placeholder</span>
             </div>
           </div>
         </div>

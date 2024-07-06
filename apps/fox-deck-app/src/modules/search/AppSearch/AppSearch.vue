@@ -23,16 +23,16 @@ function search(searchTerm: string): void {
 </script>
 
 <template>
-  <div class="flex justify-center w-full relative">
+  <div class="relative flex w-full justify-center">
     <app-text-field
-      class="w-full md:w-1/2 min-w-[400px]"
+      class="w-full min-w-[400px] md:w-1/2"
       :label="t('home.search_in_notes')"
       variant="filled"
       :is-rounded="true"
       :icon="Icon.SEARCH"
       @input="search($event.target.value)"
     />
-    <div class="flex flex-col gap-2 absolute w-full md:w-1/2 min-w-[400px] top-16 z-10 shadow-md p-4 rounded-md surface-container on-surface-text">
+    <div class="surface-container on-surface-text absolute top-16 z-10 flex w-full min-w-[400px] flex-col gap-2 rounded-md p-4 shadow-md md:w-1/2">
       <!--      <span class="flex gap-4 italic">-->
       <!--        No results found-->
       <!--      </span>-->
@@ -77,7 +77,7 @@ function search(searchTerm: string): void {
       <hr class="mb-3">
       <div class="flex gap-1">
         <app-icon :icon="Icon.CARET_DOWN" />
-        <span class="font-bold body-small">Actions</span>
+        <span class="body-small font-bold">Actions</span>
       </div>
       <ul>
         <li
@@ -89,7 +89,7 @@ function search(searchTerm: string): void {
           </span>
           <div class="flex items-center gap-2">
             <app-icon :icon="Icon.THUMBTACK" />
-            <span class="body-small shadow-inner p-1 surface-container-high rounded-md">CTRL+F</span>
+            <span class="body-small surface-container-high rounded-md p-1 shadow-inner">CTRL+F</span>
           </div>
         </li>
         <li
@@ -101,14 +101,14 @@ function search(searchTerm: string): void {
           </span>
           <div class="flex items-center gap-2">
             <app-icon :icon="Icon.THUMBTACK" />
-            <span class="body-small shadow-inner p-1 surface-container-high  rounded-md">CTRL+N</span>
+            <span class="body-small surface-container-high rounded-md p-1  shadow-inner">CTRL+N</span>
           </div>
         </li>
       </ul>
       <hr class="mb-3">
       <div class="flex gap-1">
         <app-icon :icon="Icon.CARET_DOWN" />
-        <span class="font-bold body-small">Favorites</span>
+        <span class="body-small font-bold">Favorites</span>
       </div>
       <ul>
         <li
