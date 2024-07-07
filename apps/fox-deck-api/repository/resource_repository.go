@@ -13,6 +13,58 @@ type ResourceRepositoryConnection struct {
 
 type ResourceRepository interface {
 	GetResourceByUserId(userId string, filter filter.ResourceFilter) (*[]database.Resource, error)
+	SearchForNoteByName(userId string, name string) (*[]database.Resource, error)
+}
+
+func (resourceRepositoryConnection *ResourceRepositoryConnection) SearchForNoteByName(userId string, name string) (*[]database.Resource, error) {
+	logging.Debug("resource_repository", fmt.Sprintf("(SearchForNoteByName) => Search for a note with name like '%s'", name))
+	retrievedResources := &[]database.Resource{}
+
+	conn := resourceRepositoryConnection.DbConnection.Connect()
+	query := `SELECT
+		Resource.resourceId,
+		Resource.parentResourceId,
+		Resource.type,
+		Resource.name,
+		Resource.content,
+		Resource.createdAt
+	FROM
+		Resource
+	INNER JOIN
+		UserResourceAssociation ON UserResourceAssociation.resourceId = Resource.resourceId
+	INNER JOIN
+		User ON User.id = UserResourceAssociation.userId
+	WHERE
+		User.id = ?
+	AND
+	    Resource.type = 'note'
+	AND
+	    SOUNDEX(?) = SOUNDEX(Resource.name)
+		OR Resource.name LIKE CONCAT('%', ?, '%');`
+
+	stmt, err := conn.Prepare(query)
+	if err != nil {
+		return nil, err
+	}
+
+	result, err := stmt.Query(userId, name, name)
+	if result.Err() != nil || err != nil {
+		return nil, result.Err()
+	}
+
+	for result.Next() {
+		resource := &database.Resource{}
+
+		err := result.Scan(&resource.Id, &resource.ParentResourceId, &resource.Type, &resource.Name, &resource.Content, &resource.CreatedAt)
+		if err != nil {
+			return nil, err
+		}
+		*retrievedResources = append(*retrievedResources, *resource)
+	}
+
+	logging.Debug("resource_repository", fmt.Sprintf("'%d' resources found", len(*retrievedResources)))
+
+	return retrievedResources, nil
 }
 
 // GetResourceByUserId
@@ -51,7 +103,6 @@ func (resourceRepositoryConnection *ResourceRepositoryConnection) GetResourceByU
 	for result.Next() {
 		resource := &database.Resource{}
 
-		*retrievedResources = append(*retrievedResources, *resource)
 		err := result.Scan(&resource.Id, &resource.ParentResourceId, &resource.Type, &resource.Name, &resource.Content, &resource.CreatedAt)
 		if err != nil {
 			return nil, err

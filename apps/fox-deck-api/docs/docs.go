@@ -104,6 +104,36 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/resource/search": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "resources"
+                ],
+                "summary": "Search for a specific note by its name.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "name",
+                        "name": "name",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/database.Resource"
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -190,7 +220,7 @@ var SwaggerInfo = &swag.Spec{
 	BasePath:         "",
 	Schemes:          []string{},
 	Title:            "Foxdeck API",
-	Description:      "This API handles requests from the FoxDeck Applications",
+	Description:      "This API handles requests from the Foxdeck App.",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 	LeftDelim:        "{{",

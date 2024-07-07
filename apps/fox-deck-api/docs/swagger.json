@@ -1,7 +1,7 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "This API handles requests from the FoxDeck Applications",
+        "description": "This API handles requests from the Foxdeck App.",
         "title": "Foxdeck API",
         "contact": {},
         "version": "1.0"
@@ -82,6 +82,36 @@
                         "description": "ParentResourceId",
                         "name": "parentResourceId",
                         "in": "path"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/database.Resource"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/resource/search": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "resources"
+                ],
+                "summary": "Search for a specific note by its name.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "name",
+                        "name": "name",
+                        "in": "query"
                     }
                 ],
                 "responses": {
