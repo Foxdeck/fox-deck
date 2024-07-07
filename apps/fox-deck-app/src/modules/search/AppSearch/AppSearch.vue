@@ -7,6 +7,7 @@ import {useI18n} from "vue-i18n";
 import AppIcon from "@/core/components/AppIcon/AppIcon.vue";
 import {Icon} from "@/core/components/AppIcon/icons";
 import AppTextField from "@/core/components/AppTextField/AppTextField.vue";
+import type {DatabaseResource} from "@/core/services/api";
 import {useResourceStore} from "@/modules/resource-navigation/stores/resource.store";
 
 const SEARCH_DEBOUNCE_WAIT_MS = 300;
@@ -14,6 +15,7 @@ const SEARCH_DEBOUNCE_WAIT_MS = 300;
 const {t} = useI18n();
 const { searchForNotes } = useResourceStore();
 
+const searchResults = ref<DatabaseResource[]>([]);
 const searchInput = ref("");
 const shouldSearchBeOpen = ref(true);
 const target = ref(null);
@@ -25,8 +27,8 @@ function onSearchInput(searchTerm: string): void {
   debouncedSearch(searchTerm);
 }
 
-const debouncedSearch = _.debounce((searchTerm: string) => {
-  searchForNotes(searchTerm);
+const debouncedSearch = _.debounce(async (searchTerm: string) => {
+  searchResults.value = await searchForNotes(searchTerm);
 }, SEARCH_DEBOUNCE_WAIT_MS);
 
 const hasSearchInputText = computed(() => searchInput.value !== "");
@@ -60,38 +62,13 @@ onClickOutside(target as MaybeElementRef, event => shouldSearchBeOpen.value = fa
       <!--      </span>-->
       <ul>
         <li
+          v-for="result in searchResults"
+          :key="result.id"
           class="flex justify-between p-2"
           tabindex="0"
         >
           <span>
-            Math > Division
-          </span>
-          <app-icon :icon="Icon.STAR" />
-        </li>
-        <li
-          class="flex justify-between p-2"
-          tabindex="0"
-        >
-          <span>
-            Math > Addition
-          </span>
-          <app-icon :icon="Icon.STAR" />
-        </li>
-        <li
-          class="flex justify-between p-2"
-          tabindex="0"
-        >
-          <span>
-            Math > Multiplication
-          </span>
-          <app-icon :icon="Icon.STAR" />
-        </li>
-        <li
-          class="flex justify-between p-2"
-          tabindex="0"
-        >
-          <span>
-            Math > Subtraction
+            {{ result.name }}
           </span>
           <app-icon :icon="Icon.STAR" />
         </li>

@@ -1,9 +1,13 @@
+import {HttpStatusCode} from "axios";
 import _ from "lodash";
 import {defineStore} from "pinia";
 import {ref} from "vue";
 
 import type {AppTreeViewItemProps, AppTreeViewItemType} from "@/core/components/AppTreeViewItem/AppTreeViewItem.types";
+import {api} from "@/core/services";
 import type {DatabaseResource} from "@/core/services/api";
+import {useAuthStore} from "@/core/stores/auth.store";
+
 
 /**
  * A variable `useResourceStore` that defines a store for managing resources.
@@ -17,6 +21,7 @@ import type {DatabaseResource} from "@/core/services/api";
  *                                If there are no resources or if the resources array is empty, it returns an empty array.
  */
 export const useResourceStore = defineStore("resourceStore", () => {
+  const {jwt} = useAuthStore();
   const resources = ref<DatabaseResource[]>([]);
 
   /**
@@ -59,10 +64,25 @@ export const useResourceStore = defineStore("resourceStore", () => {
    * @param {string} searchTerm - The term used to search for notes.
    * @return {any} - Returns nothing.
    */
-  function searchForNotes(searchTerm: string): any {
+  async function searchForNotes(searchTerm: string): Promise<DatabaseResource[]> {
     if (!_.isEmpty(searchTerm)) {
       console.debug(`(searchForNotes) => searching for note '${searchTerm}'`);
+      const response = await api.resource.searchList({
+        name: searchTerm
+      }, {
+        headers: {
+          Authorization: `Bearer ${jwt}`,
+        },
+      });
+
+      if (response.status === HttpStatusCode.Ok) {
+        console.debug(`(searchForNotes) => ${response.data.length} notes found!`);
+        return response.data;
+      }
+
+      return [];
     }
+    return [];
   }
 
   return {
