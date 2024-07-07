@@ -10,6 +10,7 @@ const themeStore = useThemeStore();
 
 <template>
   <div
+    class="on-background-text"
     :class="{
       'light': themeStore.isThemeLight(),
       'dark': !themeStore.isThemeLight()
