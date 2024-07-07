@@ -13,14 +13,16 @@ import {useResourceStore} from "@/modules/resource-navigation/stores/resource.st
 const SEARCH_DEBOUNCE_WAIT_MS = 300;
 
 const {t} = useI18n();
-const { searchForNotes } = useResourceStore();
+const {searchForNotes} = useResourceStore();
 
 const searchResults = ref<DatabaseResource[]>([]);
 const searchInput = ref("");
+const isSearching = ref<boolean>(false);
 const shouldSearchBeOpen = ref(true);
 const target = ref(null);
 
 function onSearchInput(searchTerm: string): void {
+  isSearching.value = true;
   shouldSearchBeOpen.value = true;
   searchInput.value = searchTerm;
 
@@ -29,6 +31,7 @@ function onSearchInput(searchTerm: string): void {
 
 const debouncedSearch = _.debounce(async (searchTerm: string) => {
   searchResults.value = await searchForNotes(searchTerm);
+  isSearching.value = false;
 }, SEARCH_DEBOUNCE_WAIT_MS);
 
 const hasSearchInputText = computed(() => searchInput.value !== "");
@@ -57,9 +60,16 @@ onClickOutside(target as MaybeElementRef, event => shouldSearchBeOpen.value = fa
       v-if="shouldSearchBeOpen && hasSearchInputText"
       class="surface-container on-surface-text absolute top-16 z-10 flex w-full min-w-[400px] flex-col gap-2 rounded-md p-4 shadow-md md:w-1/2"
     >
-      <!--      <span class="flex gap-4 italic">-->
-      <!--        No results found-->
-      <!--      </span>-->
+      <span
+        v-if="isSearching"
+        class="secondary-container h-8 w-full animate-pulse rounded-md"
+      />
+      <span
+        v-if="!isSearching && searchResults.length === 0"
+        class="flex gap-4 italic"
+      >
+        No results found
+      </span>
       <ul>
         <li
           v-for="result in searchResults"
