@@ -1,3 +1,4 @@
+import _ from "lodash";
 import {defineStore} from "pinia";
 import {ref} from "vue";
 
@@ -51,8 +52,22 @@ export const useResourceStore = defineStore("resourceStore", () => {
     return [convertToAppTreeViewItem(resources.value[0], resources.value)];
   }
 
+  /**
+   * // TODO: after implementation in backend call the correct function and add return type.
+   * Searches for notes based on the given search term.
+   *
+   * @param {string} searchTerm - The term used to search for notes.
+   * @return {any} - Returns nothing.
+   */
+  function searchForNotes(searchTerm: string): any {
+    if (!_.isEmpty(searchTerm)) {
+      console.debug(`(searchForNotes) => searching for note '${searchTerm}'`);
+    }
+  }
+
   return {
     resources: resources,
     fetchResourcesAsNavigation: fetchResourcesAsNavigation,
+    searchForNotes: searchForNotes
   };
 });

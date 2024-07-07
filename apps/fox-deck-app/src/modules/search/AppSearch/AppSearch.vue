@@ -1,38 +1,60 @@
 <script setup lang="ts">
+import {type MaybeElementRef, onClickOutside} from "@vueuse/core";
 import _ from "lodash";
-import {ref} from "vue";
+import {computed, ref} from "vue";
 import {useI18n} from "vue-i18n";
 
 import AppIcon from "@/core/components/AppIcon/AppIcon.vue";
 import {Icon} from "@/core/components/AppIcon/icons";
 import AppTextField from "@/core/components/AppTextField/AppTextField.vue";
+import {useResourceStore} from "@/modules/resource-navigation/stores/resource.store";
+
+const SEARCH_DEBOUNCE_WAIT_MS = 300;
 
 const {t} = useI18n();
+const { searchForNotes } = useResourceStore();
 
 const searchInput = ref("");
+const shouldSearchBeOpen = ref(true);
+const target = ref(null);
 
-const debouncedSearch = _.debounce((searchTerm: string) => {
-  console.log(searchTerm);
-}, 300);
-
-function search(searchTerm: string): void {
+function onSearchInput(searchTerm: string): void {
+  shouldSearchBeOpen.value = true;
   searchInput.value = searchTerm;
+
   debouncedSearch(searchTerm);
 }
 
+const debouncedSearch = _.debounce((searchTerm: string) => {
+  searchForNotes(searchTerm);
+}, SEARCH_DEBOUNCE_WAIT_MS);
+
+const hasSearchInputText = computed(() => searchInput.value !== "");
+
+// we want to close the search-container containing the results if you click outside.
+// NOTICE: we need to ignore eslint here, because 'onClickOutside' need to have 2 arguments
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+onClickOutside(target as MaybeElementRef, event => shouldSearchBeOpen.value = false);
 </script>
 
 <template>
-  <div class="relative flex w-full justify-center">
+  <div
+    ref="target"
+    class="relative flex w-full justify-center"
+  >
     <app-text-field
       class="w-full min-w-[400px] md:w-1/2"
       :label="t('home.search_in_notes')"
       variant="filled"
       :is-rounded="true"
       :icon="Icon.SEARCH"
-      @input="search($event.target.value)"
+      @input="onSearchInput($event.target.value)"
+      @click="shouldSearchBeOpen = true;"
     />
-    <div class="surface-container on-surface-text absolute top-16 z-10 flex w-full min-w-[400px] flex-col gap-2 rounded-md p-4 shadow-md md:w-1/2">
+    <div
+      v-if="shouldSearchBeOpen && hasSearchInputText"
+      class="surface-container on-surface-text absolute top-16 z-10 flex w-full min-w-[400px] flex-col gap-2 rounded-md p-4 shadow-md md:w-1/2"
+    >
       <!--      <span class="flex gap-4 italic">-->
       <!--        No results found-->
       <!--      </span>-->
