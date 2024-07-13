@@ -1,37 +1,26 @@
-<img src="./.github/assets/README-BANNER.png" alt="Logo" />
+<h1 align="center">
+    <img alt="Foxdeck" src="./.github/assets/README_LOGO.png" width="200" />
 
-[![Test & Deploy](https://github.com/Foxdeck/fox-deck/actions/workflows/test-and-deploy.yml/badge.svg)](https://github.com/Foxdeck/fox-deck/actions/workflows/test-and-deploy.yml) <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![Testing - fox-deck-app](https://github.com/Foxdeck/fox-deck/actions/workflows/fox-deck-app.yml/badge.svg)](https://github.com/Foxdeck/fox-deck/actions/workflows/fox-deck-app.yml)
+[![Deploy to production](https://github.com/Foxdeck/fox-deck/actions/workflows/prod-deploy.yml/badge.svg)](https://github.com/Foxdeck/fox-deck/actions/workflows/prod-deploy.yml)
+[![Deploy to dev](https://github.com/Foxdeck/fox-deck/actions/workflows/deploy.yml/badge.svg)](https://github.com/Foxdeck/fox-deck/actions/workflows/deploy.yml)
+[![CodeQL](https://github.com/Foxdeck/fox-deck/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/Foxdeck/fox-deck/actions/workflows/github-code-scanning/codeql)
+[![Build & Deploy - Documentation](https://github.com/Foxdeck/fox-deck/actions/workflows/docs.yml/badge.svg)](https://github.com/Foxdeck/fox-deck/actions/workflows/docs.yml) <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-> [!note]  
-> We're particularly eager for fresh UX/UI ideas to enhance the Foxdeck experience. If you have any Ideas you can use
-> the [»UX/UI Suggestions«](https://github.com/Foxdeck/fox-deck/discussions/34) board in disussions!
-
-Foxdeck is a dedicated note-taking application designed specifically to cater to the unique requirements of students.
-With its user-friendly interface and a wide range of features, Foxdeck simplifies the process of capturing and
-organizing your class notes, lecture summaries, and study materials. Whether you're a high school student or a college
-scholar, Foxdeck is your go-to tool for enhancing your academic experience and staying organized throughout your
-educational journey.
+</h1>
+<p align="center">
+  <em><b>Foxdeck</b> is a dedicated note-taking application designed specifically to cater to the unique requirements of students.</em>
+</p>
 
 > [!important]  
-> Please note that this project is currently in progress and may not yet be complete.
+> Please note that this project is currently in progress and may not yet be complete. Features will be added and 
+> changed base on the feedback around foxdeck.
 
-## 💫 Features
+## 🎯 Features
 
-### Empower your learning experience with flashcards
-
-Empower your learning experience with the ability to create flashcards inside your study notes, which can be used to
-create questionnaires for you. Whether you're tackling complex theories, brushing up on language skills, or preparing
-for specific exams, crafting your own questions helps reinforce understanding and retention. Foxdeck makes it simple and
-efficient to personalize your learning journey.
-
-### Share your flashcards and notes with the community
-
-Unlock the power of collective learning with Foxdeck's community-sharing feature! This platform isn't just about
-personal learning; it's about growing together. Share your notes and flashcards and tap into a wealth of knowledge
-from fellow learners. Whether you're seeking input on tricky questions or offering insights into challenging topics, our
-community is here to support and enrich your learning journey.
+* creating and organizing notes
 
 ## 🖥️ Get Involved in Development
 
@@ -49,7 +38,7 @@ available for the IDEs:
 * **IntelliJ:** https://plugins.jetbrains.com/plugin/13389-conventional-commit
 * **VSCode:** https://marketplace.visualstudio.com/items?itemName=vivaxy.vscode-conventional-commits
 
-## 👥 Contributors
+## ❤️ Contributors
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
