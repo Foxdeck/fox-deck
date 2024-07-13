@@ -11,7 +11,7 @@ defineProps<AppIconProps>();
 <template>
   <span
     v-if="icon"
-    class="fi m-0 p-0 w-fit"
+    class="fi m-0 w-fit p-0"
     :class="{
       [icon]: true,
       'animate-spin': spinning

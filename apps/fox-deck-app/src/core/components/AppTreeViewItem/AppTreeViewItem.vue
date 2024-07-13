@@ -1,16 +1,15 @@
 <script setup lang="ts">
 import AppIcon from "@/core/components/AppIcon/AppIcon.vue";
+import {getOpenStateIcon, getResourceIcon} from "@/core/components/AppIcon/icon.utils";
 import {Icon} from "@/core/components/AppIcon/icons";
 import type {
   AppTreeViewItemOnItemSelect,
   AppTreeViewItemOnOpenContextMenu,
   AppTreeViewItemProps,
-  AppTreeViewItemType
 } from "@/core/components/AppTreeViewItem/AppTreeViewItem.types";
 
 // we use Material Design 3 Focus Ring for focusing the treeView item
 import "@material/web/focus/md-focus-ring";
-import {getOpenStateIcon, getResourceIcon} from "@/core/components/AppIcon/icon.utils";
 
 const props = withDefaults(defineProps<AppTreeViewItemProps>(), {
   isOpen: false,
@@ -38,7 +37,7 @@ function onOpenContextMenu() {
 
 <template>
   <span
-    class="relative flex items-center justify-between p-3 rounded-full cursor-pointer outline-none"
+    class="relative flex cursor-pointer items-center justify-between rounded-full p-3 outline-none"
     :class="{
       'secondary-container on-secondary-container-text': isSelected
     }"
@@ -55,7 +54,7 @@ function onOpenContextMenu() {
           class="animate-spin"
           :icon="Icon.SPINNER"
         />
-        <span class="w-full h-3 rounded-full bg-gray-300 animate-pulse" />
+        <span class="h-3 w-full animate-pulse rounded-full bg-gray-300" />
       </template>
       <template v-else>
         <AppIcon

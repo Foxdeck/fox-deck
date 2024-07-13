@@ -25,10 +25,10 @@ defineProps({
 <template>
   <div
     role="alert"
-    class="rounded p-4 border-s-4 max-w-[500px]"
+    class="max-w-[500px] rounded border-s-4 p-4"
     :class="{
       'border-primary-500': severity === 'primary',
-      'border-success-darker bg-success-light': severity === 'success',
+      'bg-success-light border-success-darker': severity === 'success',
       'border-warn-normal': severity === 'warn',
       'border-danger-normal bg-danger-light': severity === 'danger',
     }"

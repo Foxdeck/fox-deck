@@ -174,7 +174,7 @@ export class HttpClient<SecurityDataType = unknown> {
  * @externalDocs https://docs.foxdeck.de
  * @contact
  *
- * This API handles requests from the FoxDeck Applications
+ * This API handles requests from the Foxdeck App.
  */
 export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDataType> {
   login = {
@@ -228,6 +228,29 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       this.request<DatabaseResource[], any>({
         path: `/resource`,
         method: "GET",
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags resources
+     * @name SearchList
+     * @summary Search for a specific note by its name.
+     * @request GET:/resource/search
+     */
+    searchList: (
+      query?: {
+        /** name */
+        name?: string;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<DatabaseResource[], any>({
+        path: `/resource/search`,
+        method: "GET",
+        query: query,
         format: "json",
         ...params,
       }),

@@ -10,4 +10,5 @@ import (
 func AppendRoutes(mux *http.ServeMux) {
 	//mux.HandleFunc("POST /resource", middleware.HttpDurationMiddleware(CreateResource))
 	mux.HandleFunc("GET /resource", middleware.HttpDurationMiddleware(GetResource))
+	mux.HandleFunc("GET /resource/search", middleware.HttpDurationMiddleware(SearchNoteByName))
 }

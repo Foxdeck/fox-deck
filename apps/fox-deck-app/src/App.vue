@@ -10,12 +10,13 @@ const themeStore = useThemeStore();
 
 <template>
   <div
+    class="on-background-text"
     :class="{
       'light': themeStore.isThemeLight(),
       'dark': !themeStore.isThemeLight()
     }"
   >
-    <main class="flex w-screen h-screen surface">
+    <main class="surface flex h-screen w-screen">
       <Suspense>
         <AppResourceNavigation />
       </Suspense>

@@ -12,10 +12,10 @@ type User struct {
 // Resource
 // Represents the 'Resource'-Table from the database
 type Resource struct {
-	Id               string
-	ParentResourceId string
-	Type             string
-	Name             string
-	Content          string
-	CreatedAt        string
+	Id               string `json:"id"`
+	ParentResourceId string `json:"parent_resource_id"`
+	Type             string `json:"type"`
+	Name             string `json:"name"`
+	Content          string `json:"content"`
+	CreatedAt        string `json:"created_at"`
 }

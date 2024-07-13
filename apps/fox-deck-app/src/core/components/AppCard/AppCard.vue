@@ -18,7 +18,7 @@ const hasCardFooter = () => props.actions.length > 0;
 
 <template>
   <section
-    class="flex flex-col shadow-md rounded-2xl overflow-hidden surface on-surface-text"
+    class="surface on-surface-text flex flex-col overflow-hidden rounded-2xl shadow-md"
     data-testid="card"
   >
     <header
@@ -27,14 +27,14 @@ const hasCardFooter = () => props.actions.length > 0;
     >
       <img
         v-if="imageUrl"
-        class="w-full max-h-[300px] object-cover rounded-2xl"
+        class="max-h-[300px] w-full rounded-2xl object-cover"
         :alt="imageAlt"
         :src="imageUrl"
       >
     </header>
     <main
       v-if="hasCardBody()"
-      class="flex flex-col p-4 gap-3"
+      class="flex flex-col gap-3 p-4"
       data-testid="card-body"
     >
       <span

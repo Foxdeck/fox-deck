@@ -28,14 +28,14 @@ defineEmits<{
 </script>
 <template>
   <aside
-    class="flex flex-col w-full justify-between min-h-screen transition-all surface on-surface-text p-2"
+    class="surface on-surface-text flex min-h-screen w-full flex-col justify-between p-2 transition-all"
     :class="{
       'max-w-[300px] items-start': isExpanded,
       'max-w-[130px] items-center': !isExpanded
     }"
   >
-    <div class="flex flex-col gap-4 w-full">
-      <div class="flex justify-between flex-wrap">
+    <div class="flex w-full flex-col gap-4">
+      <div class="flex flex-wrap justify-between">
         <!-- Navigation Header   -->
         <AppSideNavigationItem
           tooltip="Menu"

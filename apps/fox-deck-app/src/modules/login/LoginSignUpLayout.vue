@@ -21,14 +21,14 @@ function getRouteForSignInSignUp(currentRoute: RouteLocationNormalizedLoaded): L
   <div class="flex items-center justify-center">
     <img
       alt=""
-      class="h-screen w-[50%] object-cover hidden md:block"
+      class="hidden h-screen w-1/2 object-cover md:block"
       src="https://images.pexels.com/photos/2574616/pexels-photo-2574616.jpeg"
     >
-    <div class="flex flex-col h-screen py-12 w-full justify-between flex-wrap items-center max-w-[1440px]">
+    <div class="flex h-screen w-full max-w-[1440px] flex-col flex-wrap items-center justify-between py-12">
       <Logo class=" w-12" />
 
-      <div class="flex flex-col gap-8 px-10 py-14 min-w-[500px]">
-        <div class="w-[400px] mt-8">
+      <div class="flex min-w-[500px] flex-col gap-8 px-10 py-14">
+        <div class="mt-8 w-[400px]">
           <slot name="form" />
         </div>
       </div>
@@ -44,7 +44,7 @@ function getRouteForSignInSignUp(currentRoute: RouteLocationNormalizedLoaded): L
         </span>
         <RouterLink
           :to="getRouteForSignInSignUp(currentRoute)"
-          class="font-bold underline text-primary-500"
+          class="font-bold text-primary-500 underline"
         >
           <span v-if="currentRoute.name === 'login'">
             {{ t("login.create_account") }}

@@ -4,8 +4,11 @@ package http_utils
 import (
 	"encoding/json"
 	"fmt"
+	"fox-deck-api/exceptions"
 	"fox-deck-api/logging"
+	"fox-deck-api/token"
 	"net/http"
+	"strings"
 )
 
 // WriteJSONResponse is a function that writes a JSON response to the provided http.ResponseWriter.
@@ -30,4 +33,26 @@ func WriteJSONResponse(responseWriter http.ResponseWriter, httpStatus int, data 
 	if err != nil {
 		logging.Error("http_utils", fmt.Sprintf("Error writing response: %o", err))
 	}
+}
+
+// ValidateAndExtractUserId
+// validates the auth header and extracts the user id.
+func ValidateAndExtractUserId(request *http.Request) (string, error) {
+	authHeader := request.Header.Get("Authorization")
+	if authHeader == "" {
+		logging.Debug("resource_controller", fmt.Sprintf("(validateAndExtractUserId) => no authentication header set!"))
+		return "", &exceptions.AuthenticationError{}
+	}
+	// Authorization header looks like 'Bearer xyz', that's why we need to split it.
+	jwt := strings.Split(authHeader, " ")[1]
+	tokenMap, err := token.GetTokenClaimsAsMap(jwt)
+	if err != nil {
+		return "", err
+	}
+	userID, hasUserID := tokenMap["id"]
+	if !hasUserID {
+		logging.Debug("resource_controller", fmt.Sprintf("(validateAndExtractUserId) => userId is not decoded in the jwt."))
+		return "", &exceptions.AuthenticationError{}
+	}
+	return userID, nil
 }

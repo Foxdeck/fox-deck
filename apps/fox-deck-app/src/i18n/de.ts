@@ -11,8 +11,12 @@ export const de = {
   },
   home: {
     title: "Willkommen bei Fox Deck",
-    search_in_notes: "In meinen Notizen suchen...",
     suggestions: "Vorschläge",
+  },
+  search: {
+    placeholder: "Nach Notizen suchen...",
+    searching_state: "Suche nach {text}",
+    no_result: "Keine Notizen gefunden"
   },
   login: {
     title: "Anmelden",

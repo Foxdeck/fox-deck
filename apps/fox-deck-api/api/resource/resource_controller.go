@@ -7,10 +7,8 @@ import (
 	"fox-deck-api/logging"
 	"fox-deck-api/repository"
 	"fox-deck-api/repository/filter"
-	"fox-deck-api/token"
 	"fox-deck-api/utils/http"
 	"net/http"
-	"strings"
 )
 
 var resourceRepositoryConn = &repository.ResourceRepositoryConnection{
@@ -29,20 +27,10 @@ func CreateResource(responseWriter http.ResponseWriter, request *http.Request) {
 // @Router		/resource [get]
 func GetResource(responseWriter http.ResponseWriter, request *http.Request) {
 	logging.Debug("resource_controller", fmt.Sprintf("(GetResource) => Retrieve resources for a user"))
-	authHeader := request.Header.Get("Authorization")
-	if authHeader == "" {
-		logging.Debug("resource_controller", fmt.Sprintf("(GetResource) => Authorization-Header not set: %s", request.Header))
-		http_utils.WriteJSONResponse(responseWriter, http.StatusUnauthorized, &exceptions.AuthenticationError{})
-		return
-	}
-
-	// authorization header looks like 'Bearer xyz', that's why we need to split it
-	jwt := strings.Split(authHeader, " ")[1]
-	tokenMap, err := token.GetTokenClaimsAsMap(jwt)
-	userID, hasUserID := tokenMap["id"]
-	if hasUserID == false {
-		logging.Debug("resource_controller", fmt.Sprintf("(GetResource) => UserID is not coded in the JWT-Token; Decoded JWT-Parameters: %s", tokenMap))
-		http_utils.WriteJSONResponse(responseWriter, http.StatusUnauthorized, &exceptions.AuthenticationError{})
+	userID, err := http_utils.ValidateAndExtractUserId(request)
+	if err != nil {
+		logging.Error("resource_controller", fmt.Sprintf("(GetResource) => Error validating and extracting user id: %s", err))
+		http_utils.WriteJSONResponse(responseWriter, http.StatusInternalServerError, &exceptions.AuthenticationError{})
 		return
 	}
 
@@ -54,6 +42,41 @@ func GetResource(responseWriter http.ResponseWriter, request *http.Request) {
 	resources, err := resourceRepositoryConn.GetResourceByUserId(userID, filter.ResourceFilter{
 		ParentResourceId: parentResourceId,
 	})
+
+	if err != nil {
+		http_utils.WriteJSONResponse(responseWriter, http.StatusInternalServerError, &exceptions.UnexpectedError{})
+	}
+
+	if resources == nil {
+		http_utils.WriteJSONResponse(responseWriter, http.StatusNotFound, &exceptions.ResourceNotFoundError{})
+		return
+	}
+
+	http_utils.WriteJSONResponse(responseWriter, http.StatusOK, resources)
+}
+
+// SearchNoteByName
+// @Summary     Search for a specific note by its name.
+// @Tags        resources
+// @Produce     json
+// @Param       name	query	string  false  "name"
+// @Success     200  {object}  []database.Resource
+// @Router		/resource/search [get]
+func SearchNoteByName(responseWriter http.ResponseWriter, request *http.Request) {
+	logging.Debug("resource_controller", fmt.Sprintf("(SearchNoteByName) => Search for a specific note by its name."))
+	userID, err := http_utils.ValidateAndExtractUserId(request)
+	if err != nil {
+		logging.Error("resource_controller", fmt.Sprintf("(SearchNoteByName) => Error validating and extracting user id: %s", err))
+		http_utils.WriteJSONResponse(responseWriter, http.StatusInternalServerError, &exceptions.AuthenticationError{})
+		return
+	}
+
+	// decode query parameters
+	queryParams := request.URL.Query()
+	name := queryParams.Get("name")
+
+	// get the resources for the authenticated user based on the filter
+	resources, err := resourceRepositoryConn.SearchForNoteByName(userID, name)
 
 	if err != nil {
 		http_utils.WriteJSONResponse(responseWriter, http.StatusInternalServerError, &exceptions.UnexpectedError{})

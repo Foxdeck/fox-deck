@@ -45,7 +45,7 @@ externalDocs:
   url: https://docs.foxdeck.de
 info:
   contact: {}
-  description: This API handles requests from the FoxDeck Applications
+  description: This API handles requests from the Foxdeck App.
   title: Foxdeck API
   version: "1.0"
 paths:
@@ -104,6 +104,25 @@ paths:
               $ref: '#/definitions/database.Resource'
             type: array
       summary: Retrieve resources for a user.
+      tags:
+      - resources
+  /resource/search:
+    get:
+      parameters:
+      - description: name
+        in: query
+        name: name
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/database.Resource'
+            type: array
+      summary: Search for a specific note by its name.
       tags:
       - resources
 securityDefinitions:
