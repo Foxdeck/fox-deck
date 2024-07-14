@@ -1,9 +1,12 @@
 package resources
 
 import (
+	"database/sql"
 	"fmt"
 	"fox-deck-api/database"
 	"fox-deck-api/logging"
+	"github.com/google/uuid"
+	"time"
 )
 
 // ResourceFilter
@@ -21,11 +24,11 @@ type ResourceRepository interface {
 	SearchForNoteByName(userId string, name string) (*[]database.Resource, error)
 }
 
-func (resourceRepositoryConnection *ResourceRepositoryConnection) SearchForNoteByName(userId string, name string) (*[]database.Resource, error) {
+func (repository *ResourceRepositoryConnection) SearchForNoteByName(userId string, name string) (*[]database.Resource, error) {
 	logging.Debug("resource_repository", fmt.Sprintf("(SearchForNoteByName) => Search for a note with name like '%s'", name))
 	retrievedResources := &[]database.Resource{}
 
-	conn := resourceRepositoryConnection.DbConnection.Connect()
+	conn := repository.DbConnection.Connect()
 	query := `SELECT
 		Resource.resourceId,
 		Resource.parentResourceId,
@@ -72,13 +75,86 @@ func (resourceRepositoryConnection *ResourceRepositoryConnection) SearchForNoteB
 	return retrievedResources, nil
 }
 
+func (repository *ResourceRepositoryConnection) CreateResourceForUser(userId string, request CreateResourceRequest) (*CreateResourceRequest, error) {
+	logging.Debug("resource_repository", fmt.Sprintf("(CreateResourceForUser) => Create resource for user with id '%s'", userId))
+
+	connection := repository.DbConnection.Connect()
+	tx, err := connection.Begin()
+	if err != nil {
+		return nil, err
+	}
+
+	resourceId, err := repository.insertIntoResource(request, tx)
+	if err != nil {
+		tx.Rollback()
+		logging.Error("resource_repository", fmt.Sprintf("Error while preparing statement: %o", err))
+		return nil, err
+	}
+
+	err = repository.insertIntoUserResourceAssociation(resourceId, userId, tx)
+	if err != nil {
+		tx.Rollback()
+		logging.Error("resource_repository", fmt.Sprintf("Error while preparing statement: %o", err))
+		return nil, err
+	}
+
+	tx.Commit()
+	return &request, nil
+}
+
+func (repository *ResourceRepositoryConnection) insertIntoResource(request CreateResourceRequest, tx *sql.Tx) (string, error) {
+	query := `INSERT into Resource (
+                  Resource.resourceId,
+                  Resource.name,
+                  Resource.type,
+                  Resource.content,
+                  Resource.createdAt,
+                  Resource.parentResourceId)
+		  VALUES (?, ?, ?, ?, ?, ?);`
+
+	stmt, err := tx.Prepare(query)
+	if err != nil {
+		return "", err
+	}
+	defer stmt.Close()
+
+	resourceId := uuid.New().String()
+	_, err = stmt.Exec(resourceId, request.Name, request.Type, request.Content, time.Now(), request.ParentResourceId)
+	if err != nil {
+		return "", err
+	}
+
+	return resourceId, nil
+}
+
+func (repository *ResourceRepositoryConnection) insertIntoUserResourceAssociation(resourceId string, userId string, tx *sql.Tx) error {
+	query2 := `INSERT into UserResourceAssociation (
+					 UserResourceAssociation.id,
+					 UserResourceAssociation.resourceId,
+					 UserResourceAssociation.userId)
+		  VALUES (?, ?, ?);`
+
+	stmt2, err := tx.Prepare(query2)
+	if err != nil {
+		return err
+	}
+	defer stmt2.Close()
+
+	_, err = stmt2.Exec(uuid.New().String(), resourceId, userId)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 // GetResourceByUserId
 // Retrieves a resource from the database, based on the id of the user.
-func (resourceRepositoryConnection *ResourceRepositoryConnection) GetResourceByUserId(userId string, filter ...ResourceFilter) (*[]database.Resource, error) {
+func (repository *ResourceRepositoryConnection) GetResourceByUserId(userId string, filter ...ResourceFilter) (*[]database.Resource, error) {
 	logging.Debug("resource_repository", fmt.Sprintf("(GetResourceByUserId) => Get resource for user with id '%s'", userId))
 	retrievedResources := &[]database.Resource{}
 
-	conn := resourceRepositoryConnection.DbConnection.Connect()
+	conn := repository.DbConnection.Connect()
 	query := `SELECT
 		Resource.resourceId,
 		Resource.parentResourceId,

@@ -1,6 +1,7 @@
 package resources
 
 import (
+	"encoding/json"
 	"fmt"
 	"fox-deck-api/database"
 	"fox-deck-api/exceptions"
@@ -13,7 +14,41 @@ var resourceRepositoryConn = &ResourceRepositoryConnection{
 	DbConnection: database.GetInstance(),
 }
 
+// CreateResource
+// @Summary     Creates a new resource for the logged-in user
+// @Security 	Bearer
+// @Tags        auth
+// @Produce     json
+// @Param       request		body	  resources.CreateResourceRequest  	true  "Query Parameter"
+// @Success     200  		{object}  resources.CreateResourceResponse
+// @Router		/resource [post]
 func CreateResource(responseWriter http.ResponseWriter, request *http.Request) {
+	logging.Debug("resource_controller", fmt.Sprintf("(CreateResource) => Create resource for a user"))
+	userId, err := http_utils.ValidateAndExtractUserId(request)
+	if err != nil {
+		logging.Error("resource_controller", fmt.Sprintf("(GetResource) => Error validating and extracting user id: %s", err))
+		http_utils.WriteJSONResponse(responseWriter, http.StatusUnauthorized, &exceptions.AuthenticationError{})
+		return
+	}
+
+	resourceRequest := CreateResourceRequest{}
+	err = json.NewDecoder(request.Body).Decode(&resourceRequest)
+	if err != nil {
+		http_utils.WriteJSONResponse(responseWriter, http.StatusBadRequest, &exceptions.UnexpectedError{})
+		return
+	}
+
+	createdResource, err := resourceRepositoryConn.CreateResourceForUser(userId, resourceRequest)
+	if err != nil {
+		switch {
+		default:
+			// if some error we don't expect is thrown, we will only send an "Unexpected error"
+			http_utils.WriteJSONResponse(responseWriter, http.StatusInternalServerError, &exceptions.UnexpectedError{})
+			return
+		}
+	}
+
+	http_utils.WriteJSONResponse(responseWriter, http.StatusOK, createdResource)
 }
 
 // GetResource

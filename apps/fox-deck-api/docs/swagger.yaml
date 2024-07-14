@@ -29,15 +29,41 @@ definitions:
     properties:
       content:
         type: string
-      createdAt:
+      created_at:
         type: string
       id:
+        type: string
+      name:
+        type: string
+      parent_resource_id:
+        type: string
+      type:
+        type: string
+    type: object
+  resources.CreateResourceRequest:
+    properties:
+      content:
         type: string
       name:
         type: string
       parentResourceId:
         type: string
       type:
+        description: 'TODO: can be ''folder'', ''note'', ''wastebasket'', ''favorite'''
+        type: string
+    type: object
+  resources.CreateResourceResponse:
+    properties:
+      CreatedAt:
+        type: string
+      content:
+        type: string
+      name:
+        type: string
+      parentResourceId:
+        type: string
+      type:
+        description: 'TODO: can be ''folder'', ''note'', ''wastebasket'', ''favorite'''
         type: string
     type: object
 externalDocs:
@@ -106,6 +132,26 @@ paths:
       summary: Retrieve resources for a user.
       tags:
       - resources
+    post:
+      parameters:
+      - description: Query Parameter
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/resources.CreateResourceRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/resources.CreateResourceResponse'
+      security:
+      - Bearer: []
+      summary: Creates a new resource for the logged-in user
+      tags:
+      - auth
   /resource/search:
     get:
       parameters:
@@ -126,6 +172,9 @@ paths:
       tags:
       - resources
 securityDefinitions:
-  BasicAuth:
-    type: basic
+  Bearer:
+    description: Type "Bearer" followed by a space and JWT token.
+    in: header
+    name: Authorization
+    type: apiKey
 swagger: "2.0"

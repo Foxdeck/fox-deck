@@ -16,7 +16,13 @@ var (
 // This functions contains all routes which has something to do with swagger
 func AppendRoutes(mux *http.ServeMux) {
 	swaggerUrl := fmt.Sprintf("%s/%s/doc.json", baseUrl, swaggerEndpoint)
+
+	// @securityDefinitions.apikey Bearer
+	// @in header
+	// @name Authorization
+	// @description Type "Bearer" followed by a space and JWT token.
 	mux.Handle("GET /swagger/*", httpSwagger.Handler(
 		httpSwagger.URL(swaggerUrl), //The url pointing to API definition
+		httpSwagger.PersistAuthorization(true),
 	))
 }

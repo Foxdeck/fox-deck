@@ -103,6 +103,39 @@ const docTemplate = `{
                         }
                     }
                 }
+            },
+            "post": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Creates a new resource for the logged-in user",
+                "parameters": [
+                    {
+                        "description": "Query Parameter",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/resources.CreateResourceRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/resources.CreateResourceResponse"
+                        }
+                    }
+                }
             }
         },
         "/resource/search": {
@@ -184,10 +217,27 @@ const docTemplate = `{
                 "content": {
                     "type": "string"
                 },
-                "createdAt": {
+                "created_at": {
                     "type": "string"
                 },
                 "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "parent_resource_id": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                }
+            }
+        },
+        "resources.CreateResourceRequest": {
+            "type": "object",
+            "properties": {
+                "content": {
                     "type": "string"
                 },
                 "name": {
@@ -197,14 +247,39 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "type": {
+                    "description": "TODO: can be 'folder', 'note', 'wastebasket', 'favorite'",
+                    "type": "string"
+                }
+            }
+        },
+        "resources.CreateResourceResponse": {
+            "type": "object",
+            "properties": {
+                "CreatedAt": {
+                    "type": "string"
+                },
+                "content": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "parentResourceId": {
+                    "type": "string"
+                },
+                "type": {
+                    "description": "TODO: can be 'folder', 'note', 'wastebasket', 'favorite'",
                     "type": "string"
                 }
             }
         }
     },
     "securityDefinitions": {
-        "BasicAuth": {
-            "type": "basic"
+        "Bearer": {
+            "description": "Type \"Bearer\" followed by a space and JWT token.",
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
         }
     },
     "externalDocs": {
