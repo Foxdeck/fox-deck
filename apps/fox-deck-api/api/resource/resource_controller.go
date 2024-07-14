@@ -5,13 +5,11 @@ import (
 	"fox-deck-api/database"
 	"fox-deck-api/exceptions"
 	"fox-deck-api/logging"
-	"fox-deck-api/repository"
-	"fox-deck-api/repository/filter"
 	"fox-deck-api/utils/http"
 	"net/http"
 )
 
-var resourceRepositoryConn = &repository.ResourceRepositoryConnection{
+var resourceRepositoryConn = &ResourceRepositoryConnection{
 	DbConnection: database.GetInstance(),
 }
 
@@ -39,7 +37,7 @@ func GetResource(responseWriter http.ResponseWriter, request *http.Request) {
 	parentResourceId := queryParams.Get("parentResourceId")
 
 	// get the resources for the authenticated user based on the filter
-	resources, err := resourceRepositoryConn.GetResourceByUserId(userID, filter.ResourceFilter{
+	resources, err := resourceRepositoryConn.GetResourceByUserId(userID, ResourceFilter{
 		ParentResourceId: parentResourceId,
 	})
 

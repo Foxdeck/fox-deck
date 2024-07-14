@@ -1,18 +1,23 @@
-package repository
+package resources
 
 import (
 	"fmt"
 	"fox-deck-api/database"
 	"fox-deck-api/logging"
-	"fox-deck-api/repository/filter"
 )
+
+// ResourceFilter
+// Can be used to filter a list of Resources
+type ResourceFilter struct {
+	ParentResourceId string
+}
 
 type ResourceRepositoryConnection struct {
 	DbConnection *database.Connection
 }
 
 type ResourceRepository interface {
-	GetResourceByUserId(userId string, filter filter.ResourceFilter) (*[]database.Resource, error)
+	GetResourceByUserId(userId string, filter ResourceFilter) (*[]database.Resource, error)
 	SearchForNoteByName(userId string, name string) (*[]database.Resource, error)
 }
 
@@ -69,7 +74,7 @@ func (resourceRepositoryConnection *ResourceRepositoryConnection) SearchForNoteB
 
 // GetResourceByUserId
 // Retrieves a resource from the database, based on the id of the user.
-func (resourceRepositoryConnection *ResourceRepositoryConnection) GetResourceByUserId(userId string, filter ...filter.ResourceFilter) (*[]database.Resource, error) {
+func (resourceRepositoryConnection *ResourceRepositoryConnection) GetResourceByUserId(userId string, filter ...ResourceFilter) (*[]database.Resource, error) {
 	logging.Debug("resource_repository", fmt.Sprintf("(GetResourceByUserId) => Get resource for user with id '%s'", userId))
 	retrievedResources := &[]database.Resource{}
 
@@ -117,7 +122,7 @@ func (resourceRepositoryConnection *ResourceRepositoryConnection) GetResourceByU
 	return &filteredResources, nil
 }
 
-func filterResources(retrievedResources *[]database.Resource, filter []filter.ResourceFilter) []database.Resource {
+func filterResources(retrievedResources *[]database.Resource, filter []ResourceFilter) []database.Resource {
 	filteredResources := make([]database.Resource, 0)
 
 	// if no filter is set
