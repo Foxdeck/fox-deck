@@ -4,13 +4,12 @@ import (
 	"fox-deck-api/crypto"
 	"fox-deck-api/database"
 	"fox-deck-api/exceptions"
-	"fox-deck-api/repository"
 	"github.com/google/uuid"
 )
 
 // AuthenticateUser
 // Searches for the user in the database and returns a JWT if user is found.
-func AuthenticateUser(userRepository repository.UserRepository, crypto crypto.Crypto, loginRequest LoginRequest) (*database.User, error) {
+func AuthenticateUser(userRepository UserRepository, crypto crypto.Crypto, loginRequest LoginRequest) (*database.User, error) {
 	retrievedUser, err := userRepository.GetUserByEmail(loginRequest.Email)
 	if retrievedUser == nil {
 		return nil, &exceptions.AuthenticationError{}
@@ -29,7 +28,7 @@ func AuthenticateUser(userRepository repository.UserRepository, crypto crypto.Cr
 
 // CreateUser
 // Creates a new user in the database and returns the created users id.
-func CreateUser(userRepository repository.UserRepository, crypto crypto.Crypto, registerRequest RegisterRequest) (*string, error) {
+func CreateUser(userRepository UserRepository, crypto crypto.Crypto, registerRequest RegisterRequest) (*string, error) {
 	// prevent registration with the same email multiple times
 	retrievedUser, err := userRepository.GetUserByEmail(registerRequest.Email)
 	if err != nil {

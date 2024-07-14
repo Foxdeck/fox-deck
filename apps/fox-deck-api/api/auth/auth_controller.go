@@ -5,7 +5,6 @@ import (
 	"errors"
 	"fox-deck-api/crypto"
 	"fox-deck-api/database"
-	"fox-deck-api/repository"
 	"net/http"
 
 	"fox-deck-api/exceptions"
@@ -13,10 +12,10 @@ import (
 	"fox-deck-api/utils/http"
 )
 
-var userRepoConn = &repository.UserRepositoryConnection{
+var userRepoConn = &UserRepositoryConnection{
 	DbConnection: database.GetInstance(),
 }
-var userRepository repository.UserRepository = userRepoConn
+var userRepository UserRepository = userRepoConn
 
 var bCrypt = &crypto.BcryptCrypto{}
 var crypt crypto.Crypto = bCrypt
