@@ -16,7 +16,10 @@ import (
 
 // @query.collection.format multi
 
-// @securityDefinitions.basic  BasicAuth
+// @securityDefinitions.apikey Bearer
+// @in header
+// @name Authorization
+// @description Type "Bearer" followed by a space and JWT token.
 
 // @externalDocs.description  Developer Guide
 // @externalDocs.url          https://docs.foxdeck.de
