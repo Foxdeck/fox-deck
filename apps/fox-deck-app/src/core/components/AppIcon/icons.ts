@@ -39,6 +39,8 @@ export enum Icon {
   STAR = "fi-rr-star",
   STAR_FILLED = "fi-sr-star",
   SUN = "fi-rr-sun",
+  WASTEBASKET = "fi fi-rr-trash",
+  WASTEBASKET_FILLED = "fi fi-sr-trash",
   MOON = "fi-rr-moon",
   WARNING = "fi fi-rr-triangle-warning",
   X = "fi-rr-cross"

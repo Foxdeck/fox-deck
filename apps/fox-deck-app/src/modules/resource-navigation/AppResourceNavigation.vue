@@ -45,8 +45,8 @@ async function onLogoutClick() {
 
 const mockTreeViewItems: AppTreeViewItemProps[] = [
   {
-    label: "Courses",
-    identifier: "courses_root",
+    label: "My Notes",
+    identifier: "root_folder",
     children: [
       {
         label: "Science",
@@ -86,19 +86,19 @@ const mockTreeViewItems: AppTreeViewItemProps[] = [
     isSelected: false
   },
   {
-    label: "Notes",
+    label: "Favorites",
     identifier: "notes_root",
     children: [],
     isOpen: false,
-    type: "folder",
+    type: "favorite",
     isSelected: false
   },
   {
-    label: "Deadlines",
-    identifier: "deadlines_root",
+    label: "Wastebasket",
+    identifier: "notes_root",
     children: [],
     isOpen: false,
-    type: "folder",
+    type: "wastebasket",
     isSelected: false
   }
 ];

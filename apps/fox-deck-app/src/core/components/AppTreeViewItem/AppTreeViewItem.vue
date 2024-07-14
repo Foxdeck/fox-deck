@@ -63,6 +63,7 @@ function onOpenContextMenu() {
         />
         <AppIcon
           v-if="getResourceIcon(type, isOpen, isSelected)"
+          class="body-large"
           :icon="getResourceIcon(type, isOpen, isSelected)"
         />
         {{ label }}

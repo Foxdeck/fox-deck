@@ -2,7 +2,6 @@
 import type {AppTreeViewProps} from "@/core/components/AppTreeView/AppTreeView.types";
 import type {
   AppTreeViewItemOnItemSelect,
-  AppTreeViewItemOnMenuActionSelect
 } from "@/core/components/AppTreeViewItem/AppTreeViewItem.types";
 import AppTreeViewItem from "@/core/components/AppTreeViewItem/AppTreeViewItem.vue";
 
@@ -17,6 +16,7 @@ defineEmits<{
   <div
     v-for="item in items"
     :key="item.identifier"
+    class="flex flex-col gap-1"
   >
     <AppTreeViewItem
       :identifier="item.identifier"

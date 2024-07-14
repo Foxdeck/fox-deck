@@ -37,5 +37,17 @@ export function getResourceIcon(
     return Icon.FOLDER;
   }
 
+  if (type === "favorite") {
+    if (isOpen) return Icon.STAR_FILLED;
+
+    return Icon.STAR;
+  }
+
+  if (type === "wastebasket") {
+    if (isOpen) return Icon.WASTEBASKET_FILLED;
+
+    return Icon.WASTEBASKET;
+  }
+
   return undefined;
 }
