@@ -3,6 +3,7 @@ import {useI18n} from "vue-i18n";
 
 import AppIcon from "@/core/components/AppIcon/AppIcon.vue";
 import {Icon} from "@/core/components/AppIcon/icons";
+import AppNoteItem from "@/core/components/AppNoteItem/AppNoteItem.vue";
 import ContentLayout from "@/core/components/Layouts/ContentLayout.vue";
 import AppSearch from "@/modules/search/AppSearch/AppSearch.vue";
 
@@ -50,20 +51,7 @@ const {t} = useI18n();
         <div
           class="flex flex-row gap-4"
         >
-          <div
-            class="on-primary on-primary-container-text relative flex gap-4 rounded-2xl px-6 py-4 shadow-sm outline-none"
-            tabindex="0"
-          >
-            <md-focus-ring />
-            <app-icon
-              class="text-2xl"
-              :icon="Icon.DOCUMENT_FILLED"
-            />
-            <div class="flex flex-col justify-center gap-1">
-              <span class="text-base">Lorem Ipsum</span>
-              <span class="on-surface-variant-text text-xs">last_edited_at_placeholder</span>
-            </div>
-          </div>
+          <app-note-item />
         </div>
       </div>
     </div>
