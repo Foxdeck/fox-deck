@@ -63,7 +63,7 @@ func GetResource(responseWriter http.ResponseWriter, request *http.Request) {
 	userID, err := http_utils.ValidateAndExtractUserId(request)
 	if err != nil {
 		logging.Error("resource_controller", fmt.Sprintf("(GetResource) => Error validating and extracting user id: %s", err))
-		http_utils.WriteJSONResponse(responseWriter, http.StatusInternalServerError, &exceptions.AuthenticationError{})
+		http_utils.WriteJSONResponse(responseWriter, http.StatusUnauthorized, &exceptions.AuthenticationError{})
 		return
 	}
 
