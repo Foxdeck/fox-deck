@@ -2,6 +2,7 @@ import {createLogger, type LogLevel, type Plugin} from "vite";
 
 export type VitePluginLoggerMessage = {
   filename: string;
+  method?: string;
   message: string;
 }
 
@@ -16,23 +17,30 @@ const viteLogger = (): Plugin => {
     name: "vite-plugin-logger",
     configureServer(server) {
       server.ws.on("vite-console-warn", (data: VitePluginLoggerMessage) => {
-        logger.warn(`(${data.filename}) => ${data.message}`, {
+        logger.warn(buildMessage(data), {
           timestamp: true,
         });
       });
       server.ws.on("vite-console-debug", (data: VitePluginLoggerMessage) => {
-        logger.info(`(${data.filename}) => ${data.message}`, {
+        logger.info(buildMessage(data), {
           timestamp: true,
         });
       });
       server.ws.on("vite-console-error", (data: VitePluginLoggerMessage) => {
-        logger.error(`(${data.filename}) => ${data.message}`, {
+        logger.error(buildMessage(data), {
           timestamp: true,
         });
       });
     }
   };
 };
+
+function buildMessage(data: VitePluginLoggerMessage): string {
+  if (!data.method) {
+    return `(${data.filename}) => ${data.message}`;
+  }
+  return `(${data.filename}:${data.method}) => ${data.message}`;
+}
 
 export default viteLogger;
 
