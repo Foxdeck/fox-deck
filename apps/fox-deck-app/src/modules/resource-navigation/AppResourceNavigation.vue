@@ -1,5 +1,5 @@
-<script async setup lang="ts">
-import {ref} from "vue";
+<script setup lang="ts">
+import {onMounted, ref} from "vue";
 import {useI18n} from "vue-i18n";
 
 import AppSideNavigation from "@/core/components/AppSideNavigation/AppSideNavigation.vue";
@@ -13,31 +13,18 @@ import {useAuthStore} from "@/core/stores/auth.store";
 import {useThemeStore} from "@/core/stores/theme.store";
 import {LoginRouteNames} from "@/modules/login/routes";
 import {useResources} from "@/modules/resource-navigation/composables/useResources";
-import {useResourceStore} from "@/modules/resource-navigation/stores/resource.store";
 
-// stores
 const authStore = useAuthStore();
-const resourceStore = useResourceStore();
 const themeStore = useThemeStore();
 
-// composables
 const {fetchResources, getResourceChildren, removeResourceChildren, isResourceExpanded} = useResources();
 const {t} = useI18n();
 const {push} = useFoxdeckRouter();
 
 const isNavigationExpanded = ref(true);
 
-// initially fetch the resources from the database
-await fetchResources();
+onMounted( async() =>  await fetchResources());
 
-/**
- * Logs out the user by performing the necessary actions such as logging out from the authentication store
- * and redirecting to the login page.
- *
- * @async
- * @function onLogoutClick
- * @returns {Promise<void>} - A promise that resolves once the logout process has been completed.
- */
 async function onLogoutClick() {
   await authStore.logout();
   await push({name: LoginRouteNames.LOGIN});
@@ -126,7 +113,6 @@ async function onResourceClick(selectedItem: AppTreeViewItemOnItemSelect) {
 </script>
 <template>
   <AppSideNavigation
-    v-if="authStore.isAuthenticated()"
     :is-expanded="isNavigationExpanded"
     :is-light-theme="themeStore.isThemeLight()"
     @on-menu-toggle="isNavigationExpanded = !isNavigationExpanded"
