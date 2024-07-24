@@ -16,7 +16,6 @@ export function useFoxdeckRouter() {
    * @param params
    */
   async function push({ name, params = {} }: { name: RouteNames, params?: RouteParamsRaw }): Promise<void> {
-    console.debug(`[useFoxdeckRouter] => navigated to ${name} page with params:`, params);
     await router.push({ name, params });
   }
 

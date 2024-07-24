@@ -9,6 +9,7 @@ import AppMenuItem from "@/core/components/AppMenu/AppMenuItem.vue";
 // @see https://github.com/material-components/material-web/blob/main/docs/components/menu.md
 import "@material/web/menu/menu.js";
 import "@material/web/menu/menu-item.js";
+import {Logger} from "@/core/util/logging.util";
 
 const IS_MENU_OPEN_BY_DEFAULT = false;
 
@@ -27,7 +28,11 @@ onMounted(() => {
   menuEl.open = IS_MENU_OPEN_BY_DEFAULT;
 
   if (!anchorEl) {
-    console.error("(AppMenu) => can't find element with id: ");
+    Logger.error({
+      filename: "app-menu",
+      method: "onMounted",
+      message: `can't find element with id: ${anchorElementSelector}`
+    });
     return;
   }
 
@@ -40,7 +45,6 @@ onMounted(() => {
 
 function onAnchorElementTrigger(e: Event, menuElement: any) {
   // prevent click events from parent component
-  console.log("OPEN");
   e.stopPropagation();
   menuElement.open = !menuElement.open;
 }

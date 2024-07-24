@@ -7,6 +7,7 @@ import type {AppTreeViewItemProps, AppTreeViewItemType} from "@/core/components/
 import {api} from "@/core/services";
 import type {DatabaseResource} from "@/core/services/api";
 import {useAuthStore} from "@/core/stores/auth.store";
+import {Logger} from "@/core/util/logging.util";
 
 
 /**
@@ -66,7 +67,11 @@ export const useResourceStore = defineStore("resourceStore", () => {
    */
   async function searchForNotes(searchTerm: string): Promise<DatabaseResource[]> {
     if (!_.isEmpty(searchTerm)) {
-      console.debug(`(searchForNotes) => searching for note '${searchTerm}'`);
+      Logger.debug({
+        filename: "useResourceStore",
+        method: "searchForNotes",
+        message: `searching for note '${searchTerm}'`
+      });
       const response = await api.resource.searchList({
         name: searchTerm
       }, {
@@ -76,7 +81,11 @@ export const useResourceStore = defineStore("resourceStore", () => {
       });
 
       if (response.status === HttpStatusCode.Ok) {
-        console.debug(`(searchForNotes) => ${response.data.length} notes found!`);
+        Logger.debug({
+          filename: "useResourceStore",
+          method: "searchForNotes",
+          message: `${response.data.length} note(s) found`
+        });
         return response.data;
       }
 

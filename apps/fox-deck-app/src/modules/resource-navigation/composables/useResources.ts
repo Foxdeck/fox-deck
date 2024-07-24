@@ -1,8 +1,9 @@
-import axios, {HttpStatusCode} from "axios";
+import {HttpStatusCode} from "axios";
 
 import {api} from "@/core/services";
 import type {DatabaseResource} from "@/core/services/api";
 import {useAuthStore} from "@/core/stores/auth.store";
+import {Logger} from "@/core/util/logging.util";
 import {useResourceStore} from "@/modules/resource-navigation/stores/resource.store";
 
 
@@ -38,7 +39,11 @@ export function useResources() {
    * @param {string} resourceId - The ID of the resource.
    */
   function removeResourceChildren(resourceId: string) {
-    console.debug(`(removeResourceChildren) => remove children of resource with id '${resourceId}'`);
+    Logger.debug({
+      filename: "useResources",
+      method: "removeResourceChildren",
+      message: `remove children of resource with id '${resourceId}'`
+    });
     resourceStore.resources = [...resourceStore.resources.filter((resource) => resource.parentResourceId !== resourceId)];
   }
 
@@ -50,7 +55,11 @@ export function useResources() {
    */
   function isResourceExpanded(resourceId: string) {
     const isResourceExpanded = resourceStore.resources.find(resource => resource.parentResourceId === resourceId) !== undefined;
-    console.debug(`(isResourceExpanded) => resource with id '${resourceId}' is expanded: '${isResourceExpanded}'`);
+    Logger.debug({
+      filename: "useResources",
+      method: "isResourceExpanded",
+      message: `resource with id '${resourceId}' is expanded: '${isResourceExpanded}'`
+    });
 
     return isResourceExpanded;
   }
@@ -63,7 +72,11 @@ export function useResources() {
    * @returns {Promise<void>} - A Promise that resolves when the children of the resource have been retrieved.
    */
   async function getResourceChildren(resourceId: string) {
-    console.debug(`(getResourceChildren) => get children of resource with id '${resourceId}'`);
+    Logger.debug({
+      filename: "useResources",
+      method: "getResourceChildren",
+      message: `get children of resource with id '${resourceId}'`
+    });
 
     // we add a placeholder which is rendered and shows, that the TreeView is currently loading
     resourceStore.resources = [...resourceStore.resources, getLoadingResourcePlaceholder(resourceId)];

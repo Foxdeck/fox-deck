@@ -34,7 +34,6 @@ async function onFormSubmit({ email, password }: any) {
     // if login is successful, store the JWT-Token
     const loginResponse = await response.data;
 
-    console.log(loginResponse);
     if (!loginResponse.token) {
       addNotification({
         severity: "danger" as Severity,
